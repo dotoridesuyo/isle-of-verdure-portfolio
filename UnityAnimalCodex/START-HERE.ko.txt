@@ -1,0 +1,108 @@
+신록의 섬 — 동물 친구 도감 Unity 파일 v1.0
+작성일: 2026.11.12
+
+1. 가져오기
+Unity에서 Assets > Import Package > Custom Package를 선택하고
+신록의-섬-동물도감-Unity-v1.0.unitypackage 파일을 선택한 뒤 Import.
+ZIP 압축을 풀 필요 없음. 기존 게임의 프로젝트 설정을 변경하지 않음.
+
+Unity 6 대상. Unity UI(com.unity.ugui) 사용. TextMeshPro 불필요.
+프로젝트에서 Unity UI 패키지를 제거했다면 Package Manager에서 다시 추가.
+신규 Input System과 기존 입력 방식은 컴파일 설정에 따라 분기.
+기존 EventSystem이 있으면 해당 EventSystem과 프로젝트의 입력 모듈 사용.
+
+2. 샘플 확인
+Assets/IsleOfVerdure/AnimalCodex/Generated/AnimalCodexSample.unity를 열고 Play.
+Generated 폴더가 없거나 새 샘플이 필요하면 아래 메뉴 실행:
+Tools > Isle of Verdure > 동물 도감 > 샘플 생성
+
+샘플 생성은 별도 씬과 프리팹을 만들며 현재 씬을 저장하거나 교체하지 않음.
+같은 이름의 프리팹/씬이 있으면 새 이름으로 생성.
+Generated/AnimalCatalog.asset는 종별 데이터를 Inspector에서 편집할 수 있는 파일.
+생성된 AnimalCodex.prefab를 기존 게임 씬으로 드래그해 UI 추가 가능.
+도감 Canvas는 화면 오버레이 방식. 기존 UI와 겹치면 Canvas의 Sort Order 조정.
+
+3. 현재 포함된 데이터
+일반 2칸(2×1): 모리·토리·밤이·소리
+특별 4칸(2×2): 누리·나리·두리
+희귀 6칸(3×2): 루나·포리
+전설 9칸(3×3): 별이
+
+캐릭터 설정·등급·능력·외형·등장 컨셉·소개 대사·연출 기획 포함.
+등급 배분/관리 범위는 현재 기획안. 능력 수치/발동 주기/소환 확률은 미확정.
+그림은 UI용 정지 콘셉트 아트. 월드 이동·수확·대기 애니메이션은 별도.
+
+4. 수집 기록 연결
+샘플 AnimalCodexView 컴포넌트의 Preview All Entries는 전체 열람 옵션.
+실제 게임에 넣을 때 해제. 옵션 자체는 실제 수집 데이터를 변경하지 않음.
+
+게임에서 처음 만났을 때:
+progress.MarkDiscovered(catalog, "A001");
+
+동물 친구를 획득했을 때:
+progress.MarkCollected(catalog, "A001");
+
+특정 친구의 도감 열기:
+codexView.Open("A008");
+
+이미 수집한 종을 발견 상태로 되돌리지 않음. 종별 ID 기준 저장.
+기본 저장은 전용 PlayerPrefs 키 IsleOfVerdure.AnimalCodex.v1만 사용.
+기존 게임의 저장 파일에 합치려면 ExportJson()/ImportJson() 사용.
+게임의 저장 슬롯별로 AnimalCodexProgress의 Save Key를 구분할 것.
+
+5. 정원 관리 연결
+AnimalCarePlacement를 동물 월드 오브젝트에 추가.
+Configure(catalog, "A008", 게임에서 해당 칸 관리 가능 여부를 반환하는 함수)
+SetPlacement(모서리 Vector2Int 좌표, AnimalFacing.Up/Right/Down/Left)
+RangeChanged의 이전/새 범위를 받아 이전 효과 해제 후 새 효과 등록.
+RefreshGrid()는 장애물/정원 경계가 변경됐을 때 호출.
+비활성화/보관 시 이전 범위 해제 이벤트 발생.
+
+직접 계산할 때:
+var animal = catalog.Find("A008");
+var cells = AnimalRangeUtility.GetCells(
+    catalog.Grade(animal.rarity), new Vector2Int(5, 5), AnimalFacing.Up,
+    cell => /* 기존 정원에서 경계 안이고 장애물이 없는지 검사 */ true);
+
+동물은 교차점에 놓이며 식물용 칸을 차지하지 않음.
+Unity 격자 +X는 오른쪽, +Y는 위쪽. 모서리 (0,0)은 칸 (0,0)의 왼쪽 아래 꼭짓점.
+관리 범위 밖이나 장애물 칸은 제외하며 다른 칸으로 보충하지 않음.
+웹 도감과 동일하게 3칸 너비의 아래 방향은 x=-1,0,1, 첫 줄 y=-1.
+방향 변경은 이 패턴의 90도 회전. 위 방향은 x=-2,-1,0부터 시작.
+여러 칸을 차지하는 같은 식물은 GetUniquePlantIds()로 한 번만 적용.
+XZ 평면의 게임은 기존 농장 좌표 변환을 통해 Vector2Int(x,z)에 대응.
+
+이 파일은 기존 작물/인벤토리/소환/재화 시스템을 대체하지 않음.
+물주기·수확 등 실행은 게임 쪽에서 관리 범위와 기존 재배 주기를 확인해 처리.
+수확 규칙: 수확물 1개 + 같은 씨앗 2개 → 작물 제거 → 빈 일군 밭 → 재파종/물주기.
+자동 파종 없음. 동일 개체/동일 재배 주기의 중복 수확 방지 필요.
+
+6. 한글 폰트
+Inspector의 Korean Font에 한글이 포함된 프로젝트 Font(TTF/OTF)를 연결할 것을 권장.
+미지정 샘플은 OS의 한글 글꼴을 우선 사용. Windows에서는 맑은 고딕 등.
+폰트 파일은 동봉하지 않음. 모바일/WebGL 빌드는 사용 허가된 한글 Font를 직접 연결.
+
+7. 데이터 변경
+원본: Resources/VerdureAnimalCodex/animal-catalog.json
+JsonUtility 호환 객체 배열. enum 값은 0부터 시작하는 정수. schemaVersion은 1.0.
+등급: 0 일반, 1 특별, 2 희귀, 3 전설.
+능력: 0 물주기, 1 성장, 2 잡초, 3 수확, 4 품질, 5 추가 수확, 6 황금.
+유형: 0 행동형, 1 상시 보정형, 2 수확 판정 보정형.
+
+JSON 편집 후 기존 ScriptableObject에 반영하려면:
+Tools > Isle of Verdure > 동물 도감 > JSON으로 데이터 갱신
+이 메뉴는 AnimalCatalog.asset의 데이터를 JSON 값으로 갱신함.
+캐릭터 ID를 변경하면 기존 저장 기록과 연결되지 않으므로 유지할 것.
+
+8. 검증
+Tools > Isle of Verdure > 동물 도감 > 데이터·범위 검증
+10종, 네 등급, 네 방향 16패턴, 경계 제외, 중복 식물, 저장 데이터 검증.
+Docs/VALIDATION.txt에 실제 수행 결과와 검증 한계 기록.
+
+9. 문서
+AnimalCodex-Implementation.ko.html: 그림과 전체 설정을 포함한 구현 기획서.
+AnimalCatalog.csv: 캐릭터 전체 표. Unity 실행 원본은 위 JSON.
+
+기술 참조
+Unity UI: https://docs.unity3d.com/Packages/com.unity.ugui@2.0/manual/index.html
+JSON: https://docs.unity3d.com/6000.0/Documentation/ScriptReference/JsonUtility.html

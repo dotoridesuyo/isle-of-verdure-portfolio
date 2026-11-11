@@ -1,0 +1,76 @@
+{
+  "package": "Isle of Verdure Animal Codex",
+  "version": "1.0",
+  "target": "Unity 6 + Unity UI",
+  "generated": "2026-11-12",
+  "defaultPreviewAllEntries": true,
+  "gradeCells": [
+    2,
+    4,
+    6,
+    9
+  ],
+  "validation": "See Docs/VALIDATION.txt. Unity editor import/Play not verified.",
+  "files": [
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Docs/AnimalCatalog.csv",
+      "guid": "b549605ff8134e991d65ec61d1768006",
+      "sha256": "0c033a139a8c61f46e9a71acafceeab110b333bce2d3ea0b0ff84208e6c2583d"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Docs/AnimalCodex-Implementation.ko.html",
+      "guid": "6d525b11ef854fc16e194b23e80fec03",
+      "sha256": "c5bef7192a45b80c99d766c3316fa19523f78f019831ee60e9245e111a24e117"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Docs/START-HERE.ko.txt",
+      "guid": "9dd9617fe8688850538f13b677b1cc44",
+      "sha256": "30957e1c11eec58d0ea7cd5b0eea9206a4d83294ce46e0cdbf2c49972d607e49"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Docs/VALIDATION.txt",
+      "guid": "68e6ad2b7a8f2d0a8bb172e779b2ebb4",
+      "sha256": "74a685224b717137c80d71556694d5f3f2a89df4f4805fe9f63f6fe0bf523401"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Editor/AnimalCodexSetup.cs",
+      "guid": "c96a9f4eff382b3896bb6bbed6f76b3f",
+      "sha256": "f62005266c538d588ccb667e67eb7ac11efac6c6350e9cdc1fe63ccec2a43daf"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Resources/VerdureAnimalCodex/animal-catalog.json",
+      "guid": "5f08a7b5f935038bf189b95c4e3441ff",
+      "sha256": "5df369e25c77ad0b71d9798c54135c4c6bff2ceaa591588c9eb4c8af3605462f"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Resources/VerdureAnimalCodex/animal-portraits.png",
+      "guid": "3c1553bc44a76db3f2e2a889693c5501",
+      "sha256": "ea02977b59f81649bb0f6aff2c7c67df2b645aa6fcb72106cf2bf35494726fb0"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Runtime/AnimalCarePlacement.cs",
+      "guid": "be7a478b0e9498489d819d4830ac7419",
+      "sha256": "99ede66fa2e1d107ce127df3f175610cf1f007b22369d8bd8e545cd1d3723c53"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Runtime/AnimalCatalog.cs",
+      "guid": "685ea5867d1f27b2bfc695390f0dad50",
+      "sha256": "aadb159ffac72d3cb4fee9119e7074bf9217c47960dd609315eb61de6ba82ab2"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Runtime/AnimalCodexProgress.cs",
+      "guid": "08ce0949e83971e08ffea7d845e21812",
+      "sha256": "ef89deca3107fb245a61abb16d44e12cfb0a45b725fc49d3905339d13546e168"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Runtime/AnimalCodexView.cs",
+      "guid": "fab9558a77ae82b96f579011ea9abaaa",
+      "sha256": "d8ffb08c858ce6b611ae131fff8074a3f57137a304dbf3f6fd45a9a9b7ed55d5"
+    },
+    {
+      "path": "Assets/IsleOfVerdure/AnimalCodex/Runtime/AnimalRangeUtility.cs",
+      "guid": "b7f64979c50f63511daa53dfeb57b664",
+      "sha256": "551e9003ae1599c37c2e8c0adc17b629a9d3453fb0e92c3dfdde1fc28e085fc9"
+    }
+  ]
+}
