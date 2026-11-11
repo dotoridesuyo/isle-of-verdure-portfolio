@@ -1,4 +1,26 @@
-/* Animal character concepts for the companion journal. */
+/* Animal species grades and shared range definitions. */
+const ANIMAL_GRADES={
+  "일반": {
+    "width": 2,
+    "depth": 1,
+    "count": 2
+  },
+  "특별": {
+    "width": 2,
+    "depth": 2,
+    "count": 4
+  },
+  "희귀": {
+    "width": 3,
+    "depth": 2,
+    "count": 6
+  },
+  "전설": {
+    "width": 3,
+    "depth": 3,
+    "count": 9
+  }
+};
 const ANIMALS=[
   {
     "id": "A001",
@@ -15,7 +37,8 @@ const ANIMALS=[
     "animation": "대기: 귀를 움직임 / 작동: 앞을 향해 고개를 숙이며 작은 물방울 / 터치: 짧은 인사.",
     "meeting": "이슬 숲 복원 연계 등장",
     "memo": "“마른 잎이 없는지, 한 번만 더 보고 올게.”",
-    "index": 0
+    "index": 0,
+    "rarity": "일반"
   },
   {
     "id": "A002",
@@ -32,7 +55,8 @@ const ANIMALS=[
     "animation": "대기: 코를 킁킁거림 / 적용: 귀를 세우고 작은 도약 / 성장 변화: 앞발을 모음.",
     "meeting": "햇살 초원 새싹 화단 연계 등장",
     "memo": "“어제보다 잎이 하나 더 생겼어!”",
-    "index": 1
+    "index": 1,
+    "rarity": "일반"
   },
   {
     "id": "A003",
@@ -49,7 +73,8 @@ const ANIMALS=[
     "animation": "대기: 작게 숨 쉬며 웅크림 / 작동: 앞발로 풀잎 정리 / 터치: 얼굴을 살짝 내밂.",
     "meeting": "이슬 숲 그늘 화단 연계 등장",
     "memo": "“이건 잡초고, 이건 네가 심은 잎이야.”",
-    "index": 2
+    "index": 2,
+    "rarity": "일반"
   },
   {
     "id": "A004",
@@ -66,7 +91,8 @@ const ANIMALS=[
     "animation": "대기: 바구니 확인 / 작동: 앞발로 수확 동작 / 성공: 꼬리를 한 번 흔듦.",
     "meeting": "햇살 초원 수확·제작 연계 등장",
     "memo": "“잘 익은 것만 골라 담았어.”",
-    "index": 3
+    "index": 3,
+    "rarity": "일반"
   },
   {
     "id": "A005",
@@ -83,7 +109,8 @@ const ANIMALS=[
     "animation": "대기: 꼬리 끝을 천천히 움직임 / 수확 반응: 귀를 세움 / 특별 결과: 은은한 반짝임.",
     "meeting": "고대의 숲 달빛 화단 연계 등장",
     "memo": "“같은 꽃도 저마다 다른 빛을 품고 있어.”",
-    "index": 4
+    "index": 4,
+    "rarity": "희귀"
   },
   {
     "id": "A006",
@@ -100,7 +127,8 @@ const ANIMALS=[
     "animation": "대기: 물뿌리개 손잡이를 잡음 / 작동: 앞발로 물뿌리개를 기울임 / 터치: 긴 몸과 꼬리를 가볍게 흔듦.",
     "meeting": "안개 습지 복원 연계 등장",
     "memo": "“조금씩 나눠 주면 모두 촉촉해질 거야.”",
-    "index": 5
+    "index": 5,
+    "rarity": "특별"
   },
   {
     "id": "A007",
@@ -117,7 +145,8 @@ const ANIMALS=[
     "animation": "대기: 앞치마 정리 / 판정: 앞발로 셈 / 보너스: 작은 환호.",
     "meeting": "정원 수확·보관 연계 등장",
     "memo": "“이 바구니에는 하나 더 들어 있네!”",
-    "index": 6
+    "index": 6,
+    "rarity": "희귀"
   },
   {
     "id": "A008",
@@ -134,7 +163,8 @@ const ANIMALS=[
     "animation": "대기: 눈 깜박임 / 관찰: 고개 기울임 / 황금 결과: 날개를 조금 펼침.",
     "meeting": "고대의 숲 희귀 수집 연계 등장",
     "memo": "“아주 작은 빛도, 나는 볼 수 있어.”",
-    "index": 7
+    "index": 7,
+    "rarity": "전설"
   },
   {
     "id": "A009",
@@ -151,7 +181,8 @@ const ANIMALS=[
     "animation": "대기: 천천히 날갯짓 / 작동: 짧은 공중 원 / 터치: 살짝 높이 떠오름.",
     "meeting": "햇살 초원 꽃 화단 연계 등장",
     "memo": "“꽃잎이 바람에 인사를 건네.”",
-    "index": 8
+    "index": 8,
+    "rarity": "특별"
   },
   {
     "id": "A010",
@@ -168,6 +199,7 @@ const ANIMALS=[
     "animation": "대기: 느린 호흡 / 적용: 고개를 들어 주변 관찰 / 터치: 천천히 눈 깜박임.",
     "meeting": "정원 확장·다중 구역 관리 연계 등장",
     "memo": "“천천히 자라는 것도, 자라고 있는 거란다.”",
-    "index": 9
+    "index": 9,
+    "rarity": "특별"
   }
 ];

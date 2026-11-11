@@ -10,11 +10,11 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="animals.css">
   <link rel="stylesheet" href="animal-encyclopedia.css">
-  <link rel="stylesheet" href="portfolio.css">
-  <script src="data.js" defer></script>
-  <script src="animal-characters.js" defer></script>
-  <script src="animal-encyclopedia.js" defer></script>
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="portfolio.css?v=20261112-animal-grades">
+  <script src="data.js?v=20261112-animal-grades" defer></script>
+  <script src="animal-characters.js?v=20261112-animal-grades" defer></script>
+  <script src="animal-encyclopedia.js?v=20261112-animal-grades" defer></script>
+  <script src="app.js?v=20261112-animal-grades" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
@@ -68,8 +68,8 @@
         <div class="book-page catalog-page">
           <div class="page-heading"><div><p class="eyebrow">THE COMPANION JOURNAL</p><h2>정원에서 만난 친구들</h2></div><span class="collection-count"><b id="animal-entry-count">10</b> friends</span></div>
           <div class="catalog-summary"><span>동물 친구 <b>10종</b></span><small>성격 · 능력 · 정원에서의 역할</small></div>
-          <div class="plant-search"><span aria-hidden="true">⌕</span><input id="animal-entry-search" aria-label="동물 이름 종 능력 검색" type="search" placeholder="어떤 친구를 찾고 있나요?"><button id="animal-clear-filters" title="동물 검색과 필터 초기화" aria-label="동물 검색과 필터 초기화">↺</button></div>
-          <div class="catalog-filters animal-entry-filters"><select id="animal-skill-filter" aria-label="동물 능력 필터"><option value="">모든 능력</option></select><select id="animal-mode-filter" aria-label="동물 능력 유형 필터"><option value="">모든 능력 유형</option><option>행동형</option><option>상시 보정형</option><option>수확 판정 보정형</option></select></div>
+          <div class="plant-search"><span aria-hidden="true">⌕</span><input id="animal-entry-search" aria-label="동물 이름 종 등급 능력 검색" type="search" placeholder="어떤 친구를 찾고 있나요?"><button id="animal-clear-filters" title="동물 검색과 필터 초기화" aria-label="동물 검색과 필터 초기화">↺</button></div>
+          <div class="catalog-filters animal-entry-filters"><select id="animal-rarity-filter" aria-label="동물 등급 필터"><option value="">모든 등급</option><option>일반</option><option>특별</option><option>희귀</option><option>전설</option></select><select id="animal-skill-filter" aria-label="동물 능력 필터"><option value="">모든 능력</option></select><select id="animal-mode-filter" aria-label="동물 능력 유형 필터"><option value="">모든 능력 유형</option><option>행동형</option><option>상시 보정형</option><option>수확 판정 보정형</option></select></div>
           <div id="animal-entry-grid" class="animal-entry-grid" aria-label="동물 친구 목록"></div>
           <div class="catalog-bottom"><span id="animal-filter-count" aria-live="polite"></span><a href="#chapter/16" class="text-button">함께 가꾸는 정원 ↗</a></div>
           <div class="page-number"><a href="#plants">← 식물 표본집</a><span>— 02 —</span></div>
@@ -78,7 +78,7 @@
       </section>
       <div class="book-under"><span>✧ 동물 그림과 캐릭터 설정은 콘셉트 시안입니다.</span><span>정원을 함께 돌보는 열 명의 작은 친구</span></div>
       <section id="animal-production-spec" class="animal-production-spec" aria-label="선택한 동물의 제작 상세"></section>
-      <section class="reading-paths" aria-label="동물 관련 기획"><a href="#chapter/16"><span class="path-icon">♧</span><div><small>ANIMAL COMPANIONS</small><h3>배치로 정하는 관리 역할</h3><p>모서리 배치 · 방향 · 전방 두 칸</p></div><span>↗</span></a><a href="#chapter/08"><span class="path-icon">✎</span><div><small>ART DIRECTION</small><h3>친구마다 다른 실루엣</h3><p>종별 구조와 부드러운 손그림</p></div><span>↗</span></a><a href="#chapter/14"><span class="path-icon">✧</span><div><small>COLLECTION ECONOMY</small><h3>새로운 만남으로 이어지는 수확</h3><p>재료 선택 · 합성 · 동물 소환</p></div><span>↗</span></a></section>
+      <section class="reading-paths" aria-label="동물 관련 기획"><a href="#chapter/16"><span class="path-icon">♧</span><div><small>ANIMAL COMPANIONS</small><h3>배치로 정하는 관리 역할</h3><p>모서리 배치 · 등급별 2~9칸 관리</p></div><span>↗</span></a><a href="#chapter/08"><span class="path-icon">✎</span><div><small>ART DIRECTION</small><h3>친구마다 다른 실루엣</h3><p>종별 구조와 부드러운 손그림</p></div><span>↗</span></a><a href="#chapter/14"><span class="path-icon">✧</span><div><small>COLLECTION ECONOMY</small><h3>새로운 만남으로 이어지는 수확</h3><p>재료 선택 · 합성 · 동물 소환</p></div><span>↗</span></a></section>
     </div>
     <section id="document-view" class="document-layout" hidden aria-label="시스템 기획서">
       <aside class="document-sidebar"><p class="eyebrow">EXPLORE THE DESIGN</p><h2>기획 이야기</h2><nav id="toc" aria-label="기획 목차"></nav><a class="sidebar-codex-link" href="#plants">❧ 표본집 펼치기 ↗</a></aside>
