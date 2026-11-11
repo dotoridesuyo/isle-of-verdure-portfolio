@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4f6650">
+  <meta name="description" content="신록의 섬 게임 기획 포트폴리오. 식물 15종과 동물 친구 10종의 도감, 재배·수집 시스템과 아트 방향을 소개합니다.">
+  <title>신록의 섬 — 게임 기획 포트폴리오</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%234f6650'/%3E%3Cpath d='M17 45C13 19 37 12 49 14C49 39 32 46 17 45Z' fill='%23e5e8bb'/%3E%3Cpath d='M17 49L40 23' stroke='%234f6650' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="animals.css">
+  <link rel="stylesheet" href="animal-encyclopedia.css">
+  <link rel="stylesheet" href="portfolio.css">
+  <script src="data.js" defer></script>
+  <script src="animal-characters.js" defer></script>
+  <script src="animal-encyclopedia.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a class="brand" href="#chapter/01" aria-label="신록의 섬 포트폴리오 홈"><span class="brand-mark" aria-hidden="true">❧</span><span>신록의 섬<small>ISLE OF VERDURE</small></span></a>
+    <span class="header-caption">GAME DESIGN PORTFOLIO</span>
+    <div class="header-actions"><button class="icon-button print-button" title="포트폴리오 전체 보기 및 PDF 저장" aria-label="포트폴리오 전체 보기 및 PDF 저장">↗ <span>전체 보기 · PDF</span></button></div>
+  </header>
+  <main id="main">
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow"><span></span> GAME DESIGN PORTFOLIO <span class="slash">/</span> ISLE OF VERDURE</p><h1 id="page-title">작은 정원에서 시작되는,<br><em>섬의 회복.</em></h1><p class="intro-subtitle">발견하고, 돌보고, 함께 가꾸는 힐링 가드닝 시뮬레이션</p><div class="portfolio-tags"><span>시스템 기획</span><span>도감 UI</span><span>아트 콘셉트</span></div></div>
+      <aside class="intro-note"><span class="note-label">a garden of little discoveries</span><p>식물 한 포기와 작은 친구가<br>모여 만드는 나만의 정원.</p><div class="intro-stats"><span><b>15</b> 식물</span><span><b>10</b> 동물 친구</span><span><b>4</b> 탐험 지역</span></div><span class="note-sprig" aria-hidden="true">❧</span></aside>
+    </section>
+    <nav class="main-nav" aria-label="기획서 탐색">
+      <a href="#chapter/01" data-nav="overview"><span>01</span> 프로젝트 소개</a>
+      <a href="#plants" data-nav="plants"><span>02</span> 식물 표본집</a>
+      <a href="#animals" data-nav="animals"><span>03</span> 동물 친구</a>
+      <a href="#chapter/03" data-nav="system"><span>04</span> 핵심 시스템</a>
+      <a href="#chapter/14" data-nav="monetization"><span>05</span> 수익화 방향</a>
+      <a href="#chapter/08" data-nav="art"><span>06</span> 아트 · 설계</a>
+      <div class="global-search"><label class="search-label" for="doc-search"><span aria-hidden="true">⌕</span><input id="doc-search" type="search" aria-label="기획서 전체 검색" placeholder="기획서에서 찾아보기" autocomplete="off" aria-controls="search-results" aria-expanded="false"><kbd>/</kbd></label><div id="search-results" class="search-results" hidden></div></div>
+    </nav>
+    <nav id="collection-navigation" class="collection-navigation" aria-label="자연 도감 페이지">
+      <a href="#plants" data-collection="plants"><span aria-hidden="true">❧</span> 식물 표본집 <small>15 plants</small></a>
+      <a href="#animals" data-collection="animals"><span aria-hidden="true">♧</span> 동물 친구 도감 <small>10 friends</small></a>
+      <span class="collection-binding">ISLAND FIELD NOTES</span>
+    </nav>
+    <div id="plant-view">
+      <div class="section-caption"><p><span class="tiny-leaf">❧</span> BOTANICAL COLLECTION <span>식물 표본집</span></p><span>식물 카드를 선택해 기획 정보를 살펴보세요</span></div>
+      <aside id="common-cultivation-summary" class="common-cultivation-summary" aria-label="확정된 공통 재배 규칙"></aside>
+      <section class="book" aria-label="초기 15종 식물 기획 데이터">
+        <div class="book-page catalog-page">
+          <div class="page-heading"><div><p class="eyebrow">THE HERBARIUM</p><h2>섬에서 만난 식물들</h2></div><span class="collection-count"><b id="plant-count">15</b> species</span></div>
+          <div class="catalog-summary"><span>전체 식물 <b>15종</b></span><small>등급 · 지역 · 크기로 찾아보기</small></div>
+          <div class="plant-search"><span aria-hidden="true">⌕</span><input id="plant-search" aria-label="식물 이름 또는 ID 검색" type="search" placeholder="어떤 식물을 찾고 있나요?"><button id="clear-filters" title="검색과 필터 초기화" aria-label="검색과 필터 초기화">↺</button></div>
+          <div class="catalog-filters"><select id="rarity-filter" aria-label="등급 필터"><option value="">모든 등급</option><option>일반</option><option>특별</option><option>희귀</option><option>전설</option></select><select id="region-filter" aria-label="발견 지역 필터"><option value="">모든 지역</option><option>이슬 숲</option><option>햇살 초원</option><option>안개 습지</option><option>고대의 숲</option></select><select id="size-filter" aria-label="재배 크기 필터"><option value="">모든 크기</option><option>소형</option><option>중형</option><option>대형</option></select></div>
+          <div id="plant-grid" class="plant-grid" aria-label="식물 목록"></div>
+          <div class="catalog-bottom"><span id="filter-count" aria-live="polite">15종의 식물을 기록했습니다</span><button id="table-toggle" class="text-button">전체 데이터 표 보기 ↗</button></div>
+          <div class="page-number"><span>ISLE OF VERDURE</span><span>— 01 —</span></div>
+        </div>
+        <article class="book-page detail-page" id="plant-detail" aria-label="선택한 식물의 기획 상세"></article>
+      </section>
+      <div class="book-under"><span>✧ 식물 그림은 기획 이해를 돕는 콘셉트 시안입니다.</span><span>재배와 수집을 기록하는 식물 도감</span></div>
+      <section id="species-spec" class="species-spec" aria-label="선택한 식물의 제작 명세"><div id="species-spec-content"></div></section>
+      <section id="all-plants-table" class="overview-panel" hidden><div class="panel-heading"><h2>초기 식물 15종 데이터</h2><button id="close-table" class="text-button">접기 ↑</button></div><div id="species-table"></div></section>
+      <section class="reading-paths" aria-label="관련 기획"><a href="#chapter/03"><span class="path-icon">❋</span><div><small>GARDENING SYSTEM</small><h3>한 번의 재배, 다음 파종</h3><p>물주기 · 성장 · 수확의 순환</p></div><span>↗</span></a><a href="#chapter/02"><span class="path-icon">♧</span><div><small>PLANT COLLECTION</small><h3>발견을 이어 가는 수집</h3><p>등급 · 크기 · 지역별 식물</p></div><span>↗</span></a><a href="#chapter/07"><span class="path-icon">☷</span><div><small>CODEX & INTERFACE</small><h3>책을 펼치듯 읽는 도감</h3><p>정보 구성과 발견의 기록</p></div><span>↗</span></a></section>
+    </div>
+    <div id="animal-view" hidden>
+      <div class="section-caption"><p><span class="tiny-leaf">❧</span> ANIMAL COMPANIONS <span>동물 친구 도감</span></p><span>친구 카드를 선택해 도감 기록을 살펴보세요</span></div>
+      <section class="book animal-encyclopedia" aria-label="10종 동물 친구 도감">
+        <div class="book-page catalog-page">
+          <div class="page-heading"><div><p class="eyebrow">THE COMPANION JOURNAL</p><h2>정원에서 만난 친구들</h2></div><span class="collection-count"><b id="animal-entry-count">10</b> friends</span></div>
+          <div class="catalog-summary"><span>동물 친구 <b>10종</b></span><small>성격 · 능력 · 정원에서의 역할</small></div>
+          <div class="plant-search"><span aria-hidden="true">⌕</span><input id="animal-entry-search" aria-label="동물 이름 종 능력 검색" type="search" placeholder="어떤 친구를 찾고 있나요?"><button id="animal-clear-filters" title="동물 검색과 필터 초기화" aria-label="동물 검색과 필터 초기화">↺</button></div>
+          <div class="catalog-filters animal-entry-filters"><select id="animal-skill-filter" aria-label="동물 능력 필터"><option value="">모든 능력</option></select><select id="animal-mode-filter" aria-label="동물 능력 유형 필터"><option value="">모든 능력 유형</option><option>행동형</option><option>상시 보정형</option><option>수확 판정 보정형</option></select></div>
+          <div id="animal-entry-grid" class="animal-entry-grid" aria-label="동물 친구 목록"></div>
+          <div class="catalog-bottom"><span id="animal-filter-count" aria-live="polite"></span><a href="#chapter/16" class="text-button">함께 가꾸는 정원 ↗</a></div>
+          <div class="page-number"><a href="#plants">← 식물 표본집</a><span>— 02 —</span></div>
+        </div>
+        <article class="book-page detail-page animal-entry-detail" id="animal-entry-detail" aria-label="선택한 동물 친구의 도감 상세" aria-live="polite"></article>
+      </section>
+      <div class="book-under"><span>✧ 동물 그림과 캐릭터 설정은 콘셉트 시안입니다.</span><span>정원을 함께 돌보는 열 명의 작은 친구</span></div>
+      <section id="animal-production-spec" class="animal-production-spec" aria-label="선택한 동물의 제작 상세"></section>
+      <section class="reading-paths" aria-label="동물 관련 기획"><a href="#chapter/16"><span class="path-icon">♧</span><div><small>ANIMAL COMPANIONS</small><h3>배치로 정하는 관리 역할</h3><p>모서리 배치 · 방향 · 전방 두 칸</p></div><span>↗</span></a><a href="#chapter/08"><span class="path-icon">✎</span><div><small>ART DIRECTION</small><h3>친구마다 다른 실루엣</h3><p>종별 구조와 부드러운 손그림</p></div><span>↗</span></a><a href="#chapter/14"><span class="path-icon">✧</span><div><small>COLLECTION ECONOMY</small><h3>새로운 만남으로 이어지는 수확</h3><p>재료 선택 · 합성 · 동물 소환</p></div><span>↗</span></a></section>
+    </div>
+    <section id="document-view" class="document-layout" hidden aria-label="시스템 기획서">
+      <aside class="document-sidebar"><p class="eyebrow">EXPLORE THE DESIGN</p><h2>기획 이야기</h2><nav id="toc" aria-label="기획 목차"></nav><a class="sidebar-codex-link" href="#plants">❧ 표본집 펼치기 ↗</a></aside>
+      <article id="chapter-content" class="document-paper"></article>
+    </section>
+    <footer><a class="footer-brand" href="#chapter/01">❧ 신록의 섬</a><p>ISLE OF VERDURE · GAME DESIGN PORTFOLIO</p><span>웹 기획서 · 콘셉트 아트</span></footer>
+  </main>
+  <div id="toast" role="status" hidden></div>
+  <div id="print-document" class="print-document"></div>
+</body>
+</html>
