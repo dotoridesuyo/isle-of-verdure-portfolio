@@ -1,0 +1,43 @@
+.summon-content { display: grid; gap: 16px; }
+.summon-section, .summon-equipment-card { scroll-margin-top: 34px; }
+.summon-section p { margin: 6px 0 0; color: var(--ink-soft); }
+.summon-section .doc-list { margin: 8px 0 0; }
+.summon-text-link, .summon-owner:hover span { text-decoration: underline; text-underline-offset: 3px; }
+
+.summon-odds,
+.summon-plans {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.summon-odds { margin: 10px 0; }
+.summon-odds > div { padding: 12px; border: 1px solid #d3ddc3; border-radius: 4px; background: #eef2e3; }
+.summon-odds > div:last-child { border-color: #e1d7ba; background: #f6f1df; }
+.summon-odds dt { font-weight: 700; }
+.summon-odds dd { margin: 2px 0 0; }
+.summon-odds strong { display: block; font: 700 clamp(1.6rem, 4vw, 2.4rem) var(--serif); }
+.summon-odds span { font-size: .83rem; color: var(--ink-soft); }
+
+.summon-section .summon-guarantee { color: #3d5d3b; font-size: 1rem; }
+.summon-duplicates { margin: 10px 0 0; }
+.summon-duplicates > div { padding: 8px 0; border-top: 1px solid #dce3d0; }
+.summon-duplicates dt { font-weight: 700; }
+.summon-duplicates dd { margin: 3px 0 0; color: var(--ink-soft); }
+.summon-duplicates span { display: block; color: #405d3c; font-size: .84rem; }
+
+.summon-equipment { margin-top: 8px; }
+.summon-equipment > header { margin-bottom: 12px; }
+.summon-equipment-card .shop-card-copy > h4 { margin: 0 0 2px; font: 700 1rem var(--serif); }
+.summon-item-art { display: block; width: min(100%, 116px); height: auto; aspect-ratio: 1; object-fit: contain; }
+.summon-owner { display: inline-flex; align-items: center; gap: 5px; color: #416044; font-size: .81rem; }
+.summon-owner .pet-upgrade-art { width: 31px; flex: 0 0 auto; margin: 0; }
+
+@media (max-width: 650px) {
+  .summon-plans { grid-template-columns: minmax(0, 1fr); }
+  .summon-item-art { width: min(100%, 100px); }
+}
+
+@media print {
+  .summon-section { break-inside: avoid; margin-bottom: 10px; }
+  .summon-plans { display: block; }
+}

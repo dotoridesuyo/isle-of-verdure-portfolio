@@ -1,0 +1,170 @@
+.shop-view {
+  padding: 32px 0 44px;
+  color: var(--ink);
+}
+
+.shop-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.shop-header h2 {
+  margin: 6px 0;
+  font: 700 clamp(25px, 3.7vw, 36px)/1.2 'Gowun Batang', serif;
+}
+
+.shop-header p, .shop-hint { color: var(--ink-soft); line-height: 1.65; }
+.shop-hint { font-size: .8rem; }
+
+.shop-paper {
+  min-width: 0;
+  border: 1px solid #d6dac7;
+  border-radius: 5px;
+  padding: clamp(12px, 2vw, 22px);
+  background: var(--paper);
+  box-shadow: 2px 3px 0 #e1e5d4;
+}
+
+.shop-button {
+  min-height: 38px;
+  border: 1px solid #a6b397;
+  border-radius: 4px;
+  background: #f6f7eb;
+  color: #354435;
+  padding: 6px 10px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#shop-view > .garden-plan-nav { margin: 14px 0; }
+
+.shop-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 20px;
+  color: var(--ink-soft);
+  font-size: .86rem;
+}
+
+.shop-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 16px;
+  margin: 15px 0 24px;
+  padding: 8px 0;
+  border-block: 1px solid var(--line);
+}
+
+.shop-index a {
+  padding-block: 3px;
+  color: #416044;
+  font-size: .85rem;
+  text-decoration: underline;
+  text-decoration-color: #9ba98e;
+  text-underline-offset: 4px;
+}
+
+.shop-catalog { display: grid; gap: 24px; }
+.shop-group, .shop-card, .shop-economy, #shop-title { scroll-margin-top: 32px; }
+
+.shop-group-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 3px 12px;
+  margin: 0 0 8px;
+}
+
+.shop-group-heading h3,
+.shop-economy h3 { font: 700 1.3rem 'Gowun Batang', serif; }
+
+.shop-group-heading p {
+  font-size: .82rem;
+  color: var(--ink-soft);
+}
+
+.shop-group-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.shop-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #d8dcc6;
+  border-radius: 5px;
+  background: var(--paper);
+}
+
+.shop-card:focus { outline: 2px solid #81956c; outline-offset: 3px; }
+
+.shop-art-frame {
+  display: grid;
+  place-items: center;
+  padding: 3px 0;
+  border-bottom: 1px solid #e3e4d4;
+  background: #f2f0e3;
+}
+
+.shop-art {
+  display: block;
+  width: min(100%, 116px);
+  aspect-ratio: 1;
+  background-image: var(--art-image);
+  background-repeat: no-repeat;
+  background-size: var(--art-width) var(--art-height);
+  background-position: var(--art-x) var(--art-y);
+}
+
+.shop-card-copy { padding: 9px 11px 11px; }
+.shop-card-title { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1px 8px; }
+.shop-card-title h4 { margin: 0; font: 700 1rem 'Gowun Batang', serif; }
+.shop-price { color: #6b501f; font-size: .91rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.shop-card-meta, .shop-recipe-tag { color: #56684f; font-size: .78rem; }
+.shop-card-design { margin: 5px 0 0; color: var(--ink-soft); font-size: .83rem; line-height: 1.55; word-break: keep-all; }
+
+.shop-economy { margin-top: 18px; }
+.shop-economy > .shop-hint { margin-top: 4px; }
+.shop-economy .table-scroll { margin-bottom: 0; }
+.shop-sales-table { font-size: .86rem; font-variant-numeric: tabular-nums; }
+.shop-sales-table th, .shop-sales-table td { padding: 7px 9px; text-align: left; }
+.shop-sales-table tbody th { background: transparent; color: var(--ink); font-size: inherit; font-weight: 600; }
+.shop-sales-table td { color: var(--ink-soft); }
+
+.shop-rule-list { display: grid; gap: 7px; margin: 10px 0 0; }
+.shop-rule-list > div { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 7px; }
+.shop-rule-list dt { color: #416044; font-weight: 700; }
+.shop-rule-list dd { margin: 0; color: var(--ink-soft); }
+
+@media (max-width: 850px) {
+  .shop-group-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 630px) {
+  .shop-header { align-items: start; flex-direction: column; }
+  .shop-group-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shop-card-copy { padding: 8px; }
+  .shop-card-title h4 { font-size: .94rem; }
+  .shop-art { width: min(100%, 100px); }
+}
+
+@media print {
+  #print-shop tr { break-inside: avoid; }
+  #print-shop thead { display: table-header-group; }
+}
+
+.shop-categories a { font-weight: 700; }
+.shop-items { margin-top: 22px; }
+.shop-supplies h4 { margin: 0; font: 700 1.1rem 'Gowun Batang', serif; }
+.shop-supplies > .shop-hint { margin-top: 5px; }
+.shop-supplies .table-scroll { margin-bottom: 0; }
+.shop-supplies a { color: #416044; text-decoration: underline; text-underline-offset: 3px; }
+.shop-furniture { margin-top: 30px; }
+.shop-furniture > .garden-plan-nav { margin: 0; }

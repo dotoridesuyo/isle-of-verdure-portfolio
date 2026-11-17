@@ -1,0 +1,125 @@
+.plant-cross-links {
+  margin-top: 12px;
+}
+
+.specimen.dye-specimen {
+  height: auto;
+  background: none;
+  object-fit: contain;
+}
+
+.plant-card .rarity-dot.dye-plant-dot { background: #b28278; }
+
+#plant-view .plant-grid .empty-state {
+  grid-row: auto;
+  min-height: 150px;
+}
+
+#plant-grid {
+  max-block-size: min(62vh, 540px);
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #aab993 transparent;
+  padding-inline-end: 4px;
+}
+
+#plant-grid:focus-visible {
+  outline: 2px solid #758b5f;
+  outline-offset: 3px;
+}
+
+#plant-detail { scroll-margin-top: 34px; }
+
+.catalog-flower h2 {
+  margin: 3px 0 13px;
+  font: 700 clamp(23px, 4vw, 32px)/1.25 'Gowun Batang', serif;
+}
+
+.catalog-flower .dye-flower-states img { width: min(100%, 136px); }
+.catalog-flower .dye-flower-states figure { padding: 8px 4px; }
+.catalog-flower dt { white-space: nowrap; }
+.catalog-flower dd small { margin-top: 3px; }
+
+.catalog-flower a, .potion-table a, .map-potion a, #plant-tab-panel a {
+  color: #3d6244;
+  text-decoration: underline;
+  text-decoration-color: #a0ae91;
+  text-underline-offset: 3px;
+}
+
+.potion-table {
+  min-width: 465px;
+  font-size: .88rem;
+}
+.potion-table th, .potion-table td { padding: 9px; text-align: left; }
+.potion-table thead th { white-space: nowrap; color: #566c52; }
+.potion-table tbody th { background: transparent; color: #334c35; font-size: inherit; font-weight: 700; white-space: normal; }
+.potion-table td { color: var(--ink-soft); }
+
+.map-detail-block .map-potion { display: block; margin-top: 4px; color: #53664c; font-size: .78rem; }
+.map-detail-block .map-recipe-link { display: inline-block; margin-top: 5px; color: #3d6244; text-decoration: underline; text-underline-offset: 3px; }
+
+@media print {
+  .potion-table { min-width: 0; }
+  .potion-table tr, .design-screen { break-inside: avoid; }
+}
+
+
+.gardener-hud-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 20px;
+  row-gap: 10px;
+  margin: 0;
+  padding: clamp(11px, 2.5vw, 20px);
+  border: 1px solid #d3dbc4;
+  border-radius: 6px;
+  background: #edf0e0;
+}
+
+.gardener-hud {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 100%;
+  padding: 5px 10px 5px 5px;
+  border: 1px solid #babf9c;
+  border-radius: 6px;
+  background: var(--paper);
+  color: #435740;
+}
+
+.gardener-hud:hover { border-color: #70875f; background: #f8f9ed; }
+.gardener-hud img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #efe9d5;
+}
+
+.gardener-hud-status { display: grid; width: 92px; gap: 2px; }
+.gardener-hud-status strong { font: 700 1.25rem 'Gowun Batang', serif; }
+.gardener-hud-status meter { width: 100%; height: .72rem; accent-color: #778e5f; }
+.gardener-hud-status > span { font-size: .75rem; font-variant-numeric: tabular-nums; }
+
+.gardener-hud-demo figcaption { flex: 1 1 220px; }
+.gardener-hud-demo figcaption strong { color: #435740; font-size: .9rem; }
+.gardener-hud-demo figcaption p { margin-top: 4px; color: var(--ink-soft); font-size: .84rem; }
+
+@media print {
+  .gardener-hud-demo { break-inside: avoid; }
+}
+
+.design-screens { display: grid; gap: 22px; }
+.design-screen { margin: 0; max-width: 900px; }
+.design-screen h4 { margin: 0 0 7px; color: var(--ink, #3d493a); }
+.design-screen-image { border: 1px solid #d6dac7; border-radius: 5px; overflow: hidden; }
+.design-screen img { display: block; width: 100%; height: auto; }
+.design-screen figcaption { margin-top: 7px; color: var(--ink-soft); font-size: .85rem; }
+.notebook-index { width: min(100%, 460px); }
+.notebook-index img { width: 208%; max-width: none; }
+.ach-notebook-art { max-width: 900px; margin: 22px 0; }

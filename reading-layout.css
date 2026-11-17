@@ -1,0 +1,76 @@
+.document-stack {
+  display: grid;
+  min-width: 0;
+  width: 100%;
+  gap: 24px;
+}
+
+.reading-target { scroll-margin-top: 32px; }
+
+.doc-block .table-link {
+  color: #405737;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.document-sidebar #toc > .reading-subsection {
+  padding-inline-start: 24px;
+  color: #59694f;
+}
+
+.document-sidebar #toc > .reading-subsection.active { color: #405737; }
+
+#quests-view .chapter-header { margin-bottom: 18px; }
+
+.reading-disclosure > h3 {
+  margin: 0;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e6d5;
+  color: #566d4b;
+  font: 700 15px/1.6 var(--serif);
+}
+
+.reading-requirement-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 7px 10px;
+  padding: 13px 18px;
+  background: #edf1df;
+}
+
+.reading-requirement-heading h3 {
+  margin: 0;
+  color: #526b44;
+  font: 700 15px/1.7 var(--serif);
+}
+
+@media (max-width: 650px) {
+  .document-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: var(--paper);
+    border-bottom: 1px solid #d7deca;
+  }
+
+  .document-sidebar #toc {
+    padding: 5px 3px;
+  }
+
+  .document-sidebar #toc > a {
+    flex: 0 0 auto;
+  }
+
+  .document-sidebar #toc > .reading-subsection { padding-inline-start: 12px; }
+  .document-sidebar #toc > .reading-subsection.active { color: #fffef2; }
+
+  .reading-target { scroll-margin-top: 74px; }
+  .reading-disclosure > h3 { padding: 13px 14px; }
+  .reading-requirement-heading { padding: 12px 14px; }
+}
+
+@media print {
+  .reading-requirement-heading { padding: 8pt; background: #f3f5eb; }
+  .reading-disclosure > h3 { color: #354532; font-size: 11pt; }
+}

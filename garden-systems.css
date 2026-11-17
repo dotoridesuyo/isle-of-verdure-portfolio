@@ -1,0 +1,142 @@
+.pet-upgrade {
+  display: grid;
+  gap: 12px;
+  padding-top: 6px;
+}
+
+.pet-equipment {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  background: #edf0df;
+  border: 1px solid #d8dfc6;
+  border-radius: 5px;
+}
+
+.pet-equipment p { color: var(--ink-soft); font-size: .72rem; }
+.pet-equipment h3 { font: 700 1.05rem var(--serif); }
+.pet-item-art { width: 50px; height: 50px; object-fit: contain; }
+.pet-upgrade-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.pet-upgrade-pair > div { padding: 9px; border: 1px solid #dbdfcb; border-radius: 4px; background: #f5f4e8; }
+.pet-upgrade-pair > div:last-child { background: #edf1e2; border-color: #c8d6b8; }
+.pet-upgrade-pair h4 { margin: 0; color: #4a6047; font-size: .82rem; }
+.pet-upgrade-rule { color: var(--ink-soft); font-size: .8rem; line-height: 1.65; }
+.pet-upgrade-art { display: block; width: min(100%, 112px); height: auto; aspect-ratio: 1; object-fit: contain; margin: auto; }
+
+.pet-stats { margin-bottom: 14px; }
+.pet-upgrade .pet-stats { margin-bottom: 0; }
+.pet-stats h3 { margin: 0 0 7px; color: #456043; font: 700 1.1rem var(--serif); }
+.pet-stats-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: .86rem; }
+.pet-stats-table th,
+.pet-stats-table td {
+  padding: 8px 9px;
+  border: 1px solid #dce2cf;
+  text-align: left;
+  vertical-align: top;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.pet-stats-table th:first-child { width: 28%; }
+.pet-stats-table thead { background: #f3f3e8; }
+.pet-stats-table tbody th { background: #f7f6ed; color: var(--ink); }
+.pet-stats-table tr > :last-child { background: #edf2e3; color: #314b34; }
+
+#workshop-title, .garden-dye, .dye-flower, .dye-ach-section, .dye-ach-card {
+  scroll-margin-top: 40px;
+}
+
+.garden-dye { margin: 24px 0 0; }
+.garden-dye h4 { margin: 0 0 6px; }
+
+.dye-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .57fr) minmax(0, 1fr);
+  gap: 12px;
+  margin: 0 0 16px;
+}
+
+.dye-station {
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  margin: 0;
+  text-align: center;
+  font-size: .82rem;
+  color: var(--ink-soft);
+}
+.dye-station img { display: block; width: min(100%, 220px); height: auto; }
+.dye-palette { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px; list-style: none; padding: 0; margin: 0; }
+.dye-palette li { display: flex; align-items: start; gap: 9px; padding: 7px 0; border-top: 1px solid #e5e7d7; }
+.dye-dot { display: inline-block; width: 1.04rem; height: 1.04rem; margin: 4px 0; flex: none; border: 1px solid #2b3c353b; border-radius: 50%; background: var(--dye); vertical-align: middle; }
+.dye-palette small, .dye-palette a { display: block; color: var(--ink-soft); font-size: .78rem; }
+.dye-palette a { width: fit-content; border-bottom: 1px dotted #9aa889; }
+.dye-palette-panel > .shop-hint { margin-top: 7px; }
+
+.dye-flower-catalog { margin-top: 24px; }
+.dye-flower-catalog > header { margin-bottom: 10px; }
+.dye-flower-catalog p { color: var(--ink-soft); }
+.dye-flower-grid, .dye-ach-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.dye-region { color: #657354; font-size: .77rem; }
+.dye-flower h4, .dye-ach-card h4 { margin: 2px 0 8px; font: 700 1.13rem var(--serif); }
+.dye-flower-states { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+.dye-flower-states figure { display: grid; justify-items: center; margin: 0; padding: 4px 0; border-radius: 4px; background: #ede9e8; }
+.dye-flower-states figure:last-child { background: #edf0e0; }
+.dye-flower-states img { display: block; width: min(100%, 112px); height: auto; }
+.dye-flower-states figcaption { color: var(--ink-soft); font-size: .76rem; }
+.dye-flower dl, .dye-ach-card dl { margin: 8px 0; }
+.dye-flower dl > div, .dye-ach-card dl > div { display: grid; grid-template-columns: minmax(3.6rem, .22fr) minmax(0, 1fr); gap: 8px; padding: 5px 0; border-bottom: 1px solid #e5e7d8; font-size: .82rem; }
+.dye-flower dt, .dye-ach-card dt { color: #587050; font-weight: 700; }
+.dye-flower dd, .dye-ach-card dd { margin: 0; }
+.dye-flower dd small { display: block; font-size: .76rem; color: var(--ink-soft); }
+.dye-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.dye-links a, .dye-ach-card a, .dye-map-note a { color: #426443; font-size: .83rem; text-decoration: underline; text-underline-offset: 3px; }
+.dye-map-note { margin-top: 8px; padding: 8px 10px; background: #edf0e0; border-left: 2px solid #9bac88; }
+
+.dye-ach-section { margin-top: 18px; }
+.dye-ach-section h3 { font: 700 1.25rem var(--serif); }
+.dye-ach-rule { margin: 5px 0; }
+.dye-ach-rewards { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 12px; padding: 0; list-style: none; }
+.dye-ach-rewards li { padding: 4px 8px; border-radius: 4px; background: #eef1e2; font-size: .8rem; }
+.dye-ach-card { padding: 9px 11px; border: 1px solid #e0e5d0; border-radius: 4px; }
+.dye-ach-card dl > div { grid-template-columns: minmax(5.25rem, .3fr) minmax(0, 1fr); }
+.workshop-quest { margin: 12px 0 0; }
+
+@media (max-width: 650px) {
+  .dye-intro-grid, .dye-flower-grid, .dye-ach-grid { grid-template-columns: minmax(0, 1fr); }
+  .pet-upgrade-rule { font-size: .77rem; }
+  .pet-stats-table { font-size: .8rem; }
+  .pet-stats-table th, .pet-stats-table td { padding: 6px; }
+}
+
+@media print {
+  .dye-palette, .dye-flower-grid, .dye-ach-grid { display: block; }
+  .dye-palette li, .dye-flower, .dye-ach-card { break-inside: avoid; }
+  .dye-flower, .dye-ach-card { margin: 8px 0; }
+  .dye-flower-states img { width: 72px; }
+  .dye-flower-states { width: 180px; }
+}
+
+
+.animal-appearance-label {
+  margin: 1px 0 4px;
+  color: var(--ink-soft);
+  font-size: .73rem;
+}
+
+.animal-appearance-button {
+  min-height: 38px;
+  max-width: 100%;
+  padding: 4px 9px;
+  border: 1px solid #adb99a;
+  border-radius: 4px;
+  background: #eef1e2;
+  color: #3b573d;
+  font-size: .75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.animal-appearance-button:hover { background: #e2ead4; }
+.pet-shop-link { color: #405e42; font-size: .82rem; text-decoration: underline; text-underline-offset: 3px; }
