@@ -103,7 +103,7 @@
   <link rel="stylesheet" href="exploration-map.css">
   <link rel="stylesheet" href="garden-shop.css?v=summon">
   <link rel="stylesheet" href="achievements.css?v=illustrated">
-  <link rel="stylesheet" href="garden-plans.css?v=harvest-quests">
+  <link rel="stylesheet" href="garden-plans.css?v=profile-frames">
   <link rel="stylesheet" href="garden-systems.css?v=dye-specimens">
   <link rel="stylesheet" href="pet-summon.css?v=1">
   <link rel="stylesheet" href="field-notes.css?v=plant-scroll">
@@ -2336,7 +2336,7 @@ const CHAPTERS=[
             "Lv.5",
             "560 XP",
             "240 XP",
-            "프로필 배지 두 번째 칸 · 소환권 1장"
+            "새싹의 약속 테두리 · 프로필 배지 두 번째 칸 · 소환권 1장"
           ],
           [
             "Lv.6",
@@ -2366,7 +2366,7 @@ const CHAPTERS=[
             "Lv.10",
             "2,160 XP",
             "440 XP",
-            "정원 앨범 사진 1장을 프로필의 대표 사진으로 선택 · 소환권 1장"
+            "도토리의 보금자리 테두리 · 정원 앨범 사진 1장을 프로필의 대표 사진으로 선택 · 소환권 1장"
           ],
           [
             "Lv.11",
@@ -2396,7 +2396,7 @@ const CHAPTERS=[
             "Lv.15",
             "4,760 XP",
             "640 XP",
-            "별빛 정원 카드 배경 · 소환권 1장"
+            "햇살의 화관 테두리 · 별빛 정원 카드 배경 · 소환권 1장"
           ],
           [
             "Lv.16",
@@ -2546,7 +2546,11 @@ const CHAPTERS=[
               ],
               [
                 "테두리·배경",
-                "해금한 초상 테두리와 카드 배경을 선택합니다. 친구에게 보이는 모습을 미리 본 뒤 저장하면 HUD와 친구 수첩에 반영됩니다."
+                {
+                  "text": "해금한 초상 테두리와 카드 배경을 선택합니다. 친구에게 보이는 모습을 미리 본 뒤 저장하면 HUD와 친구 수첩에 반영됩니다.",
+                  "href": "#chapter/20/section-14",
+                  "linkText": "테두리 10종과 획득 조건"
+                }
               ],
               [
                 "칭호·배지",
@@ -2767,6 +2771,72 @@ const CHAPTERS=[
             "text": "별빛포자 획득 지역 · 확장안"
           }
         ]
+      },
+      {
+        "kind": "profileFrames",
+        "title": "프로필 테두리 10종과 획득 조건",
+        "items": [
+          {
+            "art": "sprout",
+            "name": "새싹의 약속",
+            "source": "레벨 보상",
+            "condition": "정원사 Lv.5 달성"
+          },
+          {
+            "art": "daisy",
+            "name": "데이지의 인사",
+            "source": "코인 상점",
+            "condition": "새싹 코인 80개로 구매"
+          },
+          {
+            "art": "acorn",
+            "name": "도토리의 보금자리",
+            "source": "레벨 보상",
+            "condition": "정원사 Lv.10 달성"
+          },
+          {
+            "art": "cherry-blossom",
+            "name": "봄날의 꽃비",
+            "source": "코인 상점",
+            "condition": "햇살 초원 첫 방문 후 상점에 진열. 새싹 코인 150개로 구매"
+          },
+          {
+            "art": "lavender",
+            "name": "보랏빛 향기",
+            "source": "염색 업적",
+            "condition": "서로 다른 염색재 3종을 제조하고, 각 색을 가구에 한 번씩 적용"
+          },
+          {
+            "art": "mushroom",
+            "name": "숲속의 작은 친구",
+            "source": "지역 복원 업적",
+            "condition": "이슬 숲의 이슬풀 구조, 이슬종꽃 정화, 그늘고사리 선택 정화까지 모두 완료"
+          },
+          {
+            "art": "sunflower",
+            "name": "햇살의 화관",
+            "source": "레벨 보상",
+            "condition": "정원사 Lv.15 달성"
+          },
+          {
+            "art": "moonlight",
+            "name": "달빛의 축복",
+            "source": "물약 제조 업적",
+            "condition": "서로 다른 특수 정화 물약 5종의 제조에 각각 처음 성공. 대성공도 인정"
+          },
+          {
+            "art": "snowflake",
+            "name": "겨울의 속삭임",
+            "source": "캐시 상점",
+            "condition": "상시 판매 기획 · 2,900원 가격안"
+          },
+          {
+            "art": "gold-laurel",
+            "name": "황금빛 영광",
+            "source": "주간 랭킹 보상",
+            "condition": "수익·수확·황금템 중 어느 한 부문에서 계정의 첫 주간 최종 1위가 확정될 때 획득"
+          }
+        ]
       }
     ]
   },
@@ -2818,13 +2888,17 @@ const CHAPTERS=[
         "title": "주간 순위별 보상안",
         "headers": [
           "확정 순위",
-          "랭커 인장과 칭호",
+          "인장·칭호·프로필 보상",
           "숲의 친구 소환권"
         ],
         "rows": [
           [
             "1위",
-            "금빛 랭커 인장과 1위 칭호",
+            {
+              "text": "금빛 랭커 인장과 1위 칭호 · 첫 최종 1위에 프로필 테두리 지급",
+              "href": "#chapter/20/section-14",
+              "linkText": "황금빛 영광"
+            },
             "5장"
           ],
           [
@@ -3700,6 +3774,19 @@ function renderScreen(screen) {
 }
 function renderBlock(b){
  if(b.kind==='petSynergy')return petSynergy.summary();
+ if(b.kind==='profileFrames')return `<section class="doc-block profile-frames" aria-label="${esc(b.title)}">
+  ${blockHeading(b)}
+  <ul class="profile-frame-grid">
+   ${b.items.map(item=>`<li>
+    <div class="profile-frame-preview">
+     <img class="profile-frame-portrait" src="system-art/A004-base.webp" alt="" width="192" height="192" loading="lazy">
+     <img class="profile-frame-art" src="profile-frame-art/${esc(item.art)}.webp" alt="" width="288" height="288" loading="lazy">
+    </div>
+    <div class="profile-frame-copy"><h4>${esc(item.name)}</h4><span>${esc(item.source)}</span><p>${esc(item.condition)}</p></div>
+   </li>`).join('')}
+  </ul>
+  <p class="doc-paragraph">테두리는 계정별로 한 번 획득해 영구 보관합니다. 프로필 편집에서 보유 테두리 한 개를 장착하고 무료로 교체할 수 있습니다. 대표 펫을 바꾸면 장착한 테두리가 새 초상에 적용됩니다.</p>
+ </section>`;
  if(b.kind==='cards')return `<section class="doc-block"><div class="block-heading"><h3>${esc(b.title)}</h3></div><div class="design-cards">${b.items.map(i=>`<article><span aria-hidden="true">${i.icon}</span><h4>${esc(i.title)}</h4><p>${esc(i.text)}</p></article>`).join('')}</div></section>`;
  if(b.kind==='links')return `<div class="design-links">${b.items.map(i=>`<a href="${esc(i.href)}"><span><b>${esc(i.title)}</b><small>${i.plantCount ? totalPlants + '종의 ' : ''}${esc(i.text)}</small></span><span aria-hidden="true">↗</span></a>`).join('')}</div>`;
  if(b.kind==='disclosure')return `<section class="design-disclosure reading-disclosure"><h3>${esc(b.title)}</h3><div>${b.blocks.map(renderBlock).join('')}</div></section>`;
@@ -3710,7 +3797,7 @@ function renderBlock(b){
    <figcaption><strong>게임 화면 왼쪽 위</strong><p>대표 동물 초상을 눌러 내 정원 프로필을 엽니다. 동물을 얻기 전에는 새싹 초상을 씁니다.</p></figcaption>
   </figure>
   <p class="doc-paragraph">경험치를 받으면 획득량과 진행 바를 갱신하고, 레벨업 시 테두리 연출과 새 보상을 짧게 표시합니다.</p>
-  <div class="design-links"><a href="#chapter/20/section-3"><span><b>수확 XP와 일일 한도</b><small>수동·자동 수확 · 하루 30회</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-4"><span><b>레벨 보상과 필요 경험치</b><small>Lv.1~30</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-6"><span><b>내 정원 프로필</b><small>화면안과 편집 항목</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-11"><span><b>레벨별 제작 가구</b><small>15종 시안과 제작 재료</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/21"><span><b>만렙 이후 주간 랭킹</b><small>Lv.30 해금 · 인장과 소환권 보상</small></span><span aria-hidden="true">↗</span></a></div></section>`;
+  <div class="design-links"><a href="#chapter/20/section-3"><span><b>수확 XP와 일일 한도</b><small>수동·자동 수확 · 하루 30회</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-4"><span><b>레벨 보상과 필요 경험치</b><small>Lv.1~30</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-6"><span><b>내 정원 프로필</b><small>화면안과 편집 항목</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-14"><span><b>프로필 테두리</b><small>10종 시안과 획득 조건</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-11"><span><b>레벨별 제작 가구</b><small>15종 시안과 제작 재료</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/21"><span><b>만렙 이후 주간 랭킹</b><small>Lv.30 해금 · 인장과 소환권 보상</small></span><span aria-hidden="true">↗</span></a></div></section>`;
  if(b.kind==='screens')return '<section class="doc-block">' + blockHeading(b) + '<div class="design-screens">' + b.items.map(renderScreen).join('') + '</div></section>';
  if(b.kind==='paragraph')return `<p class="doc-paragraph">${esc(b.text)}</p>`;
  if(b.kind==='note')return `<aside class="doc-note ${b.tone}"><h3>${esc(b.title)}</h3><p>${esc(b.text)}</p></aside>`;
@@ -3738,7 +3825,7 @@ function renderBlock(b){
 }
 const chapterAliases={'04':'03','05':'03','06':'02','10':'09','11':'09','12':'01','13':'01','15':'14','17':'07'};
 const readingTitles={overview:'프로젝트 소개', system:'핵심 시스템', growth:'정원사 성장', monetization:'수익화 방향', art:'아트 · 설계'};
-const readingSections={'16':[4, 9], '18':[7, 8, 9, 10, 11], '20':[2, 3, 4, 5, 6, 8, 11], '21':[2, 3, 5], '19':[3, 4, 6]};
+const readingSections={'16':[4, 9], '18':[7, 8, 9, 10, 11], '20':[2, 3, 4, 5, 6, 8, 11, 14], '21':[2, 3, 5], '19':[3, 4, 6]};
 const questOutline=[
  {href:'#quests', title:'퀘스트', targetId:'quests-view'},
  {href:'#quests/tutorial', title:'튜토리얼', targetId:'quest-tutorial', child:true},
