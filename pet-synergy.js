@@ -96,6 +96,35 @@ const petSynergy = (() => {
     return `<img class="synergy-icon" src="synergy-art/${rule.key}.webp" alt="" width="${size}" height="${size}">`;
   }
 
+  function animalRules(id) {
+    return rules.filter(rule => rule.traits ? rule.traits.has(id) : rule.members.includes(id));
+  }
+
+  function animalDetails(id) {
+    const related = animalRules(id);
+    if (!related.length) return '<p>이 친구의 시너지 조합은 아직 등록되지 않았어요.</p>';
+
+    return `<section class="animal-synergies" aria-label="참여 시너지">
+      <p><strong>공통 발동 조건</strong> · ${overlapCondition}. 효과는 겹친 칸에 적용됩니다.</p>
+      ${related.map(rule => {
+        const partners = [...(rule.traits || rule.members)].filter(partner => partner !== id).map(partner => {
+          const animal = animals.get(partner);
+          return animal.upcoming ? `<span>${animal.name} (추가 예정)</span>`
+            : `<a href="#animals/${partner}/synergy">${animal.name}</a>`;
+        });
+        return `<article class="synergy-rule">
+          <div class="synergy-rule-heading">${icon(rule, 40)}<div><h3>${rule.name}</h3>${rule.traits ? '<p>확장안</p>' : ''}</div></div>
+          <dl>
+            <div><dt>함께 배치</dt><dd>${partners.join(' 또는 ')}</dd></div>
+            ${rule.time ? `<div><dt>발동 시간</dt><dd>${times[rule.time]}</dd></div>` : ''}
+            <div><dt>기획 효과</dt><dd><strong>${rule.effect}</strong><br>${rule.detail}</dd></div>
+          </dl>
+        </article>`;
+      }).join('')}
+      <a class="animal-range-link" href="${link}">펫 시너지 배치 체험 ↗</a>
+    </section>`;
+  }
+
   function ruleDetails(rule) {
     return `<div class="synergy-rule-heading">
       ${icon(rule, 48)}
@@ -350,5 +379,5 @@ const petSynergy = (() => {
       .map(rule => ({url:link,title:rule.name,description:members(rule) + (rule.traits ? ' · 확장안' : '')}));
   }
 
-  return {interactive,summary,mount,search};
+  return {interactive,summary,mount,search,animalRules,animalDetails,icon};
 })();
