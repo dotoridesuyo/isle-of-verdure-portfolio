@@ -104,7 +104,7 @@
   <link rel="stylesheet" href="garden-shop.css?v=summon">
   <link rel="stylesheet" href="achievements.css?v=illustrated">
   <link rel="stylesheet" href="garden-plans.css?v=harvest-quests">
-  <link rel="stylesheet" href="garden-systems.css?v=pet-stats">
+  <link rel="stylesheet" href="garden-systems.css?v=dye-specimens">
   <link rel="stylesheet" href="pet-summon.css?v=1">
   <link rel="stylesheet" href="field-notes.css?v=plant-scroll">
   <link rel="stylesheet" href="reading-layout.css?v=weekly-ranking">
@@ -3432,7 +3432,7 @@ document.getElementById('animal-skill-filter').addEventListener('change',e=>{ani
 document.getElementById('animal-mode-filter').addEventListener('change',e=>{animalCatalogState.mode=e.target.value;applyAnimalFilters();});
 
 </script>
-<script src="garden-systems.js?v=harvest-scope"></script>
+<script src="garden-systems.js?v=dye-specimens"></script>
 <script src="pet-synergy.js?v=3"></script>
 <script src="pet-summon.js?v=weekly-ranking"></script>
 <script src="purification-plan.js?v=3"></script>
@@ -3445,7 +3445,7 @@ document.getElementById('animal-mode-filter').addEventListener('change',e=>{anim
 const $ = s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const catalogPlants = [...PLANTS, ...dyeFlowers.flowers.map(flower => ({
-  id:flower.id, name:flower.name, region:flower.area, rarity:'', size:'', type:'염색꽃', dyeFlower:flower
+  id:flower.id, name:flower.name, region:flower.area, rarity:flower.rarity, size:flower.size, type:'염색꽃', dyeFlower:flower
 }))];
 const totalPlants = catalogPlants.length;
 for (const counter of document.querySelectorAll('[data-plant-total]')) counter.textContent = totalPlants;
@@ -3490,7 +3490,47 @@ function renderGrid(){
   $('#plant-count').textContent=plants.length;
 }
 function row(icon,label,value){return `<div class="info-row"><dt><span class="info-icon" aria-hidden="true">${icon}</span>${label}</dt><dd>${value}</dd></div>`;}
+const plantDetailTabs = [
+ ['cultivation', '재배 정보'],
+ ['harvest', '수확 · 활용'],
+ ['ecology', '생태 · 수집']
+];
+
+function dyeDetailRows(flower, links = true) {
+ const link = (href, label) => links ? `<a href="${href}">${esc(label)}</a>` : esc(label);
+ const records = dyeFlowers.recordRewards.map(([count, reward]) => `꽃잎 ${count}장 · ${reward}`).join('<br>');
+ const useDetail = flower.planned ? link('#workshop/lantern', flower.useDetail) : esc(flower.useDetail);
+ return {
+  cultivation: [
+   ['⌖', '발견 장소', esc(flower.place) + (links ? '<br>' + link('#map/' + flower.region, '지역 지도 보기 ↗') : '')],
+   ['✧', '필요 정화', `${esc(flower.when)}<br>${purificationPlan.describePlant(flower.id, links)}`],
+   ['♧', '필요 재료', `${esc(flower.name)} 씨앗 1개 · 야생 개체 첫 정화 보상`],
+   ['▧', '재배 방식', '현장 정화 → 밭갈기 → 파종 → 첫 물주기 → 성숙'],
+   ['☼', '재배 공간', '정원의 일반 텃밭 1칸'],
+   ['♧', '물주기·성장', '첫 물주기 후 성장 시작 · 프로토타입에서는 30초 후 성숙<br>본편의 첫 성장 시간과 수확 후 재성장 시간은 추후 확정'],
+   ['❧', '성장 연출', flower.growth.slice(1).map(esc).join(' → ')]
+  ],
+  harvest: [
+   ['♧', '기본 수확', `${esc(flower.petal)} 2장 확정`],
+   ['▧', '다음 재배', '수확한 식물이 같은 자리에 남아 재성장하며, 성숙하면 다시 수확할 수 있다.'],
+   ['✧', '특수 수확물', esc(flower.extra)],
+   ['▤', '활용 방향', useDetail],
+   ['❧', '염색 재료', `${esc(flower.petal)} 2장 → ${link('#workshop/dye/' + flower.id, flower.dye + ' 염색재')} 1개 → 가구 1개에 ${esc(flower.dyeTone)} 입히기`]
+  ],
+  ecology: [
+   ['⌖', '발견과 역할', esc(flower.role)],
+   ['❧', '식물의 개성', esc(flower.appearance)],
+   ['❧', '지역 생태', esc(flower.ecology)],
+   ['◇', '수집 기록', '현장 관찰로 발견 → 첫 정화 시 표본 등록 → 첫 정원 수확으로 수집 완료'],
+   ['◇', '복원 달성과제', `${link('#achievements/flowers/' + flower.id, flower.task)} · 현장 첫 정화 시 ${dyeFlowers.firstRestorationReward}`],
+   ['◇', '지역 장기 업적', `${records}<br>100장 칭호 ‘${esc(flower.record)}’ · 배지 도안은 ${esc(flower.badgeArt)}<br>직접 기른 꽃잎을 수확할 때 누적하며, 재료를 사용해도 기록은 유지된다.`],
+   ['▤', '정보 공개', '발견 후 위치와 정화 조건을 확인한다. 첫 정원 수확 후 기본·특수 수확물과 활용처를 공개하고, 확률형 수확물의 획득 이력을 별도로 기록한다.']
+  ]
+ };
+}
+
 function detailContent(p){
+ if (p.dyeFlower) return '<dl>' + dyeDetailRows(p.dyeFlower)[state.detailTab].map(fields => row(...fields)).join('') + '</dl>';
  const b=PLANT_BRIEFS[p.id];
  if (state.detailTab === 'cultivation') return '<dl>' +
   row('✧', '필요 정화', purificationPlan.describePlant(p.id)) +
@@ -3521,23 +3561,63 @@ function stageGraphic(p,i){
   if(i===1)return `<span class="stage-image"><span class="seed-art"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 35V19" stroke="#829766" stroke-width="3"/><path d="M20 25Q5 25 7 13Q20 12 20 25M21 20Q21 6 34 9Q35 21 21 20" fill="#a6b77c"/><path d="M21 20L30 13M19 23L11 17" stroke="#819563" fill="none"/></svg></span></span>`;
   return `<span class="stage-image">${specimen(p)}</span>`;
 }
-function stageDescription(p){const s=STAGES[state.stage];return `<b>${s.name} · ${s.range}</b><br>${s.text}<span class="stage-type-note">${p.type} · ${TYPE_STAGES[p.type][state.stage]}</span>`;}
+function stageDescription(p){
+ const s = STAGES[state.stage];
+ const text = p.dyeFlower ? esc(p.dyeFlower.growth[state.stage]) : s.text;
+ const note = p.dyeFlower && state.stage === STAGES.length - 1
+  ? '꽃 개화·수확 가능 · 수확 후 같은 자리에서 재성장'
+  : TYPE_STAGES[p.dyeFlower ? '꽃' : p.type][state.stage];
+ return `<b>${s.name} · ${s.range}</b><br>${text}<span class="stage-type-note">${p.type} · ${note}</span>`;
+}
 function renderCultivationSummary(){const r=CULTIVATION_RULES;$('#common-cultivation-summary').innerHTML=`<div class="cultivation-summary-heading"><span>정원의 재배 흐름</span><a href="#chapter/03">시스템 기획 보기 ↗</a></div><dl><div><dt>재배 공간</dt><dd>농장 ${r.gardenPlots}칸 · 초원 ${r.meadowPlots}칸</dd></div><div><dt>성장 과정</dt><dd>씨앗 → 새싹 → 성장 → 성숙</dd></div><div><dt>돌봄과 변화</dt><dd>물주기 후 ${r.growthSeconds}초에 성숙</dd></div><div><dt>수확과 다음 시작</dt><dd>기본 표본은 재파종 · 염색꽃은 재성장</dd></div></dl>`;}
 function renderDetail(){
- const p=state.selected;
+ const p = state.selected;
  if (!p) {
   $('#plant-detail').innerHTML = '<div class="empty-state"><p>조건에 맞는 식물이 없어요.</p></div>';
   $('#species-spec-content').replaceChildren();
   return;
  }
  const entries = filteredPlants();
- const index = entries.indexOf(p);
- if (p.dyeFlower) {
-  $('#plant-detail').innerHTML = dyeFlowers.renderFlower(p.dyeFlower, 'catalog') + plantNavigation(index, entries.length);
-  $('#species-spec-content').replaceChildren();
-  return;
- }
- $('#plant-detail').innerHTML=`<div class="detail-topline"><p class="eyebrow">BOTANICAL RECORD / ${p.id}</p><span>섬의 식물 기록</span></div><div class="specimen-head"><div><p class="specimen-id">NO. ${String(p.index+1).padStart(3,'0')}</p><h2>${p.name}</h2><div class="species-tags">${badge(p)}<span class="badge neutral">${p.size} · ${p.size==='대형'?'2×2 / 전용':'1칸'}</span><span class="badge neutral">${p.region}</span>${plantAvailability(p) ? `<span class="badge neutral">${plantAvailability(p)}</span>` : ""}</div></div><div class="hero-illustration">${specimen(p)}<span class="art-label">a concept specimen</span></div></div><p class="specimen-description">${esc(PLANT_BRIEFS[p.id].role)}</p><dl class="detail-facts"><div><dt>성숙 · 프로토타입</dt><dd class="fact-text">30초</dd></div><div><dt>수확 후 동작</dt><dd class="fact-text">다시 파종</dd></div><div><dt>기본 점유 공간</dt><dd>${p.size==='대형'?'2 × 2':'1'}<small>${p.size==='대형'?'또는 전용':'칸'}</small></dd></div></dl><div class="growth-preview"><div class="small-heading"><h3>성장 과정</h3><span>단계 설명 보기 · 성장과 성숙은 공통 일러스트 시안</span></div><div class="stage-track" role="group" aria-label="성장 단계 설명">${STAGES.map((s,i)=>`<button class="stage-button ${state.stage===i?'active':''}" data-stage="${i}" aria-label="${i+1}단계 ${s.name}" aria-pressed="${state.stage===i}">${stageGraphic(p,i)}<span>${s.name}</span><small>${s.caption}</small></button>`).join('')}</div><p class="stage-description" aria-live="polite">${stageDescription(p)}</p></div><div class="detail-tabs" role="tablist" aria-label="식물 상세 정보"><button role="tab" id="tab-cultivation" aria-controls="plant-tab-panel" data-detail-tab="cultivation" aria-selected="${state.detailTab==='cultivation'}" class="${state.detailTab==='cultivation'?'active':''}">재배 정보</button><button role="tab" id="tab-harvest" aria-controls="plant-tab-panel" data-detail-tab="harvest" aria-selected="${state.detailTab==='harvest'}" class="${state.detailTab==='harvest'?'active':''}">수확 · 활용</button><button role="tab" id="tab-ecology" aria-controls="plant-tab-panel" data-detail-tab="ecology" aria-selected="${state.detailTab==='ecology'}" class="${state.detailTab==='ecology'?'active':''}">생태 · 수집</button></div><div id="plant-tab-panel" class="detail-tab-panel" role="tabpanel" aria-labelledby="tab-${state.detailTab}">${detailContent(p)}</div>${plantNavigation(index,entries.length)}<div class="page-number"><span>BOTANICAL FIELD NOTES</span><a href="#chapter/06">— ${p.id} —</a></div>`;
+ const flower = p.dyeFlower;
+ const availability = flower ? '선택 정화' : catalogAvailability(p);
+ const overview = flower ? flower.role : PLANT_BRIEFS[p.id].role;
+ const large = p.size === '대형';
+ const detailArt = flower ? dyeFlowers.renderFlowerStates(flower)
+  : `<div class="hero-illustration">${specimen(p)}<span class="art-label">a concept specimen</span></div>`;
+ $('#plant-detail').innerHTML = `
+  <div class="detail-topline"><p class="eyebrow">BOTANICAL RECORD / ${p.id}</p><span>섬의 식물 기록</span></div>
+  <div class="specimen-head${flower ? ' dye-specimen-head' : ''}">
+   <div>
+    <p class="specimen-id">${flower ? '염색꽃' : 'NO. ' + String(p.index + 1).padStart(3, '0')}</p>
+    <h2>${esc(p.name)}</h2>
+    <div class="species-tags">
+     ${badge(p)}<span class="badge neutral">${p.size} · ${large ? '2×2 / 전용' : '1칸'}</span>
+     <span class="badge neutral">${p.region}</span>
+     ${availability ? `<span class="badge neutral">${availability}</span>` : ''}
+     ${flower?.planned ? '<span class="badge neutral">추후 확장</span>' : ''}
+    </div>
+   </div>
+   ${detailArt}
+  </div>
+  <p class="specimen-description">${esc(overview)}</p>
+  <dl class="detail-facts">
+   <div><dt>성숙 · 프로토타입</dt><dd class="fact-text">${CULTIVATION_RULES.growthSeconds}초</dd></div>
+   <div><dt>수확 후 동작</dt><dd class="fact-text">${flower ? '같은 자리에서 재성장' : '다시 파종'}</dd></div>
+   <div><dt>기본 점유 공간</dt><dd>${large ? '2 × 2' : '1'}<small>${large ? '또는 전용' : '칸'}</small></dd></div>
+  </dl>
+  <div class="growth-preview">
+   <div class="small-heading"><h3>성장 과정</h3><span>단계 설명 보기 · 성장과 성숙은 공통 일러스트 시안</span></div>
+   <div class="stage-track" role="group" aria-label="성장 단계 설명">
+    ${STAGES.map((stage, i) => `<button class="stage-button ${state.stage === i ? 'active' : ''}" data-stage="${i}" aria-label="${i + 1}단계 ${stage.name}" aria-pressed="${state.stage === i}">${stageGraphic(p, i)}<span>${stage.name}</span><small>${stage.caption}</small></button>`).join('')}
+   </div>
+   <p class="stage-description" aria-live="polite">${stageDescription(p)}</p>
+  </div>
+  <div class="detail-tabs" role="tablist" aria-label="식물 상세 정보">
+   ${plantDetailTabs.map(([tab, label]) => `<button role="tab" id="tab-${tab}" aria-controls="plant-tab-panel" data-detail-tab="${tab}" aria-selected="${state.detailTab === tab}" class="${state.detailTab === tab ? 'active' : ''}">${label}</button>`).join('')}
+  </div>
+  <div id="plant-tab-panel" class="detail-tab-panel" role="tabpanel" aria-labelledby="tab-${state.detailTab}">${detailContent(p)}</div>
+  ${plantNavigation(entries.indexOf(p), entries.length)}
+  <div class="page-number"><span>BOTANICAL FIELD NOTES</span><a href="#chapter/06">— ${p.id} —</a></div>`;
  renderSpeciesSpec();
 }
 function selectPlant(id,scroll=false){const p=catalogPlants.find(x=>x.id===id);if(!p)return;state.selected=p;state.stage=STAGES.length-1;state.detailTab='cultivation';renderGrid();renderDetail();if(scroll&&window.innerWidth<=650)$('#plant-detail').scrollIntoView({behavior:'smooth',block:'start'});}
@@ -3572,7 +3652,15 @@ function speciesTable(){
 function sourceTag(){return '';}
 function blockHeading(b){return `<div class="block-heading"><h3>${esc(b.title)}</h3>${sourceTag(b.source)}</div>`;}
 function renderPlantBrief(p) {
- if (p.dyeFlower) return dyeFlowers.renderFlower(p.dyeFlower, 'print');
+ if (p.dyeFlower) {
+  const flower = p.dyeFlower;
+  const details = dyeDetailRows(flower, false);
+  const classification = [p.region, p.rarity, p.size, p.type, '선택 정화', ...(flower.planned ? ['추후 확장'] : [])].join(' · ');
+  const groups = plantDetailTabs.map(([tab, title]) => `
+   <h4>${title}</h4>
+   <dl>${details[tab].map(([, label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join('')}</dl>`).join('');
+  return `<section class="plant-brief dye-plant-brief"><header><span>${p.id}</span><h3>${esc(p.name)}</h3></header><p class="dye-brief-classification">${classification}</p>${groups}</section>`;
+ }
  const b = PLANT_BRIEFS[p.id];
  const fields = [
   ['기획 역할', b.role], ['발견과 재배', b.site || b.acquisition], ['성장 연출', b.visual],

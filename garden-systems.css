@@ -85,6 +85,9 @@
 .dye-flower-states figure:last-child { background: #edf0e0; }
 .dye-flower-states img { display: block; width: min(100%, 112px); height: auto; }
 .dye-flower-states figcaption { color: var(--ink-soft); font-size: .76rem; }
+.dye-specimen-head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.dye-plant-brief > h4 { margin: 12px 18px 0; color: var(--ink-soft); break-after: avoid; }
+.dye-brief-classification { margin: 12px 18px; color: var(--ink-soft); font-size: .8rem; }
 .dye-flower dl, .dye-ach-card dl { margin: 8px 0; }
 .dye-flower dl > div, .dye-ach-card dl > div { display: grid; grid-template-columns: minmax(3.6rem, .22fr) minmax(0, 1fr); gap: 8px; padding: 5px 0; border-bottom: 1px solid #e5e7d8; font-size: .82rem; }
 .dye-flower dt, .dye-ach-card dt { color: #587050; font-weight: 700; }
@@ -113,6 +116,8 @@
 @media print {
   .dye-palette, .dye-flower-grid, .dye-ach-grid { display: block; }
   .dye-palette li, .dye-flower, .dye-ach-card { break-inside: avoid; }
+  .dye-plant-brief { break-inside: auto; }
+  .dye-plant-brief > dl > div { break-inside: avoid; }
   .dye-flower, .dye-ach-card { margin: 8px 0; }
   .dye-flower-states img { width: 72px; }
   .dye-flower-states { width: 180px; }

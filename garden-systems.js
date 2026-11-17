@@ -106,25 +106,53 @@ const petUpgrades = (() => {
 const dyeFlowers = (() => {
   const flowers = [
     {id:'D01', region:'R00', area:'정원', name:'노을양귀비', dye:'노을빛', color:'#aa4447',
+      rarity:'일반', size:'소형',
+      role:'리프의 오두막 화단을 복원하고, 정원에서 처음 붉은 염색재를 만들어 보는 식물.',
       place:'오두막 오른쪽 돌 테두리 화단. 말라붙은 잡초 2개를 걷어내면 안쪽에서 발견.',
-      when:'이슬종꽃 첫 재배 수확 이후',
+      when:'이슬종꽃(P002)을 정원에서 처음 수확한 뒤',
+      growth:['돌 테두리 안에서 얻은 씨앗을 일군 밭에 심는다.', '둥근 떡잎 두 장이 흙 위로 올라온다.', '가는 꽃대가 자라며 끝에 고개를 숙인 봉오리가 맺힌다.', '얇은 붉은 꽃잎이 펼쳐지고 짙은 꽃심이 드러난다.'],
+      appearance:'오염 상태에서는 자줏빛이 탁해지고 두 송이가 아래로 접힌다. 정화하면 늘어졌던 꽃대가 일어서고 붉은 꽃잎이 바람에 가볍게 흔들린다.',
+      ecology:'오두막 오른쪽 돌 테두리를 따라 낮은 붉은 꽃띠가 돌아온다. 작은 벌이 정원의 꽃띠에 찾아오는 공통 생태 연출을 사용한다.',
       petal:'노을양귀비 꽃잎', extra:'노을씨방 1개 확정', use:'리프의 정원 재료 의뢰',
-      task:'되살아난 오두막 화단', record:'노을 화단의 파수꾼'},
+      useDetail:'노을씨방 3개를 리프에게 납품해 새싹 코인 10개를 받는 의뢰 시안.',
+      dyeTone:'붉은색', task:'되살아난 오두막 화단', record:'노을 화단의 파수꾼',
+      badgeArt:'돌 테두리에 핀 붉은 양귀비'},
     {id:'D02', region:'R02', area:'햇살 초원', name:'귤빛금잔화', dye:'귤빛', color:'#ba682d',
+      rarity:'특별', size:'소형',
+      role:'햇살방울꽃으로 이어진 초원 샛길의 선택 탐험 보상. 가구에 짙은 주황색을 입히는 꽃.',
       place:'초원 남쪽. 햇살방울꽃에서 이어지는 짧은 샛길 끝의 낮은 돌담 안쪽.',
-      when:'현장 햇살방울꽃 복원 이후',
+      when:'햇살방울꽃(P004)의 야생 개체를 현장에서 복원한 뒤',
+      growth:['돌담 안에서 얻은 씨앗을 정원 텃밭에 심는다.', '짧고 둥근 떡잎이 나오고 줄기가 선다.', '넓고 긴 잎이 양옆으로 퍼지고 둥근 봉오리가 올라온다.', '짙은 주황색 꽃잎이 여러 겹으로 펼쳐지고 노란 꽃술이 보인다.'],
+      appearance:'오염 상태에서는 황갈색 꽃잎이 안쪽으로 말리고 뿌리 주변에 얼룩이 남는다. 정화하면 겹꽃이 풀리며 선명한 주황빛이 돌아온다.',
+      ecology:'낮은 돌담 안쪽 꽃무리가 되살아나면 벌과 나비가 초원에서 샛길까지 오가는 연출을 둔다. 초원 입구의 꿀빛금잔화(P010)는 금잔화 꽃잎과 금빛 꽃꿀을 주는 별도 표본이다.',
       petal:'귤빛금잔화 꽃잎', extra:'귤빛꽃술 1개 확정', use:'리프의 정원 재료 의뢰',
-      task:'돌담에 걸린 주황빛', record:'주황 꽃밭의 수호자'},
+      useDetail:'귤빛꽃술 3개를 리프에게 납품해 새싹 코인 10개를 받는 의뢰 시안.',
+      dyeTone:'짙은 주황색', task:'돌담에 걸린 주황빛', record:'주황 꽃밭의 수호자',
+      badgeArt:'낮은 돌담 위의 주황 겹꽃'},
     {id:'D03', region:'R01', area:'이슬 숲', name:'풀빛별꽃', dye:'새잎빛', color:'#547644',
+      rarity:'일반', size:'소형',
+      role:'이슬 숲의 개울 상류를 탐색하면 얻는 낮은 별꽃. 정원 가구에 새잎색을 더한다.',
       place:'목교 너머 개울 상류의 그늘진 곁길. 쓰러진 가지 1개를 치우면 바위 아래에서 발견.',
-      when:'이슬종꽃 첫 재배 수확 이후',
+      when:'이슬종꽃(P002)을 정원에서 처음 수확한 뒤',
+      growth:['개울가에서 얻은 작은 씨앗을 일군 밭에 심는다.', '작은 떡잎이 지면 가까이 나온다.', '잎이 바닥 가까이 퍼지면서 작은 봉오리 세 개가 드러난다.', '짙은 잎 위로 연한 연둣빛이 도는 별 모양 꽃 세 송이가 열린다.'],
+      appearance:'오염 상태에서는 올리브색 잎이 축 처지고 꽃잎 끝이 어두워진다. 정화하면 오므라든 별꽃이 열리며 낮은 꽃무리의 실루엣이 또렷해진다.',
+      ecology:'개울 상류의 그늘진 바위 밑에서 낮은 풀 사이로 별꽃이 보인다. 물결 곁에서 꽃과 잎이 작게 흔들린다.',
       petal:'풀빛별꽃 꽃잎', extra:'별꽃잎 1개 확정', use:'리프의 정원 재료 의뢰',
-      task:'그늘 아래 켜진 별', record:'새잎 별자리의 수호자'},
+      useDetail:'별꽃잎 3개를 리프에게 납품해 새싹 코인 10개를 받는 의뢰 시안.',
+      dyeTone:'새잎색', task:'그늘 아래 켜진 별', record:'새잎 별자리의 수호자',
+      badgeArt:'짙은 잎 위의 연초록 별 세 개'},
     {id:'D04', region:'R04', area:'고대의 숲', name:'달그늘붓꽃', dye:'달그늘빛', color:'#484e8a',
+      rarity:'희귀', size:'중형',
+      role:'고대의 숲 확장에 포함되는 남색 붓꽃. 남색 염색재와 달그늘 등불에 연결된다.',
       place:'별빛고사리 뒤쪽. 큰 나무뿌리 아래에 놓인 낮은 석판 곁.',
-      when:'별빛고사리 첫 재배 수확 이후',
+      when:'고대의 숲 확장 후, 별빛고사리(P007)를 정원에서 처음 수확한 뒤',
+      growth:['석판 곁에서 얻은 씨앗을 일군 밭에 심는다.', '가늘고 곧은 새잎이 올라온다.', '칼 모양 잎 사이로 꽃대가 자라며 짙은 봉오리가 맺힌다.', '남보라색 꽃잎이 아래로 넓게 펼쳐지고 안쪽의 연한 꽃잎 무늬가 보인다.'],
+      appearance:'오염 상태에서는 거무스름한 꽃잎이 안쪽으로 접히고 긴 잎이 아래로 휜다. 정화하면 칼 모양 잎이 일어서고 남보라색 꽃이 열린다.',
+      ecology:'오래된 나무뿌리를 따라 난 길의 끝, 석판과 뿌리 사이 그늘에 붓꽃이 핀다. 고대의 숲 확장 구역의 개화 연출에 배치한다.',
       petal:'달그늘붓꽃 꽃잎', extra:'달그늘꽃가루 1개(수확마다 15%)', use:'달그늘 등불 제작',
-      task:'뿌리 사이 피어난 달그늘', record:'달그늘의 수호자', planned:true}
+      useDetail:'달그늘꽃가루 1개와 목재 4개로 달그늘 등불을 제작하는 확장 시안.',
+      dyeTone:'남색', task:'뿌리 사이 피어난 달그늘', record:'달그늘의 수호자',
+      badgeArt:'남색 붓꽃과 은빛 초승달', planned:true}
   ];
   const [red, orange, green, indigo] = flowers;
   const palette = [
@@ -138,6 +166,7 @@ const dyeFlowers = (() => {
   const workbenchRule = '꽃잎 2장 → 염색재 1개 → 가구 1개 염색. 배치한 가구도 미리 확인한 색으로 염색할 수 있으며, 원목색 복원은 무료입니다.';
   const flowerRule = '염색꽃 4종은 선택 정화 대상으로, 다음 지역을 여는 필수 조건에서 제외해요. 야생 개체를 처음 정화할 때 씨앗을 한 번 받고, 정원에서 키우면 거듭 수확할 수 있어요.';
   const achievementRule = '첫 야생 정화와 정원 재배를 각각 기록해요. 수확 기록은 직접 재배해 얻은 꽃잎만 합산하고, 염색이나 납품에 쓰더라도 유지돼요.';
+  const firstRestorationReward = '새싹 코인 10개';
   const recordRewards = [[10,'새싹 코인 10개'],[50,'새싹 코인 20개'],[100,'칭호와 종별 도감 배지']];
 
   function regionLabel(flower) {
@@ -154,35 +183,35 @@ const dyeFlowers = (() => {
     }).join('') + '</ul>';
   }
 
-  function renderFlower(flower, mode = 'dye') {
-    const print = mode === 'print';
-    const catalog = mode === 'catalog';
-    const heading = catalog ? 'h2' : 'h4';
-    const id = print ? '' : ' id="' + (catalog ? 'specimen-' : 'dye-') + flower.id + '"';
-    return '<article class="' + (catalog ? 'dye-flower catalog-flower' : 'shop-paper dye-flower') + '"' + id + '>' +
-      '<p class="dye-region">' + regionLabel(flower) + ' · 선택 정화</p><' + heading + '>' + flower.name + '</' + heading + '>' +
-      '<div class="dye-flower-states">' + ['polluted', 'restored'].map((state, i) =>
+  function renderFlowerStates(flower) {
+    return '<div class="dye-flower-states">' + ['polluted', 'restored'].map((state, i) =>
         '<figure><img src="system-art/' + flower.id + '-' + state + '.webp" width="192" height="192" loading="lazy" alt="' +
         flower.name + (i ? ' 정화 외형' : ' 오염 외형') + '"><figcaption>' + (i ? '정화 후' : '오염 상태') + '</figcaption></figure>').join('') +
-      '</div><dl><div><dt>발견</dt><dd>' + flower.place + '</dd></div><div><dt>정화</dt><dd>' + flower.when +
-      '<small>' + purificationPlan.describePlant(flower.id,!print) + '</small></dd></div><div><dt>첫 정화</dt><dd>' +
+      '</div>';
+  }
+
+  function renderFlower(flower, links) {
+    const id = links ? ' id="dye-' + flower.id + '"' : '';
+    return '<article class="shop-paper dye-flower"' + id + '>' +
+      '<p class="dye-region">' + regionLabel(flower) + ' · 선택 정화</p><h4>' + flower.name + '</h4>' +
+      renderFlowerStates(flower) + '<dl><div><dt>발견</dt><dd>' + flower.place + '</dd></div><div><dt>정화</dt><dd>' + flower.when +
+      '<small>' + purificationPlan.describePlant(flower.id,links) + '</small></dd></div><div><dt>첫 정화</dt><dd>' +
       flower.name + ' 씨앗 1개</dd></div><div><dt>수확</dt><dd>' + flower.petal + ' 2장 + ' + flower.extra +
       '<small>꽃잎은 ' + flower.dye + ' 염색재 · 추가 재료는 ' + flower.use + '</small></dd></div>' +
       '<div><dt>재배</dt><dd>정원에서 수확한 뒤 다시 자람</dd></div></dl>' +
-      (!print ? '<div class="dye-links"><a href="#map/' + flower.region + '">지역 지도 ↗</a><a href="#achievements/flowers/' +
-        flower.id + '">업적 보기 ↗</a><a href="' + (catalog ? '#workshop/dye/' : '#plants/') + flower.id + '">' +
-        (catalog ? '염색 기획' : '식물 표본집') + ' ↗</a></div>' : '') + '</article>';
+      (links ? '<div class="dye-links"><a href="#map/' + flower.region + '">지역 지도 ↗</a><a href="#achievements/flowers/' +
+        flower.id + '">업적 보기 ↗</a><a href="#plants/' + flower.id + '">식물 표본집 ↗</a></div>' : '') + '</article>';
   }
 
   function renderFlowers(links = true) {
     return '<div class="dye-flower-grid">' +
-      flowers.map(flower => renderFlower(flower,links ? 'dye' : 'print')).join('') + '</div>';
+      flowers.map(flower => renderFlower(flower, links)).join('') + '</div>';
   }
 
 
   function renderAchievements(links = true) {
     return '<p class="dye-ach-rule">' + achievementRule + '</p>' +
-      '<ul class="dye-ach-rewards"><li><strong>첫 정화</strong> · 새싹 코인 10개</li>' +
+      '<ul class="dye-ach-rewards"><li><strong>첫 정화</strong> · ' + firstRestorationReward + '</li>' +
       recordRewards.map(([quantity, reward]) => '<li><strong>꽃잎 ' + quantity + '장</strong> · ' + reward + '</li>').join('') +
       '</ul><div class="dye-ach-grid">' + flowers.map(flower =>
         '<article id="' + (links ? 'flower-ach-' : 'print-flower-ach-') + flower.id + '" class="dye-ach-card">' +
@@ -211,5 +240,6 @@ const dyeFlowers = (() => {
     return entries.filter(entry => (entry.title + ' ' + entry.description).toLowerCase().includes(query));
   }
 
-  return {flowers, palette, workbenchRule, flowerRule, renderPalette, renderFlower, renderFlowers, renderAchievements, mapNotes, search};
+  return {flowers, palette, workbenchRule, flowerRule, firstRestorationReward, recordRewards,
+    renderPalette, renderFlowerStates, renderFlowers, renderAchievements, mapNotes, search};
 })();
