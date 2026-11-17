@@ -8,9 +8,14 @@
 
 .synergy-heading { margin-bottom: 18px; }
 .synergy-heading p { margin-top: 5px; color: var(--ink-soft); }
-.synergy-presets { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 16px; }
-.synergy-presets > div, .synergy-time { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.synergy-presets > div > span { margin-right: 3px; color: #556a4d; font-size: 11px; font-weight: 700; }
+.synergy-time { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.synergy-presets { display: grid; gap: 12px; margin-bottom: 12px; }
+.synergy-presets h4 { margin: 0 0 5px; color: #405640; font-size: 12px; }
+.synergy-card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr));
+  gap: 6px;
+}
 
 .synergy-demo button:not(.synergy-point) {
   min-height: 32px;
@@ -29,6 +34,40 @@
   color: #fffdf0;
 }
 .synergy-demo button:disabled { opacity: .5; }
+
+.synergy-card-list button[data-syn-preset] {
+  display: flex;
+  min-height: 63px;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  text-align: left;
+  line-height: 1.4;
+}
+.synergy-card-list strong, .synergy-card-list small { display: block; }
+.synergy-card-list small { margin-top: 3px; font-size: 11px; font-weight: 500; }
+.synergy-icon { display: block; flex: 0 0 auto; object-fit: contain; }
+.synergy-card-list .synergy-icon { width: 40px; height: 40px; }
+
+.synergy-rule {
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid #d3d9c1;
+  border-radius: 8px;
+  background: #f6f5e8;
+}
+.synergy-rule-heading { display: flex; align-items: center; gap: 10px; }
+.synergy-rule-heading h4 { margin: 0; color: #3b543b; font-size: 16px; }
+.synergy-rule-heading p { color: #58654b; font-size: 12px; }
+.synergy-rule-heading a, .synergy-spec a { text-decoration: underline; text-underline-offset: .2em; }
+.synergy-rule-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+  gap: 8px 16px;
+  margin: 8px 0 0;
+}
+.synergy-rule-details dt, .synergy-spec dt { color: #405640; font-weight: 700; }
+.synergy-rule-details dd, .synergy-spec dd { margin: 1px 0 0; color: #4e6149; }
 
 .synergy-layout {
   display: grid;
@@ -171,11 +210,41 @@
 .synergy-effects { margin-top: 4px; color: #4c5b43; font-size: 12px; }
 .synergy-effects p + p { margin-top: 7px; }
 .synergy-effects b { display: block; color: #384b32; }
+.synergy-effect { display: flex; align-items: center; gap: 7px; }
 
-.synergy-details { margin-top: 16px; border-top: 1px solid #d5dcc8; padding-top: 9px; }
-.synergy-details summary { width: fit-content; cursor: pointer; font-weight: 700; }
-.synergy-summary h3 { margin-top: 12px; }
-.synergy-summary .doc-paragraph { margin: 5px 0 12px; }
+.synergy-summary { margin-top: 18px; }
+.synergy-summary h4 { margin: 0 0 7px; color: #405640; font-size: 15px; }
+.synergy-summary .doc-paragraph { margin: 4px 0 9px; }
+.synergy-spec {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0 0 16px;
+}
+.synergy-spec > div { padding: 8px 10px; border: 1px solid #d9dec9; border-radius: 5px; }
+.synergy-shapes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.synergy-shapes li {
+  display: grid;
+  flex: 1 0 64px;
+  padding: 6px;
+  justify-items: center;
+  border: 1px solid #d2d9c3;
+  border-radius: 5px;
+  background: #f2f3e7;
+  color: #405640;
+}
+.synergy-shapes small { color: #556a4d; }
+.synergy-shape, .synergy-shape > span { display: flex; gap: 2px; }
+.synergy-shape { flex-direction: column; justify-content: center; min-height: 46px; }
+.synergy-shape i { width: 10px; height: 10px; border-radius: 2px; }
+.synergy-shape i[data-covered="1"] { background: #82a26f; }
 
 @media (max-width: 820px) {
   .synergy-layout { grid-template-columns: minmax(0, 1fr); }
@@ -189,4 +258,8 @@
   .synergy-map { padding: 9px; }
   .synergy-board { margin-inline: 12px; }
   .synergy-demo button:not(.synergy-point) { min-height: 36px; }
+  .synergy-card-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .synergy-card-list button[data-syn-preset] { min-height: 56px; padding: 5px; }
+  .synergy-card-list .synergy-icon { width: 32px; height: 32px; }
+  .synergy-rule-details, .synergy-spec { grid-template-columns: minmax(0, 1fr); }
 }

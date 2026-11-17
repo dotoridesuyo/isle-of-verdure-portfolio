@@ -16,20 +16,43 @@ const petSynergy = (() => {
   }
 
   const rules = [
-    {key:'water',label:'물주기',name:'물주기 시너지',members:['A001','A006'],
-      effect:'자동 물주기의 효율을 높이는 구상입니다.'},
-    {key:'growth',label:'성장',name:'성장 시너지',members:['A002','A010'],
-      effect:'작물의 성장 속도를 높이는 구상입니다.'},
-    {key:'harvest',label:'수확',name:'수확 시너지',members:['A004','A007'],
-      effect:'소리의 자동 수확과 포리의 추가 수확 보정을 같은 구역에 적용합니다.'},
-    {key:'quality',label:'품질',name:'품질 시너지',members:['A005','A009'],
-      effect:'작물의 품질이 상승할 확률을 높이는 구상입니다.'},
-    {key:'bird',label:'새들의 합창',name:'새들의 합창',members:['A008','swallow'],
-      traits:birds,condition:'조류 2마리',effect:'작물의 성장 속도를 높이는 구상입니다.'},
-    {key:'day',label:'주행성',name:'주행성',members:['swallow','sparrow'],
-      traits:dayAnimals,time:'day',condition:'낮에 활동하는 펫 2마리',effect:'낮 동안 관리 효율을 높이는 구상입니다.'},
-    {key:'night',label:'야행성',name:'야행성',members:['A003','A008'],
-      traits:nightAnimals,time:'night',condition:'밤에 활동하는 펫 2마리',effect:'밤 동안 관리 효율을 높이는 구상입니다.'}
+    {key:'water',name:'물주기 시너지',members:['A001','A006'],
+      condition:'모리와 누리 배치',
+      effect:'자동 물주기 효율 증가',
+      detail:'마른 작물의 자동 물주기에 보너스를 주는 「물 관리 전문」 기획입니다. 같은 재배 주기에 한 작물의 물주기는 한 번만 처리합니다.'},
+    {key:'growth',name:'성장 시너지',members:['A002','A010'],
+      condition:'토리와 두리 배치',
+      effect:'성장 중인 작물의 성장 속도 증가',
+      detail:'물을 주고 성장 중인 작물에 적용하는 체험 기준입니다. 성장형 펫 두 마리가 희귀 수확물의 획득 확률을 높이는 「생명의 조화」도 별도 효과 후보로 논의했습니다.'},
+    {key:'harvest',name:'수확 시너지',members:['A004','A007'],
+      condition:'소리와 포리 배치',
+      effect:'자동 수확과 추가 수확량 확률 보정 연계',
+      detail:'성숙한 작물을 소리가 자동으로 수확할 때 포리의 추가 수확량 확률 보정을 적용합니다. 산딸기 바구니를 장착한 소리가 한 번에 2칸 이상을 수확하면 일반 수확물 1개를 더 얻는 장착 효과도 있습니다.'},
+    {key:'quality',name:'품질 시너지',members:['A005','A009'],
+      condition:'루나와 나리 배치',
+      effect:'수확 시 품질 상승 확률 증가',
+      detail:'수확 결과의 품질 판정에 보너스를 주는 구상입니다. 같은 작물의 기본 수확은 보장하고, 품질과 추가 수확량, 황금 작물은 각각의 보정 항목으로 다룹니다.'},
+    {key:'bird',name:'새들의 합창',members:['A008','swallow'],
+      traits:birds,condition:'별이·제비·참새 중 조류 2마리 배치',
+      effect:'성장 중인 작물의 성장 속도 증가',
+      detail:'현재 조류인 부엉이 별이를 중심으로 조합을 확장합니다. 제비와 참새는 추가 예정 캐릭터이며, 아이콘에는 두 마리의 새가 함께 노래하는 모습을 담았습니다.'},
+    {key:'day',name:'주행성',members:['swallow','sparrow'],
+      traits:dayAnimals,time:'day',condition:'주행성 펫 2마리 배치 · 낮',
+      effect:'낮 동안 관리 효율 증가',
+      detail:'제비와 참새를 배치한 예시에서는 낮에 주행성과 새들의 합창이 함께 표시됩니다. 밤으로 바꾸면 주행성 조건이 풀립니다.'},
+    {key:'night',name:'야행성',members:['A003','A008'],
+      traits:nightAnimals,time:'night',condition:'야행성 펫 2마리 배치 · 밤',
+      effect:'밤 동안 관리 효율 증가',
+      detail:'잡초를 정리하는 밤이와 황금 작물 확률을 보정하는 별이가 조합 예시입니다. 밤이 되면 공통 관리 칸에 야행성 보너스가 표시됩니다.'}
+  ];
+
+  const overlapCondition = '같은 정원에서 관리 범위가 한 칸 이상 겹침';
+  const shapeExamples = [
+    ['정사각형', ['11', '11']],
+    ['일자', ['1111']],
+    ['ㄱ자', ['10', '10', '11']],
+    ['ㅗ자', ['010', '111']],
+    ['십자', ['010', '111', '010', '010']]
   ];
 
   function preset(rule) {
@@ -39,7 +62,8 @@ const petSynergy = (() => {
         {id:rule.members[1], row:3, col:3, facing:'up'}
       ],
       time:rule.time || 'day',
-      moving:0
+      moving:0,
+      presetKey:rule.key
     };
   }
   let state = preset(rules[0]);
@@ -68,15 +92,53 @@ const petSynergy = (() => {
     return rule.members.map(id => animals.get(id).name).join(' + ');
   }
 
+  function icon(rule, size) {
+    return `<img class="synergy-icon" src="synergy-art/${rule.key}.webp" alt="" width="${size}" height="${size}">`;
+  }
+
+  function ruleDetails(rule) {
+    return `<div class="synergy-rule-heading">
+      ${icon(rule, 48)}
+      <div><h4>${rule.name}</h4><p>${rule.traits ? '확장안 · 예시 조합' : '기획 조합'} · ${rule.members.map(id => {
+        const animal = animals.get(id);
+        return animal.upcoming ? animal.name + ' (추가 예정)' : `<a href="#animals/${id}">${animal.name}</a>`;
+      }).join(' + ')}</p></div>
+    </div>
+    <dl class="synergy-rule-details">
+      <div><dt>발동 조건</dt><dd>${rule.condition}<br>${overlapCondition}</dd></div>
+      <div><dt>기획 효과</dt><dd><strong>${rule.effect}</strong><br>${rule.detail}</dd></div>
+    </dl>`;
+  }
+
+  function sharedRules() {
+    const shapes = shapeExamples.map(([name, rows]) => {
+      const count = Array.from(rows.join('')).filter(cell => cell === '1').length;
+      return `<li>
+        <span class="synergy-shape" aria-hidden="true">
+          ${rows.map(row => `<span>${Array.from(row, cell => `<i data-covered="${cell}"></i>`).join('')}</span>`).join('')}
+        </span>
+        <strong>${name}</strong><small>${count}칸</small>
+      </li>`;
+    }).join('');
+    return `<section class="synergy-summary">
+      <h4>관리 범위와 효과 판정</h4>
+      <dl class="synergy-spec">
+        <div><dt>배치와 회전</dt><dd>펫은 식재 칸 사이 꼭짓점에 놓입니다. 방향을 90° 돌리면 같은 모양을 회전해 새 관리 범위를 계산합니다. 경계 밖과 장애물 칸은 제외하며 빠진 칸은 보충하지 않습니다.</dd></div>
+        <div><dt>등급별 기본 범위</dt><dd>${Object.entries(ANIMAL_GRADES).map(([name, grade]) => `${name} ${grade.count}칸 (${grade.width}×${grade.depth})`).join(' · ')}. 배치 체험은 제비와 참새를 일반 2칸으로 표시합니다.</dd></div>
+        <div><dt>시너지와 중복</dt><dd>두 펫의 고유 능력은 각자의 관리 범위에서 계속 적용됩니다. 배치 체험에서 시너지는 공통 칸에 표시됩니다. 수동·자동 처리가 겹쳐도 작물 개체당 같은 물주기나 수확을 한 번만 처리합니다. 여러 시너지 보너스의 합산 방식과 효과 수치는 검토 중입니다.</dd></div>
+        <div><dt>자동 수확 한도</dt><dd>자동으로 쌓이는 수확물은 기본 최대 50개로 제한하고 캐시 아이템으로 한도를 늘리는 기획입니다. 한도의 집계와 초기화 시점, 추가 수확물 산입 방식은 검토 중입니다. <a href="#chapter/20/section-3">수확 XP의 하루 30회 지급 한도</a>는 별도로 적용합니다.</dd></div>
+      </dl>
+      <h4>범위 모양과 인접 배치 구상</h4>
+      <p class="doc-paragraph">같은 등급 안에서 총 칸 수를 유지한 채 일자, ㄱ자 등 다른 모양을 써서 빈 칸을 메우는 방식입니다. 펫을 얻을 때 정해지는 모양을 돌려 배치하는 안과, 관리 구역끼리 닿았을 때의 인접 시너지도 논의했습니다. 배치 체험에는 기본 모양과 겹침 판정을 적용합니다.</p>
+      <ul class="synergy-shapes" aria-label="관리 범위 형태 예시">${shapes}</ul>
+    </section>`;
+  }
+
   function summary() {
     return `<section class="doc-block synergy-summary">
       <h3>펫 시너지 조합과 발동 조건</h3>
-      <p class="doc-paragraph">배치 체험은 같은 정원에서 두 펫의 관리 범위가 한 칸 이상 겹칠 때 시너지를 표시합니다. 효과를 받는 곳은 두 펫이 함께 관리하는 칸입니다. 개별 관리 범위는 등급과 바라보는 방향으로 정합니다.</p>
-      <div class="table-scroll"><table><thead><tr><th scope="col">시너지</th><th scope="col">조합 예시</th><th scope="col">조건과 효과 방향</th></tr></thead><tbody>
-        ${rules.map(rule => `<tr><th scope="row">${rule.name}${rule.traits ? ' · 확장안' : ''}</th><td>${members(rule)}</td><td>${rule.condition ? rule.condition + ' · ' : ''}${rule.effect}</td></tr>`).join('')}
-      </tbody></table></div>
-      <p class="doc-paragraph">제비·참새와 활동 시간대는 확장 구상입니다. 제비와 참새의 관리 범위는 체험에서 각각 일반 등급 2칸으로 표시합니다. 효과 수치와 여러 시너지가 겹칠 때의 실제 적용 방식은 검토 중입니다.</p>
-      <p class="doc-paragraph">펫마다 같은 칸 수의 관리 범위 형태를 2~3종 두고, 획득할 때 형태가 정해지며 배치 중에는 회전할 수 있게 하는 안도 검토 중입니다. 체험에서는 도감의 기본 형태로 배치와 회전을 비교합니다.</p>
+      ${rules.map(rule => `<div class="synergy-rule">${ruleDetails(rule)}</div>`).join('')}
+      ${sharedRules()}
     </section>`;
   }
 
@@ -100,8 +162,9 @@ const petSynergy = (() => {
   }
 
   function interactive() {
-    const presetButton = rule =>
-      `<button type="button" data-syn-preset="${rule.key}" aria-pressed="false">${rule.label}</button>`;
+    const presetButton = rule => `<button type="button" data-syn-preset="${rule.key}" aria-pressed="false" aria-controls="synergy-rule">
+      ${icon(rule, 48)}<span><strong>${rule.name}</strong><small>${members(rule)}</small></span>
+    </button>`;
     const tiles = Array.from({length:rows * cols}, (_, i) =>
       `<span class="synergy-tile" data-syn-tile="${i}"></span>`).join('');
     const points = Array.from({length:rows + 1}, (_, row) =>
@@ -111,13 +174,14 @@ const petSynergy = (() => {
     ).join('');
     return `<section class="doc-block synergy-demo" data-pet-synergy aria-labelledby="synergy-title">
       <div class="synergy-heading">
-        <h3 id="synergy-title">펫 시너지 배치 체험</h3>
-        <p>조합을 고른 뒤 펫을 옮기거나 돌려 보세요. 두 펫이 함께 관리하는 칸에 시너지가 표시됩니다.</p>
+        <h3 id="synergy-title">펫 시너지와 배치 체험</h3>
+        <p>두 펫의 역할이 만나면 정원 관리 방식이 달라집니다. 조합을 고르고 배치와 시간대를 바꿔 발동 조건을 확인해 보세요.</p>
       </div>
       <div class="synergy-presets">
-        <div role="group" aria-label="현재 펫 조합"><span>현재 펫</span>${rules.filter(rule => !rule.traits).map(presetButton).join('')}</div>
-        <div role="group" aria-label="확장 조합"><span>확장안</span>${rules.filter(rule => rule.traits).map(presetButton).join('')}</div>
+        <div><h4 id="synergy-current-title">기존 펫 조합</h4><div class="synergy-card-list" role="group" aria-labelledby="synergy-current-title">${rules.filter(rule => !rule.traits).map(presetButton).join('')}</div></div>
+        <div><h4 id="synergy-expansion-title">확장 시너지</h4><div class="synergy-card-list" role="group" aria-labelledby="synergy-expansion-title">${rules.filter(rule => rule.traits).map(presetButton).join('')}</div></div>
       </div>
+      <div class="synergy-rule" id="synergy-rule" data-syn-rule></div>
       <div class="synergy-layout">
         <div class="synergy-map">
           <div class="synergy-map-head">
@@ -146,7 +210,7 @@ const petSynergy = (() => {
           </div>
         </div>
       </div>
-      <details class="synergy-details"><summary>조합과 기획 규칙 보기</summary>${summary()}</details>
+      ${sharedRules()}
     </section>`;
   }
 
@@ -195,9 +259,12 @@ const petSynergy = (() => {
       turn.textContent = `↻ ${directions[pet.facing]}`;
     });
     for (const button of root.querySelectorAll('[data-syn-preset]')) {
-      const rule = rules.find(entry => entry.key === button.dataset.synPreset);
-      button.setAttribute('aria-pressed', String(rule.members.every(id => pets.some(pet => pet.id === id)) &&
-        (!rule.time || rule.time === state.time)));
+      button.setAttribute('aria-pressed', String(button.dataset.synPreset === state.presetKey));
+    }
+    const design = root.querySelector('[data-syn-rule]');
+    if (design.dataset.rule !== state.presetKey) {
+      design.innerHTML = ruleDetails(rules.find(rule => rule.key === state.presetKey));
+      design.dataset.rule = state.presetKey;
     }
     for (const button of root.querySelectorAll('[data-syn-time]')) {
       button.setAttribute('aria-pressed', String(button.dataset.synTime === state.time));
@@ -210,7 +277,7 @@ const petSynergy = (() => {
     if (active.length) {
       result.textContent = `시너지 ${active.length}개 발동`;
       effects.innerHTML = active.map(rule =>
-        `<p><b>${rule.name}${rule.traits ? ' · 확장안' : ''}</b>${rule.effect}</p>`).join('');
+        `<p class="synergy-effect">${icon(rule, 26)}<span><b>${rule.name}${rule.traits ? ' · 확장안' : ''}</b>${rule.effect}</span></p>`).join('');
       return;
     }
     result.textContent = pets.some(pet => !pet.id) ? '펫 두 마리를 배치하세요'
@@ -279,7 +346,7 @@ const petSynergy = (() => {
   }
 
   function search(query) {
-    return rules.filter(rule => `${rule.name} ${members(rule)} ${rule.effect}`.toLowerCase().includes(query))
+    return rules.filter(rule => `${rule.name} ${members(rule)} ${rule.condition} ${rule.effect} ${rule.detail}`.toLowerCase().includes(query))
       .map(rule => ({url:link,title:rule.name,description:members(rule) + (rule.traits ? ' · 확장안' : '')}));
   }
 

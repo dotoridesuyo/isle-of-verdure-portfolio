@@ -108,7 +108,7 @@
   <link rel="stylesheet" href="pet-summon.css?v=1">
   <link rel="stylesheet" href="field-notes.css?v=plant-scroll">
   <link rel="stylesheet" href="reading-layout.css?v=weekly-ranking">
-  <link rel="stylesheet" href="pet-synergy.css?v=1">
+  <link rel="stylesheet" href="pet-synergy.css?v=2">
 
 
 
@@ -375,7 +375,7 @@
           <div class="plant-search"><span aria-hidden="true">⌕</span><input id="animal-entry-search" aria-label="동물 이름 종 등급 능력 검색" type="search" placeholder="어떤 친구를 찾고 있나요?"><button id="animal-clear-filters" title="동물 검색과 필터 초기화" aria-label="동물 검색과 필터 초기화">↺</button></div>
           <div class="catalog-filters animal-entry-filters"><select id="animal-rarity-filter" aria-label="동물 등급 필터"><option value="">모든 등급</option><option>일반</option><option>특별</option><option>희귀</option><option>전설</option></select><select id="animal-skill-filter" aria-label="동물 능력 필터"><option value="">모든 능력</option></select><select id="animal-mode-filter" aria-label="동물 능력 유형 필터"><option value="">모든 능력 유형</option><option>행동형</option><option>상시 보정형</option><option>수확 판정 보정형</option></select></div>
           <div id="animal-entry-grid" class="animal-entry-grid" aria-label="동물 친구 목록"></div>
-          <div class="catalog-bottom"><span id="animal-filter-count" aria-live="polite"></span><a href="#chapter/16/section-9" class="text-button">펫 시너지 체험 ↗</a></div>
+          <div class="catalog-bottom"><span id="animal-filter-count" aria-live="polite"></span><a href="#chapter/16/section-9" class="text-button">펫 시너지 기획 보기 ↗</a></div>
           <div class="page-number"><a href="#plants">← 식물 표본집</a><span>— 02 —</span></div>
         </div>
         <article class="book-page detail-page animal-entry-detail" id="animal-entry-detail" aria-label="선택한 동물 친구의 도감 상세" aria-live="polite"></article>
@@ -1309,14 +1309,14 @@ const CHAPTERS=[
           },
           {
             "href": "#chapter/16/section-9",
-            "title": "펫 시너지 배치 체험",
-            "text": "펫 두 마리를 움직여 관리 범위와 발동 조건 확인"
+            "title": "펫 시너지와 배치 체험",
+            "text": "조합별 효과와 발동 조건 · 펫 배치 비교"
           }
         ]
       },
       {
         "kind": "petSynergy",
-        "title": "펫 시너지 배치 체험"
+        "title": "펫 시너지와 배치 체험"
       }
     ]
   },
@@ -2142,7 +2142,7 @@ const CHAPTERS=[
             "items": [
               {
                 "href": "#chapter/16/section-9",
-                "title": "펫 시너지 배치 체험",
+                "title": "펫 시너지와 배치 체험",
                 "text": "물주기·수확 등 관리 범위와 조합"
               },
               {
@@ -3421,7 +3421,7 @@ document.getElementById('animal-mode-filter').addEventListener('change',e=>{anim
 
 </script>
 <script src="garden-systems.js?v=harvest-scope"></script>
-<script src="pet-synergy.js?v=1"></script>
+<script src="pet-synergy.js?v=2"></script>
 <script src="pet-summon.js?v=weekly-ranking"></script>
 <script src="purification-plan.js?v=3"></script>
 <script src="exploration-map.js?v=shop-link"></script>
