@@ -415,6 +415,7 @@
         <section id="quest-daily" class="shop-paper reading-target" aria-labelledby="quest-daily-title">
           <h3 id="quest-daily-title">일일 퀘스트 · 리프의 부탁</h3>
           <div id="quest-daily-tasks"></div>
+          <div id="daily-rewards-preview"></div>
         </section>
         <section id="quest-weekly" class="shop-paper reading-target" aria-labelledby="quest-weekly-title">
           <h3 id="quest-weekly-title">주간 퀘스트</h3>
@@ -1032,6 +1033,20 @@ const CHAPTERS=[
       {
         "kind": "table",
         "title": "텃밭 구성",
+        "mockups": {
+          "title": "정원 배치 안내 시안",
+          "intro": "정원 풍경과 배치 위치를 보면서 조작을 확인할 수 있도록 안내를 화면 하단에 모았습니다.",
+          "items": [
+            {
+              "path": "ui-mockups/placement-guide.png",
+              "width": 1280,
+              "height": 720,
+              "title": "배치 가능 상태",
+              "alt": "정원 화면 하단에 배치 가능, 클릭으로 놓기, 우클릭과 Esc로 취소 안내가 보이는 화면",
+              "caption": "놓을 수 있는 위치에서는 확인 아이콘과 조작 안내를 표시합니다. 안내 바 오른쪽에서 배치 모드를 끝낼 수 있습니다."
+            }
+          ]
+        },
         "headers": [
           "구역",
           "규모",
@@ -2017,6 +2032,20 @@ const CHAPTERS=[
       {
         "kind": "flow",
         "title": "정화에서 다음 수확까지",
+        "mockups": {
+          "title": "정원 기록 인터페이스 시안",
+          "intro": "정화가 끝난 지역과 아직 돌봐야 할 지역을 한 화면에서 확인할 수 있도록 정리했습니다.",
+          "items": [
+            {
+              "path": "ui-mockups/garden-journal.png",
+              "width": 1280,
+              "height": 720,
+              "title": "정원 기록",
+              "alt": "정원 기록 창에 지역별 정화 진행과 핵심 나무 상태, 누적 수확과 정화 칸이 표시된 조합 시안",
+              "caption": "지역 카드에는 정화 진행과 핵심 나무의 상태를, 하단에는 누적 수확량과 직접 정화한 밭 수를 표시합니다. 화면 속 수치는 배치 확인용 예시입니다."
+            }
+          ]
+        },
         "items": [
           "정원에서 확정 수확물 확보",
           "오두막 옆 솥에서 물약 제작",
@@ -3218,6 +3247,28 @@ const CHAPTERS=[
       {
         "kind": "screens",
         "title": "친구 수첩 화면안",
+        "mockups": {
+          "title": "친구 수첩 게임 적용 화면",
+          "intro": "게임에서 친구 수첩을 열고 상대의 정원으로 이동하기까지 확인한 화면입니다. 친구 이름과 코드는 테스트용 예시입니다.",
+          "items": [
+            {
+              "path": "ui-mockups/friends-notebook-in-game.png",
+              "width": 1280,
+              "height": 762,
+              "title": "친구 목록과 요청 관리",
+              "alt": "왼쪽 페이지에 친구 목록과 정원 방문 버튼, 오른쪽에 친구 코드 입력과 받은 요청이 표시된 친구 수첩",
+              "caption": "왼쪽에서 친구의 접속 상태와 방문 가능 여부를 확인합니다. 오른쪽에서는 친구 코드를 검색하고 받은 요청을 처리합니다."
+            },
+            {
+              "path": "ui-mockups/friend-profile-in-game.png",
+              "width": 1280,
+              "height": 762,
+              "title": "친구 프로필과 정원 미리보기",
+              "alt": "왼쪽에 친구의 대표 동물과 이름, 오른쪽에 공개 정원 미리보기와 방문 버튼이 보이는 친구 프로필",
+              "caption": "친구의 대표 동물과 공개 정원 모습을 확인한 다음 ‘친구 정원 놀러가기’로 이동합니다."
+            }
+          ]
+        },
         "items": [
           {
             "title": "친구 목록과 정원 방문",
@@ -4888,6 +4939,21 @@ function renderArtReferences() {
  </section>`;
 }
 
+const dailyRewardsMockup = {
+  "title": "일일 보상 인터페이스 시안",
+  "intro": "출석과 일일 행동의 진행률, 지급 여부를 한눈에 확인하는 초기 화면 시안입니다. 과제와 보상 조건은 기획서의 일일 퀘스트 표를 따릅니다.",
+  "items": [
+    {
+      "path": "ui-mockups/daily-rewards.png",
+      "width": 1280,
+      "height": 720,
+      "title": "오늘의 작은 약속",
+      "alt": "일일 보상 창에 출석, 씨앗 심기, 작물 수확, 물약 제작 진행률과 보상 지급 여부가 표시된 조합 시안",
+      "caption": "출석 완료 상태와 과제별 진행 게이지를 각각 표시하고, 보상을 받은 항목에는 완료 표시를 붙입니다."
+    }
+  ]
+};
+
 function renderInterfaceMockups(group) {
  const images = group.items.map(item => `<figure>
   <a href="${esc(item.path)}" aria-label="${esc(item.title)} 원본 열기">
@@ -4988,7 +5054,7 @@ function renderBlock(b){
 }
 const chapterAliases={'04':'03','05':'03','06':'02','10':'09','11':'09','12':'01','13':'01','15':'14','17':'07'};
 const readingTitles={overview:'프로젝트 소개', system:'핵심 시스템', growth:'정원사 성장', monetization:'수익화 방향', art:'아트 · 설계'};
-const readingSections={'01':[7], '03':[4, 8], '16':[4, 9], '18':[7, 8, 9, 10, 11], '20':[1, 2, 3, 4, 5, 6, 8, 11, 14], '21':[2, 3, 5], '19':[3, 4, 6]};
+const readingSections={'01':[7], '03':[4, 8], '16':[4, 9], '18':[7, 8, 9, 10, 11], '20':[1, 2, 3, 4, 5, 6, 8, 11, 14], '21':[2, 3, 5], '19':[2, 3, 4, 6]};
 const questOutline=[
  {href:'#quests', title:'퀘스트', targetId:'quests-view'},
  {href:'#quests/tutorial', title:'튜토리얼', targetId:'quest-tutorial', child:true},
@@ -5308,6 +5374,7 @@ function closeSearch(){$('#search-results').hidden=true;$('#doc-search').setAttr
 function printAll(){
  $('#print-document').innerHTML=`<nav class="print-toolbar" aria-label="전체 문서 도구"><button data-close-print>← 포트폴리오로 돌아가기</button><span>신록의 섬 · 게임 기획</span><button data-print-confirm>인쇄 / PDF 저장 ↗</button></nav><div class="print-cover"><p>ISLE OF VERDURE / GAME DESIGN PORTFOLIO</p><h1>신록의 섬<br>작은 정원에서 시작되는, 섬의 회복.</h1><p>힐링 가드닝 시뮬레이션<br>시스템 기획 · 도감 UI · 아트 콘셉트</p><div class="print-toc">${CHAPTERS.map((c,i)=>`<a href="#print-chapter-${c.id}">${String(i+1).padStart(2,'0')} ${c.title}</a>`).join('')}<a href="#print-map">탐험 지도</a><a href="#print-shop">상점</a><a href="#print-summon">펫 뽑기</a><a href="#print-achievements">업적과 지역 숙련도</a><a href="#print-workshop">가구 제작소</a><a href="#print-dye">꽃빛 염색 작업대</a><a href="#print-pet-upgrades">동물 친구 장비</a><a href="#print-quests">퀘스트</a><a href="#print-plants">식물 표본집</a><a href="#print-animals">동물 친구 도감</a></div></div>${CHAPTERS.map((c,i)=>`<article class="print-chapter" id="print-chapter-${c.id}"><header class="chapter-header"><p class="eyebrow">${c.tag}</p><h2>${String(i+1).padStart(2,'0')}. ${c.title}</h2>${renderDesignIntent(chapterIntentPath(c.id))}<p>${c.subtitle}</p></header>${c.blocks.map((block, index) => renderChapterBlock(c, block, index, renderBlock)).join('')}</article>`).join('')}<article class="print-chapter" id="print-map"><header class="chapter-header"><p class="eyebrow">EXPLORATION MAP</p><h2>탐험 지도</h2></header>${renderDesignIntent('#map')}${explorationMap.renderPrint()}</article>${gardenShop.renderPrint()}${petSummon.renderPrint()}${achievementsPage.renderPrint()}${gardenPlans.renderPrint()}${petUpgrades.renderPrint(ANIMALS)}<article class="print-chapter" id="print-plants"><header class="chapter-header"><p class="eyebrow">BOTANICAL COLLECTION</p><h2>식물 표본집 · ${totalPlants}종</h2></header>${renderDesignIntent('#plants')}${catalogPlants.map(p=>`<section class="print-plant" id="print-plant-${p.id}">${p.dyeFlower ? "" : specimen(p)}${renderPlantBrief(p)}</section>`).join('')}</article><article class="print-chapter" id="print-animals"><header class="chapter-header"><p class="eyebrow">ANIMAL COMPANIONS</p><h2>동물 친구 도감 · 10종</h2></header>${renderDesignIntent('#animals')}${ANIMALS.map(a => `<div id="print-animal-${a.id}">${renderAnimalDossier(a)}</div>`).join('')}</article>`;
  const print = $('#print-document');
+ print.querySelector('#print-quest-daily').insertAdjacentHTML('beforeend', renderInterfaceMockups(dailyRewardsMockup));
  for (const [selector, href] of [
   ['#print-quests > header', '#quests'],
   ['#print-shop > header', '#shop'],
@@ -5398,6 +5465,7 @@ window.addEventListener('hashchange',()=>route());
 window.addEventListener('scroll',scheduleReadingOutline,{passive:true});
 window.addEventListener('resize',()=>{readingJumpPosition=undefined;scheduleReadingOutline();});
 mountDesignIntents(document);
+$('#daily-rewards-preview').innerHTML = renderInterfaceMockups(dailyRewardsMockup);
 $('#summon-entry-equipment header h3').insertAdjacentHTML('afterend', renderDesignIntent('#summon/equipment'));
 $('#species-table').innerHTML=speciesTable();renderCultivationSummary();renderGrid();renderDetail();initializeAnimalEncyclopedia();route(true);
 
