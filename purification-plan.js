@@ -60,7 +60,7 @@ const purificationPlan = (() => {
 
   function describePlant(id, links = true) {
     const recipe = potionByPlant.get(id);
-    if (!recipe) return id === 'P001' ? '튜토리얼에서 리프가 구조해 첫 재배에 사용' : '';
+    if (!recipe) return id === 'P001' ? '리프가 준 씨앗으로 첫 이슬풀을 재배' : '';
     const label = links ? '<a href="' + section(recipe) + '">' + recipe.name + '</a>' : recipe.name;
     return label + ' 1병 사용 · 제조 재료 ' + ingredientList(recipe, false);
   }

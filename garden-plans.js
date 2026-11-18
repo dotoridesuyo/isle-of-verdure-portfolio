@@ -62,7 +62,7 @@ const gardenPlans = (() => {
     {name:'정원 우편함', materials:'목재 6개', size:'1×1칸', art:'mailbox'}
   ];
   const timberRecipe = '가지 3개 → 목재 2개';
-  const unlock = '정원에 첫 통나무 벤치를 배치하면 제작소가 열립니다.';
+  const unlock = 'Lv.3에 리프가 제작을 소개하고 나뭇잎 우편함 도안을 얻습니다. 제작소 자체 개방은 첫 통나무 벤치 배치안을 기준으로 하며 조건 변경은 검토 중입니다.';
   const lantern = {name:'달그늘 등불', materials:'목재 4개 + 달그늘꽃가루 1개', area:'고대의 숲 확장안'};
   const levelFurniture = CHAPTERS.find(chapter => chapter.id === '20').blocks
     .find(block => block.id === 'level-furniture-recipes').rows;
