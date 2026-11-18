@@ -128,6 +128,9 @@
 .opening-stage summary,.opening-qa summary,.opening-legacy summary{min-height:44px;cursor:pointer;padding:9px 13px;font-weight:650;color:#3c543e}
 .opening-stage .opening-xp{display:inline-block;margin-left:8px;padding:1px 7px;background:#e7eedb;color:#385337;border-radius:10px;font-size:11px;white-space:nowrap}
 .opening-rewards{margin:14px 0}
+.opening-art-reference{margin:6px 12px 10px;color:#435a3f}
+.opening-art-reference a{text-decoration:underline;text-underline-offset:3px;font-weight:650}
+.opening-art-reference small{display:inline-block;margin-left:5px;color:#576651}
 .opening-stage summary b{margin:0 10px 0 5px;color:#5b7253;font-variant-numeric:tabular-nums}
 .opening-stage dl,.opening-qa dl{margin:0;padding:0 14px 10px}
 .opening-stage dl>div,.opening-qa dl>div{display:grid;grid-template-columns:125px minmax(0,1fr);gap:3px 12px;padding:8px 0;border-top:1px solid #e1e2d3}
@@ -3830,7 +3833,11 @@ const openingPlan = (() => {
   "copy": "대사 없이 정원 풍경과 손동작으로 전달.",
   "action": "컷을 본다. 클릭·Enter·Space로 다음 컷을 넘기는 안.",
   "done": "회상 컷에서 병실 컷으로 전환.",
-  "work": "신규 도트 컷. 젊은 할아버지와 작은 숲의 원래 모습. 컷 길이와 자동 넘김은 결정 대기."
+  "work": "신규 도트 컷. 젊은 할아버지와 작은 숲의 원래 모습. 컷 길이와 자동 넘김은 결정 대기.",
+  "art": {
+   "name": "신록의 섬, 젊은 정원사",
+   "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-c1acd23fc4a48191a7e464541597a6f6_ab934dccbc00819188464f6ff6c13a1e&account_id=personal"
+  }
  },
  {
   "id": "hospital",
@@ -3845,34 +3852,38 @@ const openingPlan = (() => {
  {
   "id": "bird",
   "group": "intro",
-  "title": "새가 손녀에게 편지를 전하다",
-  "screen": "창턱에 도착한 새가 종이를 내려놓고 손녀가 집어 든다. 접힌 쪽지의 바깥면을 클로즈업한다.",
-  "copy": "쪽지 겉면 “사랑하는 손녀에게. 신록의 섬에서 리프를 찾아다오.”",
-  "action": "쪽지 겉면을 읽고 클릭·Enter·Space로 계속.",
-  "done": "편지를 든 손녀의 컷에서 섬의 숲 가장자리로 전환.",
-  "work": "신규 도트 컷. 병실, 손녀, 리프 장면에 같은 편지 소품 사용. 전문은 리프에게 전달할 때 공개."
+  "title": "참새가 건넨 편지 읽기",
+  "screen": "참새가 창턱에서 편지를 건넨다. 손녀가 봉투를 펼치면 인트로 영상 안에서 할아버지의 편지 전문이 차례로 나타난다. 손녀는 마지막 줄을 읽고 편지를 한동안 쥐고 있다.",
+  "copy": "할아버지의 편지 전문을 화면에 표시한다.",
+  "action": "영상의 편지를 읽는다.",
+  "done": "편지의 마지막 줄을 보여준 뒤 신록의 섬 도착 컷으로 전환한다.",
+  "work": "겉면에서 편지 전문으로 이어진다. 편지 문안은 인트로 영상의 자막이나 편지지 연출에 사용한다.",
+  "art": {
+   "name": "참새가 건네는 편지",
+   "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-3c2ada6e00c8819194ef608613c24091_ab934dccbc00819188464f6ff6c13a1e&account_id=personal"
+  },
+  "letter": true
  },
  {
   "id": "arrival",
   "group": "intro",
-  "title": "리프가 지켜 낸 정원",
-  "screen": "숲 가장자리의 바랜 잎을 보여준 뒤 리프의 정원으로 전환한다. 손녀가 들어오면 리프가 다가와 반갑게 맞이한다.",
-  "copy": "리프 “와, 어서 와! 네가 할아버지의 손녀구나? 나도 할아버지가 보내신 편지를 받아서 네 얘기를 들었어!”",
-  "action": "리프의 인사를 확인한다.",
-  "done": "리프가 손녀를 맞이하면 손녀가 가져온 편지를 함께 읽는다.",
-  "work": "정원 카메라와 등장 동작 재사용. 손녀에게 온 편지 한 통과 리프가 미리 받은 연락은 별개다. 리프 쪽 편지는 대사로만 언급한다."
+  "title": "섬에 도착해 리프를 만나다",
+  "screen": "인트로 영상이 끝나고 섬에 도착한다. 숲 가장자리의 바랜 잎이 보이고, 리프가 손녀에게 다가와 말을 건다. 손녀는 리프를 바라보다 고개를 끄덕인다.",
+  "copy": "리프 “어, 네가 그 할아버지의 손녀구나?”\n리프 “어서 와! 나는 리프야. 할아버지한테 네 얘기를 들었어. 이쪽으로 와 봐. 보여줄 게 있어.”",
+  "action": "리프의 첫인사를 넘긴다.",
+  "done": "리프가 연습 밭을 가리키고 씨앗을 건네는 대화로 이어진다.",
+  "work": "첫인사는 플레이 화면 진입 후 재생한다. 손녀의 반응은 시선과 고개 끄덕임으로 표현한다."
  },
  {
   "id": "letter",
   "group": "intro",
-  "title": "편지를 읽고 리프의 씨앗 받기",
-  "letter": true,
+  "title": "리프에게 이슬풀 씨앗 받기",
   "xp": 20,
-  "screen": "손녀가 가져온 편지를 확대한다. 창이 닫히면 리프가 이슬풀 씨앗 주머니를 건넨다.",
-  "copy": "리프 “이건 내가 소중히 남겨 둔 씨앗이야. 이걸 한 번 심어볼래? 먼저 여기 한 칸만 같이 돌봐 보자!”",
-  "action": "편지를 읽고 닫은 뒤 리프의 씨앗을 받는다.",
+  "screen": "리프가 깨끗한 연습 밭 한 칸을 가리킨 뒤 이슬풀 씨앗을 내민다. 손녀가 받아 두 손에 올려 본다.",
+  "copy": "리프 “이건 내가 소중히 남겨 둔 씨앗이야. 이걸 한 번 심어볼래?”\n리프 “여기 이 작은 밭부터 같이 돌봐 보자. 내가 옆에서 알려줄게.”",
+  "action": "리프의 대화를 넘기고 씨앗을 받는다.",
   "done": "씨앗 1개 지급과 대사 완료 후 밭갈기 말풍선을 표시한다.",
-  "work": "기존 접은 쪽지·편지지·린넨 대화창 재사용. 화면에는 손녀가 가지고 온 편지만 펼친다."
+  "work": "씨앗을 받는 손동작으로 반응을 표현한다. 첫 씨앗 지급과 +20 XP는 이 단계 완료 때 한 번 처리한다."
  },
  {
   "id": "till",
@@ -3957,7 +3968,8 @@ const openingPlan = (() => {
   "screen": "물이 필요한 칸에 물방울 말풍선을 표시하고 가꾼 뒤 세 작물을 성숙시킨다.",
   "action": "지정된 3개 작물에 한 번씩 물을 준다.",
   "done": "칸당 10 XP. 셋 다 물주기를 마치면 짧은 성장 연출 후 수확을 연다.",
-  "work": "이 구간의 3개체에는 일반·황금·프리즘을 각각 1개씩 배정해 저장한다."
+  "work": "이 구간의 3개체에는 일반·황금·프리즘을 각각 1개씩 배정해 저장한다.",
+  "copy": "리프 “이번엔 세 칸 모두에 물을 줘 볼까? 물방울이 보이는 곳부터 하나씩 눌러 봐.”"
  },
  {
   "id": "trio-harvest",
@@ -4135,19 +4147,25 @@ const openingPlan = (() => {
   main:['intro','start','restore','variants','pets','progress','extra'],
   demo:['demo','demo-garden','demo-forest','extra']
  };
- const mainFlow = '편지 → 이슬풀 한 개 수확 → 물약·정화 → 세 가지 작물 수확 → 10연차·배치 → 첫 자동 수확 → 다음 지역 안내';
+ const mainFlow = '인트로 영상에서 편지 읽기 → 섬 도착과 리프의 인사 → 이슬풀 한 개 수확 → 물약·정화 → 세 가지 작물 수확 → 10연차·배치 → 첫 자동 수확 → 다음 지역 안내';
  const tutorialXP = stages.reduce((total, stage) => total + (stage.xp || 0), 0);
  const sectionUrl = '#chapter/01/section-7';
  const source = 'https://github.com/jeongian-snail/isle_of_verdure/blob/ded6282195bd880704ccc90461fe66145c29f3f1/';
  const letter = '사랑하는 손녀에게.\n\n내가 오랫동안 가꾸어 온 작은 숲이 있단다. 신록의 섬에 있는, 너에게 꼭 보여주고 싶던 곳이야.\n\n그 섬의 잎들이 조금씩 빛을 잃고 있단다. 지금은 할아버지가 그곳까지 갈 수가 없구나.\n\n네가 섬에 가면 리프를 찾아다오. 그 아이와 함께 숲과 그곳의 친구들을 돌봐 주었으면 좋겠구나.\n\n사랑을 담아, 할아버지가.';
  const qa = [
-  ['오프닝과 입력','리프의 첫인사 → 손녀의 편지 → 씨앗 안내 순서를 확인한다. 대화에서 누른 Space와 잘못된 대상의 입력으로 밭 작업이 실행되거나 단계가 넘어가지 않도록 확인한다.'],
+  ['오프닝과 입력','인트로 영상의 편지 전문 → 섬 도착과 리프의 첫인사 → 씨앗 안내 순서를 확인한다. 손녀는 표정·동작으로만 반응한다. 대화에서 누른 Space와 잘못된 대상의 입력으로 밭 작업이 실행되거나 단계가 넘어가지 않도록 확인한다.'],
   ['세 가지 수확과 보상','이어하기 후에도 지정 작물의 일반·황금·프리즘 종류를 유지한다. 어떤 순서로 수확해도 세 종류를 모두 얻을 때 한 번만 리프가 반응한다.'],
   ['10연차와 이어하기','지원권 지급, 10장 차감과 결과 10개 지급을 각각 한 번만 확정한다. 결과 확인 전에 종료하면 같은 결과를 다시 보여준다.'],
   ['배치와 첫 자동 수확','지정 작물이 범위 밖이면 첫 수확 이벤트를 기다린다. 유효 배치 후 지정 작물의 실제 자동 수확과 결과 지급이 확인되면 완료한다.'],
   ['경험치와 지역 개방','단계·개체별 중복 XP를 막고, Lv.2~5 보상을 각각 한 번 지급한다. 지도 안내는 초반에 완료할 수 있으며 실제 다음 지역 개방은 필수 정화·복원 완료 시 한 번 처리한다.'],
   ['브라우저 체험판과 친구 방문','체험판은 리프의 두 문장 요약, 모리의 첫 자동 물주기와 별도 저장 경로를 사용한다. 친구 방문 안내는 실제 방문 없이 진행할 수 있게 한다.']
  ];
+
+ const storyboard = {"name":"편지로 시작된 섬의 정원","url":"https://chatgpt.com/library?file_id=libfile_fde3_f-d85b5cac7ca88191b27a77647bf65d3b_ab934dccbc00819188464f6ff6c13a1e&account_id=personal"};
+
+ function renderArtLink(art, label) {
+  return `<p class="opening-art-reference"><a href="${esc(art.url)}">${esc(label)} · ${esc(art.name)} ↗</a> <small>원본 열람 권한 필요</small></p>`;
+ }
 
  function renderStage(stage, number, open, accordion) {
   const fields = [
@@ -4161,8 +4179,9 @@ const openingPlan = (() => {
   ];
   return `<details class="opening-stage" data-opening-stage="${stage.id}" ${accordion ? 'name="opening-stage"' : ''} ${open ? 'open' : ''}>
    <summary><b>${String(number).padStart(2, '0')}</b><span>${esc(stage.title)}</span>${stage.xp ? `<small class="opening-xp">+${stage.xp} XP</small>` : ''} </summary>
+   ${stage.art ? renderArtLink(stage.art, '장면 콘셉트 이미지') : ''}
    <dl>${fields.filter(([, value]) => value).map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
-   ${stage.letter ? `<blockquote><strong>편지 본문 후보</strong><p>${esc(letter)}</p></blockquote>` : ''}
+   ${stage.letter ? `<blockquote><strong>인트로 영상에 표시할 편지</strong><p>${esc(letter)}</p></blockquote>` : ''}
   </details>`;
  }
 
@@ -4174,7 +4193,7 @@ const openingPlan = (() => {
     number += 1;
     return renderStage(stage, number, print || (selected ? stage.id === selected : number === 1), !print);
    });
-   return `<div class="opening-phase"><h4>${labels[group]}</h4>${cards.join('')}</div>`;
+   return `<div class="opening-phase"><h4>${labels[group]}</h4>${group === 'intro' ? renderArtLink(storyboard, '인트로 콘티 원본') : ''}${cards.join('')}</div>`;
   }).join('');
  }
 
@@ -4182,7 +4201,7 @@ const openingPlan = (() => {
   return `<section class="doc-block opening-plan" ${print ? '' : 'data-opening-plan'}>
    <h3>초반 인트로 · 튜토리얼</h3>
    <p class="doc-paragraph">리프에게 받은 씨앗 하나로 시작해, 정화한 밭의 특별한 수확과 숲 친구들의 도움을 차례로 경험합니다.</p>
-   <p class="opening-note">본편 새 게임에 적용할 인트로·튜토리얼 개정안입니다. XP와 직접 보상 수량, 확정 모집 슬롯은 밸런스 시안입니다. 브라우저 체험판은 Unity 0.6.44 기준입니다.</p>
+   <p class="opening-note">본편에서는 할아버지의 편지를 인트로 영상에서 읽습니다. 섬에 도착한 뒤 손녀의 반응은 표정과 동작으로 보여줍니다. XP와 직접 보상 수량, 확정 모집 슬롯은 밸런스 시안입니다. 브라우저 체험판은 Unity 0.6.44 기준입니다.</p>
    ${print ? '<h4>본편 새 게임 · 개정안</h4>' : `<div class="opening-modes" role="group" aria-label="플레이 경로">
     <button type="button" data-opening-mode="main" aria-pressed="true">본편 새 게임</button>
     <button type="button" data-opening-mode="demo" aria-pressed="false">브라우저 체험판</button>
