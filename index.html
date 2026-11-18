@@ -149,6 +149,8 @@
 @media print{.opening-stage{break-inside:avoid}.opening-links{font-size:9pt}}
   </style>
 <style>
+.plant-design-intent h2{margin:0 0 8px;color:#314732;font:700 clamp(22px,3vw,30px)/1.35 var(--serif);word-break:keep-all}
+.doc-note.plant-design-intent{margin-top:16px}
 .doc-note.design-intent{margin:0 0 20px;padding:18px 22px;background:#edf2e5;border-left:4px solid #6e8a58;color:#314732}
 .chapter-header .design-intent,.summon-equipment header .design-intent{margin:16px 0 14px}
 .design-intent .design-intent-label{display:block;margin-bottom:5px;color:#496440;font-weight:800;font-size:12px;letter-spacing:.04em}
@@ -406,8 +408,16 @@
       <span class="collection-binding">ISLAND FIELD NOTES</span>
     </nav>
     <div id="plant-view">
+      <section id="plant-design-intent" class="doc-note green design-intent plant-design-intent" aria-label="식물 재배 기획 의도">
+        <h2>식물 재배 기획 의도</h2>
+        <p>잠깐 접속해도 가볍게 재배를 반복하고, 게임을 끌 때도 남은 밭을 활용할 수 있도록 작물마다 자라는 시간을 다르게 설계했습니다.</p>
+        <dl class="design-intent-choices">
+          <div><dt>15초·30초 등 1분 이내 · 접속 중 반복 재배</dt><dd>심고, 물 주고, 수확하는 일을 복잡한 판단 없이 계속 반복할 수 있게 만든 작물입니다.</dd></div>
+          <div><dt>20분부터 1시간 이상 · 종료 전에 심어 두기</dt><dd>게임을 끌 때 빈 밭을 남겨 두기 아깝다면 오래 자라는 작물을 심어 두면 됩니다. 첫 물주기를 마치면 접속을 종료해도 자라므로, 다음에 돌아와 수확할 수 있습니다.</dd></div>
+        </dl>
+        <p><a class="table-link" href="#chapter/03/section-8">품종별 생장 시간 보기 ↗</a></p>
+      </section>
       <div class="section-caption"><p><span class="tiny-leaf">❧</span> BOTANICAL COLLECTION <span>식물 표본집</span></p><span>식물 카드를 선택해 기획 정보를 살펴보세요</span></div>
-      <div data-design-intent="#plants"></div>
       <aside id="common-cultivation-summary" class="common-cultivation-summary" aria-label="확정된 공통 재배 규칙"></aside>
       <nav class="garden-plan-nav plant-cross-links" aria-label="식물 관련 시스템"><a href="#chapter/18">정화 물약</a><a href="#workshop/dye">꽃빛 염색 작업대</a><a href="#map">탐험 지도</a></nav>
       <section class="book" id="plant-book" aria-label="전체 식물 기획 데이터">
@@ -4415,9 +4425,19 @@ function renderPlantGrowth(b) {
   <div class="table-scroll"><table><thead><tr><th scope="col">식물</th><th scope="col">기본 성숙</th><th scope="col">추가 물주기 시점</th><th scope="col">최대 단축</th></tr></thead><tbody>${rows.join('')}</tbody></table></div></section>`;
 }
 
+const plantIntentSection = $('#plant-design-intent');
+const plantIntent = {
+ title: plantIntentSection.querySelector('h2').textContent,
+ intent: plantIntentSection.querySelector('p').textContent,
+ choices: Array.from(plantIntentSection.querySelectorAll('dl > div'), choice => [
+  choice.querySelector('dt').textContent,
+  choice.querySelector('dd').textContent
+ ])
+};
+
 const designIntents = [
- {"key":"plant-timing","href":"#plants","title":"짧게 반복하고, 접속을 끊을 땐 심어 두기","intent":"지금 잠깐 반복해서 가꾸거나, 게임을 끄기 전에 여유 밭에 심어 두는 두 가지 재배 방식에 맞춰 작물의 생장 시간을 나눴습니다.","choices":[["15초·30초처럼 1분 이내 · 접속 중에 반복 재배","심기, 물주기, 수확을 짧게 이어가며 복잡한 판단 없이 계속 밭을 가꾸는 재미를 줍니다."],["20분·1시간 이상 · 접속을 마치기 전에 심어 두기","남은 밭을 비워 두고 종료하는 게 아깝게 느껴질 때 오래 자라는 작물을 심을 수 있습니다. 첫 물주기를 마치면 접속을 종료해도 기본 시간대로 자라 다음에 돌아와 수확할 수 있습니다."]],"relatedHref":"#chapter/03/section-8","relatedTitle":"품종별 생장 시간"},
- {"key":"plant-growth-timing","href":"#chapter/03/section-8","title":"짧게 반복하고, 접속을 끊을 땐 심어 두기","intent":"지금 잠깐 반복해서 가꾸거나, 게임을 끄기 전에 여유 밭에 심어 두는 두 가지 재배 방식에 맞춰 작물의 생장 시간을 나눴습니다.","choices":[["15초·30초처럼 1분 이내 · 접속 중에 반복 재배","심기, 물주기, 수확을 짧게 이어가며 복잡한 판단 없이 계속 밭을 가꾸는 재미를 줍니다."],["20분·1시간 이상 · 접속을 마치기 전에 심어 두기","남은 밭을 비워 두고 종료하는 게 아깝게 느껴질 때 오래 자라는 작물을 심을 수 있습니다. 첫 물주기를 마치면 접속을 종료해도 기본 시간대로 자라 다음에 돌아와 수확할 수 있습니다."]],"relatedHref":"#plants","relatedTitle":"식물 표본집"},
+ {href: '#plants', ...plantIntent, relatedHref: '#chapter/03/section-8', relatedTitle: '품종별 생장 시간'},
+ {href: '#chapter/03/section-8', ...plantIntent, relatedHref: '#plants', relatedTitle: '식물 표본집'},
  {"key":"plant-variety","href":"#chapter/02","title":"새 지역을 열 때마다 늘어나는 수집과 배치 선택","intent":"지역마다 다른 식물을 만나면 도감의 빈칸이 채워집니다. 발견한 식물을 정원에 심어 색과 크기가 다른 풍경을 만들고, 특별 수확물을 얻으면 다음 수집 목표를 발견합니다."},
  {"key":"economy","href":"#chapter/14","title":"수확한 재료를 다음 목표에 쓰는 재미","intent":"오늘 수확한 재료를 정화, 가구 제작, 판매 중 어디에 쓸지 고르면 다음에 무엇을 키울지가 정해집니다. 스킨과 프로필 장식은 취향에 따라 선택하는 외형 상품으로 구상합니다."},
  {"key":"art","href":"#chapter/08","title":"작은 변화로 식물과 동물의 개성 전달","intent":"식물의 성장 단계와 동물의 역할을 형태와 움직임으로 읽을 수 있게 합니다. 표본집 같은 색감과 질감은 관찰을 중심으로 한 차분한 분위기를 만듭니다."},
@@ -4487,7 +4507,7 @@ function mountDesignIntents(container) {
 }
 
 function searchDesignIntents(query) {
- return designIntents.filter(item => [item.title, item.intent, item.detail, item.proposal].join(' ').toLowerCase().includes(query))
+ return designIntents.filter(item => [item.title, item.intent, item.detail, item.proposal, ...item.choices?.flat() || []].join(' ').toLowerCase().includes(query))
   .map(item => ({url: item.href, title: item.title, description: item.intent}));
 }
 
@@ -4798,7 +4818,7 @@ function route(initial=false){
   if (plant) {
    if (!filteredPlants().includes(plant)) resetFilters(false);
    selectPlant(plant.id);
-   sectionTarget = $('#plant-detail');
+   sectionTarget = plantIntentSection;
   }
   document.title = '식물 표본집 — 신록의 섬 포트폴리오';
  }
