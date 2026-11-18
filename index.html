@@ -126,6 +126,8 @@
 .opening-stage,.opening-qa,.opening-legacy{border:1px solid #d5d9c5;border-radius:6px;background:#fbf9ef;margin:7px 0}
 .opening-stage[open]{border-color:#91a583;background:#fffdf5}
 .opening-stage summary,.opening-qa summary,.opening-legacy summary{min-height:44px;cursor:pointer;padding:9px 13px;font-weight:650;color:#3c543e}
+.opening-stage .opening-xp{display:inline-block;margin-left:8px;padding:1px 7px;background:#e7eedb;color:#385337;border-radius:10px;font-size:11px;white-space:nowrap}
+.opening-rewards{margin:14px 0}
 .opening-stage summary b{margin:0 10px 0 5px;color:#5b7253;font-variant-numeric:tabular-nums}
 .opening-stage dl,.opening-qa dl{margin:0;padding:0 14px 10px}
 .opening-stage dl>div,.opening-qa dl>div{display:grid;grid-template-columns:125px minmax(0,1fr);gap:3px 12px;padding:8px 0;border-top:1px solid #e1e2d3}
@@ -240,7 +242,7 @@
     </section>
     <section id="summon-view" class="shop-view garden-plan" aria-labelledby="summon-title" hidden>
       <header class="shop-header">
-        <div><h2 id="summon-title">펫 뽑기</h2><p>숲의 친구 소환에서 동물 친구와 전용 장비를 만나요.</p></div>
+        <div><h2 id="summon-title">펫 뽑기</h2><p>숲의 친구 소환에서 동물 친구와 전용 장비를 만나요.</p><p><a class="opening-quest-link" href="#chapter/01/section-7/recruit">본편 튜토리얼 첫 10연차 개정안 ↗</a></p></div>
       </header>
       <nav class="garden-plan-nav" aria-label="펫 뽑기 기획 목차">
         <a href="#summon/odds">일반 소환 확률</a>
@@ -2217,9 +2219,13 @@ const CHAPTERS=[
         ],
         "rows": [
           [
-            "튜토리얼 퀘스트 완료",
-            "+20 XP",
-            "완료가 확정된 튜토리얼 퀘스트 ID당 1회"
+            "본편 인트로 튜토리얼 · 개정안",
+            "단계·개체별 지급 · 합계 600 XP",
+            {
+              "text": "지정 행동 성공당 1회. 튜토리얼 대상의 일반 행동 XP와 중복 지급하지 않습니다.",
+              "href": "#chapter/01/section-7",
+              "linkText": "행동별 XP와 보상"
+            }
           ],
           [
             "야생 식물 정화",
@@ -2330,7 +2336,7 @@ const CHAPTERS=[
             "kind": "bullets",
             "title": "퀘스트와 함께 지급되는 경우",
             "items": [
-              "튜토리얼 퀘스트 4개의 완료 XP만 합산하면 80 XP로 Lv.2에 도달합니다. 퀘스트 완료와 조건이 성립한 수확은 각각 계산합니다.",
+              "본편 인트로 개정안은 이슬풀 첫 수확을 마칠 때 누적 130 XP로 Lv.2, 지도 안내를 마칠 때 누적 600 XP로 Lv.5에 도달합니다. 통과한 레벨 보상은 각각 한 번 지급합니다.",
               "일반 수확 8개체, 주간 퀘스트 1개, 도안의 첫 제작 1회, 새 색 첫 적용 1회의 합은 90 XP입니다.",
               "일일 퀘스트 리프의 부탁은 기본 과제당 새싹 코인 5개를 지급하는 안입니다. 과제 중 수확은 일반 수확과 종별 첫 수확의 XP 기준도 각각 적용합니다.",
               "친구 정원 좋아요와 작은 물통 선물의 보상은 행동재화인 물뿌리개 충전량입니다."
@@ -3850,22 +3856,166 @@ const openingPlan = (() => {
   "id": "arrival",
   "group": "intro",
   "title": "리프가 지켜 낸 정원",
-  "screen": "숲 가장자리의 바랜 잎을 짧게 비춘 뒤 기존 리프의 정원 카메라로 연결한다. 리프는 잡초를 뽑고 손녀가 아래쪽에서 걸어온다.",
-  "copy": "리프 “끄응..!” → “이 정원만큼은 어떻게든 지켜냈어.”",
-  "action": "도착 연출과 첫 대사를 확인한다.",
-  "done": "기존 리프 오프닝 진입과 손녀의 접근 연출이 끝나면 쪽지 전달.",
-  "work": "바랜 잎 컷은 연출안. 잡초 뽑기·손녀 접근·정원 카메라는 기존 오프닝 재사용. 오염 원인은 이후 이야기에서 공개할 수 있도록 남긴다."
+  "screen": "숲 가장자리의 바랜 잎을 보여준 뒤 리프의 정원으로 전환한다. 손녀가 들어오면 리프가 다가와 반갑게 맞이한다.",
+  "copy": "리프 “와, 어서 와! 네가 할아버지의 손녀구나? 나도 할아버지가 보내신 편지를 받아서 네 얘기를 들었어!”",
+  "action": "리프의 인사를 확인한다.",
+  "done": "리프가 손녀를 맞이하면 손녀가 가져온 편지를 함께 읽는다.",
+  "work": "정원 카메라와 등장 동작 재사용. 손녀에게 온 편지 한 통과 리프가 미리 받은 연락은 별개다. 리프 쪽 편지는 대사로만 언급한다."
  },
  {
   "id": "letter",
   "group": "intro",
-  "title": "리프와 함께 편지를 읽다",
-  "screen": "손녀가 같은 쪽지를 리프에게 건넨다. 편지 확대창에서 전문을 처음 보여주고, 닫으면 리프가 손녀를 알아본다.",
-  "copy": "리프 “어라? 당신은 누구세요?” → “누군갈 닮았는데...” → 편지 → “앗..! 그분의 손녀시구나.”\n연결 대사안 “숲에 가기 전에, 이 작은 밭부터 함께 돌봐요.”",
+  "title": "편지를 읽고 리프의 씨앗 받기",
   "letter": true,
-  "action": "편지를 읽고 클릭·Enter·Space로 닫은 뒤 리프의 대사를 확인한다.",
-  "done": "편지를 닫고 마지막 안내를 확인하면 밭갈기 단계로 진입.",
-  "work": "기존 grandfather_note_folded·grandfather_letter·리프 초상·린넨 대화창 활용. 편지 본문 후보와 연결 대사 검토."
+  "xp": 20,
+  "screen": "손녀가 가져온 편지를 확대한다. 창이 닫히면 리프가 이슬풀 씨앗 주머니를 건넨다.",
+  "copy": "리프 “이건 내가 소중히 남겨 둔 씨앗이야. 이걸 한 번 심어볼래? 먼저 여기 한 칸만 같이 돌봐 보자!”",
+  "action": "편지를 읽고 닫은 뒤 리프의 씨앗을 받는다.",
+  "done": "씨앗 1개 지급과 대사 완료 후 밭갈기 말풍선을 표시한다.",
+  "work": "기존 접은 쪽지·편지지·린넨 대화창 재사용. 화면에는 손녀가 가지고 온 편지만 펼친다."
+ },
+ {
+  "id": "till",
+  "group": "start",
+  "title": "연습 밭 한 칸 일구기",
+  "xp": 20,
+  "screen": "깨끗한 연습 밭 위에 괭이 말풍선을 표시한다.",
+  "copy": "리프 “흙부터 부드럽게 만들어 볼까? 괭이 말풍선을 눌러 봐!”",
+  "action": "밭 근처에서 Space를 누르거나 괭이 말풍선을 클릭한다.",
+  "done": "지정 칸의 밭갈기 성공 후 파종 안내로 넘어간다."
+ },
+ {
+  "id": "sow",
+  "group": "start",
+  "title": "이슬풀 씨앗 한 개 심기",
+  "xp": 25,
+  "screen": "밭 위 씨앗 주머니 말풍선과 씨앗 선택창을 보여준다.",
+  "copy": "리프 “아까 준 이슬풀 씨앗을 여기 심으면 돼.”",
+  "action": "씨앗 목록에서 받은 이슬풀 씨앗을 골라 심는다.",
+  "done": "이슬풀 1개 파종 성공 후 물주기를 연다."
+ },
+ {
+  "id": "water",
+  "group": "start",
+  "title": "물주고 첫 작물 키우기",
+  "xp": 25,
+  "screen": "물방울 말풍선 → 물주기 → 짧은 성장 연출.",
+  "copy": "리프 “씨앗이 목마른가 봐. 물을 조금 줘 볼래?”",
+  "action": "밭 근처 Space 또는 말풍선으로 물을 준다.",
+  "done": "물주기 성공에 XP를 지급한다. 첫 연습 작물은 짧은 연출 후 수확 가능 상태가 된다.",
+  "work": "튜토리얼 전용 성장 연출. 일반 재배는 해당 작물의 생장 규칙을 따른다."
+ },
+ {
+  "id": "harvest",
+  "group": "start",
+  "title": "이슬풀 하나 수확하기",
+  "xp": 40,
+  "reward": "이슬풀 1개 · 새싹 코인 20개",
+  "screen": "성숙한 이슬풀 위에 수확 말풍선을 띄운다.",
+  "copy": "리프 “벌써 다 자랐어! 이슬풀을 거두면 오염된 곳을 되살리는 데 쓸 수 있어.”",
+  "action": "연습 밭의 이슬풀 1개를 직접 수확한다.",
+  "done": "수확물을 가방에 넣고 솥에 안내 표시를 띄운다."
+ },
+ {
+  "id": "potion",
+  "group": "restore",
+  "title": "솥에서 첫 정화 물약 만들기",
+  "xp": 45,
+  "screen": "솥의 제작 목록에 일반 정화 물약과 재료 수량을 강조한다.",
+  "copy": "리프 “이슬풀 하나로 정화 물약을 만들 수 있어. 이걸 쓰면 오염된 밭에서도 다시 작물을 키울 수 있단다.”",
+  "action": "솥을 열어 이슬풀 1개로 일반 정화 물약 1개를 만든다.",
+  "done": "재료 소모와 완성품 지급을 확인한 뒤 오염지로 안내한다.",
+  "work": "첫 필수 제작은 성공 보장. 기존 지도 전환과 루미 등장을 연결할 수 있다."
+ },
+ {
+  "id": "cleanse",
+  "group": "restore",
+  "title": "오염된 밭을 정화하기",
+  "xp": 55,
+  "reward": "연습용 이슬풀 씨앗 3개 · 일반 정화 물약 2개",
+  "screen": "오염된 튜토리얼 밭을 강조한다. 정화 후 이어지는 3연습 칸을 표시한다.",
+  "copy": "리프 “여기, 흙빛이 돌아온 거 보여? 이제 이곳에도 씨앗을 심을 수 있어!”",
+  "action": "강조된 밭에 정화 물약을 사용한다.",
+  "done": "지정 밭의 정화 성공 후 연습에 쓸 3칸과 씨앗을 제공한다.",
+  "work": "3칸은 방금 정화한 1칸과 이미 준비된 밭 2칸으로 구성하는 안. 지급한 물약 2개는 본 작업을 이어갈 여분이다."
+ },
+ {
+  "id": "trio-sow",
+  "group": "variants",
+  "title": "정화한 밭에 씨앗 세 개 심기",
+  "xp": 30,
+  "screen": "연습 구역의 빈 밭 세 칸을 강조한다.",
+  "copy": "리프 “이번엔 세 칸에 하나씩 심어보자. 내가 옆에서 보고 있을게.”",
+  "action": "지정된 3칸에 이슬풀 씨앗을 1개씩 심는다.",
+  "done": "칸당 10 XP. 지정된 세 칸이 파종 상태가 되면 물주기를 연다."
+ },
+ {
+  "id": "trio-water",
+  "group": "variants",
+  "title": "세 칸에 물 주기",
+  "xp": 30,
+  "screen": "물이 필요한 칸에 물방울 말풍선을 표시하고 가꾼 뒤 세 작물을 성숙시킨다.",
+  "action": "지정된 3개 작물에 한 번씩 물을 준다.",
+  "done": "칸당 10 XP. 셋 다 물주기를 마치면 짧은 성장 연출 후 수확을 연다.",
+  "work": "이 구간의 3개체에는 일반·황금·프리즘을 각각 1개씩 배정해 저장한다."
+ },
+ {
+  "id": "trio-harvest",
+  "group": "variants",
+  "title": "일반·황금·프리즘 작물 수확하기",
+  "xp": 75,
+  "reward": "일반·황금·프리즘 이슬풀 각 1개 · 새싹 코인 30개",
+  "screen": "일반 작물, 금빛이 도는 황금, 빛이 번지는 프리즘을 각각 보여준다. 마지막 수확 직후 리프의 놀란 표정 컷.",
+  "copy": "리프 “잠깐, 저 금빛은… 황금 작물이야! 어, 옆에는 프리즘까지?! 둘 다 정말 낮은 확률로 나오는데 한 번에 둘이나 키웠어? 너 역시 재능충이구나!”",
+  "action": "세 작물을 각각 직접 거둔다. 수확 순서는 자유다.",
+  "done": "개체당 25 XP. 세 결과를 모두 획득하면 리프가 반응하고 펫 모집을 안내한다.",
+  "work": "튜토리얼 1회 확정 결과. 일반 재배의 황금·프리즘 등장 확률은 별도 밸런스 기획을 따른다."
+ },
+ {
+  "id": "recruit",
+  "group": "pets",
+  "title": "소환권을 받고 첫 10연차 하기",
+  "xp": 55,
+  "reward": "튜토리얼 소환권 10장 지급 후 10연차에 사용 · 결과 10개",
+  "screen": "리프가 안내하면 오른쪽 아래 펫 버튼과 모집 화면의 10연차 버튼을 순서대로 강조한다.",
+  "copy": "리프 “수확할 때는 숲 친구들의 도움을 받을 수 있어! 친구들을 부르는 소환권을 네 소매에 넣어 뒀어. 펫 버튼을 눌러서 열 번 불러볼까?”",
+  "action": "펫 버튼 → 10연차 → 결과 확인.",
+  "done": "튜토리얼용 소환권 10장이 소비되고, 수확형 펫을 포함한 10개 결과가 확정되면 배치 안내를 연다.",
+  "work": "첫 10연차의 10개 슬롯 중 1칸에 수확형 펫 소리 확정 지급 시안. 나머지 9칸은 일반 모집 규칙을 적용하며 확정 슬롯과 보장 카운트 연동은 밸런스 결정 대기."
+ },
+ {
+  "id": "place",
+  "group": "pets",
+  "title": "수확형 펫 배치하기",
+  "xp": 45,
+  "screen": "왼쪽 아래 배치 버튼, 소리, 관리 범위를 순서대로 강조한다. 리프가 준비한 성숙 작물 한 칸을 표시한다.",
+  "copy": "리프 “소리를 밭 가까이에 놓아 보자. 다 자란 이 작물이 소리의 관리 범위에 들어오면 돼!”",
+  "action": "배치 화면에서 수확형 펫을 선택하고 성숙 작물을 범위에 포함하도록 놓는다.",
+  "done": "지정 작물이 펫의 유효 범위에 들어가는 배치를 확정하면 자동 수확 단계로 진행.",
+  "work": "기존 배치 모서리·방향 미리보기 사용. 잘못된 위치는 범위 안내만 표시한다."
+ },
+ {
+  "id": "auto-harvest",
+  "group": "pets",
+  "title": "펫의 첫 자동 수확 지켜보기",
+  "xp": 55,
+  "screen": "펫이 준비된 작물에 접근해 수확하고 가방에 결과가 들어가는 모습을 강조한다.",
+  "copy": "리프 “봤어? 이제 이렇게 친구가 대신 거둬 줄 수 있어. 네가 다른 밭을 돌보는 동안에도 말이야!”",
+  "action": "펫이 준비된 작물을 자동 수확하는 모습을 본다.",
+  "done": "펫이 지정 작물을 실제 수확하고 결과가 정산되면 지역 해금 안내가 나온다.",
+  "work": "튜토리얼의 첫 유효 배치 직후 자동 수확 1회 시안. 직접 수확은 안내 작물에서 잠시 제한해 교육 이벤트를 보존한다."
+ },
+ {
+  "id": "next-region",
+  "group": "progress",
+  "title": "다음 지역을 여는 정화 조건 확인",
+  "xp": 80,
+  "reward": "새싹 코인 50개 · 일반 정화 물약 3개",
+  "screen": "지도를 열어 현재 지역의 구역별 정화 진행도와 다음 지역의 잠금 조건을 보여준다.",
+  "copy": "리프 “이 지역의 오염된 구역을 모두 되살리면 지도에서 다음 지역이 열려. 그곳에서도 정화 물약으로 땅을 되살릴 수 있어!”",
+  "action": "지도를 열고 남은 정화 구역과 다음 지역을 확인한다.",
+  "done": "지도 안내 확인 시 튜토리얼 완료. 이후 현재 지역의 필수 구역 전체 정화·핵심 나무가 있다면 복원 완료 시 다음 지역이 열려 정화를 이어갈 수 있다.",
+  "work": "튜토리얼 완료와 실제 지도 해금은 별도 이벤트. 진행 중에는 남은 필수 구역 수를, 완료 시에는 새 지역 활성화와 진입 버튼을 표시한다. 선택 정화는 필수 진행도에서 제외하는 안."
  },
  {
   "id": "summary",
@@ -3878,8 +4028,8 @@ const openingPlan = (() => {
   "work": "체험판 저장에서 요약 진행 위치를 복원한다."
  },
  {
-  "id": "till",
-  "group": "garden",
+  "id": "demo-till",
+  "group": "demo-garden",
   "title": "연습 밭 한 칸 일구기",
   "screen": "리프가 깨끗한 연습 밭 한 칸을 안내한다. 밭 위에 괭이 말풍선을 표시한다.",
   "copy": "리프 “먼저 밭을 일궈볼까요? 가까이서 Space를 누르거나 괭이 말풍선을 클릭해보세요.”",
@@ -3888,8 +4038,8 @@ const openingPlan = (() => {
   "work": "대상 칸과 밭갈기 성공을 확인한 뒤 진행."
  },
  {
-  "id": "sow",
-  "group": "garden",
+  "id": "demo-sow",
+  "group": "demo-garden",
   "title": "이슬풀 씨앗 받기와 파종",
   "screen": "씨앗 3개를 받고 밭의 씨앗 주머니 말풍선으로 씨앗 선택창을 연다.",
   "copy": "리프 “이슬풀 씨앗을 드릴게요. 밭 가까이서 Space를 누르거나 씨앗 주머니 말풍선을 클릭해 이슬풀을 골라보세요.”",
@@ -3898,8 +4048,8 @@ const openingPlan = (() => {
   "work": "씨앗 3개 최초 1회 지급. 선택창을 닫거나 다시 열어도 파종 전 단계 유지."
  },
  {
-  "id": "water",
-  "group": "garden",
+  "id": "demo-water",
+  "group": "demo-garden",
   "title": "물주기와 첫 성장 연출",
   "screen": "파종한 연습 밭에 물방울 말풍선을 띄운다. 성장 안내 뒤 수확 가능한 이슬풀을 표시한다.",
   "copy": "리프 “물을 주면 식물이 자라기 시작해요.”\n“이번에는 연습을 위해 자라는 시간을 건너뛰고, 수확까지 해볼게요.”",
@@ -3908,8 +4058,8 @@ const openingPlan = (() => {
   "work": "시간 생략은 첫 연습 작물에만 적용. 일반 이슬풀은 물주기 후 게임 실행 시간 기준 30초."
  },
  {
-  "id": "harvest",
-  "group": "garden",
+  "id": "demo-harvest",
+  "group": "demo-garden",
   "title": "첫 수확과 루미의 부탁",
   "screen": "연습 밭에 이슬풀 말풍선. 수확과 리프의 마무리 대화 뒤 루미가 도움을 청하러 온다.",
   "copy": "리프 “다 자랐네요! 가까이서 Space를 누르거나 이슬풀이 그려진 말풍선을 클릭해 수확해보세요.”",
@@ -3918,14 +4068,51 @@ const openingPlan = (() => {
   "work": "첫 수확과 루미 등장 상태 보존. 첫 물약의 이슬풀 재료가 인벤토리에 있는지 확인."
  },
  {
-  "id": "potion",
-  "group": "garden",
+  "id": "demo-potion",
+  "group": "demo-garden",
   "title": "일반 정화 물약 만들기",
   "screen": "솥 위 물약 말풍선과 제작 목록을 열어 일반 정화 물약을 안내한다. 제작 뒤 지도 연출로 숲속 정원으로 간다.",
   "copy": "리프 “이슬풀 1개로 정화 물약 하나를 만들 수 있어요. 방향키로 고른 뒤 Space나 Enter를 누르거나, 만들기 버튼을 클릭해보세요.”",
   "action": "솥 근처 Space 또는 말풍선으로 열고 제작을 확정한다.",
   "done": "이슬풀 1개 소모·일반 정화 물약 1개 지급과 안내 확인 뒤 숲속 정원 진입.",
   "work": "첫 제작 성공을 기준으로 숲 이동을 연결. 온라인판의 친구 수첩 사용도 이 제작 뒤 열린다."
+ },
+ {
+  "id": "demo-cleanse",
+  "group": "demo-forest",
+  "title": "숲속 정원의 오염 밭 정화",
+  "screen": "오염된 숲속 정원에서 정화 가능한 밭과 진행도를 보여준다.",
+  "action": "일반 정화 물약으로 오염된 밭을 정화한다.",
+  "done": "본편은 숲속 정원 60칸 정화, 체험판은 준비된 59칸의 마지막 1칸 정화 후 B 큰 자작나무 조사 가능.",
+  "work": "정화 성공 시 시각 변화·카운트 갱신. 같은 칸을 재입력해도 카운트와 소비가 중복되지 않는지 확인."
+ },
+ {
+  "id": "birch",
+  "group": "demo-forest",
+  "title": "큰 자작나무와 숲 전체 복원",
+  "screen": "B 큰 자작나무를 조사하면 숲숨 물약을 안내한다. 나무에 사용하면 숲과 땅이 천천히 회복된다.",
+  "action": "구름라벤더 1개와 바람잎 1개로 숲숨 물약을 만들고 큰 자작나무에 적용한다.",
+  "done": "나무 정화와 숲 복원 완료 후 첫 펫 모집 안내.",
+  "work": "체험판에서는 나무 조사 후 두 재료를 최초 1회 지원. 본편은 기존 재료 획득 흐름 사용."
+ },
+ {
+  "id": "demo-recruit",
+  "group": "demo-forest",
+  "title": "펫 버튼으로 첫 모리 만나기",
+  "screen": "복원 대화 뒤 오른쪽 아래 펫 버튼을 강조한다. 모집 화면과 기존 편지 개봉 연출을 사용한다.",
+  "copy": "연결 대사안 “숲에 돌아온 친구들이 정원 일을 도와줄 거예요. 화면 아래 펫 버튼을 눌러 모리를 만나볼까요?”",
+  "action": "펫 버튼 → 첫 모집 → 결과 확인.",
+  "done": "모집권 1장 소비, 모리 확정 지급과 결과 확인 후 배치 안내.",
+  "work": "해금 시 최초 모집권 2장 지급 기준. 첫 모집 결과는 계정 진행에 한 번 확정하고, 재진입은 저장된 결과를 복원한다. 새 이동 동선 없이 HUD 사용."
+ },
+ {
+  "id": "demo-place",
+  "group": "demo-forest",
+  "title": "모리 배치와 첫 자동 물주기",
+  "screen": "리프의 린넨 안내와 왼쪽 아래 배치 버튼 강조. 유효한 배치 범위에 연습 이슬풀이 들어오면 모리가 물을 준다.",
+  "action": "배치 화면에서 모리를 놓고 첫 자동 물주기를 확인한다.",
+  "done": "실제 물주기와 마무리 대화 확인. 본편은 이슬빛 초원 안내, 체험판은 모집권 10장 1회 지급 후 자유 플레이.",
+  "work": "잘못된 위치·범위에서 완료되지 않는지 확인. 첫 유효 배치는 즉시 물주기, 이후는 기존 20초 주기."
  },
  {
   "id": "friends",
@@ -3936,55 +4123,30 @@ const openingPlan = (() => {
   "action": "안내를 읽는다. 원하면 온라인판에서 수첩 → 친구 목록 → 방문 → 내 정원으로.",
   "done": "안내를 읽거나 닫으면 계속. 실제 방문은 본편 필수 진행 조건에서 제외하는 안.",
   "work": "대사·노출 시점은 시안. 기존 친구·공개 정원 권한을 따르고 체험판은 온라인판 이용 안내를 표시. 선착장 동선 없이 HUD 진입."
- },
- {
-  "id": "cleanse",
-  "group": "forest",
-  "title": "숲속 정원의 오염 밭 정화",
-  "screen": "오염된 숲속 정원에서 정화 가능한 밭과 진행도를 보여준다.",
-  "action": "일반 정화 물약으로 오염된 밭을 정화한다.",
-  "done": "본편은 숲속 정원 60칸 정화, 체험판은 준비된 59칸의 마지막 1칸 정화 후 B 큰 자작나무 조사 가능.",
-  "work": "정화 성공 시 시각 변화·카운트 갱신. 같은 칸을 재입력해도 카운트와 소비가 중복되지 않는지 확인."
- },
- {
-  "id": "birch",
-  "group": "forest",
-  "title": "큰 자작나무와 숲 전체 복원",
-  "screen": "B 큰 자작나무를 조사하면 숲숨 물약을 안내한다. 나무에 사용하면 숲과 땅이 천천히 회복된다.",
-  "action": "구름라벤더 1개와 바람잎 1개로 숲숨 물약을 만들고 큰 자작나무에 적용한다.",
-  "done": "나무 정화와 숲 복원 완료 후 첫 펫 모집 안내.",
-  "work": "체험판에서는 나무 조사 후 두 재료를 최초 1회 지원. 본편은 기존 재료 획득 흐름 사용."
- },
- {
-  "id": "recruit",
-  "group": "forest",
-  "title": "펫 버튼으로 첫 모리 만나기",
-  "screen": "복원 대화 뒤 오른쪽 아래 펫 버튼을 강조한다. 모집 화면과 기존 편지 개봉 연출을 사용한다.",
-  "copy": "연결 대사안 “숲에 돌아온 친구들이 정원 일을 도와줄 거예요. 화면 아래 펫 버튼을 눌러 모리를 만나볼까요?”",
-  "action": "펫 버튼 → 첫 모집 → 결과 확인.",
-  "done": "모집권 1장 소비, 모리 확정 지급과 결과 확인 후 배치 안내.",
-  "work": "해금 시 최초 모집권 2장 지급 기준. 첫 모집 결과는 계정 진행에 한 번 확정하고, 재진입은 저장된 결과를 복원한다. 새 이동 동선 없이 HUD 사용."
- },
- {
-  "id": "place",
-  "group": "forest",
-  "title": "모리 배치와 첫 자동 물주기",
-  "screen": "리프의 린넨 안내와 왼쪽 아래 배치 버튼 강조. 유효한 배치 범위에 연습 이슬풀이 들어오면 모리가 물을 준다.",
-  "action": "배치 화면에서 모리를 놓고 첫 자동 물주기를 확인한다.",
-  "done": "실제 물주기와 마무리 대화 확인. 본편은 이슬빛 초원 안내, 체험판은 모집권 10장 1회 지급 후 자유 플레이.",
-  "work": "잘못된 위치·범위에서 완료되지 않는지 확인. 첫 유효 배치는 즉시 물주기, 이후는 기존 20초 주기."
  }
 ];
- const labels = {intro:'오프닝 콘티 · 적용안', demo:'체험판 오프닝 · 구현 기준', garden:'리프의 정원 · 조작 튜토리얼', forest:'숲 복원과 모리 · 구현 기준', extra:'친구 방문 · 안내 시안'};
- const groups = {main:['intro','garden','forest','extra'], demo:['demo','garden','forest','extra']};
+ const labels = {
+  intro:'오프닝과 리프의 첫인사', start:'첫 이슬풀 재배', restore:'물약 제작과 첫 정화',
+  variants:'일반·황금·프리즘 수확', pets:'펫 10연차와 자동 수확', progress:'다음 지역 해금 안내',
+  demo:'체험판 오프닝', 'demo-garden':'체험판 재배·물약', 'demo-forest':'체험판 숲 복원과 모리',
+  extra:'친구 방문 · 선택 안내 시안'
+ };
+ const groups = {
+  main:['intro','start','restore','variants','pets','progress','extra'],
+  demo:['demo','demo-garden','demo-forest','extra']
+ };
+ const mainFlow = '편지 → 이슬풀 한 개 수확 → 물약·정화 → 세 가지 작물 수확 → 10연차·배치 → 첫 자동 수확 → 다음 지역 안내';
+ const tutorialXP = stages.reduce((total, stage) => total + (stage.xp || 0), 0);
  const sectionUrl = '#chapter/01/section-7';
  const source = 'https://github.com/jeongian-snail/isle_of_verdure/blob/ded6282195bd880704ccc90461fe66145c29f3f1/';
  const letter = '사랑하는 손녀에게.\n\n내가 오랫동안 가꾸어 온 작은 숲이 있단다. 신록의 섬에 있는, 너에게 꼭 보여주고 싶던 곳이야.\n\n그 섬의 잎들이 조금씩 빛을 잃고 있단다. 지금은 할아버지가 그곳까지 갈 수가 없구나.\n\n네가 섬에 가면 리프를 찾아다오. 그 아이와 함께 숲과 그곳의 친구들을 돌봐 주었으면 좋겠구나.\n\n사랑을 담아, 할아버지가.';
  const qa = [
-  ['오프닝과 이어하기','새 게임·편지 확대 직전과 직후·튜토리얼 완료 저장으로 각각 진입한다. 저장한 단계에서 진행하고 이미 끝낸 컷은 다시 재생되지 않는지 확인한다.'],
-  ['입력과 행동 판정','대화에서 누른 Space가 밭에 전달되지 않는지 확인한다. 대상 밖 입력, 잘못된 씨앗, 잘못된 배치, 창을 닫았다 다시 여는 경우에도 올바른 행동 전에는 단계가 넘어가지 않아야 한다.'],
-  ['재료와 일회성 보상','씨앗 3개, 첫 수확, 물약 제작, 모리 모집 및 체험 보상에서 중복 입력·이어하기 뒤 획득과 차감이 한 번만 확정되는지 확인한다.'],
-  ['경로별 종료와 방문','본편은 초원 안내, 체험판은 자유 플레이로 분기하는지 확인한다. 온라인판 친구 수첩 안내는 방문 없이 넘길 수 있고, 공개 정원 방문 후 내 정원으로 돌아오는지 확인한다.']
+  ['오프닝과 입력','리프의 첫인사 → 손녀의 편지 → 씨앗 안내 순서를 확인한다. 대화에서 누른 Space와 잘못된 대상의 입력으로 밭 작업이 실행되거나 단계가 넘어가지 않도록 확인한다.'],
+  ['세 가지 수확과 보상','이어하기 후에도 지정 작물의 일반·황금·프리즘 종류를 유지한다. 어떤 순서로 수확해도 세 종류를 모두 얻을 때 한 번만 리프가 반응한다.'],
+  ['10연차와 이어하기','지원권 지급, 10장 차감과 결과 10개 지급을 각각 한 번만 확정한다. 결과 확인 전에 종료하면 같은 결과를 다시 보여준다.'],
+  ['배치와 첫 자동 수확','지정 작물이 범위 밖이면 첫 수확 이벤트를 기다린다. 유효 배치 후 지정 작물의 실제 자동 수확과 결과 지급이 확인되면 완료한다.'],
+  ['경험치와 지역 개방','단계·개체별 중복 XP를 막고, Lv.2~5 보상을 각각 한 번 지급한다. 지도 안내는 초반에 완료할 수 있으며 실제 다음 지역 개방은 필수 정화·복원 완료 시 한 번 처리한다.'],
+  ['브라우저 체험판과 친구 방문','체험판은 리프의 두 문장 요약, 모리의 첫 자동 물주기와 별도 저장 경로를 사용한다. 친구 방문 안내는 실제 방문 없이 진행할 수 있게 한다.']
  ];
 
  function renderStage(stage, number, open, accordion) {
@@ -3993,10 +4155,12 @@ const openingPlan = (() => {
    ['대사와 화면 문구', stage.copy],
    ['플레이어 행동', stage.action],
    ['완료와 다음 단계', stage.done],
+   ['경험치', stage.xp && '+' + stage.xp + ' XP'],
+   ['재화·아이템', stage.reward],
    ['구현·에셋 메모', stage.work]
   ];
   return `<details class="opening-stage" data-opening-stage="${stage.id}" ${accordion ? 'name="opening-stage"' : ''} ${open ? 'open' : ''}>
-   <summary><b>${String(number).padStart(2, '0')}</b><span>${esc(stage.title)}</span></summary>
+   <summary><b>${String(number).padStart(2, '0')}</b><span>${esc(stage.title)}</span>${stage.xp ? `<small class="opening-xp">+${stage.xp} XP</small>` : ''} </summary>
    <dl>${fields.filter(([, value]) => value).map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
    ${stage.letter ? `<blockquote><strong>편지 본문 후보</strong><p>${esc(letter)}</p></blockquote>` : ''}
   </details>`;
@@ -4004,7 +4168,7 @@ const openingPlan = (() => {
 
  function renderStages(mode, selected, print = false) {
   let number = 0;
-  const visibleGroups = print ? ['intro','demo','garden','forest','extra'] : groups[mode];
+  const visibleGroups = groups[mode];
   return visibleGroups.map(group => {
    const cards = stages.filter(stage => stage.group === group).map(stage => {
     number += 1;
@@ -4017,13 +4181,23 @@ const openingPlan = (() => {
  function render(print) {
   return `<section class="doc-block opening-plan" ${print ? '' : 'data-opening-plan'}>
    <h3>초반 인트로 · 튜토리얼</h3>
-   <p class="doc-paragraph">할아버지의 편지가 섬에 갈 이유를 만들고, 리프와의 첫 재배가 루미의 부탁과 숲 복원으로 이어집니다.</p>
-   <p class="opening-note">11월 18일 기준 · Unity 0.6.44. 오프닝 콘티, 편지 문안과 친구 방문 안내는 적용안입니다. 실제 조작 순서는 현재 게임을 기준으로 정리했습니다.</p>
-   ${print ? '' : `<div class="opening-modes" role="group" aria-label="플레이 경로">
+   <p class="doc-paragraph">리프에게 받은 씨앗 하나로 시작해, 정화한 밭의 특별한 수확과 숲 친구들의 도움을 차례로 경험합니다.</p>
+   <p class="opening-note">본편 새 게임에 적용할 인트로·튜토리얼 개정안입니다. XP와 직접 보상 수량, 확정 모집 슬롯은 밸런스 시안입니다. 브라우저 체험판은 Unity 0.6.44 기준입니다.</p>
+   ${print ? '<h4>본편 새 게임 · 개정안</h4>' : `<div class="opening-modes" role="group" aria-label="플레이 경로">
     <button type="button" data-opening-mode="main" aria-pressed="true">본편 새 게임</button>
     <button type="button" data-opening-mode="demo" aria-pressed="false">브라우저 체험판</button>
-   </div><p class="opening-mode-note" data-opening-note aria-live="polite">콘티 → 리프의 정원 → 숲 복원 → 모리 → 이슬빛 초원</p>`}
+   </div><p class="opening-mode-note" data-opening-note aria-live="polite">${mainFlow}</p>`}
+   <details class="opening-qa opening-rewards" data-opening-rewards ${print ? 'open' : ''}>
+    <summary>본편 경험치·보상 시안 · 총 ${tutorialXP} XP</summary>
+    <dl>
+     <div><dt>도달 레벨</dt><dd>새 게임 0 XP에서 시작하면 첫 재배를 마칠 때 130 XP(Lv.2), 첫 정화 후 230 XP(Lv.3), 세 가지 수확 후 365 XP(Lv.4), 지도 안내 후 ${tutorialXP} XP(Lv.5, 다음 레벨 40/240 XP)에 도달합니다.</dd></div>
+     <div><dt>직접 보상</dt><dd>새싹 코인 100개, 일반 정화 물약 5개, 연습 씨앗, 세 가지 수확물, 소환권 10장과 모집 결과 10개. 튜토리얼용 소환권 10장은 첫 10연차에 사용합니다.</dd></div>
+     <div><dt>레벨 보상</dt><dd>Lv.2 바탕색 3종, Lv.3 통나무 초상 테두리, Lv.4 새싹 코인 10개, Lv.5 새싹의 약속 테두리·프로필 배지 두 번째 칸·별도 소환권 1장. 직접 보상에 추가 지급합니다.</dd></div>
+     <div><dt>중복 지급 방지</dt><dd>지정 행동에는 표기된 튜토리얼 XP를 적용합니다. 같은 수확·정화에 일반 XP를 중복 지급하지 않고, 종별 첫 수확과 정화 완료 이력은 기록합니다. 튜토리얼 수확은 일일 수확 XP 한도에 포함하지 않는 안입니다.</dd></div>
+    </dl>
+   </details>
    <div data-opening-stages>${renderStages('main', null, print)}</div>
+   ${print ? '<h4>브라우저 체험판 · 구현 기준</h4>' + renderStages('demo', null, true) : ''}
    <details class="opening-qa" ${print ? 'open' : ''}><summary>개발 확인 항목</summary>
     <dl>${qa.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join('')}</dl>
    </details>
@@ -4033,6 +4207,7 @@ const openingPlan = (() => {
     <a href="${source}Docs/PORTFOLIO_BROWSER_DEMO_R01.md">체험판 구현 기록</a>
     <a href="#chapter/19">친구 정원 상세</a>
     <a href="#summon">펫 뽑기 상세</a>
+    <a href="#chapter/20/section-4">레벨별 보상표</a>
    </p>
   </section>`;
  }
@@ -4043,7 +4218,8 @@ const openingPlan = (() => {
   });
   root.querySelector('[data-opening-note]').textContent = mode === 'demo'
    ? '리프의 요약 → 연습 밭 → 마지막 오염 밭 1칸 → 모리 → 자유 플레이. 진행은 체험판에 별도 저장합니다.'
-   : '콘티 → 리프의 정원 → 숲 복원 → 모리 → 이슬빛 초원';
+   : mainFlow;
+  root.querySelector('[data-opening-rewards]').hidden = mode !== 'main';
   root.querySelector('[data-opening-stages]').innerHTML = renderStages(mode, id);
  }
 
@@ -4051,7 +4227,7 @@ const openingPlan = (() => {
   const stage = stages.find(item => item.id === id);
   const root = document.querySelector('[data-opening-plan]');
   if (!stage || !root) return null;
-  select(root, stage.group === 'demo' ? 'demo' : 'main', stage.id);
+  select(root, stage.group.startsWith('demo') ? 'demo' : 'main', stage.id);
   return root.querySelector(`[data-opening-stage="${stage.id}"]`);
  }
 
