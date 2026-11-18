@@ -151,44 +151,28 @@
 <style>
 .plant-design-intent h2{margin:0 0 8px;color:#314732;font:700 clamp(22px,3vw,30px)/1.35 var(--serif);word-break:keep-all}
 .doc-note.plant-design-intent{margin-top:16px}
-.intent-plant-links{display:flex;flex-wrap:wrap;gap:7px 20px}
-.main-nav>a.intent-nav-link{color:#38583b;font-weight:800}
-.intent-view{width:min(100%,1100px);margin:26px auto 38px}
-.intent-overview{padding:clamp(20px,4vw,36px);border:1px solid #cdd8bf;border-top:4px solid #6e8a58;background:#f6f8ee}
-.intent-overview h2{color:#314732;font:700 clamp(28px,4vw,40px)/1.25 var(--serif);margin:0 0 9px}
-.intent-overview p{font-size:15px;line-height:1.8;color:#3c523c;max-width:70ch;margin:0}
-.intent-group-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.intent-group-nav a{padding:7px 10px;border:1px solid #adbd9f;color:#3b5437;font-weight:700}
-.intent-group-nav a:hover{background:#e4ecd8}
-.intent-group{margin:28px 0 0}
-.intent-group h3{color:#314732;font:700 clamp(21px,3vw,28px)/1.4 var(--serif);margin:0 0 12px}
-.intent-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;list-style:none;margin:0;padding:0}
-.intent-card{background:#fcfcf5;border:1px solid #d5dfca;padding:17px 19px;display:flex;flex-direction:column;gap:9px}
-.intent-card h4{display:flex;align-items:baseline;gap:9px;margin:0;color:#2f4833;font:700 17px/1.5 var(--serif)}
-.intent-card h4 span{font:700 12px/1 var(--sans);color:#5f7655}
-.intent-card p,.intent-card dd{margin:0;color:#3c513d;font-size:14px;line-height:1.75;word-break:keep-all}
-.intent-card .intent-card-experience{padding-top:8px;border-top:1px solid #e0e6d7}
-.intent-card .intent-card-experience strong{display:block;color:#354e37;font-size:12px}
-.intent-card details{font-size:13px;color:#445b42}
-.intent-card summary{cursor:pointer;font-weight:700}
-.intent-card .table-link{align-self:start;margin-top:auto;font-weight:700}
-.intent-card .design-intent-choices{grid-template-columns:1fr;gap:8px;margin:0}
-@media(max-width:660px){.intent-cards{grid-template-columns:1fr}.intent-card{padding:14px 16px}}
-@media print{.intent-cards{display:block}.intent-card{break-inside:avoid;margin-bottom:8pt;padding:7pt}.intent-card p,.intent-card dd{font-size:9pt}.intent-group{margin-top:12pt}}
 .doc-note.design-intent{margin:0 0 20px;padding:18px 22px;background:#edf2e5;border-left:4px solid #6e8a58;color:#314732}
 .chapter-header .design-intent,.summon-equipment header .design-intent{margin:16px 0 14px}
 .design-intent .design-intent-label{display:block;margin-bottom:5px;color:#496440;font-weight:800;font-size:12px;letter-spacing:.04em}
 .doc-note.design-intent h3{margin:0 0 7px;color:#314732;font-size:clamp(17px,2vw,22px);line-height:1.45;word-break:keep-all}
 .doc-note.design-intent p,.design-intent-choices dd{font-size:14px;color:#374b38;line-height:1.75;word-break:keep-all}
 .design-intent p + p{margin-top:8px}
-.design-intent-choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:13px 0 9px}
+.design-intent-body{max-width:82ch}
+.design-intent-body p+p{margin-top:9px}
+.design-intent-body h3,.design-intent-body h4,.doc-note.design-intent .design-intent-timing-title{margin:19px 0 7px;font:700 15px/1.45 var(--serif);color:#314732}
+.design-intent-body ul{margin:0;padding-left:20px;color:#374b38;font-size:14px;line-height:1.75;word-break:keep-all}
+.design-intent-body li+li{margin-top:3px}
+.design-intent-body .design-intent-flow{padding:9px 12px;background:#e1ead7}
+.design-intent .design-intent-proposal{margin-top:13px;padding-top:9px;border-top:1px solid #c4d1ba}
+.quest-implementation{margin:0 0 14px}
+.design-intent-choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 9px}
 .design-intent-choices>div{padding-top:11px;border-top:1px solid #c4d1ba}
 .design-intent-choices dt{font-size:14px;font-weight:800;color:#314732}
 .design-intent-choices dd{margin:4px 0 0}
 .specimen-growth-intent{border-top:1px solid #d6dfcc;padding-top:9px;margin:0 0 10px;font-size:13px;line-height:1.7;color:#435941}
 .specimen-growth-intent a{font-weight:700}
 @media(max-width:650px){.design-intent-choices{grid-template-columns:1fr;gap:9px}.doc-note.design-intent{padding:15px 16px}}
-@media print{.doc-note.design-intent{break-inside:avoid}.doc-note.design-intent p,.design-intent-choices dd{font-size:9pt}}
+@media print{.doc-note.design-intent{break-inside:auto!important}.doc-note.design-intent h3,.doc-note.design-intent h4{break-after:avoid}.doc-note.design-intent p,.design-intent-body ul,.design-intent-choices dd{font-size:9pt}}
 </style>
 </head>
 <body>
@@ -204,7 +188,6 @@
     </section>
     <nav class="main-nav" aria-label="기획서 탐색">
       <a href="#chapter/01" data-nav="overview"><span>01</span> 프로젝트 소개</a>
-      <a href="#intent" data-nav="intent" class="intent-nav-link">기획 의도</a>
       <a href="#plants" data-nav="plants"><span>02</span> 식물 표본집</a>
       <a href="#animals" data-nav="animals"><span>03</span> 동물 친구</a>
       <a href="#map" data-nav="map"><span>04</span> 탐험 지도</a>
@@ -393,8 +376,9 @@
         <h2 id="quests-title">퀘스트</h2>
         <p>리프와의 첫 만남부터 정원 우편함에 도착하는 일일·주간 과제까지 살펴보세요.</p>
       </div></header>
-      <section class="doc-note green design-intent" aria-labelledby="quest-intent-title">
-        <h3 id="quest-intent-title">퀘스트 기획 의도</h3>
+      <div data-design-intent="#quests"></div>
+      <section class="shop-paper quest-implementation" aria-labelledby="quest-intent-title">
+        <h3 id="quest-intent-title">과제와 누적 보상</h3>
         <p id="quest-intent"></p>
         <p id="quest-cumulative"></p>
       </section>
@@ -435,12 +419,29 @@
     <div id="plant-view">
       <section id="plant-design-intent" class="doc-note green design-intent plant-design-intent" aria-label="식물 재배 기획 의도">
         <h2>식물 재배 기획 의도</h2>
-        <p>잠깐 접속해도 가볍게 재배를 반복하고, 게임을 끌 때도 남은 밭을 활용할 수 있도록 작물마다 자라는 시간을 다르게 설계했습니다.</p>
+        <div class="design-intent-body">
+          <p>바쁜 일상과 반복되는 업무로 피로를 느끼는 현대인들이 퇴근 후 큰 시간적·인지적 부담 없이 즐길 수 있는 힐링 게임을 목표로 기획.</p>
+          <p>복잡한 조작이나 높은 숙련도를 요구하기보다, 식물을 심고 관리하고 수확하는 직관적인 행동을 통해 작은 성취감을 지속적으로 경험할 수 있도록 설계.</p>
+          <p>초반에는 직접 식물을 관리하고 수확하는 반복 플레이를 통해 성장과 보상의 즐거움을 제공하고, 플레이어가 해당 과정에 익숙해지는 시점부터 펫을 활용한 자동화 기능을 단계적으로 도입하여 반복 행동의 부담을 완화.</p>
+          <p>이후 새로운 지역 개방과 식물 발견 등 신규 콘텐츠를 제공하여 단순 반복에서 발생할 수 있는 지루함을 줄이고, 새로운 목표를 바탕으로 플레이를 지속할 수 있도록 유도.</p>
+          <p>궁극적으로 <strong>플레이에 에너지를 많이 소비하지 않으면서도, 자신의 정원이 조금씩 성장하는 모습을 통해 편안함과 성취감을 얻는 게임 경험</strong>을 지향.</p>
+          <h3>핵심 재미 요소</h3>
+          <ul>
+            <li><strong>저부담 반복 플레이:</strong> 식물 재배와 수확을 통해 복잡한 판단 없이 간단한 행동과 보상을 반복하는 재미</li>
+            <li><strong>누적 성장의 성취감:</strong> 작은 행동들이 쌓여 정원과 재배 환경이 점차 발전하는 모습을 확인하는 즐거움</li>
+            <li><strong>자동화로 인한 편의성 향상:</strong> 반복 행동을 펫에게 맡기면서 성장에 따라 관리 부담이 감소하는 경험</li>
+            <li><strong>새로운 콘텐츠 발견:</strong> 지역 개방, 신규 식물, 새로운 관리 요소 등을 통해 반복 플레이에 새로운 목표를 부여</li>
+          </ul>
+          <h3>다른 시스템과의 연계</h3>
+          <p class="design-intent-flow"><strong>식물 재배 → 수확 및 재화 획득 → 성장·펫·지역 해금 → 관리 자동화 → 새로운 식물 재배</strong></p>
+          <p>이러한 순환 구조를 통해 플레이어의 장기적인 성장 동기를 형성하고, 게임 진행에 따라 반복 플레이의 형태가 변화하도록 구성.</p>
+        </div>
+        <h3 class="design-intent-timing-title">생장 시간을 나눈 이유</h3>
         <dl class="design-intent-choices">
           <div><dt>15초·30초 등 1분 이내 · 접속 중 반복 재배</dt><dd>심고, 물 주고, 수확하는 일을 복잡한 판단 없이 계속 반복할 수 있게 만든 작물입니다.</dd></div>
           <div><dt>20분부터 1시간 이상 · 종료 전에 심어 두기</dt><dd>게임을 끌 때 빈 밭을 남겨 두기 아깝다면 오래 자라는 작물을 심어 두면 됩니다. 첫 물주기를 마치면 접속을 종료해도 자라므로, 다음에 돌아와 수확할 수 있습니다.</dd></div>
         </dl>
-        <p class="intent-plant-links"><a class="table-link" href="#chapter/03/section-8">품종별 생장 시간 보기 ↗</a><a class="table-link" href="#intent/cultivation">식물·농장 기획 의도 전체 보기 ↗</a></p>
+        <p><a class="table-link" href="#chapter/03/section-8">품종별 생장 시간 보기 ↗</a></p>
       </section>
       <div class="section-caption"><p><span class="tiny-leaf">❧</span> BOTANICAL COLLECTION <span>식물 표본집</span></p><span>식물 카드를 선택해 기획 정보를 살펴보세요</span></div>
       <aside id="common-cultivation-summary" class="common-cultivation-summary" aria-label="확정된 공통 재배 규칙"></aside>
@@ -481,7 +482,6 @@
       <section id="animal-production-spec" class="animal-production-spec" aria-label="선택한 동물의 제작 상세"></section>
       <section class="reading-paths" aria-label="동물 관련 기획"><a href="#chapter/16"><span class="path-icon">♧</span><div><small>ANIMAL COMPANIONS</small><h3>배치로 정하는 관리 역할</h3><p>모서리 배치 · 등급별 2~9칸 관리</p></div><span>↗</span></a><a href="#chapter/08"><span class="path-icon">✎</span><div><small>ART DIRECTION</small><h3>친구마다 다른 실루엣</h3><p>종별 구조와 부드러운 손그림</p></div><span>↗</span></a><a href="#chapter/14"><span class="path-icon">✧</span><div><small>COLLECTION ECONOMY</small><h3>새로운 만남으로 이어지는 수확</h3><p>재료 선택 · 합성 · 동물 소환</p></div><span>↗</span></a></section>
     </div>
-    <section id="intent-view" class="intent-view" hidden aria-labelledby="intent-title"></section>
     <section id="document-view" class="document-layout" hidden aria-label="기획서 읽기">
       <aside class="document-sidebar"><h2 id="reading-section-title">목차</h2><nav id="toc" aria-labelledby="reading-section-title"></nav></aside>
       <div id="chapter-content" class="document-stack"></div>
@@ -4452,10 +4452,11 @@ function renderPlantGrowth(b) {
 }
 
 const plantIntentSection = $('#plant-design-intent');
+const plantIntentBody = plantIntentSection.querySelector('.design-intent-body');
 const plantIntent = {
  title: plantIntentSection.querySelector('h2').textContent,
- intent: plantIntentSection.querySelector('p').textContent,
- choices: Array.from(plantIntentSection.querySelectorAll('dl > div'), choice => [
+ intent: '접속 중에 가볍게 반복하는 시간과, 접속을 종료한 뒤에도 밭을 활용하는 시간에 맞춰 작물의 생장 시간을 나눴습니다.',
+ choices: Array.from(plantIntentSection.querySelectorAll('.design-intent-choices > div'), choice => [
   choice.querySelector('dt').textContent,
   choice.querySelector('dd').textContent
  ])
@@ -4506,18 +4507,302 @@ function chapterIntentPath(id) {
  return '#chapter/' + id + (section ? '/' + section : '');
 }
 
+const detailedDesignIntents = {
+ 'harvest': {
+  paragraphs: [
+   "항상 동일한 수확 결과만 제공하는 반복 플레이의 단조로움을 완화하기 위해 확률적 보상 요소 도입.",
+   "일반적인 수확에서도 특별한 결과물이 등장할 수 있다는 기대감을 제공하고, 예상하지 못한 보상을 획득했을 때 높은 만족감을 경험하도록 구성.",
+   "특별한 수확물을 도감 및 후속 제작 콘텐츠와 연결하여, 일회성 보상에 그치지 않는 장기적인 수집 목표 형성."
+  ],
+  fun: [
+   "동일한 수확 행동에서도 특별한 결과를 기대하는 재미",
+   "희귀한 수확물을 발견했을 때의 성취감",
+   "일반 작물과 특별 수확물의 차이에 따른 보상 만족감",
+   "희귀 수확물 수집과 도감 완성의 재미",
+   "획득한 결과물을 다른 콘텐츠에 활용하는 즐거움"
+  ],
+  flow: "재배·수확 → 희귀·황금 수확물 획득 → 도감 기록·판매·제작 재료 확보 → 다음 재배 목표",
+  connection: "수확 변이와 고유 수확물은 기본 재배에 발견의 계기를 더합니다. 결과를 도감에 남기거나 재료로 활용하고, 교배 재배와의 연계는 후속 기획에서 검토합니다."
+ },
+ 'plant-records': {
+  paragraphs: [
+   "반복 재배에 장기적인 수집 및 성취 목표를 부여하여, 일상적인 행동이 누적된 결과로 이어지도록 구성.",
+   "새로운 식물을 발견하고 도감의 빈칸을 채우는 과정에서 성취감을 제공하며, 누적 수확 목표 달성에 따른 보상을 통해 플레이 동기를 강화.",
+   "도감과 업적 달성 보상으로 성장 재화와 펫 뽑기 기회를 제공하여, 수집 콘텐츠가 다른 성장 콘텐츠의 체험으로 이어지도록 설계."
+  ],
+  fun: [
+   "새로운 식물을 발견하는 즐거움",
+   "도감 완성률이 증가하는 누적 성취감",
+   "장기적인 수확 목표를 달성하는 만족감",
+   "수집 보상을 통한 추가 성장 기회",
+   "자신의 활동과 정원 변화가 기록으로 남는 경험"
+  ],
+  flow: "새 식물 발견 → 도감 등록 → 반복 수확으로 업적 달성 → 보상 획득 → 앨범에 정원 기록",
+  connection: "도감에는 발견과 획득, 업적에는 활동과 누적 성취, 앨범에는 정원의 변화와 기억을 남깁니다. 수집 보상은 재화와 펫 소환 기회로 이어져 다음 활동의 동기가 됩니다."
+ },
+ 'plot': {
+  paragraphs: [
+   "플레이어가 일정 수준의 반복 활동과 자원 축적을 통해 재배 공간을 확장하고, 자신의 정원이 점차 발전하는 모습을 체감하도록 기획.",
+   "새로운 공간의 확보를 장기적인 성장 보상으로 활용하며, 확장된 공간에서 더 많은 식물을 재배하고 가구를 배치할 수 있도록 구성.",
+   "또한 플레이어가 생산 효율과 미적 구성을 고려하여 자신만의 공간을 배치하는 재미 제공."
+  ],
+  fun: [
+   "작은 텃밭이 넓어지는 시각적 성장의 성취감",
+   "제한된 공간을 효율적으로 활용하는 배치의 재미",
+   "식물과 가구를 조합해 원하는 정원 구성",
+   "공간 확장을 목표로 재료와 재화를 축적하는 즐거움"
+  ],
+  flow: "재배·수확 → 자원 축적과 성장 → 텃밭 확장 → 재배 및 장식 배치 선택 확대",
+  connection: "공간이 늘어나면 펫이 관리할 구역과 가구를 놓을 구역을 다시 계획할 수 있습니다. 텃밭 확장의 단계별 조건과 공간 점유 규칙은 플레이테스트에서 검토합니다."
+ },
+ 'growth': {
+  paragraphs: [
+   "단순 반복 활동에 누적 성장의 의미를 부여하기 위해 레벨 시스템 도입.",
+   "식물 재배와 게임 내 활동을 통해 경험치를 획득하고, 레벨 상승에 따라 새로운 능력과 보상을 제공하여 플레이어에게 지속적인 성취감과 장기 목표를 부여.",
+   "레벨이라는 수치화된 지표를 통해 플레이어가 자신의 성장 과정을 쉽게 확인할 수 있도록 구성."
+  ],
+  fun: [
+   "반복 활동이 경험치로 누적되는 만족감",
+   "레벨 상승의 명확한 성취감",
+   "성장에 따른 새로운 능력과 보상 획득",
+   "다음 레벨을 목표로 지속적으로 플레이하는 즐거움"
+  ],
+  flow: "재배·정화·꾸미기 → 경험치 획득 → 레벨 상승 → 도안·기능·프로필 보상 → 새로운 활동",
+  connection: "정원사 레벨은 전체 성장을, 지역 숙련도는 지역별 활동 성취를 보여 줍니다. 레벨이 오르면 핵심 기능을 순서대로 배우고, 원하는 도안과 장식에 맞춰 다음 목표를 고릅니다."
+ },
+ 'explore': {
+  paragraphs: [
+   "오염된 지역을 정화하여 새로운 공간을 가꾸는 경험을 게임의 핵심 진행 구조이자 주요 차별화 방향으로 설정.",
+   "지역별 정화 목표를 달성할 때마다 새로운 환경과 식물, 제작 재료와 재배 공간을 발견하도록 구성.",
+   "지역 해금을 게임의 레벨 디자인 기반으로 활용하여 콘텐츠의 제공 순서와 성장 속도를 조절.",
+   "또한 신규 지역을 지속적으로 확장할 수 있는 구조를 마련하여 장기적인 콘텐츠 업데이트와 운영 가능성을 고려."
+  ],
+  fun: [
+   "새로운 지역을 발견하는 탐험의 기대감",
+   "오염된 자연을 복원하는 성취감",
+   "새로운 식물·물약·재료를 발견하는 즐거움",
+   "지역 해금을 목표로 준비하는 과정",
+   "정화한 공간을 자신만의 정원으로 만드는 만족감"
+  ],
+  flow: "오염 발견 → 정화 목표 확인 → 재료 수집 → 물약 제작 → 환경 복원 → 새로운 식물과 공간 확보",
+  connection: "이전 지역의 필수 정화와 핵심 복원은 다음 지역을 여는 목표가 됩니다. 새 지역이 열려도 이전 지역의 고유 재료와 수집·꾸미기 활동은 계속 방문할 이유를 제공합니다."
+ },
+ 'achievements': {
+  paragraphs: [
+   "플레이어마다 재미를 느끼는 활동이 다르다는 점을 고려하여, 다양한 플레이 유형에 맞는 장기적인 성취 목표와 자기표현 수단 제공.",
+   "반복 수확, 수집, 제작, 탐험, 꾸미기 등 게임 내 여러 활동을 업적으로 기록하고, 달성 결과를 칭호와 배지로 표현할 수 있도록 구성.",
+   "특히 특정 활동을 많이 수행한 플레이어가 자신의 기록과 성취를 다른 이용자에게 보여줄 수 있도록 하여, 단순한 개인 기록을 사회적 인정과 자기표현으로 확장.",
+   "업적을 통해 평소 이용하지 않던 콘텐츠를 경험하도록 유도하는 목적도 포함."
+  ],
+  fun: [
+   "장기적인 목표를 달성하는 성취감",
+   "자신이 선호하는 활동에 집중하는 즐거움",
+   "획득한 칭호와 배지를 통한 개성 표현",
+   "희귀 업적을 달성하고 성과를 보여주는 만족감",
+   "새로운 플레이 방식을 경험하는 재미"
+  ],
+  flow: "수확·수집·제작·탐험·꾸미기 → 활동 기록 누적 → 업적 달성 → 배지·칭호로 성취 표현",
+  connection: "도감은 발견을, 업적은 활동을 기록합니다. 배지와 칭호는 프로필과 친구 수첩에서 어떤 목표를 달성했고 무엇을 즐기는지 보여 주는 수단입니다."
+ },
+ 'quests': {
+  paragraphs: [
+   "기존 플레이어의 재접속을 유도하고, 게임에 접속한 이후 수행할 활동을 찾지 못하는 문제를 완화하기 위해 퀘스트 시스템 도입.",
+   "일일 퀘스트를 통해 짧고 명확한 목표와 성장 보상을 제공하여 접속 동기를 형성.",
+   "또한 플레이어가 접속 직후 무엇을 해야 할지 알 수 있도록 행동 방향을 제시하고, 식물 재배·제작·수집 등 다양한 시스템을 자연스럽게 경험하도록 유도.",
+   "퀘스트 보상으로 성장 재화와 펫 뽑기 기회를 제공하여 다른 콘텐츠의 체험과 성장으로 연결."
+  ],
+  fun: [
+   "짧은 목표를 완료하는 성취감",
+   "매일 제공되는 보상에 대한 기대",
+   "재화 획득을 통한 성장",
+   "무엇을 할지 명확하게 아는 편의성",
+   "평소 이용하지 않던 콘텐츠를 경험하는 즐거움"
+  ],
+  flow: "접속 → 리프의 일일 과제 선택 → 재배·제작 → 일일 재화와 주간 소환권 획득 → 다른 활동 체험",
+  connection: "일일 과제는 접속 직후 할 일을 알려 주고, 주간 과제는 여러 날에 걸쳐 진행할 목표를 줍니다. 여러 번 완료한 기록에 추가 보상을 주는 구조는 검토 중입니다."
+ },
+ 'recipes': {
+  paragraphs: [
+   "게임 진행에 따른 재료 수급량의 변화와 자원 소비 구조를 고려하여, 성장 단계별로 제작 난이도와 재료 요구량이 달라지는 정화 물약 시스템 구상.",
+   "초반에는 플레이어가 직접 재배하고 수확해야 하므로 간단한 물약을 적은 재료로 제작할 수 있도록 구성.",
+   "반면 중·후반에는 펫 자동화로 재료 공급량이 증가할 것으로 예상하여, 고급 물약의 제작에 더 많은 재료 및 조합 과정을 요구하도록 설계.",
+   "이를 통해 자동화로 누적되는 재료의 소비처를 확보하고, 자원 수집을 새로운 지역 정화와 연결.",
+   "기본 물약 4종과 특수 물약을 활용해 제작의 선택지를 넓힙니다. 특수 물약 레시피는 현재 7종을 공개했으며, 여덟 번째 레시피는 상세 기획 대기입니다."
+  ],
+  fun: [
+   "직접 수확한 재료로 물약을 완성하는 성취감",
+   "새로운 레시피를 해금하는 성장 경험",
+   "축적한 재료를 유의미한 결과물로 전환하는 만족감",
+   "물약 제작을 통해 새로운 지역을 복원하는 보람"
+  ],
+  flow: "재배·수확 → 재료 확보 → 정화 물약 제조 → 지역 복원 → 새 식물과 레시피 발견",
+  connection: "초반 제작은 조작과 정화를 익히는 데 쓰입니다. 중·후반에는 자동화로 모은 기본 재료와 지역 고유 재료를 특수 레시피와 선택 정화에 사용합니다."
+ },
+ 'potion-odds': {
+  paragraphs: [
+   "자동화 이후 증가할 것으로 예상되는 재료 공급량을 적절히 소비하는 동시에, 반복적인 제작 과정에 확률적 결과를 추가하여 기대감과 보상의 변화를 제공.",
+   "제작 결과를 성공·대성공·실패로 구분하여 동일한 제작 행동에도 다른 결과가 등장할 수 있도록 구성.",
+   "대성공으로 예상보다 많은 결과물을 얻는 순간을 만들어, 반복 제조에도 결과를 기다리는 재미를 더합니다."
+  ],
+  fun: [
+   "제작 결과에 대한 기대감",
+   "대성공 발생 시 높은 보상 만족감",
+   "반복 제작에서의 결과 변화",
+   "자동화로 축적한 재료의 활용"
+  ],
+  flow: "자동화로 재료 확보 → 물약 제조 → 결과 및 실패 보정 확인 → 정화·다음 제작",
+  connection: "필수 첫 제조와 연속 실패 보정은 진행에 필요한 물약 수급을 안정시킵니다. 평균 제작 비용과 최악의 연속 실패 손실은 자동화 이후 재료 수급량과 함께 검증합니다."
+ },
+ 'dye': {
+  paragraphs: [
+   "정원 꾸미기를 기존의 식물 재배 및 제작 시스템과 연결하여, 직접 생산한 재료를 활용한 자기표현 콘텐츠 제공.",
+   "염색꽃을 재배해 색 재료를 확보한 뒤, 꽃빛 염색 작업대에서 염색재를 만들어 가구에 적용합니다. 가구의 배치와 색을 함께 고르며 원하는 정원 분위기를 만듭니다.",
+   "정원에 놓을 가구뿐 아니라 그 가구에 쓸 색까지 직접 준비하며 제작의 성취감을 느끼도록 설계.",
+   "또한 중·후반 자동화로 확보한 재료를 성장 외의 콘텐츠에 소비할 수 있는 추가적인 선택지 마련."
+  ],
+  fun: [
+   "좋아하는 색상과 가구를 이용한 자기표현",
+   "염색꽃을 직접 재배하는 수집의 재미",
+   "재료를 모아 원하는 염색재를 제작하는 성취감",
+   "직접 만든 아이템을 정원에 적용하는 만족감",
+   "새로운 색상과 디자인을 조합하는 즐거움"
+  ],
+  flow: "선택 정화 → 염색꽃 재배 → 꽃빛 염색 작업대에서 염색재 제작 → 가구 염색 → 정원 꾸미기",
+  connection: "재배와 제작이 꾸미기 재료를 공급하고, 원하는 색을 고르는 일이 다음 정화·재배 목표가 됩니다. 정원 앨범에 염색과 가구 배치 결과를 남길 수 있습니다."
+ },
+ 'summon': {
+  paragraphs: [
+   "확률형 뽑기를 통해 새로운 펫을 획득하는 기대감과 높은 등급의 펫을 얻었을 때의 만족감을 제공하기 위해 기획.",
+   "펫은 농장 자동화와 운영 효율에 직접적인 영향을 주는 중요한 성장 요소로 활용.",
+   "새로운 펫을 획득할 때마다 관리 능력과 배치 조합의 선택지가 확대되도록 하여, 뽑기 결과가 실제 농장 운영에 영향을 주는 구조 구성.",
+   "또한 펫 도감 완성과 희귀 펫 수집을 장기 목표로 제공하고, 선택적인 유료 뽑기 상품을 통해 수익화 가능성을 확보하는 방향 구상."
+  ],
+  fun: [
+   "확률형 보상에 대한 기대",
+   "희귀 펫 획득의 만족감",
+   "새로운 펫을 통한 농장 운영 효율 향상",
+   "펫 수집과 도감 완성",
+   "신규 펫 획득에 따른 배치 전략의 확장"
+  ],
+  flow: "게임 내 활동·퀘스트 → 소환권 획득 → 펫·장비 소환 → 도감 등록·정원 배치 → 자동화 활용",
+  connection: "첫 무료 소환은 자동화의 역할을 체험하는 기회입니다. 펫 등급은 관리 특성에 연결하며, 현재 소환에서는 같은 결과군 안의 개별 항목에 균등 확률을 적용합니다."
+ },
+ 'pet-collection': {
+  paragraphs: [
+   "농장 운영에 도움이 되는 펫에게 수집과 자기표현의 가치도 부여합니다.",
+   "펫 도감을 통해 수집 목표를 제공하고, 새로운 펫을 획득할 때마다 도감이 채워지는 만족감 형성.",
+   "대표 펫 기능은 플레이어가 좋아하는 펫이나 희귀한 펫을 다른 이용자에게 보여주는 자기표현 수단으로 활용.",
+   "**대표 펫 설정은 실제 농장 운영 성능에 영향을 주지 않도록 구성.**"
+  ],
+  fun: [
+   "펫 도감 완성의 성취감",
+   "새로운 펫을 소유하는 만족감",
+   "희귀 펫을 보여주는 즐거움",
+   "좋아하는 캐릭터를 선택하는 자기표현",
+   "성능과 관계없이 펫에 대한 취향을 유지하는 경험"
+  ],
+  flow: "새 펫 획득 → 도감에 등록 → 성격·능력 확인 → 대표 펫 설정 → 프로필과 친구 수첩에 표시",
+  connection: "도감은 획득한 친구와 특성을 보여 줍니다. 대표 펫에는 좋아하는 외형이나 수집 성과를 드러낼 수 있고, 밭에서 일하는 펫 배치는 따로 정합니다."
+ },
+ 'synergy': {
+  paragraphs: [
+   "반복적인 농장 관리 부담을 자동화로 줄이는 동시에, 배치와 조합을 연구하는 플레이어에게 추가적인 전략적 재미를 제공하기 위해 기획.",
+   "메이플스토리 유니온의 공간 배치와 팀파이트 택틱스의 조합 효과에서 착안해, 관리 범위와 조합을 함께 고민하는 배치 경험을 설계했습니다.",
+   "펫마다 관리 범위와 특수 능력을 부여하고, 제한된 공간 안에서 효율적인 배치를 연구하도록 구성.",
+   "같은 펫을 보유하더라도 배치와 조합에 따라 생산 효율에 차이가 발생하도록 하여 플레이어의 선택에 가치를 부여.",
+   "다만 전략 연구를 하지 않는 플레이어도 게임 진행에 문제가 없도록 설계하여, 가볍게 즐기는 이용자와 심화 전략을 선호하는 이용자를 모두 고려.",
+   "또한 플레이어가 자신이 연구한 배치와 조합을 공유하는 커뮤니티적 재미 지향."
+  ],
+  fun: [
+   "**공간 최적화** · 제한된 밭에서 관리 범위를 효율적으로 배치하고, 방향을 바꿔 관리가 비는 곳을 줄입니다.",
+   "**조합과 시너지** · 특정 펫의 효과를 발견하고, 역할이 다른 펫을 조합해 새로운 운영 방식을 연구합니다.",
+   "**자동화의 성장 체감** · 직접 돌보던 정원이 자동으로 운영되고, 쌓이는 재료가 점차 늘어나는 모습을 확인합니다.",
+   "**선택적 전략** · 기본 배치만으로도 돌봄을 맡기고, 더 연구하고 싶다면 생산량과 효율을 비교합니다.",
+   "**정보 공유** · 다른 플레이어의 조합을 참고하고 새 펫이나 재배 공간이 추가되면 배치를 다시 시험합니다."
+  ],
+  flow: "펫 획득 → 관리 범위와 방향을 보고 배치 → 시너지 확인 → 자동화 → 재료·재배 공간 확보 → 새로운 조합 연구",
+  connection: "기본 배치로도 돌봄을 맡길 수 있게 설계합니다. 더 깊게 즐기고 싶은 플레이어는 펫의 역할, 재배 구역과 관리 범위가 달라질 때마다 새로운 조합을 시험할 수 있습니다."
+ },
+ 'equipment': {
+  paragraphs: [
+   "펫의 능력 성장을 장비를 통한 성능 변화로 제공하고, 외형 변경은 별도의 스킨 시스템으로 분리.",
+   "이를 통해 펫이 가진 기본적인 캐릭터성을 유지하면서 운영 능력을 발전시킬 수 있는 방향으로 구상.",
+   "스킨은 펫에 대한 취향과 개인화를 위한 콘텐츠로 활용하고, 향후 선택적인 유료 상품으로 제공하는 방향 설정."
+  ],
+  fun: [
+   "장비 획득 및 장착에 따른 성장의 성취감",
+   "펫 능력 보정으로 농장 운영 효율 개선",
+   "장비와 펫 고유 능력의 조합",
+   "기존 펫을 새로운 방식으로 활용하는 전략적 재미",
+   "원하는 스킨으로 펫을 꾸미는 자기표현"
+  ],
+  flow: "펫·전용 장비 획득 → 개체에 장착 → 관리 능력 보정 → 배치와 시너지 재구성",
+  connection: "관리 능력의 변화는 장비 장착 상태에 연결합니다. 좋아하는 펫의 스킨을 골라 정원이나 대표 초상에서 보여 주는 외형 개인화는 향후 기획입니다."
+ },
+ 'decor': {
+  paragraphs: [
+   "신록의 섬이 지향하는 힐링 가드닝 게임의 핵심 경험 중 하나로 정원 꾸미기 제공.",
+   "성장이나 생산 효율을 목표로 하지 않더라도, 자신의 취향대로 공간을 꾸미는 행위 자체에서 즐거움을 느끼는 플레이어를 고려.",
+   "식물과 가구를 자유롭게 배치하고 원하는 색상과 테마로 정원을 구성하면서, 자신만의 공간에 대한 애착과 만족감을 형성하도록 기획.",
+   "지역 정화를 통해 확보한 공간을 자유롭게 꾸미도록 하여, 환경 복원의 성취감과 공간 개인화를 연결.",
+   "또한 완성한 정원을 다른 플레이어에게 보여주고 공유하는 소셜 경험으로 확장."
+  ],
+  fun: [
+   "자신만의 공간을 구성하는 창작의 즐거움",
+   "원하는 가구와 색상을 조합하는 자기표현",
+   "오랫동안 가꾼 정원에 대한 애착",
+   "새로운 지역을 정화하며 꾸미기 공간을 확장하는 성취감",
+   "완성한 정원을 감상하고 공유하는 만족감"
+  ],
+  flow: "지역 복원 → 꾸밀 공간 확보 → 가구 제작·염색 → 자유 배치 → 앨범 기록과 친구 방문",
+  connection: "꾸미기 자체를 즐기는 플레이어에게 공간과 재료를 모을 목표를 제공합니다. 사진을 남기거나 친구 정원을 구경하면서 다음에 만들고 싶은 풍경을 발견할 수 있습니다."
+ },
+ 'profile': {
+  paragraphs: [
+   "플레이어의 개성과 게임 내 성취를 다른 이용자에게 표현할 수 있는 프로필 개인화 콘텐츠 제공.",
+   "정원 꾸미기가 공간을 통해 취향을 표현하는 시스템이라면, 프로필 꾸미기는 플레이어 개인의 정체성과 수집 성과를 보여주는 수단으로 활용.",
+   "프로필 사진과 배경, 테두리, 칭호, 배지 등을 조합할 수 있도록 하여 자신만의 프로필을 구성하도록 기획.",
+   "정원사 레벨, 특별 업적, 지역 정화 등 게임 내 성취를 프로필 장식 획득과 연결하여 성장의 보상과 자기표현을 결합.",
+   "또한 특별한 프로필 장식을 수집하고 다른 사람에게 보여주는 희소성의 재미를 제공하며, 외형 상품을 통한 선택적 수익화 가능성 고려."
+  ],
+  fun: [
+   "자신의 취향을 프로필에 표현하는 즐거움",
+   "레벨·업적 보상을 장식으로 획득하는 성취감",
+   "희귀한 테두리와 배경을 수집하는 만족감",
+   "획득하기 어려운 장식을 다른 이용자에게 보여주는 재미",
+   "다양한 장식 요소의 조합을 통한 개인화"
+  ],
+  flow: "레벨 상승·업적 달성·지역 복원 → 장식 획득 → 사진·배경·테두리 조합 → 프로필에서 자기표현",
+  connection: "대표 펫은 좋아하는 캐릭터를 보여 주고, 칭호와 배지는 성취 기록을 드러냅니다. 장식 수집은 다음 활동의 목표가 되며, 선택형 외형 상품은 별도로 구상합니다."
+ }
+};
+
+function renderDetailedIntent(item) {
+ if (item.key === 'cultivation' || item.href === '#plants') return plantIntentBody.outerHTML;
+ const design = detailedDesignIntents[item.key];
+ if (!design) return `<p>${esc(item.intent)}</p>`;
+ const text = value => esc(value).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+ return `<div class="design-intent-body">
+  ${design.paragraphs.map(paragraph => `<p>${text(paragraph)}</p>`).join('')}
+  <h4>핵심 재미 요소</h4>
+  <ul>${design.fun.map(detail => `<li>${text(detail)}</li>`).join('')}</ul>
+  <h4>다른 시스템과의 연계</h4>
+  <p class="design-intent-flow"><strong>${esc(design.flow)}</strong></p>
+  <p>${esc(design.connection)}</p>
+ </div>`;
+}
+
 function renderDesignIntent(href) {
  const item = designIntentByPath.get(href);
  if (!item) return '';
  return `<aside class="doc-note green design-intent">
   <span class="design-intent-label">기획 의도</span>
   <h3>${esc(item.title)}</h3>
-  <p>${esc(item.intent)}</p>
-  ${item.key === "overview" ? '<p><a class="table-link" href="#intent">17개 시스템 기획 의도 보기 ↗</a></p>' : ""}
-  ${item.choices ? `<dl class="design-intent-choices">${item.choices.map(([title, description]) =>
+  ${renderDetailedIntent(item)}
+  ${item.choices || item.key === 'cultivation' ? `<h4 class="design-intent-timing-title">생장 시간을 나눈 이유</h4><dl class="design-intent-choices">${(item.choices || plantIntent.choices).map(([title, description]) =>
    `<div><dt>${esc(title)}</dt><dd>${esc(description)}</dd></div>`).join('')}</dl>` : ''}
   ${item.detail ? `<p>${esc(item.detail)}</p>` : ''}
-  ${item.proposal ? `<p><strong>검토안</strong> · ${esc(item.proposal)}</p>` : ''}
+  ${item.proposal ? `<p class="design-intent-proposal"><strong>검토안</strong> · ${esc(item.proposal)}</p>` : ''}
   ${item.relatedHref ? `<p><a class="table-link" href="${esc(item.relatedHref)}">${esc(item.relatedTitle)} ↗</a></p>` : ''}
  </aside>`;
 }
@@ -4527,60 +4812,6 @@ function renderChapterBlock(chapter, block, index, render) {
  return (path === chapterIntentPath(chapter.id) ? '' : renderDesignIntent(path)) + render(block);
 }
 
-const intentGroups = [
- ["cultivation", "식물·농장", [
-  ["cultivation","식물 재배 · 관리 · 수확","짧은 접속엔 작물을 반복해서 거두고, 자리를 비우기 전에는 긴 작물을 심습니다. 익숙해진 관리는 펫에게 맡기고 수확한 재료는 정화·제작·꾸미기에 씁니다."],
-  ["harvest","희귀 · 황금 수확물","익숙한 수확에서 특별한 결과를 발견하는 순간을 만듭니다. 발견은 도감 기록과 제작·수집 목표로 이어집니다."],
-  ["plant-records","식물 도감 · 누적 수집 · 정원 앨범","새 식물은 도감에, 오래 가꿔 온 성취는 업적에, 정원의 변화는 앨범에 남깁니다. 같은 재배에서도 발견·달성·기록이라는 서로 다른 목표를 고를 수 있습니다."],
-  ["plot","텃밭 확장 · 공간 배치","작은 밭이 커지는 모습으로 성장을 느낍니다. 넓어진 공간은 더 많은 작물을 심거나 원하는 풍경을 만드는 데 씁니다."]
- ]],
- ["progression", "성장·탐험·목표", [
-  ["growth","정원사 레벨 · 경험치 · 지역별 숙련도","일상의 재배·정화가 레벨과 보상으로 누적됩니다. 지역 숙련도는 특정 지역을 오래 가꾼 발자취를 남깁니다."],
-  ["explore","지역 해금 · 탐험 · 오염 정화","직접 만든 물약으로 섬을 복원합니다. 달라진 풍경과 새 식물, 새로 쓸 수 있는 공간이 다음 정화를 준비할 이유가 됩니다."],
-  ["achievements","업적 · 배지 · 칭호","좋아하는 활동을 오래 즐긴 결과를 기록하고, 칭호와 배지로 플레이 방식이나 성취를 다른 사람에게 보여 줍니다."],
-  ["quests","일일 · 주간 퀘스트 · 누적 완료 보상","짧게 들어온 날에는 바로 시작할 일이 있고, 시간이 있는 날에는 주간 목표에 진척을 더할 수 있습니다. 보상으로 재배 외에 제작이나 펫 소환도 경험합니다."]
- ]],
- ["crafting", "물약·제작", [
-  ["recipes","정화 물약 · 레시피 · 조합","손으로 모은 재료로 첫 물약을 만들고, 자동화로 재료가 쌓이면 복합 레시피에 씁니다. 직접 기른 재료가 섬 복원에 기여합니다."],
-  ["potion-odds","물약 제조 확률 · 대성공 · 실패 보호","대성공은 같은 레시피를 만들 때도 결과를 기대하게 합니다. 첫 필수 제조 보장과 연속 실패 보정으로 재료 손실이 정화 진행을 막는 상황을 줄입니다."],
-  ["dye","염색꽃 · 가구 · 염색재 제작","정화로 만난 꽃을 직접 키워 색을 얻고, 그 색으로 가구를 꾸밉니다. 재배한 결과가 취향이 담긴 정원으로 남습니다."]
- ]],
- ["pets", "펫", [
-  ["summon","펫 뽑기 · 등급 · 획득 확률","새 친구를 만나는 기대를 줍니다. 얻은 펫은 도감에 등록되고 밭에서 관리 역할과 배치 선택을 넓힙니다."],
-  ["pet-collection","펫 수집 · 도감 · 대표 펫","도감을 채우며 친구마다 다른 개성과 능력을 알아갑니다. 좋아하는 펫을 대표로 골라 프로필에서 취향이나 수집 성과를 보여 줍니다."],
-  ["synergy","펫 배치 · 자동화 · 시너지","기본 배치로 반복 돌봄을 덜고, 조합을 연구하고 싶은 사람은 관리 범위·방향·시너지로 효율을 높입니다. 새로운 펫과 밭이 생길 때마다 다시 실험할 수 있습니다."],
-  ["equipment","펫 장비 · 능력 강화 · 스킨","장비로 익숙한 펫의 관리 방식을 바꾸고 배치 선택을 넓힙니다. 향후 외형 스킨은 좋아하는 펫을 꾸미는 선택형 상품으로 구상합니다."]
- ]],
- ["personalization", "꾸미기·개인화", [
-  ["decor","정원 꾸미기 · 가구 배치 · 공간별 꾸미기 과제","가구와 식물, 색을 골라 마음에 드는 공간을 만들고 바라보는 것 자체가 플레이 목표입니다. 복원한 정원을 꾸미고 앨범으로 남기거나 친구에게 보여 줍니다."],
-  ["profile","프로필 꾸미기 · 테두리 · 배경 · 대표 사진","사진과 배경으로 취향을, 테두리·칭호·배지로 플레이 이력을 표현합니다. 원하는 장식을 얻기 위해 레벨·업적·정화 목표에 다시 도전할 수 있습니다."]
- ]]
-];
-
-function renderIntentOverview(print = false) {
- const byKey = new Map(designIntents.map(item => [item.key, item]));
- const navigation = print ? '' : `<nav class="intent-group-nav" aria-label="기획 의도 분야">${intentGroups.map(([id, title]) =>
-  `<a href="#intent/${id}">${esc(title)}</a>`).join('')}</nav>`;
- let number = 0;
- const groups = intentGroups.map(([id, title, items]) => {
-  const cards = items.map(([key, name, experience]) => {
-   const item = byKey.get(key);
-   const choices = key === 'cultivation' ? `<dl class="design-intent-choices">${plantIntent.choices.map(([label, detail]) =>
-    `<div><dt>${esc(label)}</dt><dd>${esc(detail)}</dd></div>`).join('')}</dl>` : '';
-   return `<li class="intent-card">
-    <h4><span>${String(++number).padStart(2, '0')}</span>${esc(name)}</h4>
-    <p>${esc(item.intent)}</p>${choices}
-    <p class="intent-card-experience"><strong>플레이 경험</strong>${esc(experience)}</p>
-    ${item.proposal ? `<details><summary>검토안</summary><p>${esc(item.proposal)}</p></details>` : ''}
-    <a class="table-link" href="${esc(item.href)}" aria-label="${esc(name)} 상세 기획 보기">상세 기획 보기 ↗</a>
-   </li>`;
-  }).join('');
-  return `<section class="intent-group" id="${print ? 'print-' : ''}intent-group-${id}"><h3>${esc(title)}</h3><ol class="intent-cards">${cards}</ol></section>`;
- }).join('');
- return `<header class="intent-overview"><h2 id="${print ? 'print-' : ''}intent-title">핵심 시스템 기획 의도</h2>
-  <p>접속 중에는 가볍게 돌보고, 접속을 마친 뒤에도 정원이 자라는 힐링 가드닝 게임입니다. 재배와 수확에서 시작해 수집, 지역 복원, 펫 배치, 꾸미기로 이어지는 17개 시스템의 설계 이유를 정리했습니다.</p>${navigation}</header>${groups}`;
-}
-
 function mountDesignIntents(container) {
  container.querySelectorAll('[data-design-intent]').forEach(slot => {
   slot.outerHTML = renderDesignIntent(slot.dataset.designIntent);
@@ -4588,7 +4819,7 @@ function mountDesignIntents(container) {
 }
 
 function searchDesignIntents(query) {
- return designIntents.filter(item => [item.title, item.intent, item.detail, item.proposal, ...item.choices?.flat() || []].join(' ').toLowerCase().includes(query))
+ return designIntents.filter(item => [item.title, item.intent, item.detail, item.proposal, JSON.stringify(detailedDesignIntents[item.key] || ''), ...(item.choices?.flat() || [])].join(' ').toLowerCase().includes(query))
   .map(item => ({url: item.href, title: item.title, description: item.intent}));
 }
 
@@ -4820,7 +5051,15 @@ function route(initial=false){
   parts = ['summon', parts[1] === 'pet-items' ? 'equipment' : parts[1].slice(4)];
   history.replaceState(null, '', '#' + parts.join('/'));
  }
- const intent = parts[0] === 'intent';
+ if (parts[0] === 'intent') {
+  const legacyIntentRoutes = {
+   cultivation: 'chapter/03', progression: 'chapter/20', crafting: 'chapter/18',
+   pets: 'chapter/16', personalization: 'workshop'
+  };
+  const route = legacyIntentRoutes[parts[1]] || 'chapter/01';
+  parts = route.split('/');
+  history.replaceState(null, '', '#' + route);
+ }
  const quests = parts[0] === 'quests';
  const doc = parts[0] === 'chapter' || quests;
  const animal = parts[0] === 'animals';
@@ -4829,8 +5068,7 @@ function route(initial=false){
  const summon = parts[0] === 'summon';
  const achievements = parts[0] === 'achievements';
  const workshop = parts[0] === 'workshop';
- $('#intent-view').hidden = !intent;
- $('#plant-view').hidden = intent || doc || animal || map || shop || summon || achievements || workshop || quests;
+ $('#plant-view').hidden = doc || animal || map || shop || summon || achievements || workshop || quests;
  $('#animal-view').hidden = !animal;
  $('#document-view').hidden = !doc;
  $('#map-view').hidden = !map;
@@ -4838,14 +5076,9 @@ function route(initial=false){
  $('#summon-view').hidden = !summon;
  $('#achievements-view').hidden = !achievements;
  $('#workshop-view').hidden = !workshop;
- $('#collection-navigation').hidden = intent || doc || map || shop || summon || achievements || workshop || quests;
+ $('#collection-navigation').hidden = doc || map || shop || summon || achievements || workshop || quests;
  let active=animal?'animals':'plants',sectionTarget;
- if(intent){
-  active='intent';
-  sectionTarget = (parts[1] && document.getElementById('intent-group-' + parts[1])) || $('#intent-title');
-  document.title = '핵심 시스템 기획 의도 — 신록의 섬 포트폴리오';
- }
- else if(quests){
+ if(quests){
   active='growth';
   sectionTarget=renderQuestReading(parts[1],parts[2]);
  }
@@ -4963,10 +5196,7 @@ function updateSearch() {
   searchGroup('제작소와 퀘스트', gardenPlans.search(query)) +
   searchGroup('염색과 염색꽃 업적', dyeFlowers.search(query)) +
   searchGroup('인트로와 튜토리얼', openingPlan.search(query)) +
-  searchGroup('시스템 기획 의도', [
-   ...('핵심 시스템 기획 의도'.includes(query) ? [{url:'#intent', title:'핵심 시스템 기획 의도 17개', description:'식물·농장 · 성장·탐험 · 물약·제작 · 펫 · 꾸미기'}] : []),
-   ...searchDesignIntents(query)
-  ]) +
+  searchGroup('시스템 기획 의도', searchDesignIntents(query)) +
   searchGroup('기획서 본문', searchChapters(query)) +
   searchGroup('탐험 지도', regions.map(r => ({url: '#map/' + r.id, title: r.name, description: r.concept}))) +
   searchGroup('식물 데이터', plants.map(p => ({url: '#plants/' + p.id, title: p.name,
@@ -4979,9 +5209,10 @@ function updateSearch() {
 }
 function closeSearch(){$('#search-results').hidden=true;$('#doc-search').setAttribute('aria-expanded','false');}
 function printAll(){
- $('#print-document').innerHTML=`<nav class="print-toolbar" aria-label="전체 문서 도구"><button data-close-print>← 포트폴리오로 돌아가기</button><span>신록의 섬 · 게임 기획</span><button data-print-confirm>인쇄 / PDF 저장 ↗</button></nav><div class="print-cover"><p>ISLE OF VERDURE / GAME DESIGN PORTFOLIO</p><h1>신록의 섬<br>작은 정원에서 시작되는, 섬의 회복.</h1><p>힐링 가드닝 시뮬레이션<br>시스템 기획 · 도감 UI · 아트 콘셉트</p><div class="print-toc"><a href="#print-intent">핵심 시스템 기획 의도</a>${CHAPTERS.map((c,i)=>`<a href="#print-chapter-${c.id}">${String(i+1).padStart(2,'0')} ${c.title}</a>`).join('')}<a href="#print-map">탐험 지도</a><a href="#print-shop">상점</a><a href="#print-summon">펫 뽑기</a><a href="#print-achievements">업적과 지역 숙련도</a><a href="#print-workshop">가구 제작소</a><a href="#print-dye">꽃빛 염색 작업대</a><a href="#print-pet-upgrades">동물 친구 장비</a><a href="#print-quests">퀘스트</a><a href="#print-plants">식물 표본집</a><a href="#print-animals">동물 친구 도감</a></div></div><article class="print-chapter" id="print-intent">${renderIntentOverview(true)}</article>${CHAPTERS.map((c,i)=>`<article class="print-chapter" id="print-chapter-${c.id}"><header class="chapter-header"><p class="eyebrow">${c.tag}</p><h2>${String(i+1).padStart(2,'0')}. ${c.title}</h2>${renderDesignIntent(chapterIntentPath(c.id))}<p>${c.subtitle}</p></header>${c.blocks.map((block, index) => renderChapterBlock(c, block, index, renderBlock)).join('')}</article>`).join('')}<article class="print-chapter" id="print-map"><header class="chapter-header"><p class="eyebrow">EXPLORATION MAP</p><h2>탐험 지도</h2></header>${renderDesignIntent('#map')}${explorationMap.renderPrint()}</article>${gardenShop.renderPrint()}${petSummon.renderPrint()}${achievementsPage.renderPrint()}${gardenPlans.renderPrint()}${petUpgrades.renderPrint(ANIMALS)}<article class="print-chapter" id="print-plants"><header class="chapter-header"><p class="eyebrow">BOTANICAL COLLECTION</p><h2>식물 표본집 · ${totalPlants}종</h2></header>${renderDesignIntent('#plants')}${catalogPlants.map(p=>`<section class="print-plant" id="print-plant-${p.id}">${p.dyeFlower ? "" : specimen(p)}${renderPlantBrief(p)}</section>`).join('')}</article><article class="print-chapter" id="print-animals"><header class="chapter-header"><p class="eyebrow">ANIMAL COMPANIONS</p><h2>동물 친구 도감 · 10종</h2></header>${renderDesignIntent('#animals')}${ANIMALS.map(a => `<div id="print-animal-${a.id}">${renderAnimalDossier(a)}</div>`).join('')}</article>`;
+ $('#print-document').innerHTML=`<nav class="print-toolbar" aria-label="전체 문서 도구"><button data-close-print>← 포트폴리오로 돌아가기</button><span>신록의 섬 · 게임 기획</span><button data-print-confirm>인쇄 / PDF 저장 ↗</button></nav><div class="print-cover"><p>ISLE OF VERDURE / GAME DESIGN PORTFOLIO</p><h1>신록의 섬<br>작은 정원에서 시작되는, 섬의 회복.</h1><p>힐링 가드닝 시뮬레이션<br>시스템 기획 · 도감 UI · 아트 콘셉트</p><div class="print-toc">${CHAPTERS.map((c,i)=>`<a href="#print-chapter-${c.id}">${String(i+1).padStart(2,'0')} ${c.title}</a>`).join('')}<a href="#print-map">탐험 지도</a><a href="#print-shop">상점</a><a href="#print-summon">펫 뽑기</a><a href="#print-achievements">업적과 지역 숙련도</a><a href="#print-workshop">가구 제작소</a><a href="#print-dye">꽃빛 염색 작업대</a><a href="#print-pet-upgrades">동물 친구 장비</a><a href="#print-quests">퀘스트</a><a href="#print-plants">식물 표본집</a><a href="#print-animals">동물 친구 도감</a></div></div>${CHAPTERS.map((c,i)=>`<article class="print-chapter" id="print-chapter-${c.id}"><header class="chapter-header"><p class="eyebrow">${c.tag}</p><h2>${String(i+1).padStart(2,'0')}. ${c.title}</h2>${renderDesignIntent(chapterIntentPath(c.id))}<p>${c.subtitle}</p></header>${c.blocks.map((block, index) => renderChapterBlock(c, block, index, renderBlock)).join('')}</article>`).join('')}<article class="print-chapter" id="print-map"><header class="chapter-header"><p class="eyebrow">EXPLORATION MAP</p><h2>탐험 지도</h2></header>${renderDesignIntent('#map')}${explorationMap.renderPrint()}</article>${gardenShop.renderPrint()}${petSummon.renderPrint()}${achievementsPage.renderPrint()}${gardenPlans.renderPrint()}${petUpgrades.renderPrint(ANIMALS)}<article class="print-chapter" id="print-plants"><header class="chapter-header"><p class="eyebrow">BOTANICAL COLLECTION</p><h2>식물 표본집 · ${totalPlants}종</h2></header>${renderDesignIntent('#plants')}${catalogPlants.map(p=>`<section class="print-plant" id="print-plant-${p.id}">${p.dyeFlower ? "" : specimen(p)}${renderPlantBrief(p)}</section>`).join('')}</article><article class="print-chapter" id="print-animals"><header class="chapter-header"><p class="eyebrow">ANIMAL COMPANIONS</p><h2>동물 친구 도감 · 10종</h2></header>${renderDesignIntent('#animals')}${ANIMALS.map(a => `<div id="print-animal-${a.id}">${renderAnimalDossier(a)}</div>`).join('')}</article>`;
  const print = $('#print-document');
  for (const [selector, href] of [
+  ['#print-quests > header', '#quests'],
   ['#print-shop > header', '#shop'],
   ['#print-summon > header', '#summon'],
   ['#print-summon-entry-equipment > header h3', '#summon/equipment'],
@@ -5007,8 +5238,8 @@ function printAll(){
 document.addEventListener('click',e=>{
  if (e.target.closest('[data-skip-content]')) {
   e.preventDefault();
-  const heading = Array.from(document.querySelectorAll('#intent-view, #map-view, #shop-view, #summon-view, #achievements-view, #workshop-view, #plant-view, #animal-view, #document-view'))
-    .find(view => !view.hidden)?.querySelector('#intent-title, #chapter-content h2, #plant-view h2, #animal-view h2, #map-title, #shop-title, #achievements-title, #workshop-title, #quests-title');
+  const heading = Array.from(document.querySelectorAll('#map-view, #shop-view, #summon-view, #achievements-view, #workshop-view, #plant-view, #animal-view, #document-view'))
+    .find(view => !view.hidden)?.querySelector('#chapter-content h2, #plant-view h2, #animal-view h2, #map-title, #shop-title, #achievements-title, #workshop-title, #quests-title');
   if (heading) {
    heading.tabIndex = -1;
    heading.focus({preventScroll: true});
@@ -5070,7 +5301,6 @@ window.addEventListener('hashchange',()=>route());
 window.addEventListener('scroll',scheduleReadingOutline,{passive:true});
 window.addEventListener('resize',()=>{readingJumpPosition=undefined;scheduleReadingOutline();});
 mountDesignIntents(document);
-$('#intent-view').innerHTML = renderIntentOverview();
 $('#summon-entry-equipment header h3').insertAdjacentHTML('afterend', renderDesignIntent('#summon/equipment'));
 $('#species-table').innerHTML=speciesTable();renderCultivationSummary();renderGrid();renderDetail();initializeAnimalEncyclopedia();route(true);
 
