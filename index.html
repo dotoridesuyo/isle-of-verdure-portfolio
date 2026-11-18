@@ -166,6 +166,18 @@
 .quest-implementation{margin:0 0 14px}
 .design-intent-choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 9px}
 .design-intent-choices>div{padding-top:11px;border-top:1px solid #c4d1ba}
+.art-reference-gallery{margin-bottom:27px}
+.art-reference-gallery h4{font:700 16px/1.5 var(--serif);color:#314732;margin:17px 0 9px}
+.art-reference-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.art-reference-grid figure{margin:0;min-width:0;background:#f5f5eb;border:1px solid #d6dfcb}
+.art-reference-grid figure>a{display:flex;align-items:center;justify-content:center;background:#e8eddf}
+.art-reference-grid img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}
+.art-reference-illustrations img{aspect-ratio:4/3}
+.art-reference-grid figcaption{padding:10px 13px;color:#405640;font-size:13px;line-height:1.65;word-break:keep-all}
+.art-reference-grid figcaption strong{display:block;color:#314732}
+.art-reference-credit{margin:9px 0 0;font-size:12px;color:#50674d}
+@media(max-width:580px){.art-reference-grid{grid-template-columns:1fr}.art-reference-illustrations img{aspect-ratio:auto;max-height:390px}}
+@media print{.art-reference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.art-reference-grid figure{break-inside:avoid}.art-reference-grid img{max-height:42mm}.art-reference-grid figcaption{font-size:9pt}}
 .design-intent-choices dt{font-size:14px;font-weight:800;color:#314732}
 .design-intent-choices dd{margin:4px 0 0}
 .specimen-growth-intent{border-top:1px solid #d6dfcc;padding-top:9px;margin:0 0 10px;font-size:13px;line-height:1.7;color:#435941}
@@ -4806,9 +4818,40 @@ function renderDesignIntent(href) {
  </aside>`;
 }
 
+const artReferences = [
+ {"name":"camp-overview","title":"Cult of the Lamb · 거점 전경","caption":"비대칭으로 놓인 건물과 넓은 중앙 동선이 한 화면에서 읽히는 구도를 참고했습니다.","alt":"풀밭의 중앙 공간을 둘러싼 건물과 캐릭터가 보이는 거점 전경","w":596,"h":335},
+ {"name":"animal-expressions","title":"동물의 표정과 실루엣","caption":"둥근 몸체와 작은 눈·입, 볼의 색으로 표정과 개성이 드러나는 방식을 참고했습니다.","alt":"여러 고양이와 강아지의 둥근 실루엣과 표정을 모은 그림","w":1152,"h":2048},
+ {"name":"character-color","title":"캐릭터의 색과 포인트","caption":"연한 바탕색에 색이 있는 윤곽선과 작은 포인트를 더해, 단순한 동물 캐릭터가 또렷하게 읽히는 방식을 참고했습니다.","alt":"연하늘색 배경에 우주복을 입은 고양이 세 마리","w":640,"h":640},
+ {"name":"botanical-props","title":"식물 소품과 표본집","caption":"화분, 유리병, 식물 기록지의 형태와 크림색·세이지 그린 조합을 정원 소품과 도감 분위기의 참고로 삼았습니다.","alt":"화분, 시약병, 식물 기록지와 인물이 그려진 식물연구소 스티커 시트","w":735,"h":859},
+ {"name":"farm-perspective","title":"Cult of the Lamb · 농장 시점","caption":"비스듬한 바닥 위에 평면 캐릭터와 오브젝트를 세운 듯한 공간감, 밭과 이동 동선이 함께 보이는 카메라를 참고했습니다.","alt":"비스듬한 시점에서 작물 사이의 길과 건물, 캐릭터를 보여 주는 농장 화면","w":1920,"h":1080},
+ {"name":"meadow-palette","title":"초원의 색감과 질감","caption":"연두빛 풀밭과 크림색 꽃, 부드러운 경계의 조합을 밝고 편안한 초원 분위기의 참고로 삼았습니다.","alt":"연두빛 꽃밭에서 두 캐릭터가 손을 잡고 있는 그림","w":736,"h":1308}
+];
+
+function renderArtReferences() {
+ const gallery = (items, className = '') => `<div class="art-reference-grid ${className}">${items.map(item => {
+  const path = 'art-references/' + item.name + '.png';
+  return `<figure>
+   <a href="${path}" aria-label="${esc(item.title)} 이미지 열기">
+    <img src="${path}" alt="${esc(item.alt)}" width="${item.w}" height="${item.h}" loading="lazy" decoding="async">
+   </a>
+   <figcaption><strong>${esc(item.title)}</strong>${esc(item.caption)}</figcaption>
+  </figure>`;
+ }).join('')}</div>`;
+ const [camp, animals, colors, props, farm, meadow] = artReferences;
+ return `<section class="doc-block art-reference-gallery">
+  <div class="block-heading"><h3>초기 아트 콘셉트 참고 이미지</h3></div>
+  <h4>카메라와 정원 배치</h4>
+  ${gallery([camp, farm])}
+  <p class="art-reference-credit">게임 화면 · <a class="table-link" href="https://store.steampowered.com/app/1313140/Cult_of_the_Lamb/">Cult of the Lamb</a> · Massive Monster / Devolver Digital</p>
+  <h4>동물 캐릭터와 정원의 색감</h4>
+  ${gallery([animals, colors, props, meadow], 'art-reference-illustrations')}
+ </section>`;
+}
+
 function renderChapterBlock(chapter, block, index, render) {
  const path = '#chapter/' + chapter.id + '/section-' + (index + 1);
- return (path === chapterIntentPath(chapter.id) ? '' : renderDesignIntent(path)) + render(block);
+ const art = chapter.id === '08' && index === 0 ? renderArtReferences() : '';
+ return (path === chapterIntentPath(chapter.id) ? '' : renderDesignIntent(path)) + art + render(block);
 }
 
 function mountDesignIntents(container) {
