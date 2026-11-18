@@ -441,7 +441,6 @@ const CULTIVATION_RULES={
   "meadowBlocks": 2,
   "meadowWidth": 5,
   "meadowHeight": 3,
-  "growthSeconds": 30,
   "sproutEndSeconds": 10,
   "seedCost": 1,
   "harvestYield": 1,
@@ -586,6 +585,41 @@ const PLANTS=[
   }
 ];
 
+const BASIC_PLANT_GROWTH = {
+ P001: [15, 0],
+ P002: [30, 0],
+ P005: [180, 1],
+ P010: [300, 1],
+ P004: [600, 1],
+ P008: [1200, 1],
+ P013: [1800, 1],
+ P011: [2700, 1],
+ P003: [5400, 1],
+ P012: [10800, 2],
+ P014: [14400, 2],
+ P009: [18000, 2],
+ P006: [28800, 2],
+ P007: [43200, 2],
+ P015: [86400, 3]
+};
+const WATERING_MILESTONES = [[], [50], [33, 67], [25, 50, 75]];
+
+function growthDuration(seconds) {
+ const parts = [];
+ const hours = Math.floor(seconds / 3600);
+ const minutes = Math.floor(seconds % 3600 / 60);
+ const remaining = seconds % 60;
+ if (hours) parts.push(hours + '시간');
+ if (minutes) parts.push(minutes + '분');
+ if (remaining) parts.push(remaining + '초');
+ return parts.join(' ');
+}
+
+function extraWatering(count) {
+ if (!count) return '없음';
+ return count + '회 · 기본 시간의 ' + WATERING_MILESTONES[count].map(percent => percent + '%').join('·');
+}
+
 const STAGES=[
   {
     "name": "씨앗",
@@ -595,20 +629,20 @@ const STAGES=[
   },
   {
     "name": "새싹",
-    "range": "물 준 뒤 0–10초 미만",
-    "caption": "0–10초 미만",
+    "range": "첫 물주기 후",
+    "caption": "성장 시작",
     "text": "첫 물주기로 성장이 시작됩니다. 작은 줄기와 떡잎이 모습을 드러냅니다."
   },
   {
     "name": "성장",
-    "range": "물 준 뒤 10–30초 미만",
-    "caption": "10–30초 미만",
+    "range": "품종별 성숙 전",
+    "caption": "성숙 전",
     "text": "잎과 줄기가 자라며 식물 고유의 형태가 나타납니다."
   },
   {
     "name": "성숙",
-    "range": "물 준 뒤 실행 시간 30초",
-    "caption": "30초 · 수확 가능",
+    "range": "기본 성장 시간 도달",
+    "caption": "수확 가능",
     "text": "완전히 자란 식물을 수확할 수 있습니다. 수확 후에는 빈 밭에 씨앗을 다시 심습니다."
   }
 ];
@@ -960,23 +994,23 @@ const CHAPTERS=[
         "rows": [
           [
             "씨앗",
-            "파종 후, 물주기 전",
-            "심어진 씨앗 · 성장 시간 대기"
+            "파종 후 첫 물주기 전",
+            "성장 시작 대기"
           ],
           [
             "새싹",
-            "물주기 후 0초 이상 ~ 10초 미만",
-            "어린 줄기와 떡잎"
+            "첫 물주기 후",
+            "성장 시작 · 어린 줄기와 떡잎"
           ],
           [
             "성장",
-            "10초 이상 ~ 30초 미만",
-            "잎과 줄기의 크기 증가"
+            "품종별 성숙 전",
+            "잎과 줄기 성장 · 해당 품종은 추가 물주기 가능"
           ],
           [
             "성숙",
-            "30초 도달",
-            "완성된 식물 · 수확 가능 표시"
+            "품종별 성장 시간 충족",
+            "수확 가능"
           ]
         ]
       },
@@ -984,10 +1018,11 @@ const CHAPTERS=[
         "kind": "bullets",
         "title": "물주기와 시간",
         "items": [
-          "웹 프로토타입은 첫 물주기로 성장을 시작하며, 같은 파종 주기의 반복 입력은 성장 시간을 초기화하거나 가속하지 않습니다.",
-          "다른 지역을 탐험하는 동안에도 성장은 이어진다. 게임을 종료한 동안의 시간은 누적하지 않는다.",
-          "성숙한 식물은 수확할 때까지 유지된다. 관리를 놓쳤다는 이유로 식물이 죽지 않는다.",
-          "기본 성숙 시간 30초는 프로토타입 수치입니다. 실제 성숙 시간과 충전량을 사용하는 추가 돌봄의 적용 시점은 함께 검토합니다."
+          "기본 표본은 파종 뒤 첫 물주기 1회로 성장이 시작됩니다. 기본 시간은 추가 물주기를 하지 않았을 때의 성숙 시간입니다.",
+          "추가 1회는 기본 시간의 50%, 2회는 33%·67%, 3회는 25%·50%·75%에 기회가 열립니다. 가능한 횟수는 품종마다 다릅니다.",
+          "추가 물주기 1회당 기본 성장 시간의 3%만큼 진행도가 오릅니다. 구름라벤더는 2회를 모두 주면 5시간에서 4시간 42분으로 줄어듭니다.",
+          "열린 기회는 성숙 전까지 단계별로 한 번씩 사용할 수 있습니다. 접속하지 않아도 기본 시간에 성숙하고, 추가 물주기를 건너뛰어도 시들거나 수확량이 줄지 않습니다.",
+          "추가 물주기는 성장 시간에만 영향을 줍니다. 황금·프리즘 등장 확률은 그대로이며, 프리즘이 출현할 수 있는 경우 확률 하한은 0.1%입니다."
         ]
       },
       {
@@ -1015,9 +1050,14 @@ const CHAPTERS=[
                 "씨앗 1개 소비 · 물주기 전 상태"
               ],
               [
-                "물주기",
-                "파종된 작물 · 해당 주기에 물주기 미완료",
-                "성장 시작 · 중복 입력은 추가 효과 없음"
+                "첫 물주기",
+                "파종된 작물 · 이 재배 주기의 첫 물주기 전",
+                "성장 시작 · 주기당 1회"
+              ],
+              [
+                "추가 물주기",
+                "품종별 기회 열림 · 성숙 전 · 해당 기회 미사용",
+                "기회당 1회 · 기본 시간의 3%만큼 진행도 증가"
               ],
               [
                 "기본 표본 수확",
@@ -1076,6 +1116,10 @@ const CHAPTERS=[
             "text": "경험치, 레벨 보상, 대표 동물과 정원 프로필"
           }
         ]
+      },
+      {
+        "kind": "plantGrowth",
+        "title": "식물별 생장 시간과 추가 물주기"
       }
     ]
   },
@@ -3660,7 +3704,9 @@ function detailContent(p){
   row('♧', '필요 재료', p.name + '의 씨앗 1개') +
   row('▧', '재배 방식', '정화 → 밭갈기 → 파종 → 물주기') +
   row('☼', '재배 공간', p.size === '대형' ? '2×2칸 또는 전용 식재 구역을 사용하는 배치안' : '일반 텃밭 1칸') +
-  row('♧', '물주기·성장', '물을 주면 성장 시작 · 프로토타입 기준 30초 후 성숙<br>게임 실행 중 다른 지역에서도 성장') +
+  row('♧', '물주기·성장', '첫 물주기 1회로 성장 시작 · 기본 ' + growthDuration(BASIC_PLANT_GROWTH[p.id][0]) +
+   '<br>추가 물주기 ' + extraWatering(BASIC_PLANT_GROWTH[p.id][1]) +
+   '<br><a href="#chapter/03/section-8">식물별 생장 기획 보기 ↗</a>') +
   row('⌖', '발견 장소', esc(b.site || (p.id === 'P001' ? b.acquisition : p.region))) +
   (b.site ? row('❧', '성장 연출', esc(b.visual)) : '') + '</dl>';
  const harvest = PLANT_HARVESTS[p.id];
@@ -3691,9 +3737,13 @@ function stageDescription(p){
  const note = p.dyeFlower && state.stage === STAGES.length - 1
   ? '꽃 개화·수확 가능 · 수확 후 같은 자리에서 재성장'
   : TYPE_STAGES[p.dyeFlower ? '꽃' : p.type][state.stage];
- return `<b>${s.name} · ${s.range}</b><br>${text}<span class="stage-type-note">${p.type} · ${note}</span>`;
+ const schedule = BASIC_PLANT_GROWTH[p.id];
+ const range = state.stage === 3
+  ? schedule ? '기본 ' + growthDuration(schedule[0]) : '본편 성장 시간 미정'
+  : s.range;
+ return `<b>${s.name} · ${range}</b><br>${text}<span class="stage-type-note">${p.type} · ${note}</span>`;
 }
-function renderCultivationSummary(){const r=CULTIVATION_RULES;$('#common-cultivation-summary').innerHTML=`<div class="cultivation-summary-heading"><span>정원의 재배 흐름</span><a href="#chapter/03">시스템 기획 보기 ↗</a></div><dl><div><dt>재배 공간</dt><dd>농장 ${r.gardenPlots}칸 · 초원 ${r.meadowPlots}칸</dd></div><div><dt>성장 과정</dt><dd>씨앗 → 새싹 → 성장 → 성숙</dd></div><div><dt>돌봄과 변화</dt><dd>물주기 후 ${r.growthSeconds}초에 성숙</dd></div><div><dt>수확과 다음 시작</dt><dd>기본 표본은 재파종 · 염색꽃은 재성장</dd></div></dl>`;}
+function renderCultivationSummary(){const r=CULTIVATION_RULES;$('#common-cultivation-summary').innerHTML=`<div class="cultivation-summary-heading"><span>정원의 재배 흐름</span><a href="#chapter/03/section-8">식물별 생장 시간 보기 ↗</a></div><dl><div><dt>재배 공간</dt><dd>농장 ${r.gardenPlots}칸 · 초원 ${r.meadowPlots}칸</dd></div><div><dt>성장 과정</dt><dd>씨앗 → 새싹 → 성장 → 성숙</dd></div><div><dt>돌봄과 변화</dt><dd>첫 물주기 후 품종별 15초~24시간 · 추가 물주기로 단축</dd></div><div><dt>수확과 다음 시작</dt><dd>기본 표본은 재파종 · 염색꽃은 재성장</dd></div></dl>`;}
 function renderDetail(){
  const p = state.selected;
  if (!p) {
@@ -3725,14 +3775,14 @@ function renderDetail(){
   </div>
   <p class="specimen-description">${esc(overview)}</p>
   <dl class="detail-facts">
-   <div><dt>성숙 · 프로토타입</dt><dd class="fact-text">${CULTIVATION_RULES.growthSeconds}초</dd></div>
+   <div><dt>기본 성숙 시간</dt><dd class="fact-text">${flower ? '기획 미정' : growthDuration(BASIC_PLANT_GROWTH[p.id][0])}</dd></div>
    <div><dt>수확 후 동작</dt><dd class="fact-text">${flower ? '같은 자리에서 재성장' : '다시 파종'}</dd></div>
    <div><dt>기본 점유 공간</dt><dd>${large ? '2 × 2' : '1'}<small>${large ? '또는 전용' : '칸'}</small></dd></div>
   </dl>
   <div class="growth-preview">
    <div class="small-heading"><h3>성장 과정</h3><span>단계 설명 보기 · 성장과 성숙은 공통 일러스트 시안</span></div>
    <div class="stage-track" role="group" aria-label="성장 단계 설명">
-    ${STAGES.map((stage, i) => `<button class="stage-button ${state.stage === i ? 'active' : ''}" data-stage="${i}" aria-label="${i + 1}단계 ${stage.name}" aria-pressed="${state.stage === i}">${stageGraphic(p, i)}<span>${stage.name}</span><small>${stage.caption}</small></button>`).join('')}
+    ${STAGES.map((stage, i) => `<button class="stage-button ${state.stage === i ? 'active' : ''}" data-stage="${i}" aria-label="${i + 1}단계 ${stage.name}" aria-pressed="${state.stage === i}">${stageGraphic(p, i)}<span>${stage.name}</span><small>${i === 3 && !flower ? growthDuration(BASIC_PLANT_GROWTH[p.id][0]) : stage.caption}</small></button>`).join('')}
    </div>
    <p class="stage-description" aria-live="polite">${stageDescription(p)}</p>
   </div>
@@ -3788,6 +3838,7 @@ function renderPlantBrief(p) {
  const b = PLANT_BRIEFS[p.id];
  const fields = [
   ['기획 역할', b.role], ['발견과 재배', b.site || b.acquisition], ['성장 연출', b.visual],
+  ['기본 성숙 시간', growthDuration(BASIC_PLANT_GROWTH[p.id][0])], ['추가 물주기', extraWatering(BASIC_PLANT_GROWTH[p.id][1])],
   ['필요 정화', purificationPlan.describePlant(p.id, false)], ['기본 수확물', PLANT_HARVESTS[p.id] || '기획 미정'],
   ['특수 수확물 시안', specialHarvests[p.id]], ['활용 방향', b.resource],
   ['지역 생태', b.ecology], ['지역 장기 업적', b.goal]
@@ -4280,7 +4331,18 @@ const openingPlan = (() => {
  return {render, goToStage, search};
 })();
 
+function renderPlantGrowth(b) {
+ const rows = Object.entries(BASIC_PLANT_GROWTH).map(([id, [seconds, count]]) => {
+  const plant = PLANTS.find(entry => entry.id === id);
+  return `<tr><th scope="row"><a href="#plants/${id}">${esc(plant.name)}</a></th><td>${growthDuration(seconds)}</td><td>${extraWatering(count)}</td><td>${count ? count * 3 + '%' : '—'}</td></tr>`;
+ });
+ return `<section class="doc-block">${blockHeading(b)}
+  <p class="doc-paragraph">기본 표본 15종의 본편 밸런스 기준안입니다. 기본 시간은 첫 물주기부터 성숙까지입니다. 염색꽃의 첫 성장과 재성장 시간은 별도 기획 항목입니다.</p>
+  <div class="table-scroll"><table><thead><tr><th scope="col">식물</th><th scope="col">기본 성숙</th><th scope="col">추가 물주기 시점</th><th scope="col">최대 단축</th></tr></thead><tbody>${rows.join('')}</tbody></table></div></section>`;
+}
+
 function renderBlock(b){
+ if(b.kind==='plantGrowth')return renderPlantGrowth(b);
  if(b.kind==='openingPlan')return openingPlan.render(true);
  if(b.kind==='petSynergy')return petSynergy.summary();
  if(b.kind==='profileFrames')return `<section class="doc-block profile-frames" aria-label="${esc(b.title)}">
@@ -4334,7 +4396,7 @@ function renderBlock(b){
 }
 const chapterAliases={'04':'03','05':'03','06':'02','10':'09','11':'09','12':'01','13':'01','15':'14','17':'07'};
 const readingTitles={overview:'프로젝트 소개', system:'핵심 시스템', growth:'정원사 성장', monetization:'수익화 방향', art:'아트 · 설계'};
-const readingSections={'01':[7], '16':[4, 9], '18':[7, 8, 9, 10, 11], '20':[2, 3, 4, 5, 6, 8, 11, 14], '21':[2, 3, 5], '19':[3, 4, 6]};
+const readingSections={'01':[7], '03':[4, 8], '16':[4, 9], '18':[7, 8, 9, 10, 11], '20':[2, 3, 4, 5, 6, 8, 11, 14], '21':[2, 3, 5], '19':[3, 4, 6]};
 const questOutline=[
  {href:'#quests', title:'퀘스트', targetId:'quests-view'},
  {href:'#quests/tutorial', title:'튜토리얼', targetId:'quest-tutorial', child:true},
