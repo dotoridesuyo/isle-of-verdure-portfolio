@@ -149,8 +149,20 @@
 @media print{.opening-stage{break-inside:avoid}.opening-links{font-size:9pt}}
   </style>
 <style>
+.doc-note.design-intent{margin:0 0 20px;padding:18px 22px;background:#edf2e5;border-left:4px solid #6e8a58;color:#314732}
+.chapter-header .design-intent,.summon-equipment header .design-intent{margin:16px 0 14px}
+.design-intent .design-intent-label{display:block;margin-bottom:5px;color:#496440;font-weight:800;font-size:12px;letter-spacing:.04em}
+.doc-note.design-intent h3{margin:0 0 7px;color:#314732;font-size:clamp(17px,2vw,22px);line-height:1.45;word-break:keep-all}
+.doc-note.design-intent p,.design-intent-choices dd{font-size:14px;color:#374b38;line-height:1.75;word-break:keep-all}
 .design-intent p + p{margin-top:8px}
-@media print{.design-intent{break-inside:avoid}}
+.design-intent-choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:13px 0 9px}
+.design-intent-choices>div{padding-top:11px;border-top:1px solid #c4d1ba}
+.design-intent-choices dt{font-size:14px;font-weight:800;color:#314732}
+.design-intent-choices dd{margin:4px 0 0}
+.specimen-growth-intent{border-top:1px solid #d6dfcc;padding-top:9px;margin:0 0 10px;font-size:13px;line-height:1.7;color:#435941}
+.specimen-growth-intent a{font-weight:700}
+@media(max-width:650px){.design-intent-choices{grid-template-columns:1fr;gap:9px}.doc-note.design-intent{padding:15px 16px}}
+@media print{.doc-note.design-intent{break-inside:avoid}.doc-note.design-intent p,.design-intent-choices dd{font-size:9pt}}
 </style>
 </head>
 <body>
@@ -182,7 +194,6 @@
       <header class="map-intro">
         <div>
           <h2 id="map-title">탐험 지도</h2>
-          <p>정원에서 시작해 이슬 숲, 햇살 초원, 안개 습지를 탐험합니다. 고대의 숲은 추후 확장 지역입니다.</p>
         </div>
         <div class="map-stage" role="group" aria-label="지도 해금 상태 미리보기">
           <button type="button" data-map-stage="start" aria-pressed="true">시작 상태</button>
@@ -190,6 +201,7 @@
         </div>
       </header>
       <div data-design-intent="#map"></div>
+      <p class="doc-paragraph">정원에서 시작해 이슬 숲, 햇살 초원, 안개 습지를 탐험합니다. 고대의 숲은 추후 확장 지역입니다.</p>
       <div class="map-layout">
         <div class="map-sheet">
           <div class="map-viewport" data-map-art="start">
@@ -212,6 +224,7 @@
           <p id="shop-intro-copy"></p>
         </div>
       </header>
+      <div data-design-intent="#shop"></div>
       <nav class="garden-plan-nav shop-categories" aria-label="상점 품목과 관련 기획">
         <a href="#shop/items">아이템</a>
         <a href="#shop/furniture">가구</a>
@@ -253,6 +266,7 @@
       <header class="shop-header">
         <div><h2 id="summon-title">펫 뽑기</h2><p>숲의 친구 소환에서 동물 친구와 전용 장비를 만나요.</p><p><a class="opening-quest-link" href="#chapter/01/section-7/recruit">본편 튜토리얼 첫 10연차 개정안 ↗</a></p></div>
       </header>
+      <div data-design-intent="#summon"></div>
       <nav class="garden-plan-nav" aria-label="펫 뽑기 기획 목차">
         <a href="#summon/odds">일반 소환 확률</a>
         <a href="#summon/guarantee">확정 소환</a>
@@ -260,19 +274,18 @@
         <a href="#summon/tickets">소환권 획득</a>
         <a href="#summon/equipment">전용 장비</a>
       </nav>
-      <div data-design-intent="#summon"></div>
       <div id="summon-content" class="summon-content"></div>
     </section>
     <section id="achievements-view" class="achievements-view" aria-labelledby="achievements-title" hidden>
       <header class="ach-header">
         <h2 id="achievements-title">업적과 지역 숙련도</h2>
-        <p>지역마다 복원 달성과제 6개와 장기 업적 5개를 달성해 숙련도 100점을 채워요.</p>
         <a class="quest-reference" href="#achievements/flowers">염색꽃 과제와 업적 ↘</a>
       </header>
+      <div data-design-intent="#achievements"></div>
+      <p class="doc-paragraph">지역마다 복원 달성과제 6개와 장기 업적 5개를 달성해 숙련도 100점을 채워요.</p>
       <nav id="ach-region-nav" class="ach-region-nav" aria-label="업적 지역 선택"></nav>
       <div id="ach-region-overview" class="ach-region-overview"></div>
       <p class="ach-hint" id="ach-preview-hint"></p>
-      <div data-design-intent="#achievements"></div>
       <section id="ach-mastery" class="ach-mastery" aria-label="숙련도 및 배지"></section>
       <p class="ach-sr-only" id="ach-live" role="status"></p>
       <div id="ach-record-lists" class="ach-record-lists"></div>
@@ -292,15 +305,15 @@
     <section id="workshop-view" class="shop-view garden-plan" aria-labelledby="workshop-title" hidden>
       <header class="shop-header"><div>
         <h2 id="workshop-title">정원 가구 제작소</h2>
-        <p id="workshop-unlock"></p>
       </div></header>
+      <div data-design-intent="#workshop"></div>
+      <p id="workshop-unlock" class="doc-paragraph"></p>
       <nav class="garden-plan-nav" aria-label="가구 획득 방법">
         <a href="#shop">상점</a>
         <a href="#workshop" aria-current="page" data-workshop-nav="craft">가구 제작소</a>
         <a href="#workshop/level-furniture" data-workshop-nav="level-furniture">레벨별 제작 가구</a>
         <a href="#workshop/dye" data-workshop-nav="dye">염색 작업대</a>
       </nav>
-      <div data-design-intent="#workshop"></div>
       <section class="shop-paper workshop-recipe" aria-labelledby="workshop-station-title">
         <div>
           <h3 id="workshop-station-title">목재 가공</h3>
@@ -325,9 +338,11 @@
       </section>
       <section id="workshop-dye" class="garden-dye" aria-labelledby="workshop-dye-title">
         <header class="shop-header">
-          <div><h3 id="workshop-dye-title">꽃빛 염색 작업대</h3><p id="dye-workbench-rule"></p></div>
+          <div><h3 id="workshop-dye-title">꽃빛 염색 작업대</h3></div>
           <a class="quest-reference" href="#workshop">가구 제작소 ↗</a>
         </header>
+        <div data-design-intent="#workshop/dye"></div>
+        <p id="dye-workbench-rule" class="doc-paragraph"></p>
         <div class="dye-intro-grid">
           <figure class="shop-paper dye-station">
             <img src="system-art/dye-station.webp" width="504" height="504" loading="lazy" alt="꽃잎을 빻는 절구와 색별 염료를 놓은 꽃빛 염색 작업대">
@@ -339,7 +354,6 @@
             <p class="shop-hint">보라색 염색에는 안개연꽃 꽃잎을 써요. 도감의 안개수술도 정화 재료로 얻을 수 있어요.</p>
           </section>
         </div>
-        <div data-design-intent="#workshop/dye"></div>
         <section class="dye-flower-catalog" aria-labelledby="dye-flower-title">
           <header><h3 id="dye-flower-title">염색꽃 4종</h3><p id="dye-flower-rule"></p><p class="shop-hint">위치, 수확량과 확률은 플레이테스트용 시안이에요.</p></header>
           <div id="dye-flower-list"></div>
@@ -352,17 +366,17 @@
         <h2 id="quests-title">퀘스트</h2>
         <p>리프와의 첫 만남부터 정원 우편함에 도착하는 일일·주간 과제까지 살펴보세요.</p>
       </div></header>
+      <section class="doc-note green design-intent" aria-labelledby="quest-intent-title">
+        <h3 id="quest-intent-title">퀘스트 기획 의도</h3>
+        <p id="quest-intent"></p>
+        <p id="quest-cumulative"></p>
+      </section>
       <nav class="garden-plan-nav" aria-label="퀘스트 목록 선택">
         <a href="#quests/tutorial" data-quest-nav="tutorial">튜토리얼</a>
         <a href="#quests/daily" data-quest-nav="daily">일일 퀘스트</a>
         <a href="#quests/weekly" data-quest-nav="weekly">주간 퀘스트</a>
       </nav>
       <div class="quest-guide">
-        <section class="shop-paper" aria-labelledby="quest-intent-title">
-          <h3 id="quest-intent-title">퀘스트 기획 의도</h3>
-          <p id="quest-intent"></p>
-          <p id="quest-cumulative"></p>
-        </section>
         <section id="quest-tutorial" class="shop-paper reading-target" aria-labelledby="quest-tutorial-title">
           <h3 id="quest-tutorial-title">튜토리얼 퀘스트</h3>
           <p><a class="opening-quest-link" href="#chapter/01/section-7">초반 인트로 · 튜토리얼 제작 명세 ↗</a></p>
@@ -393,6 +407,7 @@
     </nav>
     <div id="plant-view">
       <div class="section-caption"><p><span class="tiny-leaf">❧</span> BOTANICAL COLLECTION <span>식물 표본집</span></p><span>식물 카드를 선택해 기획 정보를 살펴보세요</span></div>
+      <div data-design-intent="#plants"></div>
       <aside id="common-cultivation-summary" class="common-cultivation-summary" aria-label="확정된 공통 재배 규칙"></aside>
       <nav class="garden-plan-nav plant-cross-links" aria-label="식물 관련 시스템"><a href="#chapter/18">정화 물약</a><a href="#workshop/dye">꽃빛 염색 작업대</a><a href="#map">탐험 지도</a></nav>
       <section class="book" id="plant-book" aria-label="전체 식물 기획 데이터">
@@ -414,6 +429,7 @@
     </div>
     <div id="animal-view" hidden>
       <div class="section-caption"><p><span class="tiny-leaf">❧</span> ANIMAL COMPANIONS <span>동물 친구 도감</span></p><span>친구 카드를 선택해 도감 기록을 살펴보세요</span></div>
+      <div data-design-intent="#animals"></div>
       <section class="book animal-encyclopedia" aria-label="10종 동물 친구 도감">
         <div class="book-page catalog-page">
           <div class="page-heading"><div><p class="eyebrow">THE COMPANION JOURNAL</p><h2>정원에서 만난 친구들</h2></div><span class="collection-count"><b id="animal-entry-count">10</b> friends</span></div>
@@ -427,7 +443,6 @@
         <article class="book-page detail-page animal-entry-detail" id="animal-entry-detail" aria-label="선택한 동물 친구의 도감 상세" aria-live="polite"></article>
       </section>
       <div class="book-under"><span>✧ 동물 그림과 캐릭터 설정은 콘셉트 시안입니다.</span><span>정원을 함께 돌보는 열 명의 작은 친구</span></div>
-      <div data-design-intent="#animals"></div>
       <section id="animal-production-spec" class="animal-production-spec" aria-label="선택한 동물의 제작 상세"></section>
       <section class="reading-paths" aria-label="동물 관련 기획"><a href="#chapter/16"><span class="path-icon">♧</span><div><small>ANIMAL COMPANIONS</small><h3>배치로 정하는 관리 역할</h3><p>모서리 배치 · 등급별 2~9칸 관리</p></div><span>↗</span></a><a href="#chapter/08"><span class="path-icon">✎</span><div><small>ART DIRECTION</small><h3>친구마다 다른 실루엣</h3><p>종별 구조와 부드러운 손그림</p></div><span>↗</span></a><a href="#chapter/14"><span class="path-icon">✧</span><div><small>COLLECTION ECONOMY</small><h3>새로운 만남으로 이어지는 수확</h3><p>재료 선택 · 합성 · 동물 소환</p></div><span>↗</span></a></section>
     </div>
@@ -3761,6 +3776,17 @@ function stageDescription(p){
  return `<b>${s.name} · ${range}</b><br>${text}<span class="stage-type-note">${p.type} · ${note}</span>`;
 }
 function renderCultivationSummary(){const r=CULTIVATION_RULES;$('#common-cultivation-summary').innerHTML=`<div class="cultivation-summary-heading"><span>정원의 재배 흐름</span><a href="#chapter/03/section-8">식물별 생장 시간 보기 ↗</a></div><dl><div><dt>재배 공간</dt><dd>농장 ${r.gardenPlots}칸 · 초원 ${r.meadowPlots}칸</dd></div><div><dt>성장 과정</dt><dd>씨앗 → 새싹 → 성장 → 성숙</dd></div><div><dt>돌봄과 변화</dt><dd>첫 물주기 후 품종별 15초~24시간 · 추가 물주기로 단축</dd></div><div><dt>수확과 다음 시작</dt><dd>기본 표본은 재파종 · 염색꽃은 재성장</dd></div></dl>`;}
+function plantGrowthIntent(p) {
+ const schedule = BASIC_PLANT_GROWTH[p.id];
+ if (!schedule) return '';
+ const [seconds] = schedule;
+ const purpose = seconds <= 60
+  ? '접속 중 짧게 심고 거두는 일을 가볍게 반복할 수 있는 작물입니다.'
+  : seconds >= 1200
+   ? '접속을 마치기 전에 남은 밭에 심어 두기 좋은 작물입니다. 첫 물주기를 마치면 접속을 종료한 뒤에도 자랍니다.'
+   : '';
+ return purpose ? `<p class="specimen-growth-intent"><a href="#chapter/03/section-8">생장 기획 의도</a> · ${purpose}</p>` : '';
+}
 function renderDetail(){
  const p = state.selected;
  if (!p) {
@@ -3790,6 +3816,7 @@ function renderDetail(){
    </div>
    ${detailArt}
   </div>
+  ${plantGrowthIntent(p)}
   <p class="specimen-description">${esc(overview)}</p>
   <dl class="detail-facts">
    <div><dt>기본 성숙 시간</dt><dd class="fact-text">${flower ? '기획 미정' : growthDuration(BASIC_PLANT_GROWTH[p.id][0])}</dd></div>
@@ -4389,8 +4416,18 @@ function renderPlantGrowth(b) {
 }
 
 const designIntents = [
+ {"key":"plant-timing","href":"#plants","title":"짧게 반복하고, 접속을 끊을 땐 심어 두기","intent":"지금 잠깐 반복해서 가꾸거나, 게임을 끄기 전에 여유 밭에 심어 두는 두 가지 재배 방식에 맞춰 작물의 생장 시간을 나눴습니다.","choices":[["15초·30초처럼 1분 이내 · 접속 중에 반복 재배","심기, 물주기, 수확을 짧게 이어가며 복잡한 판단 없이 계속 밭을 가꾸는 재미를 줍니다."],["20분·1시간 이상 · 접속을 마치기 전에 심어 두기","남은 밭을 비워 두고 종료하는 게 아깝게 느껴질 때 오래 자라는 작물을 심을 수 있습니다. 첫 물주기를 마치면 접속을 종료해도 기본 시간대로 자라 다음에 돌아와 수확할 수 있습니다."]],"relatedHref":"#chapter/03/section-8","relatedTitle":"품종별 생장 시간"},
+ {"key":"plant-growth-timing","href":"#chapter/03/section-8","title":"짧게 반복하고, 접속을 끊을 땐 심어 두기","intent":"지금 잠깐 반복해서 가꾸거나, 게임을 끄기 전에 여유 밭에 심어 두는 두 가지 재배 방식에 맞춰 작물의 생장 시간을 나눴습니다.","choices":[["15초·30초처럼 1분 이내 · 접속 중에 반복 재배","심기, 물주기, 수확을 짧게 이어가며 복잡한 판단 없이 계속 밭을 가꾸는 재미를 줍니다."],["20분·1시간 이상 · 접속을 마치기 전에 심어 두기","남은 밭을 비워 두고 종료하는 게 아깝게 느껴질 때 오래 자라는 작물을 심을 수 있습니다. 첫 물주기를 마치면 접속을 종료해도 기본 시간대로 자라 다음에 돌아와 수확할 수 있습니다."]],"relatedHref":"#plants","relatedTitle":"식물 표본집"},
+ {"key":"plant-variety","href":"#chapter/02","title":"새 지역을 열 때마다 늘어나는 수집과 배치 선택","intent":"지역마다 다른 식물을 만나면 도감의 빈칸이 채워집니다. 발견한 식물을 정원에 심어 색과 크기가 다른 풍경을 만들고, 특별 수확물을 얻으면 다음 수집 목표를 발견합니다."},
+ {"key":"economy","href":"#chapter/14","title":"수확한 재료를 다음 목표에 쓰는 재미","intent":"오늘 수확한 재료를 정화, 가구 제작, 판매 중 어디에 쓸지 고르면 다음에 무엇을 키울지가 정해집니다. 스킨과 프로필 장식은 취향에 따라 선택하는 외형 상품으로 구상합니다."},
+ {"key":"art","href":"#chapter/08","title":"작은 변화로 식물과 동물의 개성 전달","intent":"식물의 성장 단계와 동물의 역할을 형태와 움직임으로 읽을 수 있게 합니다. 표본집 같은 색감과 질감은 관찰을 중심으로 한 차분한 분위기를 만듭니다."},
+ {"key":"implementation","href":"#chapter/09","title":"쉬었다 돌아와도 믿고 이어 가는 정원","intent":"접속을 마치거나 같은 입력을 여러 번 눌러도 플레이 기록과 보상을 일관되게 처리합니다. 그동안 쌓은 정원과 수집 기록을 안심하고 이어 가게 하기 위한 설계입니다."},
+ {"key":"ranking","href":"#chapter/21","title":"만렙 이후 원하는 분야에서 도전할 목표","intent":"최고 레벨에 도달한 뒤 수익, 수확, 황금 수확 중 자신이 즐겨 온 활동으로 주간 기록에 도전할 수 있게 합니다. 한 주씩 새 기록을 세우고 인장으로 성취를 남기는 기획안입니다."},
+ {"key":"friends","href":"#chapter/19","title":"가꾼 풍경을 나누고 다른 정원에서 영감 얻기","intent":"친구 정원을 구경하고 가볍게 인사를 남기며, 자신이 꾸민 공간도 보여 줄 수 있게 합니다. 서로 다른 식물·가구 구성을 보는 즐거움이 다음 꾸미기 목표로 이어집니다."},
+ {"key":"shop","href":"#shop","title":"지금 필요한 재료와 원하는 장식을 고르는 곳","intent":"모은 수확물과 여분 씨앗을 팔아 다음 재배에 필요한 물품이나 가구를 고릅니다. 무엇을 살지 결정하면 다음에 어떤 작물을 키우고 어느 지역을 돌아볼지 목표가 생깁니다."},
+ {"key":"opening","href":"#chapter/01/section-7","title":"편지에서 시작해 첫 수확으로 배우는 조작","intent":"할아버지의 편지로 섬에 온 이유를 전한 뒤, 리프와 첫 밭을 가꾸며 조작을 익힙니다. 직접 키운 작물로 첫 정화를 하고 펫이 관리를 돕는 장면까지 경험해 본편의 흐름을 한 번 따라갑니다."},
  {"key":"overview","href":"#chapter/01/section-2","title":"짧게 접속해도 정원이 자라는 게임","intent":"한 번의 파종과 수확으로 작은 성취를 얻고, 익숙해진 관리 작업은 펫에게 맡깁니다. 수확한 재료로 정화 물약을 만들어 새 지역을 열거나, 가구와 염색재를 만들어 정원을 꾸밉니다.","detail":"힐링형은 짧은 재배, 수집형은 도감과 업적, 탐험형은 지역 복원, 전략형은 펫 배치, 꾸미기형은 공간과 색 조합, 교류형은 대표 펫과 성취 공유에서 각자의 목표를 찾습니다."},
- {"key":"cultivation","href":"#chapter/03/section-1","title":"식물 재배 · 관리 · 수확","intent":"심고 물을 주고 수확하는 짧은 반복으로 작은 성취를 느끼게 합니다. 수확한 재료와 재화는 정화·제작·꾸미기에 쓰고, 경험치는 정원사 성장으로 이어집니다. 이후 펫이 관리 일부를 맡아 재배 부담이 줄어드는 것을 체감합니다.","proposal":"장기 작물의 중간 성장 단계에서 보상을 주는 방안을 검토합니다. 기본 생장 시간과 추가 물주기는 품종별 기준안을 따릅니다."},
+ {"key":"cultivation","href":"#chapter/03/section-1","title":"접속 중에는 짧게, 접속을 마칠 땐 길게","intent":"접속 중에는 짧게 자라는 작물을 심고 거두며 복잡한 판단 없이 재배를 반복합니다. 접속을 마칠 때는 남아 있는 밭에 오래 자라는 작물을 심어 다음 방문에 수확할 수 있습니다. 이후 펫이 반복 관리 일부를 맡아 돌봄 부담을 줄입니다.","proposal":"장기 작물의 중간 성장 단계에서 보상을 주는 방안을 검토합니다.","relatedHref":"#chapter/03/section-8","relatedTitle":"생장 시간을 나눈 이유와 품종별 기준"},
  {"key":"harvest","href":"#chapter/02/section-5","title":"희귀 · 황금 수확물","intent":"기본 수확 보상을 꾸준히 얻는 동안 가끔 황금·프리즘 등 특별한 결과를 만나게 해, 익숙한 재배에도 기대를 더합니다. 특별한 결과는 도감과 제작에 이어져 다음 재배 목표를 만듭니다.","proposal":"황금 수확물의 특별 납품과 누적 업적, 희귀 수확물을 활용한 교배 재배를 검토합니다. 수확 확률과 기대 보상량을 함께 검증합니다."},
  {"key":"plant-records","href":"#chapter/07/section-2","title":"식물 도감 · 누적 수집 · 정원 앨범","intent":"식물 도감에는 발견·획득을 기록하고, 작물별 업적에는 누적 수확을 남깁니다. 수집 보상은 재화와 펫 소환 기회로 이어집니다. 정원 앨범에는 정원 풍경을 남겨 가꾸어 온 변화를 돌아보고 공유합니다.","detail":"도감의 빈칸, 업적의 다음 단계, 앨범에 남기고 싶은 풍경이 서로 다른 재방문 동기를 만듭니다.","relatedHref":"#chapter/19/section-10","relatedTitle":"정원 앨범과 쉼터"},
  {"key":"plot","href":"#chapter/03/section-2","title":"텃밭 확장 · 공간 배치","intent":"재배와 자원 축적이 눈에 보이는 공간의 성장으로 이어집니다. 넓어진 공간에 식물과 가구를 배치하며 생산에 유리한 구성이나 원하는 정원 풍경을 만들어 갑니다.","proposal":"텃밭 확장과 탐험 지역 해금을 별개로 운영하고, 퀘스트·숙련도 연계 조건과 식물·가구·펫의 배치 규칙을 검토합니다."},
@@ -4409,13 +4446,29 @@ const designIntents = [
  {"key":"profile","href":"#chapter/20/section-6","title":"프로필 꾸미기 · 테두리 · 배경 · 대표 사진","intent":"사진과 배경은 취향을, 대표 펫은 좋아하는 캐릭터를, 칭호·배지와 테두리는 활동 이력과 성취를 보여줍니다. 레벨·업적·지역 복원에서 얻는 희귀 장식은 수집 목표가 되고, 친구에게 보여 주며 성취를 나눌 수 있습니다.","detail":"외형 전용 상품으로 선택형 수익화를 구상합니다.","proposal":"친구 수첩의 기본 화면에는 핵심 정보만 표시하고, 상세 프로필에서 장식과 성취를 더 볼 수 있도록 검토합니다.","relatedHref":"#chapter/20/section-14","relatedTitle":"테두리 10종과 획득 조건"}
 ];
 const designIntentByPath = new Map(designIntents.map(item => [item.href, item]));
+const chapterLeadSections = {
+ '01': 'section-2',
+ '03': 'section-1',
+ '07': 'section-2',
+ '16': 'section-9',
+ '18': 'section-1',
+ '20': 'section-1'
+};
+
+function chapterIntentPath(id) {
+ const section = chapterLeadSections[id];
+ return '#chapter/' + id + (section ? '/' + section : '');
+}
 
 function renderDesignIntent(href) {
  const item = designIntentByPath.get(href);
  if (!item) return '';
  return `<aside class="doc-note green design-intent">
+  <span class="design-intent-label">기획 의도</span>
   <h3>${esc(item.title)}</h3>
   <p>${esc(item.intent)}</p>
+  ${item.choices ? `<dl class="design-intent-choices">${item.choices.map(([title, description]) =>
+   `<div><dt>${esc(title)}</dt><dd>${esc(description)}</dd></div>`).join('')}</dl>` : ''}
   ${item.detail ? `<p>${esc(item.detail)}</p>` : ''}
   ${item.proposal ? `<p><strong>검토안</strong> · ${esc(item.proposal)}</p>` : ''}
   ${item.relatedHref ? `<p><a class="table-link" href="${esc(item.relatedHref)}">${esc(item.relatedTitle)} ↗</a></p>` : ''}
@@ -4423,7 +4476,8 @@ function renderDesignIntent(href) {
 }
 
 function renderChapterBlock(chapter, block, index, render) {
- return renderDesignIntent('#chapter/' + chapter.id + '/section-' + (index + 1)) + render(block);
+ const path = '#chapter/' + chapter.id + '/section-' + (index + 1);
+ return (path === chapterIntentPath(chapter.id) ? '' : renderDesignIntent(path)) + render(block);
 }
 
 function mountDesignIntents(container) {
@@ -4530,7 +4584,7 @@ function readingChapterMarkup(chapter){
  const number=String(CHAPTERS.indexOf(chapter)+1).padStart(2,'0');
  const chapterId='reading-'+chapter.id;
  return `<article class="document-paper" aria-labelledby="${chapterId}-title">`+
-  `<header class="chapter-header reading-target" id="${chapterId}"><div class="chapter-kicker"><span class="chapter-number">${number}</span><span>${esc(chapter.tag)}</span></div><h2 id="${chapterId}-title">${esc(chapter.title)}</h2><p>${esc(chapter.subtitle)}</p></header>`+
+  `<header class="chapter-header reading-target" id="${chapterId}"><div class="chapter-kicker"><span class="chapter-number">${number}</span><span>${esc(chapter.tag)}</span></div><h2 id="${chapterId}-title">${esc(chapter.title)}</h2>${renderDesignIntent(chapterIntentPath(chapter.id))}<p>${esc(chapter.subtitle)}</p></header>`+
   chapter.blocks.map((block,index)=>`<div class="reading-target" id="${chapterId}-section-${index+1}">${renderChapterBlock(chapter, block, index, renderReadingBlock)}</div>`).join('')+
   '</article>';
 }
@@ -4623,7 +4677,10 @@ function renderChapter(id,section,stage){
  setActiveReadingEntry(entry);
  document.title=chapter.title+' — 신록의 섬 포트폴리오';
  const stageTarget = subsection?.querySelector('[data-opening-plan]') && stage ? openingPlan.goToStage(stage) : null;
-  return {chapter,target:stageTarget || subsection || entry.target};
+ const leadIntent = subsection && currentHash === chapterIntentPath(chapter.id)
+  ? document.getElementById('reading-' + chapter.id).querySelector('.design-intent')
+  : null;
+ return {chapter,target:stageTarget || leadIntent || subsection || entry.target};
 }
 
 function updateReadingOutline(){
@@ -4811,11 +4868,12 @@ function updateSearch() {
 }
 function closeSearch(){$('#search-results').hidden=true;$('#doc-search').setAttribute('aria-expanded','false');}
 function printAll(){
- $('#print-document').innerHTML=`<nav class="print-toolbar" aria-label="전체 문서 도구"><button data-close-print>← 포트폴리오로 돌아가기</button><span>신록의 섬 · 게임 기획</span><button data-print-confirm>인쇄 / PDF 저장 ↗</button></nav><div class="print-cover"><p>ISLE OF VERDURE / GAME DESIGN PORTFOLIO</p><h1>신록의 섬<br>작은 정원에서 시작되는, 섬의 회복.</h1><p>힐링 가드닝 시뮬레이션<br>시스템 기획 · 도감 UI · 아트 콘셉트</p><div class="print-toc">${CHAPTERS.map((c,i)=>`<a href="#print-chapter-${c.id}">${String(i+1).padStart(2,'0')} ${c.title}</a>`).join('')}<a href="#print-map">탐험 지도</a><a href="#print-shop">상점</a><a href="#print-summon">펫 뽑기</a><a href="#print-achievements">업적과 지역 숙련도</a><a href="#print-workshop">가구 제작소</a><a href="#print-dye">꽃빛 염색 작업대</a><a href="#print-pet-upgrades">동물 친구 장비</a><a href="#print-quests">퀘스트</a><a href="#print-plants">식물 표본집</a><a href="#print-animals">동물 친구 도감</a></div></div>${CHAPTERS.map((c,i)=>`<article class="print-chapter" id="print-chapter-${c.id}"><header class="chapter-header"><p class="eyebrow">${c.tag}</p><h2>${String(i+1).padStart(2,'0')}. ${c.title}</h2><p>${c.subtitle}</p></header>${c.blocks.map((block, index) => renderChapterBlock(c, block, index, renderBlock)).join('')}</article>`).join('')}<article class="print-chapter" id="print-map"><header class="chapter-header"><p class="eyebrow">EXPLORATION MAP</p><h2>탐험 지도</h2></header>${renderDesignIntent('#map')}${explorationMap.renderPrint()}</article>${gardenShop.renderPrint()}${petSummon.renderPrint()}${achievementsPage.renderPrint()}${gardenPlans.renderPrint()}${petUpgrades.renderPrint(ANIMALS)}<article class="print-chapter" id="print-plants"><header class="chapter-header"><p class="eyebrow">BOTANICAL COLLECTION</p><h2>식물 표본집 · ${totalPlants}종</h2></header>${catalogPlants.map(p=>`<section class="print-plant" id="print-plant-${p.id}">${p.dyeFlower ? "" : specimen(p)}${renderPlantBrief(p)}</section>`).join('')}</article><article class="print-chapter" id="print-animals"><header class="chapter-header"><p class="eyebrow">ANIMAL COMPANIONS</p><h2>동물 친구 도감 · 10종</h2></header>${renderDesignIntent('#animals')}${ANIMALS.map(a => `<div id="print-animal-${a.id}">${renderAnimalDossier(a)}</div>`).join('')}</article>`;
+ $('#print-document').innerHTML=`<nav class="print-toolbar" aria-label="전체 문서 도구"><button data-close-print>← 포트폴리오로 돌아가기</button><span>신록의 섬 · 게임 기획</span><button data-print-confirm>인쇄 / PDF 저장 ↗</button></nav><div class="print-cover"><p>ISLE OF VERDURE / GAME DESIGN PORTFOLIO</p><h1>신록의 섬<br>작은 정원에서 시작되는, 섬의 회복.</h1><p>힐링 가드닝 시뮬레이션<br>시스템 기획 · 도감 UI · 아트 콘셉트</p><div class="print-toc">${CHAPTERS.map((c,i)=>`<a href="#print-chapter-${c.id}">${String(i+1).padStart(2,'0')} ${c.title}</a>`).join('')}<a href="#print-map">탐험 지도</a><a href="#print-shop">상점</a><a href="#print-summon">펫 뽑기</a><a href="#print-achievements">업적과 지역 숙련도</a><a href="#print-workshop">가구 제작소</a><a href="#print-dye">꽃빛 염색 작업대</a><a href="#print-pet-upgrades">동물 친구 장비</a><a href="#print-quests">퀘스트</a><a href="#print-plants">식물 표본집</a><a href="#print-animals">동물 친구 도감</a></div></div>${CHAPTERS.map((c,i)=>`<article class="print-chapter" id="print-chapter-${c.id}"><header class="chapter-header"><p class="eyebrow">${c.tag}</p><h2>${String(i+1).padStart(2,'0')}. ${c.title}</h2>${renderDesignIntent(chapterIntentPath(c.id))}<p>${c.subtitle}</p></header>${c.blocks.map((block, index) => renderChapterBlock(c, block, index, renderBlock)).join('')}</article>`).join('')}<article class="print-chapter" id="print-map"><header class="chapter-header"><p class="eyebrow">EXPLORATION MAP</p><h2>탐험 지도</h2></header>${renderDesignIntent('#map')}${explorationMap.renderPrint()}</article>${gardenShop.renderPrint()}${petSummon.renderPrint()}${achievementsPage.renderPrint()}${gardenPlans.renderPrint()}${petUpgrades.renderPrint(ANIMALS)}<article class="print-chapter" id="print-plants"><header class="chapter-header"><p class="eyebrow">BOTANICAL COLLECTION</p><h2>식물 표본집 · ${totalPlants}종</h2></header>${renderDesignIntent('#plants')}${catalogPlants.map(p=>`<section class="print-plant" id="print-plant-${p.id}">${p.dyeFlower ? "" : specimen(p)}${renderPlantBrief(p)}</section>`).join('')}</article><article class="print-chapter" id="print-animals"><header class="chapter-header"><p class="eyebrow">ANIMAL COMPANIONS</p><h2>동물 친구 도감 · 10종</h2></header>${renderDesignIntent('#animals')}${ANIMALS.map(a => `<div id="print-animal-${a.id}">${renderAnimalDossier(a)}</div>`).join('')}</article>`;
  const print = $('#print-document');
  for (const [selector, href] of [
+  ['#print-shop > header', '#shop'],
   ['#print-summon > header', '#summon'],
-  ['#print-summon-entry-equipment > header', '#summon/equipment'],
+  ['#print-summon-entry-equipment > header h3', '#summon/equipment'],
   ['#print-achievements > header', '#achievements'],
   ['#print-workshop > header', '#workshop'],
   ['#print-dye > header', '#workshop/dye']
@@ -4901,7 +4959,7 @@ window.addEventListener('hashchange',()=>route());
 window.addEventListener('scroll',scheduleReadingOutline,{passive:true});
 window.addEventListener('resize',()=>{readingJumpPosition=undefined;scheduleReadingOutline();});
 mountDesignIntents(document);
-$('#summon-entry-equipment header').insertAdjacentHTML('afterend', renderDesignIntent('#summon/equipment'));
+$('#summon-entry-equipment header h3').insertAdjacentHTML('afterend', renderDesignIntent('#summon/equipment'));
 $('#species-table').innerHTML=speciesTable();renderCultivationSummary();renderGrid();renderDetail();initializeAnimalEncyclopedia();route(true);
 
 </script>
