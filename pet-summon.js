@@ -8,7 +8,7 @@ const petSummon = (() => {
   const perItem = rate => (rate / items.length) + '%';
   const duplicateRules = [
     ['이미 보유한 펫', '동일 종류의 기본 상태 개체 1마리 추가', '도감은 종류별 첫 획득에만 등록 · 보유 목록에서 총 마릿수와 개체별 상태 확인'],
-    ['이미 보관 중인 전용 장비', '장비 재고 1개 추가', '대응 펫이 없거나 모두 진화한 상태에서도 전량 보관']
+    ['이미 보관 중인 전용 장비', '장비 재고 1개 추가', '대응 펫이 없거나 이미 장비를 착용한 상태에서도 전량 보관']
   ];
   const sources = [
     {url:'#chapter/01/section-7/recruit', title:'본편 Lv.4 첫 소환 안내', detail:'튜토리얼 전용 10장으로 무료 10연차 1회'},
@@ -69,8 +69,8 @@ const petSummon = (() => {
       : '<div class="shop-group-grid">' + items.map(equipmentCard).join('') + '</div>';
     return '<section class="summon-section summon-equipment" id="' + prefix + 'summon-entry-equipment"><header>' +
       '<h3>펫별 전용 장비 ' + items.length + '종</h3>' +
-      '<p>전용 장비는 획득한 수량만큼 보관합니다. 대응 종류의 기본형 펫 한 마리를 선택해 장비 1개를 사용하면 해당 개체의 외형과 능력이 영구 업그레이드됩니다.</p>' +
-      '<p>펫·장비 탭에서 보유 개체와 장비 재고를 확인합니다. 개체를 선택하면 능력, 진화 상태, 보유 전용 장비 수량과 장착 버튼이 표시됩니다.</p></header>' +
+      '<p>전용 장비는 획득한 수량만큼 보관합니다. 대응하는 펫 개체를 선택해 전용 장비 1개를 장착하면 해당 개체의 능력이 보정됩니다. 교체와 해제의 세부 규칙은 검토 중입니다.</p>' +
+      '<p>펫·장비 탭에서 보유 개체와 장비 재고를 확인합니다. 개체를 선택하면 능력, 장착 상태, 보유 전용 장비 수량과 장착 버튼이 표시됩니다.</p></header>' +
       '<figure class="opening-scene-art"><img src="intro-art/pet-inventory.webp" alt="펫과 장비 탭, 소리 개체 목록, 장비 재고와 장착 버튼이 보이는 보관함 시안" width="1672" height="941" loading="lazy" decoding="async"><figcaption>펫·장비 보관함 UI 시안</figcaption></figure>' + equipment + '</section>';
   }
 

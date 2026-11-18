@@ -41,7 +41,7 @@ const petUpgrades = (() => {
       ['성장 속도', '범위 안 +20%', '범위 안 +20% · 성장 진행도 75% 초과 시 +30%']
     ]}
   };
-  const rule = '획득한 전용 장비는 모두 보관해요. 같은 종류라도 기본형 펫 개체를 따로 선택할 수 있어요. 전용 장비 1개를 쓰면 선택한 펫만 진화하고 남은 장비는 보관함에 남아요.';
+  const rule = '획득한 전용 장비는 모두 보관해요. 같은 종류라도 펫 개체를 따로 선택해 장비 1개를 장착할 수 있고, 장착 중인 개체의 능력에 효과가 적용돼요.';
 
   function describeStats(stats, column) {
     return stats.filter(row => row[column] !== '—')
@@ -63,7 +63,7 @@ const petUpgrades = (() => {
   function renderStats(animal) {
     return '<section class="pet-stats" aria-labelledby="pet-stats-title"><h3 id="pet-stats-title">장착 전후 능력치</h3>' +
       '<table class="pet-stats-table"><thead><tr><th scope="col">능력</th><th scope="col">기본형</th>' +
-      '<th scope="col">업그레이드형</th></tr></thead><tbody>' +
+      '<th scope="col">장착 상태</th></tr></thead><tbody>' +
       equipment[animal.id].stats.map(([label, basic, upgraded]) =>
         '<tr><th scope="row">' + label + '</th><td>' + basic + '</td><td>' + upgraded + '</td></tr>'
       ).join('') + '</tbody></table></section>';
@@ -71,27 +71,27 @@ const petUpgrades = (() => {
 
   function render(animal) {
     const item = itemFor(animal);
-    return '<section class="pet-upgrade" aria-label="' + animal.name + ' 업그레이드">' +
+    return '<section class="pet-upgrade" aria-label="' + animal.name + ' 장비">' +
       '<div class="pet-equipment"><img class="pet-item-art" src="' + item.image + '" width="96" height="96" alt="">' +
       '<div><p>' + animal.name + ' 전용 장비</p><h3>' + item.name + '</h3><a class="pet-shop-link" href="' + item.summonUrl + '">펫 뽑기에서 획득 ↗</a></div></div>' +
       renderStats(animal) +
       '<div class="pet-upgrade-pair"><div><h4>기본 외형</h4>' + appearance(animal, false) +
-      '</div><div><h4>장착 후 외형</h4>' + appearance(animal, true) + '</div></div>' +
+      '</div><div><h4>장착 외형 시안</h4>' + appearance(animal, true) + '</div></div>' +
       '<p class="pet-upgrade-rule">' + rule + '</p></section>';
   }
 
   function search(animals, query) {
-    return animals.filter(animal => ['펫 업그레이드 아이템 장착 진화 능력치', animal.name,
+    return animals.filter(animal => ['펫 전용 장비 장착 능력치', animal.name,
       equipment[animal.id].name, ...equipment[animal.id].stats.flat()]
       .join(' ').toLowerCase().includes(query))
-      .map(animal => ({url:'#animals/' + animal.id + '/upgrade', title: animal.name + ' 업그레이드',
+      .map(animal => ({url:'#animals/' + animal.id + '/upgrade', title: animal.name + ' 전용 장비',
         description: equipment[animal.id].name + ' · ' + animal.name + ' 전용'}));
   }
 
   function renderPrint(animals) {
-    return '<article class="print-chapter" id="print-pet-upgrades"><header class="chapter-header"><h2>동물 친구 업그레이드</h2><p>' +
+    return '<article class="print-chapter" id="print-pet-upgrades"><header class="chapter-header"><h2>동물 친구 장비</h2><p>' +
       rule + '</p></header><div class="table-scroll"><table><thead><tr><th scope="col">친구</th><th scope="col">전용 아이템</th>' +
-      '<th scope="col">기본형 능력치</th><th scope="col">업그레이드형 능력치</th></tr></thead><tbody>' +
+      '<th scope="col">기본형 능력치</th><th scope="col">장착 시 능력치</th></tr></thead><tbody>' +
       animals.map(animal => {
         const {name, stats} = equipment[animal.id];
         return '<tr><th scope="row">' + animal.name + '</th><td>' + name + '</td><td>' +
