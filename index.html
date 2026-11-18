@@ -3894,8 +3894,8 @@ const openingPlan = (() => {
   "work": "신규 도트 컷. 젊은 할아버지와 작은 숲의 원래 모습. 컷 길이와 자동 넘김은 결정 대기.",
   "art": {
    "name": "신록의 섬, 젊은 정원사",
-   "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-c1acd23fc4a48191a7e464541597a6f6_ab934dccbc00819188464f6ff6c13a1e&account_id=personal",
    "src": "intro-art/memory.webp",
+   "original": "intro-art/memory.png",
    "alt": "젊은 할아버지가 바닷가 정원에 묘목을 심는 모습"
   }
  },
@@ -3910,8 +3910,8 @@ const openingPlan = (() => {
   "work": "창틀과 두 손, 편지를 중심으로 보여준다. 같은 편지 소품을 이후 두 컷에도 이어 쓴다.",
   "art": {
    "name": "참새에게 맡긴 편지",
-   "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-42c4cb5a8f1c8191b2e2005a56350221_ab934dccbc00819188464f6ff6c13a1e&account_id=personal",
    "src": "intro-art/hospital.webp",
+   "original": "intro-art/hospital.png",
    "alt": "병실 창가에서 할아버지가 참새에게 편지를 내미는 모습"
   }
  },
@@ -3925,8 +3925,8 @@ const openingPlan = (() => {
   "work": "참새와 편지가 손녀의 손으로 이어지는 동작을 보여준다.",
   "art": {
    "name": "참새가 건네는 편지",
-   "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-3c2ada6e00c8819194ef608613c24091_ab934dccbc00819188464f6ff6c13a1e&account_id=personal",
    "src": "intro-art/delivery.webp",
+   "original": "intro-art/delivery.png",
    "alt": "손녀가 창가에서 참새가 물어 온 편지를 두 손으로 받는 모습"
   }
  },
@@ -3942,8 +3942,8 @@ const openingPlan = (() => {
   "letter": true,
   "art": {
    "name": "라벤더 정원에서 펼친 편지",
-   "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-5b804e101ec08191995bd04e6d599cc2_ab934dccbc00819188464f6ff6c13a1e&account_id=personal",
    "src": "intro-art/letter.webp",
+   "original": "intro-art/letter.png",
    "alt": "손녀가 두 손으로 펼쳐 든 편지"
   }
  },
@@ -4282,8 +4282,8 @@ const openingPlan = (() => {
   ];
   return `<details class="opening-stage" data-opening-stage="${stage.id}" ${accordion ? 'name="opening-stage"' : ''} ${open ? 'open' : ''}>
    <summary><b>${String(number).padStart(2, '0')}</b><span>${esc(stage.title)}</span>${stage.xp ? `<small class="opening-xp">+${stage.xp} XP</small>` : ''} </summary>
-   ${stage.art?.src ? `<figure class="opening-scene-art"><a href="${esc(stage.art.src)}"><img src="${esc(stage.art.src)}" alt="${esc(stage.art.alt)}" width="1672" height="941" loading="lazy" decoding="async"></a><figcaption>${esc(stage.art.name)}</figcaption></figure>` : ''}
-   ${stage.art ? renderArtLink(stage.art, '장면 콘셉트 이미지') : ''}
+   ${stage.art?.src ? `<figure class="opening-scene-art"><a href="${esc(stage.art.original)}" aria-label="${esc(stage.art.name)} PNG 원본 열기"><img src="${esc(stage.art.src)}" alt="${esc(stage.art.alt)}" width="1672" height="941" loading="lazy" decoding="async"></a><figcaption>${esc(stage.art.name)}</figcaption></figure>` : ''}
+   ${stage.art?.original ? `<p class="opening-art-reference"><a href="${esc(stage.art.original)}" download>PNG 원본 다운로드</a></p>` : ''}
    <dl>${fields.filter(([, value]) => value).map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
    ${stage.letter ? `<blockquote><strong>인트로 영상에 표시할 편지</strong><p>${esc(letter)}</p></blockquote>` : ''}
   </details>`;
