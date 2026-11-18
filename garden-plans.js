@@ -195,12 +195,11 @@ const gardenPlans = (() => {
       })),
       ...furniture.map(item => ({url: '#workshop/' + item.art, title: item.name, description: '제작 전용 · ' + item.materials})),
       {url: '#workshop/lantern', title: lantern.name, description: lantern.area + ' · ' + lantern.materials},
-      {url: '#quests', title: '튜토리얼 퀘스트', description: '리프와 첫 만남부터 햇살 초원 탐험 준비까지'},
+      {url: '#quests/tutorial', title: '이전 튜토리얼 퀘스트 시안', description: '이전 9과제와 코인 보상 제안'},
       {url: '#quests/daily', title: '일일 퀘스트 · 리프의 부탁', description: '기본 3개 · 수확 5회 · 새싹 코인 15개'},
       {url: '#quests', title: '퀘스트 기획 의도와 누적 완료 보상', description: '일일 목표 · 주간 소환권 · 장기 목표'},
       {url: '#quests/weekly/1', title: '주간 퀘스트', description: '정원 우편함 · 새싹 코인 · 소환권'},
       {url: '#quests/tutorial', title: '이슬빛 꽃받침대', description: '가지 수확 · 제작 · 염색 · 배치'},
-      ...tutorial.map(([title, description]) => ({url: '#quests', title, description})),
       ...[dailyHarvest, ...dailyChallenges, ...dailyPool].map(([title, description]) => ({url: '#quests/daily', title, description})),
       ...weekly.flatMap((rows, i) => rows.map(([title, goal]) => ({
         url: '#quests/weekly/' + (i + 1), title, description: (i + 1) + '주차 · ' + goal
@@ -220,7 +219,7 @@ const gardenPlans = (() => {
       '<h3>염색꽃 4종 · 선택 정화 시안</h3><p>' + dyeFlowers.flowerRule + '</p>' +
       dyeFlowers.renderFlowers(false) + '</article><article class="print-chapter" id="print-quests"><header class="chapter-header"><h2>퀘스트</h2>' +
       '</header><p class="doc-paragraph">' + questIntent + '</p><p class="doc-paragraph">' + questCumulative +
-      '</p><h3>튜토리얼 퀘스트</h3><p class="doc-paragraph">' + tutorialNote + '</p>' + questTable(tutorial, {numbered: true}) +
+      '</p><h3>이전 튜토리얼 퀘스트 9과제 시안</h3><p class="doc-paragraph">' + tutorialNote + '</p>' + questTable(tutorial, {numbered: true}) +
       '<h4>이슬빛 꽃받침대</h4><p>가지 수확 → 꽃받침대 제작 → 이슬빛 염색 → 정원 배치 · 보상 시안 새싹 코인 20개</p>' +
       '<section id="print-quest-daily"><h3>일일 퀘스트 · 리프의 부탁</h3>' + dailyQuests(false) + '</section>' +
       '<h3>주간 퀘스트</h3><p class="doc-paragraph">' + weeklyNote + ' ' + weeklyBonus + '</p>' +
