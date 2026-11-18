@@ -114,6 +114,34 @@
 
 
 
+  <style>
+.opening-plan{container-type:inline-size}
+.opening-plan .opening-note{margin:12px 0 18px;padding:10px 13px;background:#edf0e1;border-left:3px solid #819269;color:#4e6047}
+.opening-modes,.opening-links{display:flex;gap:8px;flex-wrap:wrap}
+.opening-modes button{padding:8px 13px;min-height:42px;border:1px solid #b9c5ac;border-radius:6px;background:#f7f7ea;font-weight:600}
+.opening-modes button[aria-pressed="true"]{background:#4f6650;border-color:#4f6650;color:#fffdf2}
+.opening-mode-note{margin-top:9px;color:#54674b}
+.opening-phase{margin-top:22px}
+.opening-phase h4{margin:0 0 8px;color:#4f6650;font-family:var(--serif);font-size:15px}
+.opening-stage,.opening-qa,.opening-legacy{border:1px solid #d5d9c5;border-radius:6px;background:#fbf9ef;margin:7px 0}
+.opening-stage[open]{border-color:#91a583;background:#fffdf5}
+.opening-stage summary,.opening-qa summary,.opening-legacy summary{min-height:44px;cursor:pointer;padding:9px 13px;font-weight:650;color:#3c543e}
+.opening-stage summary b{margin:0 10px 0 5px;color:#5b7253;font-variant-numeric:tabular-nums}
+.opening-stage dl,.opening-qa dl{margin:0;padding:0 14px 10px}
+.opening-stage dl>div,.opening-qa dl>div{display:grid;grid-template-columns:125px minmax(0,1fr);gap:3px 12px;padding:8px 0;border-top:1px solid #e1e2d3}
+.opening-stage dt,.opening-qa dt{font-weight:650;color:#4c6548}
+.opening-stage dd,.opening-qa dd{margin:0;white-space:pre-line;overflow-wrap:anywhere}
+.opening-stage blockquote{margin:0 14px 14px;padding:14px 17px;background:#f4efdb;border-left:3px solid #b09b6d}
+.opening-stage blockquote p{white-space:pre-line;margin-top:7px}
+.opening-qa{margin-top:20px}
+.opening-links{gap:6px 15px;margin-top:14px}
+.opening-links a,.opening-quest-link{color:#3d5d41;text-decoration:underline;text-underline-offset:3px}
+.opening-legacy>p,.opening-legacy>div{margin-left:12px;margin-right:12px}
+@container (max-width:520px){
+ .opening-stage dl>div,.opening-qa dl>div{grid-template-columns:minmax(0,1fr)}
+}
+@media print{.opening-stage{break-inside:avoid}.opening-links{font-size:9pt}}
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main" data-skip-content>본문으로 건너뛰기</a>
@@ -322,9 +350,12 @@
         </section>
         <section id="quest-tutorial" class="shop-paper reading-target" aria-labelledby="quest-tutorial-title">
           <h3 id="quest-tutorial-title">튜토리얼 퀘스트</h3>
+          <p><a class="opening-quest-link" href="#chapter/01/section-7">초반 인트로 · 튜토리얼 제작 명세 ↗</a></p>
+          <details class="opening-legacy"><summary>이전 퀘스트 9과제 시안</summary>
           <p id="quest-tutorial-note" class="shop-hint"></p>
           <div id="quest-tutorial-tasks"></div>
           <div class="doc-note workshop-quest"><h4>이슬빛 꽃받침대</h4><p>가지 수확 → 작은 꽃받침대 제작 → 이슬빛 염색 → 정원에 배치</p><p>보상 시안 · 새싹 코인 20개</p><a class="quest-reference" href="#workshop">제작 레시피 보기 ↗</a></div>
+          </details>
         </section>
         <section id="quest-daily" class="shop-paper reading-target" aria-labelledby="quest-daily-title">
           <h3 id="quest-daily-title">일일 퀘스트 · 리프의 부탁</h3>
@@ -631,8 +662,8 @@ function plantAvailability(plant) {
 
 const PLANT_BRIEFS={
   "P001": {
-    "role": "첫 구조와 정원 정착을 안내하는 튜토리얼 식물.",
-    "acquisition": "튜토리얼에서 리프가 이슬 숲 입구의 오염지에서 구조한 이슬풀을 정원 첫 밭에 옮겨 심는다. 정원에서 첫 수확을 마치고 기초 정화액을 만들면 이슬 숲 탐험을 시작한다.",
+    "role": "연습 밭에서 밭갈기·파종·물주기·수확을 안내하는 첫 재배 식물.",
+    "acquisition": "리프가 준 이슬풀 씨앗을 정원의 연습 밭에 심는다. 첫 수확에서 얻은 이슬풀 1개로 일반 정화 물약을 만들면 숲속 정원에 진입한다.",
     "visual": "잎이 펼쳐지고 성숙하는 변화로 재배의 기본 흐름을 익힌다.",
     "resource": "기본 정화 재료의 안정적인 공급원."
   },
@@ -840,6 +871,11 @@ const CHAPTERS=[
         "kind": "links",
         "items": [
           {
+            "href": "#chapter/01/section-7",
+            "title": "초반 인트로 · 튜토리얼",
+            "text": "장면별 대사 · 조작 · 완료 조건"
+          },
+          {
             "href": "#plants",
             "title": "식물 표본집 보기",
             "text": "외형과 재배 정보",
@@ -851,6 +887,10 @@ const CHAPTERS=[
             "text": "10종의 성격과 정원 역할"
           }
         ]
+      },
+      {
+        "kind": "openingPlan",
+        "title": "초반 인트로 · 튜토리얼"
       }
     ]
   },
@@ -1867,7 +1907,7 @@ const CHAPTERS=[
         "kind": "bullets",
         "title": "진행과 수확 설계",
         "items": [
-          "튜토리얼의 첫 이슬풀은 리프가 구조합니다. 첫 수확은 이슬잎 3개, 첫 이슬종꽃 수확은 종꽃잎 3개를 지급해 기초와 햇살 정화액을 순서대로 만들 수 있게 합니다.",
+          "현행 초반 진행은 연습 밭에서 이슬풀을 직접 키운 뒤 이슬풀 1개로 일반 정화 물약을 만드는 순서입니다. 아래 정화액 재료 및 확률은 물약 경제 설계 시안입니다.",
           "지역 이동 조건과 현장 정화 조건을 따로 판정합니다. 햇살 초원은 이슬종꽃 첫 수확 뒤 이동할 수 있습니다. 현지 햇살방울꽃과 꿀빛금잔화는 햇살 정화액으로 정화합니다.",
           "필수 진행 물약은 확정 수확물로 만들고, 첫 필수 제조는 일반 성공으로 보장합니다. 후반 선택 정화에는 낮은 확률의 희귀 수확물을 재료로 쓰는 안을 검토합니다. 적용 레시피와 수확 확률은 플레이테스트에서 결정합니다.",
           "노을양귀비·귤빛금잔화·풀빛별꽃·달그늘붓꽃은 선택 정화입니다. 최초 정화 때 씨앗을 얻고, 이후 정원에서 수확해 염색재에 사용합니다."
@@ -1944,7 +1984,7 @@ const CHAPTERS=[
             ],
             "rows": [
               [
-                "튜토리얼 첫 제조 · 기초 정화액",
+                "기초 정화액 첫 제조 시안",
                 "100%",
                 "0%",
                 "0%"
@@ -2040,7 +2080,7 @@ const CHAPTERS=[
         "kind": "bullets",
         "title": "필수 첫 제조와 연속 실패 보정",
         "items": [
-          "튜토리얼의 기초 정화액과 메인 퀘스트 진행에 필요한 해당 물약의 첫 필수 제조 1회는 재료를 확인한 뒤 일반 성공으로 보장합니다. 물약 1병을 지급하고 투입 재료를 전량 소모합니다.",
+          "시안에서는 기초 정화액과 메인 퀘스트 진행에 필요한 해당 물약의 첫 필수 제조 1회에 재료를 확인한 뒤 일반 성공을 보장합니다. 물약 1병을 지급하고 투입 재료를 전량 소모합니다.",
           "실패 횟수는 레시피별로 저장합니다. 해당 레시피의 실패는 +1, 성공·대성공·보장 성공은 0으로 기록합니다. 다른 물약을 제조해도 각 레시피의 기록을 따로 적용합니다.",
           "한 레시피의 연속 실패가 2회에 도달하면 다음 유효 제조를 일반 성공 100%로 처리해 물약 1병을 줍니다. 예를 들어 햇살 정화액을 두 번 연속 실패하면 다음 제조는 성공 100%·대성공 0%·실패 0%입니다.",
           "보정 상태에서도 레시피 해금과 재료 보유 조건을 확인합니다. 재료 부족 등으로 제조를 시작하지 못하면 보정은 다음 유효 제조에 적용합니다."
@@ -3513,7 +3553,7 @@ document.getElementById('animal-mode-filter').addEventListener('change',e=>{anim
 <script src="exploration-map.js?v=shop-link"></script>
 <script src="garden-shop.js?v=early-sign"></script>
 <script src="achievements.js?v=team-sync"></script>
-<script src="garden-plans.js?v=harvest-quests"></script>
+<script src="garden-plans.js?v=opening-plan"></script>
 <script>
 'use strict';
 const $ = s=>document.querySelector(s);
@@ -3620,7 +3660,8 @@ function detailContent(p){
   row('♧', '기본 수확', yieldText) +
   row('▧', '다음 재배', '수확 후 작물이 제거되고 일군 빈 밭 유지<br>씨앗 1개를 다시 심고 물주기') +
   row('▤', '활용 방향', esc(b.resource)) +
-  (p.id === 'P001' || p.id === 'P002' ? row('◇', '첫 수확', esc(harvest) + ' 3개 · 정화액 튜토리얼용') : '') +
+  (p.id === 'P001' ? row('◇', '첫 수확', '이슬풀 1개를 일반 정화 물약 제작에 사용 · <a href="#chapter/01/section-7/potion">튜토리얼 보기</a>') : '') +
+  (p.id === 'P002' ? row('◇', '첫 수확 시안', esc(harvest) + ' 3개 · 정화액 경제 설계') : '') +
   (p.id === 'P006' ? row('❧', '염색 재료', '안개연꽃 꽃잎 · <a href="#workshop/dye">안개빛 염색재</a>') : '') +
   row('✧', '특수 수확물', esc(specialHarvests[p.id]) + ' · 획득 확률 미정') +
   (p.id === 'P002' ? row('◇', '변이 예시', '황금 이슬종꽃') : '') + '</dl>';
@@ -3772,7 +3813,263 @@ function renderScreen(screen) {
   '<img src="system-art/' + screen.image + '.webp" width="1500" height="' + screen.height + '" loading="lazy" alt="' + esc(screen.alt) + '"></div>' +
   '<figcaption>' + esc(screen.caption) + '</figcaption></figure>';
 }
+
+const openingPlan = (() => {
+ const stages = [
+ {
+  "id": "memory",
+  "group": "intro",
+  "title": "젊은 할아버지의 정원",
+  "screen": "따뜻한 도트 회상 컷. 젊은 할아버지가 섬의 작은 숲에 꽃을 심고 물을 준다. 잎이 바람에 흔들리며 병실 창가로 전환한다.",
+  "copy": "대사 없이 정원 풍경과 손동작으로 전달.",
+  "action": "컷을 본다. 클릭·Enter·Space로 다음 컷을 넘기는 안.",
+  "done": "회상 컷에서 병실 컷으로 전환.",
+  "work": "신규 도트 컷. 젊은 할아버지와 작은 숲의 원래 모습. 컷 길이와 자동 넘김은 결정 대기."
+ },
+ {
+  "id": "hospital",
+  "group": "intro",
+  "title": "병실에서 편지를 접다",
+  "screen": "저녁빛이 들어오는 병실. 할아버지가 편지를 접고, 창턱에 앉은 작은 새가 쪽지 끝을 문다.",
+  "copy": "할아버지 “이 편지, 우리 아이한테 부탁하마.”",
+  "action": "클릭·Enter·Space로 다음 컷을 넘기는 안.",
+  "done": "새가 편지를 물고 떠나는 동작 뒤 손녀 컷으로 전환.",
+  "work": "신규 도트 컷. 창틀·접은 쪽지·손을 중심으로 연출. 병명과 새의 외형은 결정 대기."
+ },
+ {
+  "id": "bird",
+  "group": "intro",
+  "title": "새가 손녀에게 편지를 전하다",
+  "screen": "창턱에 도착한 새가 종이를 내려놓고 손녀가 집어 든다. 접힌 쪽지의 바깥면을 클로즈업한다.",
+  "copy": "쪽지 겉면 “사랑하는 손녀에게. 신록의 섬에서 리프를 찾아다오.”",
+  "action": "쪽지 겉면을 읽고 클릭·Enter·Space로 계속.",
+  "done": "편지를 든 손녀의 컷에서 섬의 숲 가장자리로 전환.",
+  "work": "신규 도트 컷. 병실, 손녀, 리프 장면에 같은 편지 소품 사용. 전문은 리프에게 전달할 때 공개."
+ },
+ {
+  "id": "arrival",
+  "group": "intro",
+  "title": "리프가 지켜 낸 정원",
+  "screen": "숲 가장자리의 바랜 잎을 짧게 비춘 뒤 기존 리프의 정원 카메라로 연결한다. 리프는 잡초를 뽑고 손녀가 아래쪽에서 걸어온다.",
+  "copy": "리프 “끄응..!” → “이 정원만큼은 어떻게든 지켜냈어.”",
+  "action": "도착 연출과 첫 대사를 확인한다.",
+  "done": "기존 리프 오프닝 진입과 손녀의 접근 연출이 끝나면 쪽지 전달.",
+  "work": "바랜 잎 컷은 연출안. 잡초 뽑기·손녀 접근·정원 카메라는 기존 오프닝 재사용. 오염 원인은 이후 이야기에서 공개할 수 있도록 남긴다."
+ },
+ {
+  "id": "letter",
+  "group": "intro",
+  "title": "리프와 함께 편지를 읽다",
+  "screen": "손녀가 같은 쪽지를 리프에게 건넨다. 편지 확대창에서 전문을 처음 보여주고, 닫으면 리프가 손녀를 알아본다.",
+  "copy": "리프 “어라? 당신은 누구세요?” → “누군갈 닮았는데...” → 편지 → “앗..! 그분의 손녀시구나.”\n연결 대사안 “숲에 가기 전에, 이 작은 밭부터 함께 돌봐요.”",
+  "letter": true,
+  "action": "편지를 읽고 클릭·Enter·Space로 닫은 뒤 리프의 대사를 확인한다.",
+  "done": "편지를 닫고 마지막 안내를 확인하면 밭갈기 단계로 진입.",
+  "work": "기존 grandfather_note_folded·grandfather_letter·리프 초상·린넨 대화창 활용. 편지 본문 후보와 연결 대사 검토."
+ },
+ {
+  "id": "summary",
+  "group": "demo",
+  "title": "리프의 두 문장 요약",
+  "screen": "체험판 새 게임에서 리프 대화창으로 시작한다.",
+  "copy": "리프 “할아버지의 부탁을 받고 이 섬에 오셨군요.”\n“저는 리프예요. 먼저 작은 정원에서 숲을 되살릴 준비를 해봐요.”",
+  "action": "두 문장을 차례로 확인한다.",
+  "done": "두 번째 안내를 확인하면 연습 밭으로 진행.",
+  "work": "체험판 저장에서 요약 진행 위치를 복원한다."
+ },
+ {
+  "id": "till",
+  "group": "garden",
+  "title": "연습 밭 한 칸 일구기",
+  "screen": "리프가 깨끗한 연습 밭 한 칸을 안내한다. 밭 위에 괭이 말풍선을 표시한다.",
+  "copy": "리프 “먼저 밭을 일궈볼까요? 가까이서 Space를 누르거나 괭이 말풍선을 클릭해보세요.”",
+  "action": "밭에 접근해 Space를 누르거나 괭이 말풍선을 클릭한다.",
+  "done": "지정 칸이 일군 빈 밭으로 바뀌면 파종 안내.",
+  "work": "대상 칸과 밭갈기 성공을 확인한 뒤 진행."
+ },
+ {
+  "id": "sow",
+  "group": "garden",
+  "title": "이슬풀 씨앗 받기와 파종",
+  "screen": "씨앗 3개를 받고 밭의 씨앗 주머니 말풍선으로 씨앗 선택창을 연다.",
+  "copy": "리프 “이슬풀 씨앗을 드릴게요. 밭 가까이서 Space를 누르거나 씨앗 주머니 말풍선을 클릭해 이슬풀을 골라보세요.”",
+  "action": "씨앗 목록에서 이슬풀을 골라 1개를 심는다.",
+  "done": "지정 연습 밭에 이슬풀 파종이 확정되면 물주기 안내.",
+  "work": "씨앗 3개 최초 1회 지급. 선택창을 닫거나 다시 열어도 파종 전 단계 유지."
+ },
+ {
+  "id": "water",
+  "group": "garden",
+  "title": "물주기와 첫 성장 연출",
+  "screen": "파종한 연습 밭에 물방울 말풍선을 띄운다. 성장 안내 뒤 수확 가능한 이슬풀을 표시한다.",
+  "copy": "리프 “물을 주면 식물이 자라기 시작해요.”\n“이번에는 연습을 위해 자라는 시간을 건너뛰고, 수확까지 해볼게요.”",
+  "action": "밭 가까이서 Space 또는 물방울 말풍선으로 물을 준 뒤 안내를 읽는다.",
+  "done": "물주기 성공과 성장 안내 확인 후 첫 작물을 성숙 상태로 전환.",
+  "work": "시간 생략은 첫 연습 작물에만 적용. 일반 이슬풀은 물주기 후 게임 실행 시간 기준 30초."
+ },
+ {
+  "id": "harvest",
+  "group": "garden",
+  "title": "첫 수확과 루미의 부탁",
+  "screen": "연습 밭에 이슬풀 말풍선. 수확과 리프의 마무리 대화 뒤 루미가 도움을 청하러 온다.",
+  "copy": "리프 “다 자랐네요! 가까이서 Space를 누르거나 이슬풀이 그려진 말풍선을 클릭해 수확해보세요.”",
+  "action": "직접 이슬풀을 수확하고 리프·루미의 대화를 확인한다.",
+  "done": "수확 완료와 이야기 대화 확인 후 리프가 솥을 안내.",
+  "work": "첫 수확과 루미 등장 상태 보존. 첫 물약의 이슬풀 재료가 인벤토리에 있는지 확인."
+ },
+ {
+  "id": "potion",
+  "group": "garden",
+  "title": "일반 정화 물약 만들기",
+  "screen": "솥 위 물약 말풍선과 제작 목록을 열어 일반 정화 물약을 안내한다. 제작 뒤 지도 연출로 숲속 정원으로 간다.",
+  "copy": "리프 “이슬풀 1개로 정화 물약 하나를 만들 수 있어요. 방향키로 고른 뒤 Space나 Enter를 누르거나, 만들기 버튼을 클릭해보세요.”",
+  "action": "솥 근처 Space 또는 말풍선으로 열고 제작을 확정한다.",
+  "done": "이슬풀 1개 소모·일반 정화 물약 1개 지급과 안내 확인 뒤 숲속 정원 진입.",
+  "work": "첫 제작 성공을 기준으로 숲 이동을 연결. 온라인판의 친구 수첩 사용도 이 제작 뒤 열린다."
+ },
+ {
+  "id": "friends",
+  "group": "extra",
+  "title": "친구의 작은 섬은 수첩으로",
+  "screen": "첫 물약 제작으로 친구 수첩이 열린 뒤 여유 있는 시점에 HUD의 수첩을 가볍게 안내한다. 방문은 친구 목록의 방문 버튼에서 바로 전환하는 흐름.",
+  "copy": "리프 대사안 “섬 근처에 작은 섬들이 더 있어요. 친구 수첩을 열면 친구가 공개한 정원에 놀러 갈 수 있어요.”",
+  "action": "안내를 읽는다. 원하면 온라인판에서 수첩 → 친구 목록 → 방문 → 내 정원으로.",
+  "done": "안내를 읽거나 닫으면 계속. 실제 방문은 본편 필수 진행 조건에서 제외하는 안.",
+  "work": "대사·노출 시점은 시안. 기존 친구·공개 정원 권한을 따르고 체험판은 온라인판 이용 안내를 표시. 선착장 동선 없이 HUD 진입."
+ },
+ {
+  "id": "cleanse",
+  "group": "forest",
+  "title": "숲속 정원의 오염 밭 정화",
+  "screen": "오염된 숲속 정원에서 정화 가능한 밭과 진행도를 보여준다.",
+  "action": "일반 정화 물약으로 오염된 밭을 정화한다.",
+  "done": "본편은 숲속 정원 60칸 정화, 체험판은 준비된 59칸의 마지막 1칸 정화 후 B 큰 자작나무 조사 가능.",
+  "work": "정화 성공 시 시각 변화·카운트 갱신. 같은 칸을 재입력해도 카운트와 소비가 중복되지 않는지 확인."
+ },
+ {
+  "id": "birch",
+  "group": "forest",
+  "title": "큰 자작나무와 숲 전체 복원",
+  "screen": "B 큰 자작나무를 조사하면 숲숨 물약을 안내한다. 나무에 사용하면 숲과 땅이 천천히 회복된다.",
+  "action": "구름라벤더 1개와 바람잎 1개로 숲숨 물약을 만들고 큰 자작나무에 적용한다.",
+  "done": "나무 정화와 숲 복원 완료 후 첫 펫 모집 안내.",
+  "work": "체험판에서는 나무 조사 후 두 재료를 최초 1회 지원. 본편은 기존 재료 획득 흐름 사용."
+ },
+ {
+  "id": "recruit",
+  "group": "forest",
+  "title": "펫 버튼으로 첫 모리 만나기",
+  "screen": "복원 대화 뒤 오른쪽 아래 펫 버튼을 강조한다. 모집 화면과 기존 편지 개봉 연출을 사용한다.",
+  "copy": "연결 대사안 “숲에 돌아온 친구들이 정원 일을 도와줄 거예요. 화면 아래 펫 버튼을 눌러 모리를 만나볼까요?”",
+  "action": "펫 버튼 → 첫 모집 → 결과 확인.",
+  "done": "모집권 1장 소비, 모리 확정 지급과 결과 확인 후 배치 안내.",
+  "work": "해금 시 최초 모집권 2장 지급 기준. 첫 모집 결과는 계정 진행에 한 번 확정하고, 재진입은 저장된 결과를 복원한다. 새 이동 동선 없이 HUD 사용."
+ },
+ {
+  "id": "place",
+  "group": "forest",
+  "title": "모리 배치와 첫 자동 물주기",
+  "screen": "리프의 린넨 안내와 왼쪽 아래 배치 버튼 강조. 유효한 배치 범위에 연습 이슬풀이 들어오면 모리가 물을 준다.",
+  "action": "배치 화면에서 모리를 놓고 첫 자동 물주기를 확인한다.",
+  "done": "실제 물주기와 마무리 대화 확인. 본편은 이슬빛 초원 안내, 체험판은 모집권 10장 1회 지급 후 자유 플레이.",
+  "work": "잘못된 위치·범위에서 완료되지 않는지 확인. 첫 유효 배치는 즉시 물주기, 이후는 기존 20초 주기."
+ }
+];
+ const labels = {intro:'오프닝 콘티 · 적용안', demo:'체험판 오프닝 · 구현 기준', garden:'리프의 정원 · 조작 튜토리얼', forest:'숲 복원과 모리 · 구현 기준', extra:'친구 방문 · 안내 시안'};
+ const groups = {main:['intro','garden','forest','extra'], demo:['demo','garden','forest','extra']};
+ const sectionUrl = '#chapter/01/section-7';
+ const source = 'https://github.com/jeongian-snail/isle_of_verdure/blob/ded6282195bd880704ccc90461fe66145c29f3f1/';
+ const letter = '사랑하는 손녀에게.\n\n내가 오랫동안 가꾸어 온 작은 숲이 있단다. 신록의 섬에 있는, 너에게 꼭 보여주고 싶던 곳이야.\n\n그 섬의 잎들이 조금씩 빛을 잃고 있단다. 지금은 할아버지가 그곳까지 갈 수가 없구나.\n\n네가 섬에 가면 리프를 찾아다오. 그 아이와 함께 숲과 그곳의 친구들을 돌봐 주었으면 좋겠구나.\n\n사랑을 담아, 할아버지가.';
+ const qa = [
+  ['오프닝과 이어하기','새 게임·편지 확대 직전과 직후·튜토리얼 완료 저장으로 각각 진입한다. 저장한 단계에서 진행하고 이미 끝낸 컷은 다시 재생되지 않는지 확인한다.'],
+  ['입력과 행동 판정','대화에서 누른 Space가 밭에 전달되지 않는지 확인한다. 대상 밖 입력, 잘못된 씨앗, 잘못된 배치, 창을 닫았다 다시 여는 경우에도 올바른 행동 전에는 단계가 넘어가지 않아야 한다.'],
+  ['재료와 일회성 보상','씨앗 3개, 첫 수확, 물약 제작, 모리 모집 및 체험 보상에서 중복 입력·이어하기 뒤 획득과 차감이 한 번만 확정되는지 확인한다.'],
+  ['경로별 종료와 방문','본편은 초원 안내, 체험판은 자유 플레이로 분기하는지 확인한다. 온라인판 친구 수첩 안내는 방문 없이 넘길 수 있고, 공개 정원 방문 후 내 정원으로 돌아오는지 확인한다.']
+ ];
+
+ function renderStage(stage, number, open, accordion) {
+  const fields = [
+   ['화면과 연출', stage.screen],
+   ['대사와 화면 문구', stage.copy],
+   ['플레이어 행동', stage.action],
+   ['완료와 다음 단계', stage.done],
+   ['구현·에셋 메모', stage.work]
+  ];
+  return `<details class="opening-stage" data-opening-stage="${stage.id}" ${accordion ? 'name="opening-stage"' : ''} ${open ? 'open' : ''}>
+   <summary><b>${String(number).padStart(2, '0')}</b><span>${esc(stage.title)}</span></summary>
+   <dl>${fields.filter(([, value]) => value).map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
+   ${stage.letter ? `<blockquote><strong>편지 본문 후보</strong><p>${esc(letter)}</p></blockquote>` : ''}
+  </details>`;
+ }
+
+ function renderStages(mode, selected, print = false) {
+  let number = 0;
+  const visibleGroups = print ? ['intro','demo','garden','forest','extra'] : groups[mode];
+  return visibleGroups.map(group => {
+   const cards = stages.filter(stage => stage.group === group).map(stage => {
+    number += 1;
+    return renderStage(stage, number, print || (selected ? stage.id === selected : number === 1), !print);
+   });
+   return `<div class="opening-phase"><h4>${labels[group]}</h4>${cards.join('')}</div>`;
+  }).join('');
+ }
+
+ function render(print) {
+  return `<section class="doc-block opening-plan" ${print ? '' : 'data-opening-plan'}>
+   <h3>초반 인트로 · 튜토리얼</h3>
+   <p class="doc-paragraph">할아버지의 편지가 섬에 갈 이유를 만들고, 리프와의 첫 재배가 루미의 부탁과 숲 복원으로 이어집니다.</p>
+   <p class="opening-note">11월 18일 기준 · Unity 0.6.44. 오프닝 콘티, 편지 문안과 친구 방문 안내는 적용안입니다. 실제 조작 순서는 현재 게임을 기준으로 정리했습니다.</p>
+   ${print ? '' : `<div class="opening-modes" role="group" aria-label="플레이 경로">
+    <button type="button" data-opening-mode="main" aria-pressed="true">본편 새 게임</button>
+    <button type="button" data-opening-mode="demo" aria-pressed="false">브라우저 체험판</button>
+   </div><p class="opening-mode-note" data-opening-note aria-live="polite">콘티 → 리프의 정원 → 숲 복원 → 모리 → 이슬빛 초원</p>`}
+   <div data-opening-stages>${renderStages('main', null, print)}</div>
+   <details class="opening-qa" ${print ? 'open' : ''}><summary>개발 확인 항목</summary>
+    <dl>${qa.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join('')}</dl>
+   </details>
+   <p class="opening-links">
+    <a href="${source}GAME_DESIGN.md">Unity 게임 기획 기준</a>
+    <a href="${source}Assets/IsleOfVerdure/Scripts/PaperGardenGame.Tutorial.cs">오프닝·재배 구현</a>
+    <a href="${source}Docs/PORTFOLIO_BROWSER_DEMO_R01.md">체험판 구현 기록</a>
+    <a href="#chapter/19">친구 정원 상세</a>
+    <a href="#summon">펫 뽑기 상세</a>
+   </p>
+  </section>`;
+ }
+
+ function select(root, mode, id) {
+  root.querySelectorAll('[data-opening-mode]').forEach(button => {
+   button.setAttribute('aria-pressed', button.dataset.openingMode === mode);
+  });
+  root.querySelector('[data-opening-note]').textContent = mode === 'demo'
+   ? '리프의 요약 → 연습 밭 → 마지막 오염 밭 1칸 → 모리 → 자유 플레이. 진행은 체험판에 별도 저장합니다.'
+   : '콘티 → 리프의 정원 → 숲 복원 → 모리 → 이슬빛 초원';
+  root.querySelector('[data-opening-stages]').innerHTML = renderStages(mode, id);
+ }
+
+ function goToStage(id) {
+  const stage = stages.find(item => item.id === id);
+  const root = document.querySelector('[data-opening-plan]');
+  if (!stage || !root) return null;
+  select(root, stage.group === 'demo' ? 'demo' : 'main', stage.id);
+  return root.querySelector(`[data-opening-stage="${stage.id}"]`);
+ }
+
+ function search(query) {
+  return stages.filter(stage => Object.values(stage).join(' ').toLowerCase().includes(query))
+   .map(stage => ({url: sectionUrl + '/' + stage.id, title: stage.title, description: labels[stage.group]}));
+ }
+
+ document.addEventListener('click', event => {
+  const button = event.target.closest('[data-opening-mode]');
+  if (button && button.getAttribute('aria-pressed') === 'false') select(button.closest('[data-opening-plan]'), button.dataset.openingMode);
+ });
+
+ return {render, goToStage, search};
+})();
+
 function renderBlock(b){
+ if(b.kind==='openingPlan')return openingPlan.render(true);
  if(b.kind==='petSynergy')return petSynergy.summary();
  if(b.kind==='profileFrames')return `<section class="doc-block profile-frames" aria-label="${esc(b.title)}">
   ${blockHeading(b)}
@@ -3825,7 +4122,7 @@ function renderBlock(b){
 }
 const chapterAliases={'04':'03','05':'03','06':'02','10':'09','11':'09','12':'01','13':'01','15':'14','17':'07'};
 const readingTitles={overview:'프로젝트 소개', system:'핵심 시스템', growth:'정원사 성장', monetization:'수익화 방향', art:'아트 · 설계'};
-const readingSections={'16':[4, 9], '18':[7, 8, 9, 10, 11], '20':[2, 3, 4, 5, 6, 8, 11, 14], '21':[2, 3, 5], '19':[3, 4, 6]};
+const readingSections={'01':[7], '16':[4, 9], '18':[7, 8, 9, 10, 11], '20':[2, 3, 4, 5, 6, 8, 11, 14], '21':[2, 3, 5], '19':[3, 4, 6]};
 const questOutline=[
  {href:'#quests', title:'퀘스트', targetId:'quests-view'},
  {href:'#quests/tutorial', title:'튜토리얼', targetId:'quest-tutorial', child:true},
@@ -3838,6 +4135,7 @@ let readingFrame=0;
 let readingJumpPosition;
 
 function renderReadingBlock(block){
+ if(block.kind==='openingPlan')return openingPlan.render(false);
  if(block.kind==='petSynergy')return petSynergy.interactive();
  if(block.id==='level-furniture-recipes')return '<section class="doc-block garden-plan">' + blockHeading(block) +
   '<p class="doc-paragraph">정원사 레벨에 도달하면 도안을 해금합니다. 가구별로 제작에 필요한 재료를 확인할 수 있습니다.</p>' +
@@ -3928,7 +4226,7 @@ function renderQuestReading(section, week){
  return entry.target;
 }
 
-function renderChapter(id,section){
+function renderChapter(id,section,stage){
  const chapter=CHAPTERS.find(c=>c.id===(chapterAliases[id]||id))||CHAPTERS[0];
  const chapterHash='#chapter/'+chapter.id;
  showReadingGroup(chapter.group);
@@ -3941,7 +4239,8 @@ function renderChapter(id,section){
  const entry=readingOutline.find(item=>item.href===currentHash)||readingOutline.find(item=>item.href===chapterHash);
  setActiveReadingEntry(entry);
  document.title=chapter.title+' — 신록의 섬 포트폴리오';
- return {chapter,target:subsection || entry.target};
+ const stageTarget = subsection?.querySelector('[data-opening-plan]') && stage ? openingPlan.goToStage(stage) : null;
+  return {chapter,target:stageTarget || subsection || entry.target};
 }
 
 function updateReadingOutline(){
@@ -4003,7 +4302,7 @@ function route(initial=false){
   sectionTarget=renderQuestReading(parts[1],parts[2]);
  }
  else if(doc){
-  const {chapter,target}=renderChapter(parts[1],parts[2]);
+  const {chapter,target}=renderChapter(parts[1],parts[2],parts[3]);
   active=chapter.group;
   sectionTarget=target;
  }
@@ -4115,6 +4414,7 @@ function updateSearch() {
   searchGroup('펫 시너지', petSynergy.search(query)) +
   searchGroup('제작소와 퀘스트', gardenPlans.search(query)) +
   searchGroup('염색과 염색꽃 업적', dyeFlowers.search(query)) +
+  searchGroup('인트로와 튜토리얼', openingPlan.search(query)) +
   searchGroup('기획서 본문', searchChapters(query)) +
   searchGroup('탐험 지도', regions.map(r => ({url: '#map/' + r.id, title: r.name, description: r.concept}))) +
   searchGroup('식물 데이터', plants.map(p => ({url: '#plants/' + p.id, title: p.name,
