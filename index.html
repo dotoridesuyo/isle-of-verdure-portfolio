@@ -56,6 +56,9 @@
 .animal-journal-open{display:inline-block;padding:13px 19px;border:1px solid #bdcba9;border-radius:4px;background:#edf2df;font-size:12px;color:#6a8056}
 .collection-navigation{display:flex;align-items:end;gap:5px;margin:28px 0 -7px;padding-left:15px;border-bottom:1px solid #c9d0b8}
 .collection-navigation>a{display:flex;align-items:center;gap:9px;padding:12px 24px;color:#8d917b;background:#e5e8d7;border:1px solid #d2d7c1;border-bottom:0;border-radius:8px 8px 0 0;font:13px var(--serif);position:relative;top:1px}
+#category-navigation{margin:14px 0}
+.collection-navigation>a{white-space:nowrap}
+@media(max-width:420px){#collection-navigation>a{gap:4px;padding-inline:7px}}
 .collection-navigation>a.active{background:var(--paper);color:#5e744e;border-color:#a9b798;box-shadow:0 -3px 0 #a2b18c}
 .collection-navigation>a>span{font-size:21px;color:#8b9b6b}.collection-navigation small{font:8px Georgia,serif;color:#a1a38b;letter-spacing:.4px}.collection-binding{margin:0 12px 12px auto;font:8px Georgia,serif;letter-spacing:2px;color:#a8ac92}
 .animal-entry-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:143px;gap:9px;margin:17px 0 20px}
@@ -288,17 +291,20 @@
     </section>
     <nav class="main-nav" aria-label="기획서 탐색">
       <a href="#chapter/01" data-nav="overview"><span>01</span> 프로젝트 소개</a>
-      <a href="#plants" data-nav="plants"><span>02</span> 식물 표본집</a>
-      <a href="#animals" data-nav="animals"><span>03</span> 동물 친구</a>
-      <a href="#map" data-nav="map"><span>04</span> 탐험 지도</a>
-      <a href="#shop" data-nav="shop"><span>05</span> 상점</a>
-      <a href="#summon" data-nav="summon"><span>06</span> 펫 뽑기</a>
-      <a href="#chapter/03" data-nav="system"><span>07</span> 핵심 시스템</a>
-      <a href="#achievements" data-nav="achievements"><span>08</span> 업적</a>
-      <a href="#chapter/20" data-nav="growth"><span>09</span> 레벨·퀘스트</a>
-      <a href="#chapter/14" data-nav="monetization"><span>10</span> 수익화 방향</a>
-      <a href="#chapter/08" data-nav="art"><span>11</span> 아트 · 설계</a>
+      <a href="#chapter/03" data-nav="system"><span>02</span> 핵심 플레이</a>
+      <a href="#chapter/01/section-7" data-nav="growth"><span>03</span> 성장과 콘텐츠 해금</a>
+      <a href="#chapter/03/section-2" data-nav="garden"><span>04</span> 정원 꾸미기와 교류</a>
+      <a href="#chapter/14" data-nav="monetization"><span>05</span> 경제와 수익화</a>
+      <a href="#chapter/08" data-nav="art"><span>06</span> 아트와 UI</a>
+      <a href="#plants" data-nav="collection"><span>07</span> 도감</a>
       <div class="global-search"><label class="search-label" for="doc-search"><span aria-hidden="true">⌕</span><input id="doc-search" type="search" aria-label="기획서 전체 검색" placeholder="기획서에서 찾아보기" autocomplete="off" aria-controls="search-results" aria-expanded="false"><kbd>/</kbd></label><div id="search-results" class="search-results" hidden></div></div>
+    </nav>
+    <nav id="category-navigation" class="garden-plan-nav" aria-label="분류별 상세 메뉴" hidden></nav>
+    <nav id="collection-navigation" class="collection-navigation" aria-label="자연 도감 페이지">
+      <a href="#plants" data-collection="plants"><span aria-hidden="true">❧</span> 식물 표본집 <small><span data-plant-total></span> plants</small></a>
+      <a href="#animals" data-collection="animals"><span aria-hidden="true">♧</span> 동물 친구 도감 <small>10 friends</small></a>
+      <a href="#map" data-collection="map"><span aria-hidden="true">◇</span> 탐험 지도</a>
+      <span class="collection-binding">ISLAND FIELD NOTES</span>
     </nav>
     <section id="map-view" class="map-view" aria-labelledby="map-title" hidden>
       <header class="map-intro">
@@ -510,11 +516,6 @@
       </div>
     </section>
     </div>
-    <nav id="collection-navigation" class="collection-navigation" aria-label="자연 도감 페이지">
-      <a href="#plants" data-collection="plants"><span aria-hidden="true">❧</span> 식물 표본집 <small><span data-plant-total></span> plants</small></a>
-      <a href="#animals" data-collection="animals"><span aria-hidden="true">♧</span> 동물 친구 도감 <small>10 friends</small></a>
-      <span class="collection-binding">ISLAND FIELD NOTES</span>
-    </nav>
     <div id="plant-view">
       <section id="plant-design-intent" class="doc-note green design-intent plant-design-intent" aria-label="식물 재배 기획 의도">
         <h2>식물 재배 기획 의도</h2>
@@ -5565,8 +5566,46 @@ function renderBlock(b){
  return '';
 }
 const chapterAliases={'04':'03','05':'03','06':'02','10':'09','11':'09','12':'01','13':'01','15':'14','17':'07'};
-const readingTitles={overview:'프로젝트 소개', system:'핵심 시스템', growth:'정원사 성장', monetization:'수익화 방향', art:'아트 · 설계'};
-const readingSections={'01':[7], '03':[4, 8], '16':[4, 9], '18':[7, 8, 9, 10, 11], '20':[1, 2, 3, 4, 5, 6, 8, 11, 14], '21':[2, 3, 5], '19':[2, 3, 4, 6]};
+const readingTitles = {
+ overview: '프로젝트 소개', system: '핵심 플레이', growth: '성장과 콘텐츠 해금',
+ garden: '정원 꾸미기와 교류', monetization: '경제와 수익화', art: '아트와 UI'
+};
+
+// Section numbers remain the source numbers so existing links keep working.
+const readingLayout = {
+ overview: [{id:'01', sections:[1,2,3,4,5,6]}],
+ system: [{id:'03', sections:[1,3,4,5,6,7,8], outline:[4,8]}, {id:'16', outline:[4,9]}, {id:'18', outline:[7,8,9,10,11]}],
+ growth: [
+  {id:'01', part:'opening', title:'초반 인트로 · 튜토리얼', sections:[7]},
+  {id:'20', title:'정원사 레벨', sections:[1,2,3,4,5,8,9], outline:[2,3,4,5,8,9]},
+  {id:'14', part:'quest-summon', title:'퀘스트에서 이어지는 성장과 소환', sections:[8]},
+  {id:'02'}, {id:'07'}, {id:'21', outline:[2,3,5]}
+ ],
+ garden: [
+  {id:'03', part:'garden-layout', title:'텃밭 꾸미기', sections:[2]},
+  {id:'20', part:'furniture', title:'가구 제작', sections:[11,12,13], outline:[12]},
+  {id:'19', part:'album', title:'개울가 쉼터와 정원 앨범', sections:[10,11], outline:[11]},
+  {id:'19', sections:[1,2,3,4,5,6,7,8,9], outline:[2,3,4,6]},
+  {id:'20', part:'friend-profile', title:'친구 수첩에 표시되는 정보', sections:[7,10]},
+  {id:'20', part:'profile', title:'내 정원 프로필과 테두리', sections:[6,14], outline:[14]}
+ ],
+ monetization: [{id:'14', sections:[1,2,3,4,5,6,7,9,10,11], outline:[9,10,11]}],
+ art: [{id:'08', outline:[6,7]}, {id:'09'}]
+};
+
+const categoryLinks = {
+ growth: [['#chapter/01/section-7', '인트로·튜토리얼'], ['#chapter/20', '정원사 레벨'], ['#quests', '퀘스트'], ['#achievements', '업적'], ['#chapter/21', '주간 랭킹']],
+ garden: [['#chapter/03/section-2', '텃밭 꾸미기'], ['#workshop', '가구 제작소'], ['#workshop/dye', '꽃빛 염색'], ['#chapter/19', '친구 시스템'], ['#chapter/20/section-6', '프로필']],
+ monetization: [['#chapter/14', '재화·수익화'], ['#shop', '상점'], ['#summon', '펫 뽑기']]
+};
+
+const readingParts = Object.entries(readingLayout).flatMap(([group, parts]) => parts.map(layout => {
+ const chapter = CHAPTERS.find(chapter => chapter.id === layout.id);
+ const sections = layout.sections ?? chapter.blocks.map((_, index) => index + 1);
+ return {...layout, group, chapter, sections, title: layout.title ?? chapter.title,
+  key: layout.part ?? chapter.id,
+  href: '#chapter/' + chapter.id + (layout.part ? '/section-' + sections[0] : '')};
+}));
 const questOutline=[
  {href:'#quests', title:'퀘스트', targetId:'quests-view'},
  {href:'#quests/tutorial', title:'튜토리얼', targetId:'quest-tutorial', child:true},
@@ -5584,13 +5623,21 @@ function renderReadingBlock(block){
  return renderBlock(block);
 }
 
-function readingChapterMarkup(chapter){
- const number=String(CHAPTERS.indexOf(chapter)+1).padStart(2,'0');
- const chapterId='reading-'+chapter.id;
- return `<article class="document-paper" aria-labelledby="${chapterId}-title">`+
-  `<header class="chapter-header reading-target" id="${chapterId}"><div class="chapter-kicker"><span class="chapter-number">${number}</span><span>${esc(chapter.tag)}</span></div><h2 id="${chapterId}-title">${esc(chapter.title)}</h2>${chapter.blocks[0]?.chapterLead ? "" : renderChapterSummary(chapter)}</header>`+
-  chapter.blocks.map((block,index)=>`<div class="reading-target" id="${chapterId}-section-${index+1}">${renderChapterBlock(chapter, block, index, renderReadingBlock)}</div>`).join('')+
-  '</article>';
+function chapterPartMarkup(part, print = false) {
+ const {chapter, sections} = part;
+ const prefix = print ? 'print-chapter-' : 'reading-';
+ const partId = prefix + part.key;
+ const sourceId = prefix + chapter.id;
+ const number = String(readingParts.indexOf(part) + 1).padStart(2, '0');
+ const chapterTag = part.part ? '' : print ? `<p class="eyebrow">${esc(chapter.tag)}</p>` :
+  `<div class="chapter-kicker"><span class="chapter-number">${number}</span><span>${esc(chapter.tag)}</span></div>`;
+ const summary = part.part || chapter.blocks[0]?.chapterLead ? '' : renderChapterSummary(chapter);
+ const hasOwnHeading = part.part && part.title === chapter.blocks[sections[0]-1].title;
+ const label = hasOwnHeading ? `aria-label="${esc(part.title)}"` : `aria-labelledby="${partId}-title"`;
+ return `<article class="${print ? 'print-chapter' : 'document-paper reading-target'}" id="${partId}" ${label}>
+  ${hasOwnHeading ? '' : `<header class="chapter-header">${chapterTag}<h2 id="${partId}-title">${print && !part.part ? number + '. ' : ''}${esc(part.title)}</h2>${summary}</header>`}
+  ${sections.map(section => `<div class="reading-target" id="${sourceId}-section-${section}">${renderChapterBlock(chapter, chapter.blocks[section-1], section-1, print ? renderBlock : renderReadingBlock)}</div>`).join('')}
+ </article>`;
 }
 
 function setActiveReadingEntry(entry){
@@ -5618,27 +5665,22 @@ function setActiveReadingEntry(entry){
 }
 
 function renderReadingGroup(group, content){
- const chapters=CHAPTERS.filter(chapter=>chapter.group===group);
+ const parts=readingParts.filter(part=>part.group===group);
  const questView=$('#quests-view');
  if(content.dataset.group==='growth')$('#quest-storage').append(questView);
- content.innerHTML=chapters.map(readingChapterMarkup).join('');
+ content.innerHTML=parts.map(part=>chapterPartMarkup(part)).join('');
  petSynergy.mount(content);
  content.dataset.group=group;
- if(group==='growth')content.append(questView);
+ if(group==='growth')content.insertBefore(questView,$('#reading-quest-summon'));
  $('#reading-section-title').textContent=readingTitles[group];
- const outline=chapters.flatMap(chapter=>{
-  const href='#chapter/'+chapter.id;
-  const targetId='reading-'+chapter.id;
-  const listedSections=readingSections[chapter.id];
-  const sections=chapter.blocks.flatMap((block,index)=>{
-   const visible=listedSections ? listedSections.includes(index+1) : chapters.length===1;
-   if(!block.title || !visible)return [];
-   const section='section-'+(index+1);
-   return [{href:href+'/'+section,title:block.title,targetId:targetId+'-'+section,child:Boolean(listedSections)}];
-  });
-  return [{href,title:chapter.title,targetId}, ...sections];
+ const outline=parts.flatMap(part=>{
+  const sections=(part.outline ?? []).map(section=>({
+   href:'#chapter/'+part.id+'/section-'+section, title:part.chapter.blocks[section-1].title,
+   targetId:'reading-'+part.id+'-section-'+section, child:true
+  }));
+  return [{href:part.href,title:part.title,targetId:'reading-'+part.key}, ...sections];
  });
- if(group==='growth')outline.push(...questOutline);
+ if(group==='growth')outline.splice(outline.findIndex(item=>item.targetId==='reading-quest-summon'),0,...questOutline);
  const toc=$('#toc');
  let chapterNumber=0;
  toc.innerHTML=outline.map(({href,title,child})=>{
@@ -5670,21 +5712,25 @@ function renderQuestReading(section, week){
 function renderChapter(id,section,stage){
  const chapter=CHAPTERS.find(c=>c.id===(chapterAliases[id]||id))||CHAPTERS[0];
  const chapterHash='#chapter/'+chapter.id;
- showReadingGroup(chapter.group);
+ const sectionIndex=Number(/^section-([1-9]\d*)$/.exec(section||'')?.[1]);
+ const hasSection=!!chapter.blocks[sectionIndex-1]?.title;
+ const chapterParts=readingParts.filter(part=>part.id===chapter.id);
+ const part=(hasSection && chapterParts.find(part=>part.sections.includes(sectionIndex))) || chapterParts.find(part=>!part.part);
+ showReadingGroup(part.group);
 
- const sectionIndex=/^section-([1-9]\d*)$/.exec(section||'')?.[1];
- const subsection=chapter.blocks[Number(sectionIndex)-1]?.title ? document.getElementById('reading-'+chapter.id+'-'+section) : null;
+ const subsection=hasSection ? document.getElementById('reading-'+chapter.id+'-'+section) : null;
  const currentHash=subsection ? chapterHash+'/'+section : chapterHash;
  if(id!==chapter.id || (section&&!subsection))history.replaceState(null,'',currentHash);
 
- const entry=readingOutline.find(item=>item.href===currentHash)||readingOutline.find(item=>item.href===chapterHash);
+ const entry=readingOutline.find(item=>item.href===currentHash)||readingOutline.find(item=>item.href===part.href);
  setActiveReadingEntry(entry);
- document.title=chapter.title+' — 신록의 섬 포트폴리오';
- const stageTarget = subsection?.querySelector('[data-opening-plan]') && stage ? openingPlan.goToStage(stage) : null;
- const leadIntent = subsection && currentHash === chapterIntentPath(chapter.id)
-  ? document.getElementById('reading-' + chapter.id).querySelector('.design-intent')
+ document.title=part.title+' — 신록의 섬 포트폴리오';
+ const stageTarget=subsection?.querySelector('[data-opening-plan]') && stage ? openingPlan.goToStage(stage) : null;
+ const leadIntent=subsection && currentHash===chapterIntentPath(chapter.id)
+  ? document.getElementById('reading-'+chapter.id).querySelector('.design-intent')
   : null;
- return {chapter,target:stageTarget || leadIntent || subsection || entry.target};
+ return {group:part.group,target:stageTarget || (part.href===currentHash ? entry.target : leadIntent || subsection || entry.target)};
+
 }
 
 function updateReadingOutline(){
@@ -5714,7 +5760,7 @@ let lastView='';
 function route(initial=false){
  document.body.classList.remove('print-preview-mode');
  let parts = location.hash.slice(1).split('/');
- if (!parts[0]) parts[0] = 'map';
+ if (!parts[0]) parts = ['chapter','01'];
  if (parts[0] === 'map' && parts[1] === 'shop') {
   parts = ['shop', ...parts.slice(2)];
   history.replaceState(null, '', '#' + parts.join('/'));
@@ -5748,15 +5794,16 @@ function route(initial=false){
  $('#summon-view').hidden = !summon;
  $('#achievements-view').hidden = !achievements;
  $('#workshop-view').hidden = !workshop;
- $('#collection-navigation').hidden = doc || map || shop || summon || achievements || workshop || quests;
+ const collection = !doc && !shop && !summon && !achievements && !workshop;
+ $('#collection-navigation').hidden = !collection;
  let active=animal?'animals':'plants',sectionTarget;
  if(quests){
   active='growth';
   sectionTarget=renderQuestReading(parts[1],parts[2]);
  }
  else if(doc){
-  const {chapter,target}=renderChapter(parts[1],parts[2],parts[3]);
-  active=chapter.group;
+  const {group,target}=renderChapter(parts[1],parts[2],parts[3]);
+  active=group;
   sectionTarget=target;
  }
  else if (map) {
@@ -5815,7 +5862,19 @@ function route(initial=false){
   }
   document.title = '식물 표본집 — 신록의 섬 포트폴리오';
  }
- document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===active);if(a.dataset.nav===active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+ const navGroup = collection ? 'collection' : workshop ? 'garden' : achievements ? 'growth' : shop || summon ? 'monetization' : active;
+ document.querySelectorAll('[data-nav]').forEach(a=>{
+  const selected=a.dataset.nav===navGroup;
+  a.classList.toggle('active',selected);
+  if(selected)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+ });
+ const navigation=$('#category-navigation');
+ const links=categoryLinks[navGroup] ?? [];
+ const path='#'+parts.join('/');
+ const current=links.reduce((match,[href])=>
+  (path===href || path.startsWith(href+'/')) && href.length>match.length ? href : match,'');
+ navigation.hidden=!links.length;
+ navigation.innerHTML=links.map(([href,label])=>`<a href="${href}"${href===current?' aria-current="location"':''}>${label}</a>`).join('');
  document.querySelectorAll('[data-collection]').forEach(a=>{const selected=a.dataset.collection===active;a.classList.toggle('active',selected);if(selected)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
  const view = doc ? 'chapter' : workshop ? 'workshop' : active;
  if(sectionTarget){
@@ -5828,16 +5887,16 @@ function route(initial=false){
  lastView=view;closeSearch();
 }
 function searchChapters(query) {
- return CHAPTERS.flatMap((chapter, index) => {
-  const url = '#chapter/' + chapter.id;
-  const number = String(index + 1).padStart(2, '0');
-  const chapterTitle = number + '. ' + chapter.title;
-  const sections = chapter.blocks.flatMap((block, blockIndex) =>
-   block.title && JSON.stringify(block).toLowerCase().includes(query)
-    ? [{url: url + '/section-' + (blockIndex + 1), title: block.title, description: chapterTitle}] : []);
-  if (sections.length) return sections;
-  const text = [chapter.title, chapter.subtitle, JSON.stringify(chapter.blocks)].join(' ').toLowerCase();
-  return text.includes(query) ? [{url, title: chapterTitle, description: chapter.subtitle}] : [];
+ return readingParts.flatMap(part => {
+  const sections=part.sections.flatMap(section=>{
+   const block=part.chapter.blocks[section-1];
+   return block.title && JSON.stringify(block).toLowerCase().includes(query)
+    ? [{url:'#chapter/'+part.id+'/section-'+section,title:block.title,description:readingTitles[part.group]}] : [];
+  });
+  if(sections.length)return sections;
+  const description=part.part ? readingTitles[part.group] : part.chapter.subtitle;
+  return (part.title+' '+description).toLowerCase().includes(query)
+   ? [{url:part.href,title:part.title,description}] : [];
  });
 }
 function searchGroup(title, entries) {
@@ -5880,9 +5939,22 @@ function updateSearch() {
  $('#doc-search').setAttribute('aria-expanded', 'true');
 }
 function closeSearch(){$('#search-results').hidden=true;$('#doc-search').setAttribute('aria-expanded','false');}
+const printSectionsAfter = {
+ '20': [['quests','퀘스트']],
+ '07': [['achievements','업적과 지역 숙련도']],
+ furniture: [['workshop','가구 제작소'], ['dye','꽃빛 염색 작업대']],
+ '14': [['shop','상점'], ['summon','펫 뽑기'], ['pet-upgrades','동물 친구 장비']]
+};
+const printCollection = [['plants','식물 표본집'], ['animals','동물 친구 도감'], ['map','탐험 지도']];
+
 function printAll(){
- $('#print-document').innerHTML=`<nav class="print-toolbar" aria-label="전체 문서 도구"><button data-close-print>← 포트폴리오로 돌아가기</button><span>신록의 섬 · 게임 기획</span><button data-print-confirm>인쇄 / PDF 저장 ↗</button></nav><div class="print-cover"><p>ISLE OF VERDURE / GAME DESIGN PORTFOLIO</p><h1>신록의 섬<br>작은 정원에서 시작되는, 섬의 회복.</h1><p>힐링 가드닝 시뮬레이션<br>시스템 기획 · 도감 UI · 아트 콘셉트</p><div class="print-toc">${CHAPTERS.map((c,i)=>`<a href="#print-chapter-${c.id}">${String(i+1).padStart(2,'0')} ${c.title}</a>`).join('')}<a href="#print-map">탐험 지도</a><a href="#print-shop">상점</a><a href="#print-summon">펫 뽑기</a><a href="#print-achievements">업적과 지역 숙련도</a><a href="#print-workshop">가구 제작소</a><a href="#print-dye">꽃빛 염색 작업대</a><a href="#print-pet-upgrades">동물 친구 장비</a><a href="#print-quests">퀘스트</a><a href="#print-plants">식물 표본집</a><a href="#print-animals">동물 친구 도감</a></div></div>${CHAPTERS.map((c,i)=>`<article class="print-chapter" id="print-chapter-${c.id}"><header class="chapter-header"><p class="eyebrow">${c.tag}</p><h2>${String(i+1).padStart(2,'0')}. ${c.title}</h2>${c.blocks[0]?.chapterLead ? "" : renderChapterSummary(c)}</header>${c.blocks.map((block, index) => renderChapterBlock(c, block, index, renderBlock)).join('')}</article>`).join('')}<article class="print-chapter" id="print-map"><header class="chapter-header"><p class="eyebrow">EXPLORATION MAP</p><h2>탐험 지도</h2></header>${renderDesignIntent('#map')}${explorationMap.renderPrint()}</article>${gardenShop.renderPrint()}${petSummon.renderPrint()}${achievementsPage.renderPrint()}${gardenPlans.renderPrint()}${petUpgrades.renderPrint(ANIMALS)}<article class="print-chapter" id="print-plants"><header class="chapter-header"><p class="eyebrow">BOTANICAL COLLECTION</p><h2>식물 표본집 · ${totalPlants}종</h2></header>${renderDesignIntent('#plants')}${catalogPlants.map(p=>`<section class="print-plant" id="print-plant-${p.id}">${p.dyeFlower ? "" : specimen(p)}${renderPlantBrief(p)}</section>`).join('')}</article><article class="print-chapter" id="print-animals"><header class="chapter-header"><p class="eyebrow">ANIMAL COMPANIONS</p><h2>동물 친구 도감 · 10종</h2></header>${renderDesignIntent('#animals')}${ANIMALS.map(a => `<div id="print-animal-${a.id}">${renderAnimalDossier(a)}</div>`).join('')}</article>`;
+ const printOrder=readingParts.flatMap(part=>[['chapter-'+part.key,part.title],...(printSectionsAfter[part.key] ?? [])]).concat(printCollection);
+ $('#print-document').innerHTML=`<nav class="print-toolbar" aria-label="전체 문서 도구"><button data-close-print>← 포트폴리오로 돌아가기</button><span>신록의 섬 · 게임 기획</span><button data-print-confirm>인쇄 / PDF 저장 ↗</button></nav><div class="print-cover"><p>ISLE OF VERDURE / GAME DESIGN PORTFOLIO</p><h1>신록의 섬<br>작은 정원에서 시작되는, 섬의 회복.</h1><p>힐링 가드닝 시뮬레이션<br>시스템 기획 · 도감 UI · 아트 콘셉트</p><div class="print-toc">${printOrder.map(([id,title])=>`<a href="#print-${id}">${esc(title)}</a>`).join('')}</div></div>${readingParts.map(part=>chapterPartMarkup(part,true)).join('')}<article class="print-chapter" id="print-map"><header class="chapter-header"><p class="eyebrow">EXPLORATION MAP</p><h2>탐험 지도</h2></header>${renderDesignIntent('#map')}${explorationMap.renderPrint()}</article>${gardenShop.renderPrint()}${petSummon.renderPrint()}${achievementsPage.renderPrint()}${gardenPlans.renderPrint()}${petUpgrades.renderPrint(ANIMALS)}<article class="print-chapter" id="print-plants"><header class="chapter-header"><p class="eyebrow">BOTANICAL COLLECTION</p><h2>식물 표본집 · ${totalPlants}종</h2></header>${renderDesignIntent('#plants')}${catalogPlants.map(p=>`<section class="print-plant" id="print-plant-${p.id}">${p.dyeFlower ? "" : specimen(p)}${renderPlantBrief(p)}</section>`).join('')}</article><article class="print-chapter" id="print-animals"><header class="chapter-header"><p class="eyebrow">ANIMAL COMPANIONS</p><h2>동물 친구 도감 · 10종</h2></header>${renderDesignIntent('#animals')}${ANIMALS.map(a => `<div id="print-animal-${a.id}">${renderAnimalDossier(a)}</div>`).join('')}</article>`;
  const print = $('#print-document');
+ for (const [id] of printOrder) {
+  const section=document.getElementById('print-'+id);
+  if (section) print.append(section);
+ }
  print.querySelector('#print-quest-daily').insertAdjacentHTML('beforeend', renderInterfaceMockups(dailyRewardsMockup));
  for (const [selector, href] of [
   ['#print-quests > header', '#quests'],
@@ -5896,11 +5968,12 @@ function printAll(){
   print.querySelector(selector)?.insertAdjacentHTML('afterend', renderDesignIntent(href));
  }
  for (const link of print.querySelectorAll('a[href^="#"]')) {
-  const [route, id] = link.hash.slice(1).split('/');
+  const [route, id, section] = link.hash.slice(1).split('/');
   if (route === 'workshop' && id === 'level-furniture') { link.hash = 'print-level-furniture'; continue; }
   if (route === 'workshop' && id === 'dye') { link.hash = 'print-dye'; continue; }
   if (route === 'shop' && document.getElementById('print-shop-entry-' + id)) { link.hash = 'print-shop-entry-' + id; continue; }
-  const target = route === 'chapter' ? 'print-chapter-' + id :
+  const chapterSection = route === 'chapter' && document.getElementById('print-chapter-' + id + '-' + section);
+  const target = chapterSection ? chapterSection.id : route === 'chapter' ? 'print-chapter-' + id :
    route === 'plants' && id ? 'print-plant-' + id :
    route === 'animals' && id ? 'print-animal-' + id : 'print-' + route;
   if (document.getElementById(target)) link.hash = target;
