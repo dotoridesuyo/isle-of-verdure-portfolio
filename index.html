@@ -101,7 +101,7 @@
 
 </style>
 <style>
-.cultivation-steps {
+.icon-flow-steps {
  display:grid;
  grid-template-columns:repeat(6,minmax(0,1fr));
  gap:20px;
@@ -109,7 +109,7 @@
  padding:0;
  list-style:none;
 }
-.cultivation-steps li {
+.icon-flow-steps li {
  position:relative;
  display:grid;
  justify-items:center;
@@ -125,7 +125,7 @@
  text-align:center;
  word-break:keep-all;
 }
-.cultivation-steps svg {
+.icon-flow-steps svg {
  width:23px;
  height:23px;
  fill:none;
@@ -134,7 +134,7 @@
  stroke-linecap:round;
  stroke-linejoin:round;
 }
-.cultivation-arrow {
+.icon-flow-arrow {
  position:absolute;
  top:50%;
  left:100%;
@@ -144,16 +144,16 @@
  font-size:16px;
  line-height:1;
 }
-.cultivation-flow .cultivation-note {margin:0}
+.icon-flow .icon-flow-note {margin:0}
 @media screen and (max-width:640px) {
- .cultivation-steps {grid-template-columns:minmax(0,1fr);gap:16px}
- .cultivation-steps li {grid-template-columns:23px 1fr;align-items:center;justify-items:start;gap:8px;padding:6px 12px;text-align:left}
- .cultivation-arrow {top:100%;left:12px;transform:rotate(90deg);text-align:center}
+ .icon-flow-steps {grid-template-columns:minmax(0,1fr);gap:16px}
+ .icon-flow-steps li {grid-template-columns:23px 1fr;align-items:center;justify-items:start;gap:8px;padding:6px 12px;text-align:left}
+ .icon-flow-arrow {top:100%;left:12px;transform:rotate(90deg);text-align:center}
 }
 @media print {
- .cultivation-flow {break-inside:avoid}
- .cultivation-steps {gap:14px}
- .cultivation-arrow {width:15px}
+ .icon-flow {break-inside:avoid}
+ .icon-flow-steps {gap:14px}
+ .icon-flow-arrow {width:15px}
 }
 </style>
   <link rel="stylesheet" href="exploration-map.css">
@@ -972,8 +972,9 @@ const CHAPTERS=[
         ]
       },
       {
-        "kind": "flow",
+        "kind": "iconFlow",
         "title": "핵심 플레이 흐름",
+        "icons": ["compass", "sparkles", "water", "basket", "tools", "map"],
         "items": [
           "탐험 · 식물 발견",
           "정화 · 씨앗 확보",
@@ -1059,8 +1060,9 @@ const CHAPTERS=[
     "group": "system",
     "blocks": [
       {
-        "kind": "cultivationFlow",
+        "kind": "iconFlow",
         "title": "한 번의 재배",
+        "icons": ["sparkles", "shovel", "seed", "water", "sprout", "basket"],
         "items": [
           "오염 정화",
           "밭갈기",
@@ -5423,30 +5425,33 @@ function searchDesignIntents(query) {
   .map(item => ({url: item.href, title: item.title, description: item.intent}));
 }
 
-function renderCultivationFlow(block) {
- const icons = [
-  'M12 2c0 4-2 6-6 6 4 0 6 2 6 6 0-4 2-6 6-6-4 0-6-2-6-6ZM5 13v6m-3-3h6m11-4v6m-3-3h6',
-  'M9 15 20 4m-9 13-4-4-3 3a3 3 0 0 0 0 4l1 1a3 3 0 0 0 4 0l2-4ZM13 19h8',
-  'M5 14c0-5 5-9 13-9 0 8-4 13-9 13a4 4 0 0 1-4-4Zm1 4 6-6M3 21h18',
-  'M12 2c-2 4-6 8-6 12a6 6 0 0 0 12 0c0-4-4-8-6-12Zm-3 12a3 3 0 0 0 3 3',
-  'M12 20v-8m0 2C6 14 4 11 4 6c5 0 8 2 8 8Zm0-2c0-5 3-7 8-7 0 5-3 7-8 7ZM8 21h8',
-  'M3 10h18l-2 10H5L3 10Zm4 0 5-7 5 7M9 13v4m6-4v4'
- ];
- return `<section class="doc-block cultivation-flow">
+function renderIconFlow(block) {
+ const icons = {
+  sparkles: 'M12 2c0 4-2 6-6 6 4 0 6 2 6 6 0-4 2-6 6-6-4 0-6-2-6-6ZM5 13v6m-3-3h6m11-4v6m-3-3h6',
+  shovel: 'M9 15 20 4m-9 13-4-4-3 3a3 3 0 0 0 0 4l1 1a3 3 0 0 0 4 0l2-4ZM13 19h8',
+  seed: 'M5 14c0-5 5-9 13-9 0 8-4 13-9 13a4 4 0 0 1-4-4Zm1 4 6-6M3 21h18',
+  water: 'M12 2c-2 4-6 8-6 12a6 6 0 0 0 12 0c0-4-4-8-6-12Zm-3 12a3 3 0 0 0 3 3',
+  sprout: 'M12 20v-8m0 2C6 14 4 11 4 6c5 0 8 2 8 8Zm0-2c0-5 3-7 8-7 0 5-3 7-8 7ZM8 21h8',
+  basket: 'M3 10h18l-2 10H5L3 10Zm4 0 5-7 5 7M9 13v4m6-4v4',
+  compass: 'M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM16 8l-2 6-6 2 2-6 6-2Z',
+  tools: 'm4 20 9-9m-3-5 4-3 7 7-3 4-8-8ZM4 20l-1-1a1 1 0 0 1 0-1l8-8m4 6 4 4a1.4 1.4 0 0 0 2-2l-4-4M3 4l3 1 3 4-2 2-4-3-1-3Z',
+  map: 'm3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2V5Zm6-2v16m6-14v16'
+ };
+ return `<section class="doc-block icon-flow">
   ${blockHeading(block)}
-  <ol class="cultivation-steps" role="list">
+  <ol class="icon-flow-steps" role="list">
    ${block.items.map((label, index) => `<li>
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${icons[index]}"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${icons[block.icons[index]]}"/></svg>
     <span>${index + 1}. ${esc(label)}</span>
-    ${index < block.items.length - 1 ? '<span class="cultivation-arrow" aria-hidden="true">→</span>' : ''}
+    ${index < block.items.length - 1 ? '<span class="icon-flow-arrow" aria-hidden="true">→</span>' : ''}
    </li>`).join('')}
   </ol>
-  <p class="doc-paragraph cultivation-note">${esc(block.note)}</p>
+  ${block.note ? `<p class="doc-paragraph icon-flow-note">${esc(block.note)}</p>` : ""}
  </section>`;
 }
 
 function renderBlock(b){
- if(b.kind==='cultivationFlow')return renderCultivationFlow(b);
+ if(b.kind==='iconFlow')return renderIconFlow(b);
  if(b.id==='level-furniture-recipes')return `<section class="doc-block">${blockHeading(b)}<p class="doc-paragraph"><a class="table-link" href="#workshop/level-furniture">가구 제작소에서 해금 레벨과 재료 보기 ↗</a></p></section>`;
  if(b.kind==='plantGrowth')return renderPlantGrowth(b);
  if(b.kind==='openingPlan')return openingPlan.render(true);
