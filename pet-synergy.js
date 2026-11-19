@@ -18,8 +18,8 @@ const petSynergy = (() => {
   const rules = [
     {key:'water',name:'물주기 시너지',members:['A001','A006'],
       condition:'모리와 누리 배치',
-      effect:'자동 물주기 효율 증가',
-      detail:'마른 작물의 자동 물주기 효율을 높이는 시너지. 단, 동일한 재배 주기에는 작물당 물주기가 한 번만 적용되며, 중복으로 처리되지 않음'},
+      effect:'발아용 첫 물주기 지원',
+      detail:'파종 후 아직 물을 받지 않은 작물의 첫 물주기를 지원하는 시너지. 같은 재배 주기에 이미 물을 받은 작물은 다시 처리하지 않음.'},
     {key:'growth',name:'성장 시너지',members:['A002','A010'],
       condition:'토리와 두리 배치',
       effect:'성장 중인 작물의 성장 속도 증가',
