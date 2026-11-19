@@ -107,6 +107,8 @@ const files = [
 ];
 let drafts = [];
 let sourcePromise;
+let sourceCatalog = [];
+const matchesByQuery = new Map();
 let matches = [];
 let selection = null;
 let picking = false;
@@ -131,7 +133,10 @@ async function readSource(file) {
 }
 
 function loadSources() {
-  if (!sourcePromise) sourcePromise = Promise.all(files.map(readSource)).catch(error => {
+  if (!sourcePromise) sourcePromise = Promise.all(files.map(readSource)).then(sources => {
+    sourceCatalog = sources;
+    return sources;
+  }).catch(error => {
     sourcePromise = null;
     throw error;
   });
@@ -147,8 +152,7 @@ function persist(next) {
   }
   drafts = next;
   renderDrafts();
-  applyPreview();
-  return true;
+  return applyPreview();
 }
 
 function draftFor(match) {
@@ -184,6 +188,11 @@ function showMatch() {
   byId('excerpt').textContent = match.excerpt;
   byId('replacement').value = draftFor(match)?.displayAfter ?? byId('query').value.trim();
   byId('save').disabled = matches.length > 1 && !byId('match').value;
+}
+
+function sourceMatches(query) {
+  if (!matchesByQuery.has(query)) matchesByQuery.set(query, findMatches(sourceCatalog, query));
+  return matchesByQuery.get(query);
 }
 
 function chapterSourceRange(text, chapterId, section) {
@@ -255,7 +264,7 @@ async function search(query, location = null, context = null) {
   try {
     const sources = await loadSources();
     if (order !== searchOrder) return;
-    matches = findMatches(sources, query);
+    matches = sourceMatches(query);
     if (!matches.length) {
       byId('status').textContent = '원문을 찾지 못했어요. 문단이 여러 조각으로 나뉜 경우에는 문장 일부를 입력해 보세요.';
       return;
@@ -323,9 +332,12 @@ function saveDraft() {
     if (byId('replacement').value !== displayAfter) byId('replacement').value = displayAfter;
     const known = draftFor(match);
     const next = drafts.filter(d => d !== known);
-    if (after !== match.before) next.push({...match, after, original, displayAfter, location:selection || known?.location});
-    if (persist(next)) byId('status').textContent = after === match.before ? '원문으로 되돌렸습니다.' :
-      selection || known?.location ? '초안을 저장했습니다. 미리보기에서 변경을 확인하세요.' : '초안을 저장했습니다. 검색으로 고른 문구는 출력 파일에서 확인할 수 있습니다.';
+    const draft = {...match, after, original, displayAfter, location:selection || known?.location};
+    if (after !== match.before) next.push(draft);
+    const applied = persist(next);
+    if (applied) byId('status').textContent = after === match.before ? '원문으로 되돌렸습니다.' :
+      applied.has(draft) ? '초안을 저장하고 왼쪽 미리보기를 바로 바꿨어요.' :
+      '초안을 저장했어요. 해당 문구가 있는 페이지를 열면 미리보기에서 확인할 수 있어요.';
   } catch (error) {
     byId('status').textContent = error.message;
   }
@@ -460,20 +472,72 @@ function schedulePreview() {
   });
 }
 
+function visibleCopyNodes(doc) {
+  const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!node.data.trim() || !node.parentElement ||
+          node.parentElement.closest('[hidden], script, style, template, textarea')) return NodeFilter.FILTER_REJECT;
+      return node.parentElement.getClientRects().length ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  });
+  const nodes = [];
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) nodes.push(node);
+  return nodes;
+}
+
 function applyPreview() {
   const doc = preview.contentDocument;
-  if (!doc) return;
+  const applied = new Set();
+  if (!doc?.body) return applied;
   for (const [node, text] of shown) if (node.isConnected) node.data = text;
   shown.clear();
-  for (const d of drafts) {
-    const location = d.location;
-    if (!location || location.hash !== preview.contentWindow.location.hash || !Array.isArray(location.path)) continue;
-    const root = location.id ? doc.getElementById(location.id) : doc.body;
-    const node = location.path.reduce((el, i) => el?.childNodes?.[i], root);
-    if (node?.nodeType !== Node.TEXT_NODE || !node.data.includes(d.original)) continue;
-    if (!shown.has(node)) shown.set(node, node.data);
-    node.data = node.data.replace(d.original, () => d.displayAfter);
+  if (!drafts.length) return applied;
+
+  const patches = new Map();
+  const add = (node, draft) => {
+    const start = node?.nodeType === Node.TEXT_NODE ? node.data.indexOf(draft.original) : -1;
+    if (start < 0) return;
+    const end = start + draft.original.length;
+    const changes = patches.get(node) || [];
+    if (changes.some(change => start < change.end && change.start < end)) return;
+    changes.push({start, end, draft});
+    patches.set(node, changes);
+    applied.add(draft);
+  };
+
+  // Prefer the exact clicked node, including when the editor has just been reopened.
+  const currentHash = preview.contentWindow.location.hash;
+  for (const draft of drafts) {
+    const loc = draft.location;
+    if (!loc || loc.hash !== currentHash || !Array.isArray(loc.path)) continue;
+    const root = loc.id ? doc.getElementById(loc.id) : doc.body;
+    add(loc.path.reduce((node, i) => node?.childNodes?.[i], root), draft);
   }
+
+  // Match searched text and shared labels to their source on the currently visible page.
+  if (sourceCatalog.length) {
+    const nodes = visibleCopyNodes(doc);
+    for (const draft of drafts) {
+      const candidates = sourceMatches(draft.original);
+      const index = candidates.findIndex(match => match.file === draft.file &&
+        match.revision === draft.revision && match.start === draft.start);
+      if (index < 0) continue;
+      for (const node of nodes) {
+        if (!node.data.includes(draft.original)) continue;
+        const selected = matchClickedLocation(sourceCatalog, candidates, clickedContext(node, draft.original));
+        if (selected === index) add(node, draft);
+      }
+    }
+  }
+  for (const [node, changes] of patches) {
+    shown.set(node, node.data);
+    let value = node.data;
+    for (const {start, end, draft} of changes.sort((a, b) => b.start - a.start)) {
+      value = value.slice(0, start) + draft.displayAfter + value.slice(end);
+    }
+    node.data = value;
+  }
+  return applied;
 }
 
 function clickedContext(node, query) {
@@ -570,6 +634,7 @@ preview.addEventListener('load', () => {
   observer.observe(doc.body, {subtree:true, childList:true});
   setPicking(picking);
   schedulePreview();
+  if (drafts.length && !sourceCatalog.length) loadSources().then(schedulePreview).catch(() => {});
 });
 byId('browse').addEventListener('click', () => setPicking(false));
 byId('pick').addEventListener('click', () => setPicking(true));
