@@ -130,6 +130,7 @@ let sourceCatalog = [];
 const matchesByQuery = new Map();
 let matches = [];
 let selection = null;
+let activeOriginal = '';
 let picking = false;
 let observer;
 let previewFrame = 0;
@@ -190,6 +191,8 @@ function findMatches(sources, query) {
   const results = [];
   for (const source of sources) {
     const seen = new Set();
+    const scriptRanges = source.file.endsWith('.js') ? [] :
+      [...source.text.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(script => [script.index, script.index + script[0].length]);
     for (const before of variants) {
       let start = -1;
       while ((start = source.text.indexOf(before, start + 1)) !== -1) {
@@ -199,7 +202,8 @@ function findMatches(sources, query) {
         const lineStart = source.text.lastIndexOf('\n', start - 1) + 1;
         const nextLine = source.text.indexOf('\n', start + before.length);
         const excerpt = source.text.slice(Math.max(lineStart, start - 100), nextLine < 0 ? start + before.length + 100 : Math.min(nextLine, start + before.length + 100));
-        results.push({file:source.file, revision:source.revision, before, start, line, column:start-lineStart+1, excerpt});
+        const script = source.file.endsWith('.js') || scriptRanges.some(([from, to]) => start >= from && start < to);
+        results.push({file:source.file, revision:source.revision, before, start, line, column:start-lineStart+1, excerpt, script});
       }
     }
   }
@@ -210,7 +214,7 @@ function showMatch() {
   const match = matches[Number(byId('match').value)];
   if (!match) return;
   byId('excerpt').textContent = match.excerpt;
-  byId('replacement').value = draftFor(match)?.displayAfter ?? byId('query').value.trim();
+  byId('replacement').value = draftFor(match)?.displayAfter ?? activeOriginal;
   byId('save').disabled = matches.length > 1 && !byId('match').value;
   byId('delete-copy').disabled = byId('save').disabled;
 }
@@ -279,8 +283,9 @@ let searchOrder = 0;
 async function search(query, location = null, context = null) {
   const order = ++searchOrder;
   selection = location;
+  activeOriginal = query;
   byId('edit-form').hidden = true;
-  byId('query').value = query;
+  byId('query').value = query.replace(/\n/g, ' ');
   byId('status').textContent = '원문 위치를 확인하는 중입니다.';
   if (!/[가-힣]/.test(query) || query.length < 2) {
     byId('status').textContent = '한글이 들어 있는 문구를 두 글자 이상 선택하세요.';
@@ -328,8 +333,8 @@ function makeReplacement(before, replacement) {
   while (tail < before.length - first && tail < replacement.length - first &&
          before[before.length - tail - 1] === replacement[replacement.length - tail - 1]) tail++;
   const added = replacement.slice(first, replacement.length - tail);
-  if (/[<>&"'\\`\r\n\u2028\u2029]/.test(added) || added.includes('$' + '{')) {
-    throw new Error('한 줄씩 수정해 주세요. 새 따옴표는 “ ” 또는 ‘ ’를 사용하세요.');
+  if (/[<>&"'\\`\u2028\u2029]/.test(added) || added.includes('$' + '{')) {
+    throw new Error('새 따옴표는 “ ” 또는 ‘ ’를 사용해 주세요.');
   }
   return {first, tail, added};
 }
@@ -337,8 +342,8 @@ function makeReplacement(before, replacement) {
 function saveDraft(deleting = false) {
   const selected = byId('match').value;
   const match = selected === '' ? null : matches[Number(selected)];
-  const original = byId('query').value.trim();
-  const displayAfter = deleting ? '' : byId('replacement').value.trim();
+  const original = activeOriginal;
+  const displayAfter = deleting ? '' : byId('replacement').value.replace(/\r\n?/g, '\n').trim();
   if (!match || (!deleting && !displayAfter)) {
     byId('status').textContent = '수정할 문구를 입력하세요.';
     return;
@@ -355,7 +360,8 @@ function saveDraft(deleting = false) {
     const encode = value => match.before === original ? value :
       match.before === JSON.stringify(original).slice(1, -1) ? JSON.stringify(value).slice(1, -1) :
       value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-    const after = encode(original.slice(0, first)) + added + encode(original.slice(original.length - tail));
+    const inserted = match.script ? added.replace(/\n/g, '\\n') : added;
+    const after = encode(original.slice(0, first)) + inserted + encode(original.slice(original.length - tail));
     if (byId('replacement').value !== displayAfter) byId('replacement').value = displayAfter;
     const known = draftFor(match);
     const next = drafts.filter(d => d !== known);
