@@ -147,7 +147,7 @@
 .icon-flow .icon-flow-note {margin:0}
 .garden-related-systems {
  display:grid;
- grid-template-columns:repeat(3,minmax(0,1fr));
+ grid-template-columns:repeat(4,minmax(0,1fr));
  gap:10px;
  margin:0 0 22px;
  padding:0;
@@ -166,6 +166,9 @@
 .garden-related-systems strong,.garden-related-systems span {display:block}
 .garden-related-systems strong {font-size:13px}
 .garden-related-systems span {margin-top:2px;font-size:12px;word-break:keep-all}
+@media screen and (max-width:900px) {
+ .garden-related-systems {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 @media screen and (max-width:640px) {
  .garden-related-systems {grid-template-columns:minmax(0,1fr)}
 }
@@ -1103,7 +1106,11 @@ const CHAPTERS=[
         "relatedSystems": [
           {"title": "텃밭 꾸미기", "text": "식물과 가구를 배치해 나만의 정원을 꾸밉니다.", "href": "#chapter/03/section-2"},
           {"title": "펫 배치", "text": "펫의 관리 범위를 보고 배치해 물주기와 수확을 맡깁니다.", "href": "#chapter/16/section-4"},
-          {"title": "가구 제작", "text": "모은 재료로 가구를 만들어 정원에 놓습니다.", "href": "#workshop"}
+          {"title": "가구 제작", "text": "모은 재료로 가구를 만들어 정원에 놓습니다.", "href": "#workshop"},
+          {"title": "정화 물약 제작", "text": "수확한 재료로 물약을 만들어 오염된 식물을 되살립니다.", "href": "#chapter/18"},
+          {"title": "꽃빛 염색", "text": "염색꽃에서 얻은 꽃잎으로 가구에 색을 입힙니다.", "href": "#workshop/dye"},
+          {"title": "랭킹 시스템", "text": "Lv.30부터 주간 수익·수확·황금작물 순위를 확인합니다.", "href": "#chapter/21"},
+          {"title": "친구 시스템", "text": "친구를 추가하고 정원을 방문해 좋아요를 남기거나 물통을 선물합니다.", "href": "#chapter/19"}
         ]
       },
       {
