@@ -476,7 +476,7 @@
         <header class="level-furniture-header">
           <div>
             <h3 id="workshop-level-furniture-title">레벨별 제작 가구 시안</h3>
-            <p>도안을 해금한 뒤 제작소에서 재료를 사용해 만들어요.</p>
+            <p>보상으로 수령한 도안은 제작소에서 재료를 사용해 제작해요. 나머지는 가구 제작 시안이에요.</p>
           </div>
         </header>
         <div id="workshop-level-furniture-art"></div>
@@ -1702,25 +1702,7 @@ const CHAPTERS=[
     "group": "system",
     "blocks": [
       {
-        "kind": "cards",
-        "title": "책을 펼치듯 읽는 인터페이스",
-        "items": [
-          {
-            "title": "왼쪽 · 찾아보기",
-            "text": "식물 카드는 왼쪽 목록에 이어서 표시합니다. 목록을 세로로 스크롤해 다음 식물을 살펴보고, 검색과 등급·지역·크기 필터로 원하는 종을 찾을 수 있습니다.",
-            "icon": "☷"
-          },
-          {
-            "title": "오른쪽 · 관찰하기",
-            "text": "외형과 핵심 정보를 먼저 보여주고, 재배·수확·수집 정보를 탭으로 나눠 읽는다.",
-            "icon": "❧"
-          },
-          {
-            "title": "옆 페이지 · 친구들",
-            "text": "동물 도감은 식물 표본집 옆에 둔다. 캐릭터의 성격과 능력은 획득 화면과 분리해 언제든 확인한다.",
-            "icon": "♧"
-          }
-        ]
+        "kind": "removed"
       },
       {
         "kind": "table",
@@ -2848,7 +2830,7 @@ const CHAPTERS=[
   {
     "id": "20",
     "title": "정원사 레벨과 내 정원 프로필",
-    "subtitle": "정화·재배·꾸미기로 정원사 Lv.30까지 성장하고, 레벨에 따라 프로필 장식과 정원 가구 도안을 해금합니다.",
+    "subtitle": "정화·재배·꾸미기 활동으로 경험치를 획득하고, 최대 Lv.30까지 성장하는 시스템. 레벨 달성에 따라 새싹 코인, 프로필 장식, 가구 도안, 펫 소환권 등의 보상과 신규 기능을 제공.",
     "tag": "GARDENER LEVEL & PROFILE",
     "group": "growth",
     "blocks": [
@@ -2981,11 +2963,12 @@ const CHAPTERS=[
           },
           {
             "kind": "bullets",
-            "title": "퀘스트와 함께 지급되는 경우",
+            "title": "튜토리얼 및 퀘스트 연계",
             "items": [
-              "본편 인트로 개정안은 이슬풀 첫 수확을 마칠 때 누적 130 XP로 Lv.2, 지도 안내를 마칠 때 누적 600 XP로 Lv.5에 도달합니다. 통과한 레벨 보상은 각각 한 번 지급합니다.",
-              "일반 수확 8개체, 주간 퀘스트 1개, 도안의 첫 제작 1회, 새 색 첫 적용 1회의 합은 90 XP입니다.",
-              "일일 퀘스트 리프의 부탁은 기본 과제당 새싹 코인 5개를 지급하는 안입니다. 과제 중 수확은 일반 수확과 종별 첫 수확의 XP 기준도 각각 적용합니다."
+              "이슬풀 첫 수확 완료 시 누적 130 XP로 Lv.2 달성. 지도 안내 완료 시 누적 600 XP로 Lv.5 달성.",
+              "튜토리얼 진행 중 통과한 레벨의 기능은 즉시 해금되며, 보상은 각각 수령 가능 상태로 전환.",
+              "일반 수확 8개체, 주간 퀘스트 1개 완료, 가구 도안 최초 제작 1회, 새로운 색상 최초 적용 1회의 XP 합계는 90 XP.",
+              "일일 퀘스트 「리프의 부탁」은 기본 과제당 새싹 코인 5개 지급. 퀘스트 수행 중 발생한 수확은 일반 수확 XP 및 종별 첫 수확 XP 기준에 따라 별도 적용."
             ]
           }
         ]
@@ -2994,9 +2977,9 @@ const CHAPTERS=[
         "kind": "table",
         "title": "Lv.1~30 보상과 누적 경험치",
         "mockups": {
-          "title": "레벨 달성 보상 · 예시용 UI 시안",
+          "title": "레벨 달성 보상 화면 시안",
           "position": "before",
-          "intro": "Lv.1~30 보상 카드를 가로로 밀어 살펴봅니다. 화면 속 보상과 경험치 수치는 배치를 보여 주기 위한 예시이며, 레벨별 지급 기준은 아래 보상표에서 확인할 수 있습니다.",
+          "intro": "Lv.1~30 보상 카드를 가로 스크롤로 확인하는 인터페이스. 각 카드는 수령 완료·수령 가능·미달성 상태로 구분.\n\n레벨 달성 시 해당 보상 카드가 수령 가능 상태로 변경되며, 플레이어가 직접 보상을 수령.",
           "items": [
             {
               "path": "ui-mockups/level-milestone-rewards.png",
@@ -3004,7 +2987,7 @@ const CHAPTERS=[
               "height": 941,
               "title": "레벨 달성 보상 화면",
               "alt": "리프 옆에 레벨 보상 카드가 가로로 이어지고, 현재 레벨, 경험치, 모두 받기 버튼이 하단에 표시된 예시 시안",
-              "caption": "카드에서 수령 완료, 수령 가능, 미달성 상태를 구분하고, 하단에 현재 레벨과 다음 레벨까지의 경험치, ‘모두 받기’를 고정한 구성입니다."
+              "caption": "화면 하단에는 현재 레벨, 다음 레벨까지 필요한 경험치, ‘모두 받기’ 버튼을 고정 배치.\n\n미달성 · 해당 레벨에 도달하지 않아 보상 수령 불가\n수령 가능 · 레벨 달성 완료, 보상 미수령 상태\n수령 완료 · 보상 수령 및 계정 지급 기록 저장 완료\n모두 받기 · 현재 수령 가능한 레벨 보상을 일괄 지급\n\n시안에 표시된 보상과 경험치 수치는 UI 구성 예시이며, 실제 지급 기준은 레벨별 보상표 적용."
             }
           ]
         },
@@ -3202,15 +3185,60 @@ const CHAPTERS=[
         ]
       },
       {
-        "kind": "bullets",
+        "kind": "disclosure",
         "title": "레벨업 조건과 보상 지급",
-        "items": [
-          "계정은 Lv.1, 누적 0 XP에서 시작합니다. XP를 정산할 때마다 누적값이 기준을 충족하는 가장 높은 레벨로 자동 승급합니다.",
-          "현재 레벨 L에서 다음 레벨까지 80 + 40 × (L − 1) XP가 필요합니다. Lv.1→2는 80, Lv.2→3은 120, Lv.3→4는 160 XP입니다. 레벨 L의 누적 기준은 20 × (L − 1) × (L + 2) XP입니다.",
-          "현재 레벨의 누적 기준을 넘긴 XP는 다음 레벨 진행도에도 반영합니다. 여러 기준을 한 번에 통과하면 도달한 레벨의 보상을 낮은 순서부터 한 번씩 지급하고, 해금 목록을 한 화면에 요약합니다. 예를 들어 누적 70 XP에 150 XP를 정산하면 Lv.3과 누적 220 XP가 되고 Lv.2·3 보상을 받습니다.",
-          "Lv.30에 도달하면 최고 레벨 보상과 가구 도안이 지급됩니다. 랭킹 참가와 집계 시점은 주간 랭킹에서 확인합니다.",
-          "레벨 보상으로 얻는 펫 소환권 합계는 108장입니다. 경험치 배점과 일일 한도는 플레이테스트 기준입니다.",
-          "레벨 보상으로 얻는 펫 소환권은 Lv.5 100장과 Lv.10~30의 8장을 합해 총 108장입니다. Lv.4 첫 무료 10연차는 본편 튜토리얼 체험으로 별도 제공합니다. 경험치 배점과 일일 한도는 플레이테스트 기준입니다."
+        "blocks": [
+          {
+            "kind": "bullets",
+            "title": "레벨 상승 조건",
+            "items": [
+              "계정 생성 시 Lv.1, 누적 0 XP에서 시작. 경험치 정산 후 누적 XP가 요구량을 충족하면 자동으로 레벨 상승.",
+              "다음 레벨까지 필요한 XP = 80 + 40 × (현재 레벨 − 1)",
+              "레벨별 최소 누적 XP = 20 × (레벨 − 1) × (레벨 + 2)",
+              "최대 레벨 Lv.30 · 누적 XP 상한 18,560"
+            ]
+          },
+          {
+            "kind": "bullets",
+            "title": "초과 경험치 처리",
+            "items": [
+              "레벨업에 필요한 경험치를 초과하면 남은 XP를 다음 레벨 진행도에 반영.",
+              "한 번의 XP 정산으로 여러 레벨을 달성하면 통과한 레벨의 기능을 모두 해금하고, 보상은 각각 수령 가능 상태로 변경.",
+              "예시 · 누적 70 XP에서 150 XP 획득 시 누적 220 XP로 Lv.3 달성. Lv.2·Lv.3 보상 모두 수령 가능."
+            ]
+          },
+          {
+            "kind": "bullets",
+            "title": "기능 해금 및 보상 수령",
+            "items": [
+              "기능 해금 · 해당 레벨 달성 즉시 자동 적용",
+              "재화 및 아이템 보상 · 해당 레벨 달성 후 보상 화면에서 직접 수령",
+              "가구 도안 · 레벨별 보상표에 명시된 도안만 지급",
+              "중복 수령 · 계정별 지급 기록을 확인해 동일 보상의 중복 지급 방지",
+              "미수령 보상 · 다음 레벨 달성 및 재접속 이후에도 수령 가능 상태 유지",
+              "Lv.1 기본 프로필 편집과 같은 시작 기능은 즉시 사용 가능."
+            ]
+          },
+          {
+            "kind": "bullets",
+            "title": "최고 레벨",
+            "items": [
+              "Lv.30 달성 시 주간 랭킹 기능 자동 해금. 신록의 수호자 칭호, 특별 프로필 배경, 소환권 3장, 새싹 코인 50개는 레벨 보상 화면에서 수령 가능.",
+              "최고 레벨 전용 가구 도안의 보상 추가 여부는 추후 검토."
+            ]
+          },
+          {
+            "kind": "bullets",
+            "title": "펫 소환권 지급",
+            "items": [
+              "Lv.1~30 레벨 보상으로 획득 가능한 펫 소환권은 총 108장.",
+              "Lv.5 · 100장",
+              "Lv.10·15·25 · 각 1장",
+              "Lv.20 · 2장",
+              "Lv.30 · 3장",
+              "Lv.4 첫 무료 10연차는 튜토리얼 체험으로 별도 제공하며, 레벨 보상의 소환권 합계에는 포함하지 않음."
+            ]
+          }
         ]
       },
       {
@@ -3298,10 +3326,11 @@ const CHAPTERS=[
             "kind": "flow",
             "title": "경험치와 레벨업 처리 순서",
             "items": [
-              "행동 성공 확정 · 같은 수확 주기와 최초 달성의 중복 검사",
-              "한국 시간 날짜와 남은 횟수 확인 · 기본 XP와 최초 XP 계산",
-              "누적 XP와 레벨 갱신 · 새로 도달한 레벨의 보상과 기능 해금",
-              "경험치·일일 횟수·보상 지급 기록 저장 · 확정 결과를 UI에 표시"
+              "행동 성공 검증 · 수확 주기와 최초 달성 기록을 확인해 중복 지급 방지",
+              "경험치 계산 · 한국 시간 날짜와 남은 일일 인정 횟수를 확인해 기본·최초 달성 XP 계산",
+              "레벨 및 해금 갱신 · 도달한 레벨의 기능을 자동 해금하고 보상을 수령 가능 상태로 변경",
+              "보상 수령 처리 · 개별 받기 또는 모두 받기 선택 시 미수령 보상을 지급하고 내역 저장",
+              "결과 저장 및 UI 반영 · XP·일일 횟수·기능 해금·보상 수령 이력을 저장해 화면에 표시"
             ]
           },
           {
@@ -3309,28 +3338,32 @@ const CHAPTERS=[
             "title": "계정별 저장 항목",
             "headers": [
               "항목",
-              "저장·갱신 기준"
+              "저장 및 갱신 기준"
             ],
             "rows": [
               [
                 "정원사 누적 XP",
-                "0~18,560 범위. 현재 레벨은 누적 XP로 계산하고, HUD에는 현재 레벨 구간에서 쌓은 XP와 다음 레벨 필요 XP를 표시"
+                "0~18,560 XP. 누적 XP 기준으로 현재 레벨 및 진행도 계산"
               ],
               [
                 "일일 수확 XP",
-                "한국 시간 날짜와 해당 날짜에 XP를 인정한 수확 개체 수(0~30). 성공 확정 날짜가 바뀌면 해당 일자의 횟수를 0부터 시작"
+                "한국 시간 날짜와 XP 인정 수확 횟수(0~30) 저장"
               ],
               [
                 "수확 처리 이력",
-                "재배 개체 ID와 수확 주기 조합으로 지급 여부 확인. 재시도에 같은 처리를 재사용하고, 다음 재성장 주기에는 새 주기 ID로 판정"
+                "재배 개체 ID·수확 주기 ID 조합으로 중복 확인"
               ],
               [
-                "최초 완료·획득 이력",
-                "튜토리얼 퀘스트 ID, 정화 개체 ID, 첫 수확 식물종 ID, 도안 ID, 염색 색상 ID, 주차와 주간 퀘스트 ID 조합을 함께 기록. 물약 XP 시안 적용 시, 레시피 첫 성공 ID를 추가로 기록"
+                "최초 달성 이력",
+                "튜토리얼·정화 개체·첫 수확 식물종·가구 도안·염색 색상·주간 퀘스트 기록 저장"
               ],
               [
-                "레벨 보상과 해금",
-                "계정별 지급 완료 레벨과 해금한 기능·도안 기록. 재접속이나 중복 요청에서도 레벨별 보상은 한 번만 지급"
+                "기능 해금 이력",
+                "레벨 달성 시 자동 해금된 기능과 해금 시점 저장"
+              ],
+              [
+                "레벨 보상 이력",
+                "레벨별 수령 가능 상태와 지급 완료 여부 저장. 중복 수령 방지"
               ]
             ]
           },
@@ -3338,10 +3371,20 @@ const CHAPTERS=[
             "kind": "bullets",
             "title": "저장과 재접속 처리",
             "items": [
-              "한 수확의 보상·작물 상태와 그 수확에서 계산한 XP·판정 기록은 함께 확정합니다. 동시에 처리된 개체도 계정당 30회 한도를 공유합니다. 재접속 후 같은 요청을 받으면 저장된 결과를 반환합니다.",
-              "기존 세이브는 기록된 튜토리얼 완료, 현장 정화와 종별 첫 수확의 XP를 지급 이력을 확인해 한 번만 반영합니다. 반복 수확 횟수는 도입 이후 확정된 수확부터 셉니다.",
-              "예를 들어 오늘 30회에 도달한 상태로 다시 접속하면 일반 수확 XP는 0입니다. 한국 시간 다음 날 00:00 이후 첫 유효 수확에는 +5 XP를 지급합니다.",
-              "XP 획득량은 유효 지급분을 합산해 HUD에 표시합니다. 수확 한도는 29/30처럼 표시하고, Lv.30에는 최고 레벨 상태를 표시합니다."
+              "수확물 보상, 작물 상태, XP, 수확 판정 이력을 하나의 확정 결과로 처리. 중복 요청에는 기존 확정 결과를 반환.",
+              "레벨 달성 기록과 보상 수령 기록을 별도로 관리. 재접속 시 미수령 보상을 유지하고, 이미 수령한 보상은 다시 지급하지 않음.",
+              "한국 시간 매일 00:00에 일반 수확 XP 인정 횟수 초기화. 미수령 레벨 보상은 유지."
+            ]
+          },
+          {
+            "kind": "bullets",
+            "title": "HUD 표시",
+            "items": [
+              "XP 획득량 및 현재 레벨 진행도 표시",
+              "일일 수확 인정 횟수 29/30 형태로 표시",
+              "레벨 달성 시 신규 기능 해금 알림 표시",
+              "수령 가능한 레벨 보상이 있으면 보상 메뉴에 알림 표시",
+              "Lv.30 달성 시 최고 레벨 상태 표시"
             ]
           }
         ]
@@ -3463,9 +3506,9 @@ const CHAPTERS=[
         "kind": "bullets",
         "title": "도안 해금과 가구 제작",
         "items": [
-          "정원사 레벨에 도달하면 해당 도안이 비용 없이 영구 해금됩니다. Lv.3에 리프가 제작을 소개하고 나뭇잎 우편함 도안을 지급합니다. 제작소 자체 개방 조건은 현재 첫 통나무 벤치 배치안을 기준으로 표시하며, 변경 여부는 검토 중입니다.",
-          "재료가 아직 미발견이면 제작 화면에 획득 지역을 안내합니다. 예를 들어 Lv.13이면 햇살 초원에 가기 전에도 잎사귀 파라솔 도안을 열고, 햇살꽃잎을 얻은 뒤 제작할 수 있습니다.",
-          "별빛포자를 쓰는 Lv.27·29·30 가구는 고대의 숲 확장 지역에서 재료를 얻은 뒤 제작합니다."
+          "레벨 보상표에 명시된 가구 도안은 해당 레벨을 달성한 뒤 레벨 보상 화면에서 수령. Lv.3 나뭇잎 우편함과 Lv.5 꽃무늬 티테이블이 해당.",
+          "나머지 가구는 제작 재료와 배치를 검토하는 시안이며, 도안 획득 조건은 검토 중. 고대의 숲 재료를 쓰는 가구는 확장안.",
+          "제작소 자체 개방 조건은 현재 첫 통나무 벤치 배치안을 기준으로 표시하며, 변경 여부는 검토 중."
         ]
       },
       {
@@ -4224,7 +4267,7 @@ document.getElementById('animal-mode-filter').addEventListener('change',e=>{anim
 <script src="exploration-map.js?v=progress-sync"></script>
 <script src="garden-shop.js?v=early-sign"></script>
 <script src="achievements.js?v=team-sync"></script>
-<script src="garden-plans.js?v=dedup-01"></script>
+<script src="garden-plans.js?v=level-reward-claim"></script>
 <script>
 'use strict';
 const $ = s=>document.querySelector(s);
@@ -4880,7 +4923,7 @@ const openingPlan = (() => {
   ['세 가지 수확과 보상','이어하기 후에도 지정 작물의 일반·황금·프리즘 종류를 유지한다. 어떤 순서로 수확해도 세 종류를 모두 얻을 때 한 번만 리프가 반응한다.'],
   ['10연차와 이어하기','지원권 지급, 10장 차감과 결과 10개 지급을 각각 한 번만 확정한다. 결과 확인 전에 종료하면 같은 결과를 다시 보여준다.'],
   ['배치와 첫 자동 수확','지정 작물이 범위 밖이면 첫 수확 이벤트를 기다린다. 유효 배치 후 지정 작물의 실제 자동 수확과 결과 지급이 확인되면 완료한다.'],
-  ['경험치와 지역 개방','단계·개체별 중복 XP를 막고, Lv.2~5 보상을 각각 한 번 지급한다. 지도 안내는 초반에 완료할 수 있으며 실제 다음 지역 개방은 필수 정화·복원 완료 시 한 번 처리한다.'],
+  ['경험치와 지역 개방','단계·개체별 중복 XP를 막고, Lv.2~5 기능은 도달 시 해금하고, 보상은 레벨 보상 화면에서 수령한다. 지도 안내는 초반에 완료할 수 있으며 실제 다음 지역 개방은 필수 정화·복원 완료 시 한 번 처리한다.'],
   ['브라우저 체험판과 친구 방문','체험판은 리프의 두 문장 요약, 모리의 첫 자동 물주기와 별도 저장 경로를 사용한다. 친구 방문 안내는 실제 방문 없이 진행할 수 있게 한다.']
  ];
 
@@ -5469,7 +5512,7 @@ function renderIconFlow(block) {
 
 function renderBlock(b){
  if(b.kind==='iconFlow')return renderIconFlow(b);
- if(b.id==='level-furniture-recipes')return `<section class="doc-block">${blockHeading(b)}<p class="doc-paragraph"><a class="table-link" href="#workshop/level-furniture">가구 제작소에서 해금 레벨과 재료 보기 ↗</a></p></section>`;
+ if(b.id==='level-furniture-recipes')return `<section class="doc-block">${blockHeading(b)}<p class="doc-paragraph"><a class="table-link" href="#workshop/level-furniture">가구 제작소에서 도안 시안과 재료 보기 ↗</a></p></section>`;
  if(b.kind==='plantGrowth')return renderPlantGrowth(b);
  if(b.kind==='openingPlan')return openingPlan.render(true);
  if(b.kind==='petSynergy')return petSynergy.summary();
@@ -5491,24 +5534,24 @@ function renderBlock(b){
  if(b.kind==='disclosure')return `<section class="design-disclosure reading-disclosure"><h3>${esc(b.title)}</h3><div>${b.blocks.map(renderBlock).join('')}</div></section>`;
  if(b.kind==='potionRecipes')return `<section class="doc-block">${blockHeading(b)}${purificationPlan.table(b.phase)}</section>`;
  if(b.kind==='gardenerOverview')return `<section class="doc-block">${blockHeading(b)}
-  <p class="doc-paragraph">정화·재배·꾸미기에서 얻은 경험치로 정원사 레벨이 오릅니다. 초반에는 리프와 핵심 기능을 익히고, 이후에는 가구 도안과 프로필 장식을 모으며 정원을 꾸밉니다.</p>
+  <p class="doc-paragraph">초반에는 리프의 튜토리얼을 통해 주요 기능을 익히고, 이후에는 정화·재배·꾸미기와 주간 퀘스트를 통해 성장. 특정 레벨에서 새로운 기능이 해금되며, 레벨별 보상을 활용해 정원을 꾸밀 수 있도록 구성.</p>
   <div class="table-scroll"><table>
-   <thead><tr><th scope="col">구간</th><th scope="col">플레이 흐름</th><th scope="col">주요 보상·기능</th></tr></thead>
+   <thead><tr><th scope="col">구간</th><th scope="col">주요 플레이</th><th scope="col">보상 및 기능 해금</th></tr></thead>
    <tbody>
     <tr><th scope="row">Lv.1~2</th><td>첫 파종·물주기·수확</td><td>기본 프로필 편집 · Lv.2 프로필 바탕색 3종</td></tr>
-    <tr><th scope="row">Lv.3~4</th><td>첫 정화 · 일반·황금·프리즘 수확 · 소환과 배치 체험</td><td>Lv.3 가구 제작·친구 방문 안내 · Lv.4 소환과 펫 배치 체험</td></tr>
-    <tr><th scope="row">Lv.5</th><td>지도 안내를 마치면 튜토리얼 완료 · 누적 600 XP 경로</td><td><a class="table-link" href="#chapter/20/section-4">Lv.5 달성 보상 ↗</a></td></tr>
-    <tr><th scope="row">Lv.6~29</th><td>정화·재배·꾸미기·주간 퀘스트로 성장</td><td>레벨별 새싹 코인, 가구 도안, 프로필 장식과 소환권</td></tr>
-    <tr><th scope="row">Lv.30</th><td>누적 18,560 XP로 정원사 최고 레벨 달성</td><td>최고 레벨 보상 · 가구 도안 · 주간 랭킹 메뉴</td></tr>
+    <tr><th scope="row">Lv.3~4</th><td>첫 정화·일반·황금·프리즘 수확·펫 소환 및 배치 체험</td><td>Lv.3 친구 방문 및 가구 제작 안내 · Lv.4 펫 소환 및 배치 체험</td></tr>
+    <tr><th scope="row">Lv.5</th><td>지도 안내 완료 및 튜토리얼 종료 · 누적 600 XP</td><td><a class="table-link" href="#chapter/20/section-4">펫 소환권 100장·프로필 테두리·가구 도안 ↗</a></td></tr>
+    <tr><th scope="row">Lv.6~29</th><td>정화·재배·꾸미기·주간 퀘스트</td><td>레벨별 새싹 코인 · 특정 레벨의 프로필 장식 및 소환권</td></tr>
+    <tr><th scope="row">Lv.30</th><td>누적 18,560 XP 달성</td><td>최고 레벨 전용 보상 · 주간 랭킹 기능 해금</td></tr>
    </tbody>
   </table></div>
-  <p class="doc-paragraph">레벨에 필요한 최소 누적 XP와 튜토리얼에서 실제로 정산되는 XP는 다를 수 있습니다. 예를 들어 Lv.4 기준은 360 XP이고, 본편 첫 무료 10연차 안내는 세 가지 수확을 마친 365 XP에서 시작합니다.</p>
+  <p class="doc-paragraph">레벨별 최소 요구 XP와 튜토리얼에서 실제 획득하는 누적 XP는 다르게 적용. Lv.4의 최소 요구량은 360 XP이며, 첫 무료 10연차 안내는 세 가지 수확을 완료한 누적 365 XP에서 진행.</p>
   <p class="doc-paragraph"><a class="table-link" href="#chapter/01/section-7">본편 튜토리얼 진행과 기능별 첫 사용 안내 ↗</a></p>
   <figure class="gardener-hud-demo">
    <a class="gardener-hud" href="#chapter/20/section-6" aria-label="내 정원 프로필 기획 보기"><img src="system-art/A001-equipped.webp" alt="대표 동물 모리" width="192" height="192"><div class="gardener-hud-status"><strong>Lv.4</strong><meter min="0" max="200" value="95" aria-label="현재 레벨 경험치">95 / 200 XP</meter><span>95 / 200 XP</span></div></a>
    <figcaption><strong>게임 화면 왼쪽 위</strong><p>대표 동물 초상을 눌러 내 정원 프로필을 엽니다. 동물을 얻기 전에는 새싹 초상을 씁니다.</p></figcaption>
   </figure>
-  <p class="doc-paragraph">경험치를 받으면 획득량과 진행 바를 갱신하고, 레벨업 시 테두리 연출과 새 보상을 짧게 표시합니다.</p>
+  <p class="doc-paragraph">XP 획득 시 진행 바를 갱신. 레벨 달성 시 신규 기능 해금과 수령 가능한 보상을 안내.</p>
   <div class="design-links"><a href="#chapter/20/section-3"><span><b>수확 XP와 일일 한도</b><small>수동·자동 수확 · 하루 30회</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-4"><span><b>레벨 보상과 필요 경험치</b><small>Lv.1~30</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-6"><span><b>내 정원 프로필</b><small>화면안과 편집 항목</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-14"><span><b>프로필 테두리</b><small>10종 시안과 획득 조건</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/20/section-11"><span><b>레벨별 제작 가구</b><small>15종 시안과 제작 재료</small></span><span aria-hidden="true">↗</span></a><a href="#chapter/21"><span><b>만렙 이후 주간 랭킹</b><small>Lv.30 해금 · 인장과 소환권 보상</small></span><span aria-hidden="true">↗</span></a></div></section>`;
  if(b.kind==='screens')return '<section class="doc-block">' + blockHeading(b) + '<div class="design-screens">' + b.items.map(renderScreen).join('') + '</div></section>';
  if(b.kind==='paragraph')return `<p class="doc-paragraph">${esc(b.text)}</p>`;
@@ -5548,7 +5591,7 @@ const readingLayout = {
  growth: [
   {id:'01', part:'opening', title:'초반 인트로 · 튜토리얼', sections:[7]},
   {id:'20', title:'정원사 레벨', sections:[1,2,3,4,5,8], outline:[2,3,4,5,8]},
-  {id:'02'}, {id:'07'}, {id:'21', outline:[2,3,5]}
+  {id:'02'}, {id:'07', sections:[2,3,4,5]}, {id:'21', outline:[2,3,5]}
  ],
  garden: [
   {id:'03', part:'garden-layout', title:'텃밭 꾸미기', sections:[2]},

@@ -60,10 +60,12 @@ const gardenPlans = (() => {
     {name:'정원 우편함', materials:'목재 6개', size:'1×1칸', art:'mailbox'}
   ];
   const timberRecipe = '가지 3개 → 목재 2개';
-  const unlock = 'Lv.3에 리프가 제작을 소개하고 나뭇잎 우편함 도안을 얻습니다. 제작소 자체 개방은 첫 통나무 벤치 배치안을 기준으로 하며 조건 변경은 검토 중입니다.';
+  const unlock = 'Lv.3에 리프가 제작을 소개합니다. 나뭇잎 우편함 도안은 레벨 보상 화면에서 수령합니다. 제작소 개방은 첫 통나무 벤치 배치안을 기준으로 검토 중입니다.';
   const lantern = {name:'달그늘 등불', materials:'목재 4개 + 달그늘꽃가루 1개', area:'고대의 숲 확장안'};
-  const levelFurniture = CHAPTERS.find(chapter => chapter.id === '20').blocks
-    .find(block => block.id === 'level-furniture-recipes').rows;
+  const levelChapter = CHAPTERS.find(chapter => chapter.id === '20');
+  const levelFurniture = levelChapter.blocks.find(block => block.id === 'level-furniture-recipes').rows;
+  const furnitureRewardByLevel = new Map(levelChapter.blocks[3].rows.map(([level, , , reward]) =>
+    [level, typeof reward === 'string' ? reward : reward.text]));
   const furnitureSheets = [
     {image:'early', bounds:[[54,156,342,591], [412,223,795,593], [874,106,1171,601], [1242,175,1554,598], [1620,257,2121,547]]},
     {image:'middle', bounds:[[27,127,414,603], [442,261,801,611], [844,132,1237,617], [1295,227,1772,611], [1814,165,2124,617]]},
@@ -103,7 +105,7 @@ const gardenPlans = (() => {
         '</h4><ul class="level-furniture-grid">' + rows.map(([level, name, materials], i) =>
           '<li id="' + prefix + 'furniture-level-' + level.slice(3) + '" class="shop-paper level-furniture-card">' +
           recipeSprite(image, 2172, 724, bounds[i]) + '<div class="level-furniture-name"><strong>' +
-          name + '</strong><span>' + level + ' 해금</span></div><p>' + materials + '</p></li>'
+          name + '</strong><span>' + level + (furnitureRewardByLevel.get(level)?.includes(name + ' 도안') ? ' 보상' : ' 시안') + '</span></div><p>' + materials + '</p></li>'
         ).join('') + '</ul></section>';
     }).join('');
     return groups + '<section class="level-furniture-group"><h4>제작 재료 아이콘 9종</h4><ul class="level-furniture-materials">' +
