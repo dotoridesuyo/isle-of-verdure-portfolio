@@ -89,6 +89,7 @@ small,.subtle{color:var(--muted);font-size:12px}
         <a id="github" class="action" target="_blank" rel="noopener">GitHub에서 편집</a>
       </div>
       <p id="publish-status" class="subtle" role="status"></p>
+      <textarea id="export-copy" aria-label="복사할 수정본" readonly hidden></textarea>
     </div>
   </section>
 </aside>
@@ -317,6 +318,8 @@ function renderDrafts() {
 
 function updatePublishLink() {
   byId('publish-status').textContent = '';
+  byId('export-copy').hidden = true;
+  byId('export-copy').value = '';
   const file = byId('file').value;
   byId('github').href = file ? repoEdit + file : '#';
 }
@@ -359,11 +362,19 @@ async function exportSource(download) {
       setTimeout(() => URL.revokeObjectURL(url), 1000);
       status.textContent = '수정본 파일을 받았습니다.';
     } else {
-      try {
-        await navigator.clipboard.writeText(content);
+      const output = byId('export-copy');
+      output.value = content;
+      output.hidden = false;
+      output.focus();
+      output.select();
+      let copied = false;
+      try { copied = document.execCommand('copy'); } catch {}
+      if (copied) {
+        output.hidden = true;
+        byId('copy').focus();
         status.textContent = '수정본을 복사했습니다. GitHub 편집기에 붙여 넣으세요.';
-      } catch {
-        status.textContent = '브라우저가 복사를 허용하지 않았습니다. ‘파일 받기’를 이용하세요.';
+      } else {
+        status.textContent = '수정본을 선택했습니다. Ctrl+C 또는 ⌘C로 복사하세요.';
       }
     }
   } catch (error) {
