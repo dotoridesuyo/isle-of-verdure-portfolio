@@ -86,7 +86,7 @@
   <style>
 /* Reader-facing portfolio layer; the specimen-book layout remains the anchor. */
 .animal-grade-key{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:14px 0 17px}.animal-grade-key>span{display:flex;align-items:center;justify-content:center;gap:7px;font-size:9px;padding:6px 3px;border:1px solid #d4ddc4;border-radius:3px;background:#eef1e3;color:#758466}.animal-grade-key b{font-weight:500}.animal-grade-key>.uncommon{background:#e9f0f2;border-color:#d3e1e4;color:#6c919d}.animal-grade-key>.rare{background:#f1ecf4;border-color:#dfd4e7;color:#9a82aa}.animal-grade-key>.legendary{background:#f6efdb;border-color:#e5d6b2;color:#ae8c40}.animal-entry-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.animal-entry-filters select{width:100%}.animal-entry-card{padding-top:23px}.animal-card-grade{position:absolute;top:5px;right:6px;line-height:1}.animal-entry-card .animal-card-grade .badge{font-size:7px;padding:1px 4px}.animal-entry-card .animal-card-caption{color:#8b927a}.animal-entry-grid{grid-auto-rows:153px}
-.grade-range{--range-fill:#d3e3bb;--range-line:#a9be8b;--range-ink:#6a8352}.grade-range.uncommon{--range-fill:#d5e6eb;--range-line:#a1c2cb;--range-ink:#608994}.grade-range.rare{--range-fill:#e3d9ed;--range-line:#b9a4cc;--range-ink:#9477aa}.grade-range.legendary{--range-fill:#efe0ad;--range-line:#cdb36e;--range-ink:#a18846}.animal-mini-range.grade-range{grid-template-columns:repeat(var(--range-size),minmax(0,1fr));width:104px;gap:3px}.animal-mini-range.grade-range i{border-radius:2px}.animal-mini-range.grade-range i.active{background:var(--range-fill);border-color:var(--range-line)}.animal-range-note .animal-range-copy{min-width:0}.animal-range-copy h4{margin-top:0}.placement-grid.grade-range{grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}.placement-grid.grade-range .placement-cell.in-range{background:var(--range-fill);border-color:var(--range-line);color:var(--range-ink)}.placement-grid.grade-range .placement-cell b{font-size:15px;color:var(--range-ink)}.placement-grid.grade-range .placement-cell{font-size:8px;gap:1px}.grade-buttons{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.grade-buttons button{border:1px solid #d4ddc4;border-radius:3px;background:#eef1e3;color:#758466;padding:7px 10px;font-size:11px;white-space:nowrap}.grade-buttons button small{font-size:9px;padding-left:3px}.grade-buttons button.uncommon{background:#e9f0f2;border-color:#d3e1e4;color:#6c919d}.grade-buttons button.rare{background:#f1ecf4;border-color:#dfd4e7;color:#9a82aa}.grade-buttons button.legendary{background:#f6efdb;border-color:#e5d6b2;color:#ae8c40}.grade-buttons button[aria-pressed=true]{outline:2px solid currentColor;outline-offset:2px;font-weight:700}.placement-caption{font-size:11px}.placement-diagram .placement-controls{gap:22px}.animal-profile-placement .animal-mini-range.grade-range{width:104px}.animal-dossier .species-tags{margin-bottom:9px}.doc-block td>a[href^="#animals/"]{text-decoration:underline;text-underline-offset:3px}
+.grade-range{--range-fill:#d3e3bb;--range-line:#a9be8b;--range-ink:#6a8352}.grade-range.uncommon{--range-fill:#d5e6eb;--range-line:#a1c2cb;--range-ink:#608994}.grade-range.rare{--range-fill:#e3d9ed;--range-line:#b9a4cc;--range-ink:#9477aa}.grade-range.legendary{--range-fill:#efe0ad;--range-line:#cdb36e;--range-ink:#a18846}.animal-mini-range.grade-range{grid-template-columns:repeat(var(--range-size),minmax(0,1fr));width:104px;gap:3px}.animal-mini-range.grade-range i{border-radius:2px}.animal-mini-range.grade-range i.active{background:var(--range-fill);border-color:var(--range-line)}.animal-range-note .animal-range-copy{min-width:0}.animal-range-copy h4{margin-top:0}.placement-grid.grade-range{grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:4px}.placement-grid.grade-range .placement-cell.in-range{background:var(--range-fill);border-color:var(--range-line);color:var(--range-ink)}.placement-grid.grade-range .placement-cell b{font-size:15px;color:var(--range-ink)}.placement-grid.grade-range .placement-cell{font-size:8px;gap:1px}.grade-buttons{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.grade-buttons button{border:1px solid #d4ddc4;border-radius:3px;background:#eef1e3;color:#758466;padding:7px 10px;font-size:11px;white-space:nowrap}.grade-buttons button small{font-size:9px;padding-left:3px}.grade-buttons button.uncommon{background:#e9f0f2;border-color:#d3e1e4;color:#6c919d}.grade-buttons button.rare{background:#f1ecf4;border-color:#dfd4e7;color:#9a82aa}.grade-buttons button.legendary{background:#f6efdb;border-color:#e5d6b2;color:#ae8c40}.grade-buttons button[aria-pressed=true]{outline:2px solid currentColor;outline-offset:2px;font-weight:700}.placement-caption{font-size:11px}.placement-diagram .placement-controls{gap:22px}.animal-profile-placement .animal-mini-range.grade-range{width:104px}.animal-dossier .species-tags{margin-bottom:9px}.doc-block td>a[href^="#animals/"]{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:1100px){.animal-entry-grid{grid-auto-rows:143px}.animal-grade-key>span{gap:4px;font-size:8px}.animal-entry-card .animal-card-grade .badge{font-size:6px}.animal-profile-placement .animal-mini-range.grade-range{width:85px}}
 @media(max-width:860px){.animal-entry-grid{grid-auto-rows:133px}.animal-entry-filters{gap:5px}.animal-entry-filters select{font-size:8px}.animal-grade-key>span{font-size:7px;gap:3px}.animal-entry-card .animal-card-grade .badge{font-size:6px;padding:1px 3px}}
 @media(max-width:650px){.animal-entry-grid{grid-auto-rows:145px}.animal-entry-filters select{font-size:9px}.animal-grade-key>span{font-size:9px;gap:5px}.animal-entry-card .animal-card-grade .badge{font-size:7px}.animal-profile-placement .animal-mini-range.grade-range{width:92px}.placement-grid.grade-range{gap:3px}.placement-grid.grade-range .placement-cell{font-size:7px}.placement-grid.grade-range .placement-cell b{font-size:13px}.grade-buttons{gap:7px}.grade-buttons button{padding:7px 8px;font-size:10px}.grade-buttons button small{font-size:8px}}
@@ -535,6 +535,7 @@
           <p id="quest-week-bonus" class="quest-bonus"></p>
           <div id="quest-week-controls" class="quest-weeks" role="group" aria-label="주차 선택"></div>
           <div id="quest-week-tasks" aria-live="polite"></div>
+          <div id="quest-summon" class="reading-target"></div>
         </section>
       </div>
     </section>
@@ -1079,27 +1080,7 @@ const CHAPTERS=[
         "text": "관리를 놓쳐도 식물은 영구적으로 사라지지 않는다. 기본 재료는 안정적으로 얻고, 희귀 변이와 특별한 수집은 장기 목표로 즐기도록 설계한다.",
         "tone": "green"
       },
-      {
-        "kind": "links",
-        "items": [
-          {
-            "href": "#chapter/01/section-7",
-            "title": "초반 인트로 · 튜토리얼",
-            "text": "장면별 대사 · 조작 · 완료 조건"
-          },
-          {
-            "href": "#plants",
-            "title": "식물 표본집 보기",
-            "text": "외형과 재배 정보",
-            "plantCount": true
-          },
-          {
-            "href": "#animals",
-            "title": "동물 친구 만나기",
-            "text": "10종의 성격과 정원 역할"
-          }
-        ]
-      },
+      {"kind": "removed"},
       {
         "kind": "openingPlan",
         "title": "초반 인트로 · 튜토리얼"
@@ -2435,62 +2416,7 @@ const CHAPTERS=[
           }
         ]
       },
-      {
-        "kind": "disclosure",
-        "title": "주요 검증 항목",
-        "blocks": [
-          {
-            "kind": "table",
-            "title": "확인할 경험",
-            "headers": [
-              "상황",
-              "기대 동작"
-            ],
-            "rows": [
-              [
-                "파종 후 물을 주지 않음",
-                "씨앗 상태 유지 · 성장하지 않음"
-              ],
-              [
-                "다른 지역으로 이동",
-                "게임 실행 중에는 계속 성장"
-              ],
-              [
-                "게임 종료 후 다시 열기",
-                "종료 동안의 시간은 성장에 더하지 않음"
-              ],
-              [
-                "성숙한 식물을 방치",
-                "성숙 상태 유지 · 수확물 소실 없음"
-              ],
-              [
-                "수확 버튼 반복 입력",
-                "같은 개체의 수확 주기마다 종별 보상을 한 번만 지급"
-              ],
-              [
-                "수확한 밭에 다시 재배",
-                "기본 표본은 빈 밭에서 재파종 · 염색꽃은 수확 뒤 재성장"
-              ],
-              [
-                "동물 방향 변경",
-                "종별 등급의 너비·깊이 유지 · 새 방향 기준 관리 대상 변경"
-              ],
-              [
-                "등급별 관리 범위",
-                "일반 2칸 · 특별 4칸 · 희귀 6칸 · 전설 9칸 · 네 방향 동일 칸 수"
-              ],
-              [
-                "정원 경계·장애물과 겹침",
-                "범위 밖 칸 제외 · 기존 식물과 동물 배치 유지"
-              ],
-              [
-                "장비를 장착한 소리가 2칸 이상 동시에 자동 수확",
-                "기본 수확 처리 후 일반 수확물 1개 추가 지급"
-              ]
-            ]
-          }
-        ]
-      }
+      {"kind": "removed"}
     ]
   },
   {
@@ -2825,21 +2751,6 @@ const CHAPTERS=[
               "자동화 전후에 기본 재료가 쌓이는 양, 원하는 물약을 준비하는 데 걸리는 시간, 제조를 마치고 남는 재료를 비교합니다.",
               "필수 정화는 확보하기 쉬운 재료와 연결합니다. 후반 선택 정화에 들어갈 재료 종류와 요구량, 희귀 수확물 사용처는 검토 중입니다.",
               "지역 이동 조건과 현장 정화 조건은 기존 진행표에서 각각 확인합니다. 후반 조합을 어떤 지역·콘텐츠에 연결할지는 플레이테스트에서 검토합니다."
-            ]
-          },
-          {
-            "kind": "links",
-            "items": [
-              {
-                "href": "#chapter/16/section-9",
-                "title": "펫 시너지와 배치 체험",
-                "text": "물주기·수확 등 관리 범위와 조합"
-              },
-              {
-                "href": "#chapter/14/section-8",
-                "title": "퀘스트에서 이어지는 성장과 소환",
-                "text": "퀘스트 보상과 소환, 정원 편성의 연결"
-              }
             ]
           }
         ]
@@ -3348,12 +3259,7 @@ const CHAPTERS=[
           }
         ]
       },
-      {
-        "kind": "note",
-        "tone": "green",
-        "title": "첫 플레이테스트 검증 항목",
-        "text": "Lv.2 도달 시점, Lv.5까지 XP를 얻는 주요 행동, 하루 30회 수확 한도에 닿는 비율을 확인합니다. 29회 이후 동시 자동 수확, 한도 뒤 새 품종 첫 수확, 한국 시간 자정과 재접속, 여러 레벨 동시 승급 및 Lv.30 이후 랭킹 집계를 검증합니다. 대표 동물 편집과 프로필 사진의 친구 공개 조건도 확인합니다."
-      },
+      {"kind": "removed"},
       {
         "kind": "links",
         "items": [
@@ -3876,15 +3782,7 @@ const CHAPTERS=[
         "title": "플레이테스트 수치",
         "text": "기본 40 + 첫 좋아요 30 + 선물 10이면 충전량 80입니다. 추가 물주기 1회에 5를 사용하므로 적용 가능한 화분을 기준으로 최대 16회입니다. 40·30·10·5는 검증용 시작 수치입니다."
       },
-      {
-        "kind": "bullets",
-        "title": "구현 확인 항목",
-        "items": [
-          "하트 전송은 친구 관계와 방문 권한을 다시 확인하고, 일일 기록·보상·주간 추천표를 함께 저장합니다.",
-          "발송·수신 제한과 충전량 지급을 함께 저장합니다. 동시 수신과 재접속으로 과지급이 발생하는지 검증합니다.",
-          "한국 시간 자정과 월요일 경계, 방문 설정 변경, 충전량 0에서 기본 성장이 가능한지 확인합니다."
-        ]
-      },
+      {"kind": "removed"},
       {
         "kind": "links",
         "items": [
@@ -5596,24 +5494,23 @@ const readingTitles = {
 
 // Section numbers remain the source numbers so existing links keep working.
 const readingLayout = {
- overview: [{id:'01', sections:[1,2,3,4,5,6]}],
+ overview: [{id:'01', sections:[1,2,3,4,5]}],
  system: [{id:'03', sections:[1,3,4,5,6,7,8], outline:[4,8]}, {id:'16', outline:[4,9]}, {id:'18', outline:[7,8,9,10,11]}],
  growth: [
   {id:'01', part:'opening', title:'초반 인트로 · 튜토리얼', sections:[7]},
-  {id:'20', title:'정원사 레벨', sections:[1,2,3,4,5,8,9], outline:[2,3,4,5,8,9]},
-  {id:'14', part:'quest-summon', title:'퀘스트에서 이어지는 성장과 소환', sections:[8]},
+  {id:'20', title:'정원사 레벨', sections:[1,2,3,4,5,8], outline:[2,3,4,5,8]},
   {id:'02'}, {id:'07'}, {id:'21', outline:[2,3,5]}
  ],
  garden: [
   {id:'03', part:'garden-layout', title:'텃밭 꾸미기', sections:[2]},
   {id:'20', part:'furniture', title:'가구 제작', sections:[11,12,13], outline:[12]},
   {id:'19', part:'album', title:'개울가 쉼터와 정원 앨범', sections:[10,11], outline:[11]},
-  {id:'19', sections:[1,2,3,4,5,6,7,8,9], outline:[2,3,4,6]},
+  {id:'19', sections:[1,2,3,4,5,6,7,9], outline:[2,3,4,6]},
   {id:'20', part:'friend-profile', title:'친구 수첩에 표시되는 정보', sections:[7,10]},
   {id:'20', part:'profile', title:'내 정원 프로필과 테두리', sections:[6,14], outline:[14]}
  ],
  monetization: [{id:'14', sections:[1,2,3,4,5,6,7,9,10,11], outline:[9,10,11]}],
- art: [{id:'08', outline:[6,7]}, {id:'09'}]
+ art: [{id:'08', outline:[6,7]}, {id:'09', sections:[1,2,3]}]
 };
 
 const categoryLinks = {
@@ -5630,11 +5527,16 @@ const readingParts = Object.entries(readingLayout).flatMap(([group, parts]) => p
   key: layout.part ?? chapter.id,
   href: '#chapter/' + chapter.id + (layout.part ? '/section-' + sections[0] : '')};
 }));
+const questSummonBlock=CHAPTERS.find(chapter=>chapter.id==='14').blocks[7];
+function renderQuestSummon() {
+ return `<section class="doc-block">${blockHeading(questSummonBlock)}${questSummonBlock.blocks.map(renderBlock).join('')}</section>`;
+}
 const questOutline=[
  {href:'#quests', title:'퀘스트', targetId:'quests-view'},
  {href:'#quests/tutorial', title:'튜토리얼', targetId:'quest-tutorial', child:true},
  {href:'#quests/daily', title:'일일 퀘스트', targetId:'quest-daily', child:true},
- {href:'#quests/weekly', title:'주간 퀘스트', targetId:'quest-weekly', child:true}
+ {href:'#quests/weekly', title:'주간 퀘스트', targetId:'quest-weekly', child:true},
+ {href:'#quests/summon', title:questSummonBlock.title, targetId:'quest-summon', child:true}
 ];
 let readingOutline=[];
 let activeReadingEntry;
@@ -5695,7 +5597,7 @@ function renderReadingGroup(group, content){
  content.innerHTML=parts.map(part=>chapterPartMarkup(part)).join('');
  petSynergy.mount(content);
  content.dataset.group=group;
- if(group==='growth')content.insertBefore(questView,$('#reading-quest-summon'));
+ if(group==='growth')$('#reading-20').after(questView);
  $('#reading-section-title').textContent=readingTitles[group];
  const outline=parts.flatMap(part=>{
   const sections=(part.outline ?? []).map(section=>({
@@ -5704,7 +5606,7 @@ function renderReadingGroup(group, content){
   }));
   return [{href:part.href,title:part.title,targetId:'reading-'+part.key,number:part.number}, ...sections];
  });
- if(group==='growth')outline.splice(outline.findIndex(item=>item.targetId==='reading-quest-summon'),0,...questOutline);
+ if(group==='growth')outline.splice(outline.findIndex(item=>item.targetId==='reading-02'),0,...questOutline);
  const toc=$('#toc');
  toc.innerHTML=outline.map(({href,title,child,number})=>{
   const badge=number ? '<span aria-hidden="true">'+number+'</span>' : '';
@@ -5791,6 +5693,10 @@ function route(initial=false){
  if (parts[0] === 'shop' && (parts[1] === 'pet-items' || /^pet-A\d{3}$/.test(parts[1]))) {
   parts = ['summon', parts[1] === 'pet-items' ? 'equipment' : parts[1].slice(4)];
   history.replaceState(null, '', '#' + parts.join('/'));
+ }
+ if (parts[0] === 'chapter' && parts[1] === '14' && parts[2] === 'section-8') {
+  parts = ['quests', 'summon'];
+  history.replaceState(null, '', '#quests/summon');
  }
  if (parts[0] === 'intent') {
   const legacyIntentRoutes = {
@@ -5935,6 +5841,8 @@ function updateSearch() {
   closeSearch();
   return;
  }
+ const questSummon = JSON.stringify(questSummonBlock).toLowerCase().includes(query)
+  ? [{url:'#quests/summon',title:questSummonBlock.title,description:'퀘스트'}] : [];
  const plants = catalogPlants.filter(p => [p.name, p.id, p.region, p.rarity, PLANT_HARVESTS[p.id], p.dyeFlower?.petal, p.dyeFlower?.extra, specialHarvests[p.id],
   catalogAvailability(p), JSON.stringify(PLANT_BRIEFS[p.id])].join(' ').toLowerCase().includes(query));
  const animals = ANIMALS.filter(a => [a.name, a.id, a.species, a.rarity, a.role, a.title,
@@ -5947,7 +5855,7 @@ function updateSearch() {
   searchGroup('정화 물약', purificationPlan.search(query)) +
   searchGroup('동물 친구 장비', petUpgrades.search(ANIMALS, query)) +
   searchGroup('펫 시너지', petSynergy.search(query)) +
-  searchGroup('제작소와 퀘스트', gardenPlans.search(query)) +
+  searchGroup('제작소와 퀘스트', [...gardenPlans.search(query), ...questSummon]) +
   searchGroup('염색과 염색꽃 업적', dyeFlowers.search(query)) +
   searchGroup('인트로와 튜토리얼', openingPlan.search(query)) +
   searchGroup('시스템 기획 의도', searchDesignIntents(query)) +
@@ -5979,6 +5887,7 @@ function printAll(){
   if (section) print.append(section);
  }
  print.querySelector('#print-quest-daily').insertAdjacentHTML('beforeend', renderInterfaceMockups(dailyRewardsMockup));
+ print.querySelector('#print-quests').insertAdjacentHTML('beforeend', `<div id="print-quest-summon">${renderQuestSummon()}</div>`);
  for (const [selector, href] of [
   ['#print-quests > header', '#quests'],
   ['#print-shop > header', '#shop'],
@@ -5996,7 +5905,7 @@ function printAll(){
   if (route === 'workshop' && id === 'dye') { link.hash = 'print-dye'; continue; }
   if (route === 'shop' && document.getElementById('print-shop-entry-' + id)) { link.hash = 'print-shop-entry-' + id; continue; }
   const chapterSection = route === 'chapter' && document.getElementById('print-chapter-' + id + '-' + section);
-  const target = chapterSection ? chapterSection.id : route === 'chapter' ? 'print-chapter-' + id :
+  const target = route === 'quests' && id === 'summon' ? 'print-quest-summon' : chapterSection ? chapterSection.id : route === 'chapter' ? 'print-chapter-' + id :
    route === 'plants' && id ? 'print-plant-' + id :
    route === 'animals' && id ? 'print-animal-' + id : 'print-' + route;
   if (document.getElementById(target)) link.hash = target;
@@ -6071,6 +5980,7 @@ window.addEventListener('hashchange',()=>route());
 window.addEventListener('scroll',scheduleReadingOutline,{passive:true});
 window.addEventListener('resize',()=>{readingJumpPosition=undefined;scheduleReadingOutline();});
 mountDesignIntents(document);
+$('#quest-summon').innerHTML = renderQuestSummon();
 $('#daily-rewards-preview').innerHTML = renderInterfaceMockups(dailyRewardsMockup);
 $('#summon-entry-equipment header h3').insertAdjacentHTML('afterend', renderDesignIntent('#summon/equipment'));
 $('#species-table').innerHTML=speciesTable();renderGrid();renderDetail();initializeAnimalEncyclopedia();route(true);
