@@ -186,8 +186,63 @@ function showMatch() {
   byId('save').disabled = matches.length > 1 && !byId('match').value;
 }
 
+function chapterSourceRange(text, chapterId, section) {
+  const start = text.indexOf('const CHAPTERS');
+  const end = text.indexOf('\n];', start);
+  if (start < 0 || end < 0) return null;
+  const data = text.slice(start, end);
+  const chapters = [...data.matchAll(/^  \{\n    "id": "(\d+)"/gm)];
+  const index = chapters.findIndex(match => match[1] === chapterId);
+  if (index < 0) return null;
+  const chapterStart = chapters[index].index;
+  const chapterEnd = chapters[index + 1]?.index ?? data.length;
+  if (!section) return [start + chapterStart, start + chapterEnd];
+  const chapter = data.slice(chapterStart, chapterEnd);
+  const blocks = [...chapter.matchAll(/^      \{/gm)];
+  const block = blocks[section - 1];
+  return block ? [start + chapterStart + block.index, start + chapterStart + (blocks[section]?.index ?? chapter.length)] : null;
+}
+
+function matchClickedLocation(sources, candidates, context) {
+  if (!context || candidates.length < 2) return candidates.length === 1 ? 0 : -1;
+  const indexSource = sources.find(source => source.file === 'index.html')?.text;
+  const range = context.chapter && indexSource ? chapterSourceRange(indexSource, context.chapter, context.section) : null;
+  const byFile = new Map(sources.map(source => [source.file, source.text]));
+  const scores = candidates.map((match, index) => {
+    const source = byFile.get(match.file);
+    const left = Math.max(0, match.start - 520);
+    const right = match.start + match.before.length;
+    const surrounding = source.slice(left, match.start) + ' ' + source.slice(right, right + 520);
+    const localMarkup = source.slice(Math.max(0, match.start - 150), Math.min(source.length, right + 80));
+    let score = 0;
+    if (match.file === 'index.html' && range && match.start >= range[0] && match.start < range[1]) {
+      score += context.section ? 170 : 65;
+    }
+    if (match.file === context.preferredFile) score += 30;
+    for (const id of context.ids) {
+      if (localMarkup.includes('id="' + id + '"')) score += 90;
+      else if (surrounding.includes('id="' + id + '"')) score += 24;
+    }
+    if (context.href && (localMarkup.includes('href="' + context.href + '"') ||
+        localMarkup.includes('"href": "' + context.href + '"'))) score += 60;
+    const leading = source.slice(left, match.start).trimEnd().at(-1);
+    const trailing = source.slice(right, right + 80).trimStart()[0];
+    if (leading && ((leading === '>' && trailing === '<') ||
+        (leading === trailing && ['"', "'", '`'].includes(leading)))) score += 28;
+    if (context.tag && localMarkup.includes('<' + context.tag)) score += 10;
+    if (context.heading && /"\s*:\s*"[^"]*$/.test(source.slice(Math.max(0, match.start - 35), match.start)) &&
+        /"(title|name|label)"\s*:/.test(source.slice(Math.max(0, match.start - 35), match.start))) score += 10;
+    for (const clue of context.clues) {
+      if (localMarkup.includes(clue)) score += 22;
+      else if (surrounding.includes(clue)) score += 9;
+    }
+    return {index, score};
+  }).sort((a, b) => b.score - a.score);
+  return scores[0].score >= 25 && scores[0].score - scores[1].score >= 12 ? scores[0].index : -1;
+}
+
 let searchOrder = 0;
-async function search(query, location = null) {
+async function search(query, location = null, context = null) {
   const order = ++searchOrder;
   selection = location;
   byId('edit-form').hidden = true;
@@ -205,9 +260,10 @@ async function search(query, location = null) {
       byId('status').textContent = '원문을 찾지 못했어요. 문단이 여러 조각으로 나뉜 경우에는 문장 일부를 입력해 보세요.';
       return;
     }
+    const selected = matchClickedLocation(sources, matches, context);
     const menu = byId('match');
     menu.replaceChildren();
-    if (matches.length > 1) {
+    if (selected < 0) {
       const prompt = new Option('문맥을 보고 원문 위치를 선택하세요', '', true, true);
       prompt.disabled = true;
       menu.add(prompt);
@@ -215,10 +271,15 @@ async function search(query, location = null) {
     matches.forEach((item, i) => menu.add(new Option(item.file + ' · ' + item.line + '행 ' + item.column + '열', String(i))));
     byId('excerpt').textContent = '';
     byId('replacement').value = query;
-    byId('save').disabled = matches.length > 1;
+    byId('save').disabled = selected < 0;
     byId('edit-form').hidden = false;
-    if (matches.length === 1) showMatch();
-    byId('status').textContent = matches.length === 1 ? '원문을 찾았습니다.' : '같은 문구가 ' + matches.length + '곳에 있습니다. 위치를 골라 주세요.';
+    if (selected >= 0) {
+      menu.value = String(selected);
+      showMatch();
+      byId('status').textContent = context ? '클릭한 위치의 원문을 자동으로 선택했어요.' : '원문을 찾았습니다.';
+    } else {
+      byId('status').textContent = '같은 문구가 ' + matches.length + '곳에 있습니다. 위치를 골라 주세요.';
+    }
   } catch (error) {
     if (order === searchOrder) byId('status').textContent = error.message;
   }
@@ -415,6 +476,41 @@ function applyPreview() {
   }
 }
 
+function clickedContext(node, query) {
+  const element = node.parentElement;
+  const block = element.closest('[id^="reading-"][id*="-section-"]');
+  const chapter = block?.id.match(/^reading-(\d+)-section-(\d+)$/) ||
+    element.closest('article[id^="reading-"]')?.id.match(/^reading-(\d+)$/);
+  const doc = element.ownerDocument;
+  const scopeFiles = [
+    ['#map-view', 'exploration-map.js'], ['#shop-view', 'garden-shop.js'],
+    ['#summon-view', 'pet-summon.js'], ['#achievements-view', 'achievements.js'],
+    ['#workshop-view, #quests-view', 'garden-plans.js'], ['[data-pet-synergy], .pet-synergy', 'pet-synergy.js']
+  ];
+  const ids = [];
+  for (let ancestor = element; ancestor && ids.length < 3; ancestor = ancestor.parentElement) {
+    if (ancestor.id && !ancestor.id.startsWith('reading-')) ids.push(ancestor.id);
+  }
+  const anchor = element.closest('a[href]');
+  const heading = element.closest('h1,h2,h3,h4,h5,h6');
+  const row = element.closest('tr, li, dl > div');
+  const wrapper = element.closest('.doc-block, .doc-note, .table-scroll, section, article');
+  const clues = [
+    row?.querySelector('th,dt,td')?.textContent,
+    element.previousElementSibling?.textContent,
+    element.nextElementSibling?.textContent,
+    wrapper?.querySelector('h2,h3,h4,caption')?.textContent,
+    block?.querySelector('h3,h4')?.textContent,
+    heading && doc.getElementById('reading-' + chapter?.[1] + '-title')?.textContent
+  ].map(value => value?.trim()).filter(value => value?.length >= 4 && value.length <= 110 && value !== query && !value.includes(query));
+  return {
+    chapter: chapter?.[1], section: Number(chapter?.[2]) || 0, ids,
+    tag: element.localName, heading: Boolean(heading), href: anchor?.getAttribute('href'),
+    clues: [...new Set(clues)], preferredFile: element.closest('.design-intent') ? 'index.html' :
+      scopeFiles.find(([selector]) => element.closest(selector))?.[1]
+  };
+}
+
 function pickText(event) {
   if (!picking) {
     const link = event.target.closest?.('a[href]');
@@ -432,8 +528,9 @@ function pickText(event) {
   if (textNode?.nodeType !== Node.TEXT_NODE || !event.target.contains(textNode)) return;
   const before = shown.get(textNode) || textNode.data;
   const selectedText = doc.getSelection()?.toString().trim();
-  const copy = selectedText && before.includes(selectedText) ? selectedText : before.trim();
-  if (copy) search(copy, locate(textNode, doc));
+  let copy = selectedText && before.includes(selectedText) ? selectedText : before.trim();
+  if (textNode.parentElement.closest('.icon-flow-steps')) copy = copy.replace(/^\d+\.\s+/, '');
+  if (copy) search(copy, locate(textNode, doc), clickedContext(textNode, copy));
 }
 
 function setPicking(next) {
