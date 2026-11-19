@@ -278,6 +278,8 @@
 .design-intent-choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 9px}
 .design-intent-choices>div{padding-top:11px;border-top:1px solid #c4d1ba}
 .art-reference-gallery{margin-bottom:27px}
+.project-media-slots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 22px}
+.project-media-slots>span{padding:10px 12px;border:1px dashed #b4c2a3;border-radius:5px;background:#f3f5e9;color:#5e6f53;font-size:12px;text-align:center}
 .interface-mockups{margin-top:20px}
 .doc-paragraph,.doc-note p,.doc-list li,.design-cards p,.art-reference-grid figcaption{white-space:pre-line}
 .interface-mockups .art-reference-grid{margin-top:12px}
@@ -5604,10 +5606,15 @@ function chapterPartMarkup(part, print = false) {
  const chapterTag = part.part ? '' : print ? `<p class="eyebrow">${esc(chapter.tag)}</p>` :
   `<div class="chapter-kicker">${part.number ? `<span class="chapter-number">${part.number}</span>` : ''}<span>${esc(chapter.tag)}</span></div>`;
  const summary = part.part || chapter.blocks[0]?.chapterLead ? '' : renderChapterSummary(chapter);
+ const mediaSlots = !print && part.key === '01' ? `<div class="project-media-slots" id="project-media" aria-label="프로젝트 영상과 플레이 링크 자리">
+  <span>영상</span>
+  <span>플레이 링크</span>
+ </div>` : '';
  const hasOwnHeading = part.part && part.title === chapter.blocks[sections[0]-1].title;
  const label = hasOwnHeading ? `aria-label="${esc(part.title)}"` : `aria-labelledby="${partId}-title"`;
  return `<article class="${print ? 'print-chapter' : 'document-paper reading-target'}" id="${partId}" ${label}>
   ${hasOwnHeading ? '' : `<header class="chapter-header">${chapterTag}<h2 id="${partId}-title">${printNumber && !part.part ? printNumber + '. ' : ''}${esc(part.title)}</h2>${summary}</header>`}
+  ${mediaSlots}
   ${sections.map(section => `<div class="reading-target" id="${sourceId}-section-${section}">${renderChapterBlock(chapter, chapter.blocks[section-1], section-1, print ? renderBlock : renderReadingBlock)}</div>`).join('')}
  </article>`;
 }
