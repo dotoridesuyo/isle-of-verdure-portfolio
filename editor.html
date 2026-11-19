@@ -524,8 +524,26 @@ function pickText(event) {
   event.stopImmediatePropagation();
   const doc = preview.contentDocument;
   const range = doc.caretRangeFromPoint?.(event.clientX, event.clientY);
-  const textNode = range?.startContainer || doc.caretPositionFromPoint?.(event.clientX, event.clientY)?.offsetNode;
-  if (textNode?.nodeType !== Node.TEXT_NODE || !event.target.contains(textNode)) return;
+  let textNode = range?.startContainer || doc.caretPositionFromPoint?.(event.clientX, event.clientY)?.offsetNode;
+  if (textNode?.nodeType !== Node.TEXT_NODE || !event.target.contains(textNode)) {
+    const headline = event.target.closest('#page-title');
+    if (!headline) return;
+    const walker = doc.createTreeWalker(headline, NodeFilter.SHOW_TEXT);
+    const box = doc.createRange();
+    let nearest = Infinity;
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      if (!node.data.trim()) continue;
+      box.selectNodeContents(node);
+      for (const rect of box.getClientRects()) {
+        const distance = Math.max(0, rect.top - event.clientY, event.clientY - rect.bottom);
+        if (distance < nearest) {
+          textNode = node;
+          nearest = distance;
+        }
+      }
+    }
+    if (!Number.isFinite(nearest)) return;
+  }
   const before = shown.get(textNode) || textNode.data;
   const selectedText = doc.getSelection()?.toString().trim();
   let copy = selectedText && before.includes(selectedText) ? selectedText : before.trim();
