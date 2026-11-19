@@ -1090,7 +1090,7 @@ const CHAPTERS=[
   {
     "id": "03",
     "title": "재배와 정원 관리",
-    "subtitle": "한 번의 파종이 성장과 수확을 거쳐 다음 재배로 이어지는 짧고 명확한 순환.",
+    "subtitle": "씨앗을 심고 물을 준 뒤 성숙한 작물을 수확하는 기본 재배 시스템. 품종별 생장 시간과 추가 물주기 횟수를 다르게 적용해 짧은 반복 재배와 장시간 재배를 모두 지원.",
     "tag": "GARDENING SYSTEM",
     "group": "system",
     "blocks": [
@@ -1098,7 +1098,14 @@ const CHAPTERS=[
         "kind": "iconFlow",
         "title": "재배 순서",
         "chapterLead": true,
-        "icons": ["sparkles", "shovel", "seed", "water", "sprout", "basket"],
+        "icons": [
+          "sparkles",
+          "shovel",
+          "seed",
+          "water",
+          "sprout",
+          "basket"
+        ],
         "items": [
           "오염 정화",
           "밭갈기",
@@ -1108,13 +1115,41 @@ const CHAPTERS=[
           "수확"
         ],
         "relatedSystems": [
-          {"title": "텃밭 꾸미기", "text": "식물과 가구를 배치해 나만의 정원을 꾸밉니다.", "href": "#chapter/03/section-2"},
-          {"title": "펫 배치", "text": "펫의 관리 범위를 보고 배치해 물주기와 수확을 맡깁니다.", "href": "#chapter/16/section-4"},
-          {"title": "가구 제작", "text": "모은 재료로 가구를 만들어 정원에 놓습니다.", "href": "#workshop"},
-          {"title": "정화 물약 제작", "text": "수확한 재료로 물약을 만들어 오염된 식물을 되살립니다.", "href": "#chapter/18"},
-          {"title": "꽃빛 염색", "text": "염색꽃에서 얻은 꽃잎으로 가구에 색을 입힙니다.", "href": "#workshop/dye"},
-          {"title": "랭킹 시스템", "text": "Lv.30부터 주간 수익·수확·황금작물 순위를 확인합니다.", "href": "#chapter/21"},
-          {"title": "친구 시스템", "text": "친구를 추가하고 정원을 방문해 좋아요를 남기거나 물통을 선물합니다.", "href": "#chapter/19"}
+          {
+            "title": "텃밭 꾸미기",
+            "text": "식물과 가구를 자유롭게 배치해 정원 구성",
+            "href": "#chapter/03/section-2"
+          },
+          {
+            "title": "펫 배치",
+            "text": "펫의 관리 범위에 따라 자동 물주기와 수확 적용",
+            "href": "#chapter/16/section-4"
+          },
+          {
+            "title": "가구 제작",
+            "text": "수확한 재료로 가구 제작 및 배치",
+            "href": "#workshop"
+          },
+          {
+            "title": "정화 물약 제작",
+            "text": "수확한 재료로 정화 물약을 제작해 오염된 식물 복원",
+            "href": "#chapter/18"
+          },
+          {
+            "title": "꽃빛 염색",
+            "text": "염색꽃의 꽃잎으로 염색재를 제작해 가구 색상 변경",
+            "href": "#workshop/dye"
+          },
+          {
+            "title": "랭킹 시스템",
+            "text": "Lv.30부터 주간 수익·수확·황금 작물 순위 확인",
+            "href": "#chapter/21"
+          },
+          {
+            "title": "친구 시스템",
+            "text": "친구 추가, 정원 방문, 좋아요 및 물통 선물",
+            "href": "#chapter/19"
+          }
         ]
       },
       {
@@ -1122,7 +1157,7 @@ const CHAPTERS=[
         "title": "텃밭 구성",
         "mockups": {
           "title": "정원 배치 안내 시안",
-          "intro": "정원 풍경과 배치 위치를 보면서 조작을 확인할 수 있도록 안내를 화면 하단에 모았습니다.",
+          "intro": "정원 배치 중 필요한 조작 안내를 화면 하단에 배치. 정원 화면과 배치 위치를 확인하면서 조작할 수 있도록 구성.",
           "items": [
             {
               "path": "ui-mockups/placement-guide.png",
@@ -1130,20 +1165,20 @@ const CHAPTERS=[
               "height": 720,
               "title": "배치 가능 상태",
               "alt": "정원 화면 하단에 배치 가능, 클릭으로 놓기, 우클릭과 Esc로 취소 안내가 보이는 화면",
-              "caption": "놓을 수 있는 위치에서는 확인 아이콘과 조작 안내를 표시합니다. 안내 바 오른쪽에서 배치 모드를 끝낼 수 있습니다."
+              "caption": "배치 가능한 위치에는 확인 아이콘과 조작 방법을 표시. 안내 바 오른쪽에서 배치 모드 종료 가능."
             }
           ]
         },
         "headers": [
           "구역",
           "규모",
-          "배치"
+          "배치 기준"
         ],
         "rows": [
           [
             "농장",
             "90칸",
-            "주요 재배 거점"
+            "주요 재배 공간"
           ],
           [
             "초원",
@@ -1153,64 +1188,102 @@ const CHAPTERS=[
           [
             "소형·중형 식물",
             "각 1칸",
-            "시각적 크기와 실제 점유 공간을 분리"
+            "외형 크기와 관계없이 동일한 공간 점유"
           ],
           [
             "대형 식물",
             "2×2칸 또는 전용 구역",
-            "정원 중심 연출을 위한 확장 배치안"
+            "대형 식물 배치를 위한 별도 공간 적용안"
           ]
         ]
       },
       {
         "kind": "table",
-        "title": "네 단계로 읽히는 성장",
+        "title": "식물 성장 단계",
         "headers": [
           "단계",
-          "조건",
+          "진입 조건",
           "화면 변화"
         ],
         "rows": [
           [
             "씨앗",
             "파종 후 첫 물주기 전",
-            "성장 시작 대기"
+            "성장 대기 상태"
           ],
           [
             "새싹",
-            "첫 물주기 후",
-            "성장 시작 · 어린 줄기와 떡잎"
+            "첫 물주기 완료",
+            "성장 시작 및 어린 줄기와 떡잎 표시"
           ],
           [
             "성장",
-            "품종별 성숙 전",
-            "잎과 줄기 성장 · 해당 품종은 추가 물주기 가능"
+            "품종별 성숙 시간 도달 전",
+            "잎과 줄기 성장, 해당 품종은 추가 물주기 가능"
           ],
           [
             "성숙",
-            "품종별 성장 시간 충족",
-            "수확 가능"
+            "품종별 성숙 시간 충족",
+            "성장 완료 및 수확 가능 상태 표시"
           ]
-        ]
+        ],
+        "intro": "식물의 성장 과정을 씨앗·새싹·성장·성숙의 4단계로 구분. 각 단계에 따라 외형과 상호작용 상태가 변경됨."
       },
       {
-        "kind": "bullets",
-        "title": "물주기와 시간",
-        "items": [
-          "기본 표본은 파종 뒤 첫 물주기 1회로 성장이 시작됩니다. 기본 시간은 추가 물주기를 하지 않았을 때의 성숙 시간입니다.",
-          "추가 1회는 기본 시간의 50%, 2회는 33%·67%, 3회는 25%·50%·75%에 기회가 열립니다. 가능한 횟수는 품종마다 다릅니다.",
-          "추가 물주기 1회당 기본 성장 시간의 3%만큼 진행도가 오릅니다. 구름라벤더는 2회를 모두 주면 5시간에서 4시간 42분으로 줄어듭니다.",
-          "열린 기회는 성숙 전까지 단계별로 한 번씩 사용할 수 있습니다. 접속하지 않아도 기본 시간에 성숙하고, 추가 물주기를 건너뛰어도 시들거나 수확량이 줄지 않습니다.",
-          "추가 물주기는 성장 시간에만 영향을 줍니다. 황금·프리즘 등장 확률은 그대로이며, 프리즘이 출현할 수 있는 경우 확률 하한은 0.1%입니다."
+        "kind": "disclosure",
+        "title": "물주기와 생장 시간",
+        "blocks": [
+          {
+            "kind": "bullets",
+            "title": "기본 물주기",
+            "items": [
+              "파종 후 첫 물주기를 완료하면 작물 성장 시작. 기본 생장 시간은 추가 물주기를 하지 않았을 때의 성숙 시간이며, 품종마다 다르게 적용."
+            ]
+          },
+          {
+            "kind": "bullets",
+            "title": "추가 물주기",
+            "intro": "성장 중인 작물에 추가로 물을 주면 생장 시간 단축. 추가 물주기 가능 횟수와 시점은 품종별로 구분.",
+            "items": [
+              "추가 물주기 1회당 기본 생장 시간의 3%만큼 성장 진행도 증가",
+              "열린 물주기 기회는 성숙 전까지 각각 1회 사용 가능",
+              "추가 물주기를 하지 않아도 기본 생장 시간에 맞춰 성숙",
+              "오프라인 상태에서도 성장 시간 정상 누적",
+              "추가 물주기를 건너뛰어도 식물이 시들거나 기본 수확량이 감소하지 않음",
+              "추가 물주기는 생장 시간에만 적용되며, 황금·프리즘 작물의 등장 확률에는 영향 없음"
+            ]
+          },
+          {
+            "kind": "wateringMilestones",
+            "title": "추가 물주기 가능 시점"
+          },
+          {
+            "kind": "bullets",
+            "title": "적용 예시와 확률 기준",
+            "items": [
+              "구름라벤더의 기본 생장 시간은 5시간. 추가 물주기 2회를 모두 완료하면 총 18분이 단축되어 4시간 42분에 성숙.",
+              "프리즘 작물의 기본 등장 확률은 별도 기준을 적용하며, 출현 가능한 품종의 확률 하한은 0.1%."
+            ]
+          }
         ]
       },
       {
         "kind": "disclosure",
-        "title": "수확은 다음 파종의 시작",
+        "title": "수확 후 처리",
         "blocks": [
           {
-            "kind": "paragraph",
-            "text": "수확한 뒤 기본 표본은 다시 심고, 염색꽃은 같은 자리에서 다음 수확을 준비합니다."
+            "kind": "bullets",
+            "title": "기본 표본",
+            "items": [
+              "성숙한 작물을 수확하면 보상 지급 후 일군 빈 밭으로 전환. 다음 재배를 위해 플레이어가 직접 씨앗을 다시 심어야 함."
+            ]
+          },
+          {
+            "kind": "bullets",
+            "title": "염색꽃",
+            "items": [
+              "성숙한 염색꽃을 수확하면 꽃잎을 지급하고 같은 자리에서 재성장. 별도의 파종 없이 다음 수확 가능."
+            ]
           },
           {
             "kind": "links",
@@ -1234,53 +1307,62 @@ const CHAPTERS=[
             "headers": [
               "행동",
               "성공 조건",
-              "결과"
+              "처리 결과"
             ],
             "rows": [
               [
                 "파종",
-                "일군 빈 밭 · 씨앗 보유 · 점유 공간 확보",
-                "씨앗 1개 소비 · 물주기 전 상태"
+                "일군 빈 밭·씨앗 보유·점유 공간 확보",
+                "씨앗 1개 소비 및 물주기 대기 상태로 전환"
               ],
               [
                 "첫 물주기",
-                "파종된 작물 · 이 재배 주기의 첫 물주기 전",
-                "성장 시작"
+                "파종 완료·해당 재배 주기의 첫 물주기 전",
+                "작물 성장 시작"
               ],
               [
                 "추가 물주기",
-                "품종별 기회 열림 · 성숙 전 · 해당 기회 미사용",
+                "품종별 기회 활성화·성숙 전·해당 기회 미사용",
                 {
-                  "text": "해당 기회를 사용한 것으로 기록합니다.",
+                  "text": "추가 물주기 적용 및 사용 기록 저장",
                   "href": "#chapter/03/section-4",
                   "linkText": "추가 물주기 효과"
                 }
               ],
               [
                 "기본 표본 수확",
-                "성숙한 기본 표본 작물",
-                "기본 보상은 수확물 1개 · 씨앗 2개. 보상을 한 번 지급하고 일군 빈 밭을 유지합니다."
+                "기본 표본 작물 성숙 완료",
+                "수확물 1개·씨앗 2개 지급 후 일군 빈 밭 유지"
               ],
               [
                 "염색꽃 수확",
-                "성숙한 선택 정화 염색꽃",
-                "꽃잎 2장을 지급합니다. 추가 재료는 종별 획득 규칙을 따르고, 작물은 같은 자리에서 재성장합니다."
+                "선택 정화 염색꽃 성숙 완료",
+                "꽃잎 2장 지급 후 같은 자리에서 재성장"
               ],
               [
                 "장비를 장착한 소리의 자동 수확",
-                "산딸기 바구니 장착 · 한 번에 2칸 이상 자동 수확",
-                "각 작물의 기본 수확과 재생 규칙에 따라 처리하고, 일반 수확물 1개를 더 지급합니다."
+                "산딸기 바구니 장착·한 번에 2칸 이상 자동 수확",
+                "기본 수확 보상 외 일반 수확물 1개 추가 지급"
               ],
               [
                 "이동·보관",
                 "정상적으로 선택된 재배 개체",
-                "성장 상태 보존 · 겹치는 위치에 배치 방지"
+                "성장 상태 유지 및 다른 개체와의 배치 중복 방지"
               ]
             ]
           },
           {
             "kind": "paragraph",
-            "text": "수동 수확과 자동 수확이 동시에 들어와도 개체의 한 수확 주기에서 보상을 한 번만 지급합니다. 자동 파종은 기본 능력에서 제외하며, 일군 빈 밭에는 플레이어가 씨앗을 다시 심습니다."
+            "text": "염색꽃의 추가 수확 재료는 품종별 획득 기준에 따라 별도 지급."
+          },
+          {
+            "kind": "bullets",
+            "title": "중복 처리와 자동 파종",
+            "items": [
+              "수동 수확과 자동 수확이 동시에 발생하더라도 동일 작물의 한 수확 주기에는 보상을 한 번만 지급.",
+              "펫의 기본 능력에 자동 파종은 포함되지 않음. 기본 표본 수확 후 빈 밭에 씨앗을 다시 심는 작업은 플레이어가 직접 수행.",
+              "수확 시 경험치 지급은 별도의 수확 XP 및 일일 한도 기준 적용."
+            ]
           },
           {
             "kind": "links",
@@ -1316,7 +1398,9 @@ const CHAPTERS=[
       },
       {
         "kind": "plantGrowth",
-        "title": "식물별 생장 시간과 추가 물주기"
+        "title": "식물별 생장 시간과 추가 물주기",
+        "intro": "기본 표본 15종의 생장 시간 및 추가 물주기 기준안. 기본 성숙 시간은 첫 물주기 완료 시점부터 계산하며, 최대 단축률은 추가 물주기를 모두 완료한 경우를 기준으로 함.",
+        "note": "염색꽃의 최초 성장 시간과 수확 후 재성장 시간은 별도 기준 적용 예정."
       }
     ]
   },
@@ -4994,8 +5078,9 @@ function renderPlantGrowth(b) {
   return `<tr><th scope="row"><a href="#plants/${id}">${esc(plant.name)}</a></th><td>${growthDuration(seconds)}</td><td>${extraWatering(count)}</td><td>${count ? count * 3 + '%' : '—'}</td></tr>`;
  });
  return `<section class="doc-block">${blockHeading(b)}
-  <p class="doc-paragraph">기본 표본 15종의 본편 밸런스 기준안입니다. 기본 시간은 첫 물주기부터 성숙까지입니다. 염색꽃의 첫 성장과 재성장 시간은 별도 기획 항목입니다.</p>
-  <div class="table-scroll"><table><thead><tr><th scope="col">식물</th><th scope="col">기본 성숙</th><th scope="col">추가 물주기 시점</th><th scope="col">최대 단축</th></tr></thead><tbody>${rows.join('')}</tbody></table></div></section>`;
+  <p class="doc-paragraph">${esc(b.intro)}</p>
+  <div class="table-scroll"><table><thead><tr><th scope="col">식물</th><th scope="col">기본 성숙 시간</th><th scope="col">추가 물주기 시점</th><th scope="col">최대 단축</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>
+  <p class="doc-paragraph">${esc(b.note)}</p></section>`;
 }
 
 const plantIntentSection = $('#plant-design-intent');
@@ -5022,7 +5107,7 @@ const designIntents = [
  {"key":"shop","href":"#shop","title":"지금 필요한 재료와 원하는 장식을 고르는 곳","intent":"모은 수확물과 여분 씨앗을 팔아 다음 재배에 필요한 물품이나 가구를 고릅니다. 무엇을 살지 결정하면 다음에 어떤 작물을 키우고 어느 지역을 돌아볼지 목표가 생깁니다."},
  {"key":"opening","href":"#chapter/01/section-7","title":"편지에서 시작해 첫 수확으로 배우는 조작","intent":"할아버지의 편지로 섬에 온 이유를 전한 뒤, 리프와 첫 밭을 가꾸며 조작을 익힙니다. 직접 키운 작물로 첫 정화를 하고 펫이 관리를 돕는 장면까지 경험해 본편의 흐름을 한 번 따라갑니다."},
  {"key":"overview","href":"#chapter/01/section-2","title":"짧게 접속해도 정원이 자라는 게임","intent":"씨앗을 심고 수확하며 성취감을 느끼고, 반복적인 관리 작업은 펫에게 맡길 수 있습니다. 수확한 재료로 정화 물약을 만들어 새로운 지역을 개방하거나, 가구와 염색재를 제작해 나만의 정원을 꾸밀 수 있습니다.","detail":"가볍게 식물을 키우는 재미부터 도감과 업적 수집, 새로운 지역 복원, 효율적인 펫 배치, 랭킹과 친구 방문까지 다양한 플레이 목표를 제공합니다. 정원을 자유롭게 꾸미거나 대표 펫과 게임 속 성과를 다른 플레이어와 공유하는 등 각자의 취향에 맞게 게임을 즐길 수 있도록 설계했습니다."},
- {"key":"cultivation","href":"#chapter/03/section-1","title":"한 번의 파종부터 다음 재배까지","intent":"파종과 첫 물주기, 성숙과 수확을 한 주기로 설명합니다. 작물마다 수확한 뒤 밭을 다시 쓰는 방식이 달라 다음에 무엇을 심을지 고를 수 있습니다.","proposal":"장기 작물의 중간 성장 단계에서 보상을 주는 방안을 검토합니다.","relatedHref":"#plants","relatedTitle":"식물 재배의 기획 의도"},
+ {"key":"cultivation","href":"#chapter/03/section-1","title":"한 번의 파종부터 다음 재배까지","intent":"파종과 첫 물주기부터 성숙·수확까지를 한 주기로 구성. 수확 뒤 기본 표본은 다시 파종하고, 염색꽃은 같은 자리에서 재성장.","proposal":"장기 작물의 중간 성장 단계에 보상을 추가하는 방안 검토 중.","relatedHref":"#plants","relatedTitle":"식물 재배의 기획 의도"},
  {"key":"harvest","href":"#chapter/02/section-5","title":"희귀 · 황금 수확물","intent":"기본 수확 보상을 꾸준히 얻는 동안 가끔 황금·프리즘 등 특별한 결과를 만나게 해, 익숙한 재배에도 기대를 더합니다. 특별한 결과는 도감과 제작에 이어져 다음 재배 목표를 만듭니다.","proposal":"황금 수확물의 특별 납품과 누적 업적, 희귀 수확물을 활용한 교배 재배를 검토합니다. 수확 확률과 기대 보상량을 함께 검증합니다.","relatedHref":"#chapter/08/section-6","relatedTitle":"황금·프리즘 작물 연출"},
  {"key":"plant-records","href":"#chapter/07/section-2","title":"식물 도감 · 누적 수집 · 정원 앨범","intent":"식물 도감에는 발견·획득을 기록하고, 작물별 업적에는 누적 수확을 남깁니다. 수집 보상은 재화와 펫 소환 기회로 이어집니다. 정원 앨범에는 정원 풍경을 남겨 가꾸어 온 변화를 돌아보고 공유합니다.","detail":"도감의 빈칸, 업적의 다음 단계, 앨범에 남기고 싶은 풍경이 서로 다른 재방문 동기를 만듭니다.","relatedHref":"#chapter/19/section-10","relatedTitle":"정원 앨범과 쉼터"},
  {"key":"plot","href":"#chapter/03/section-2","title":"텃밭 확장 · 공간 배치","intent":"재배와 자원 축적이 눈에 보이는 공간의 성장으로 이어집니다. 넓어진 공간에 식물과 가구를 배치하며 생산에 유리한 구성이나 원하는 정원 풍경을 만들어 갑니다.","proposal":"텃밭 확장과 탐험 지역 해금을 별개로 운영하고, 퀘스트·숙련도 연계 조건과 식물·가구·펫의 배치 규칙을 검토합니다."},
@@ -5470,6 +5555,9 @@ function renderBlock(b){
  if(b.kind==='iconFlow')return renderIconFlow(b);
  if(b.id==='level-furniture-recipes')return `<section class="doc-block">${blockHeading(b)}<p class="doc-paragraph"><a class="table-link" href="#workshop/level-furniture">가구 제작소에서 해금 레벨과 재료 보기 ↗</a></p></section>`;
  if(b.kind==='plantGrowth')return renderPlantGrowth(b);
+ if(b.kind==='wateringMilestones')return renderBlock({...b, kind:'table',
+  headers:['추가 물주기 횟수','물주기 가능 시점'],
+  rows:WATERING_MILESTONES.slice(1).map((times,index)=>[(index+1)+'회','기본 생장 시간의 '+times.map(percent=>percent+'%').join('·')])});
  if(b.kind==='openingPlan')return openingPlan.render(true);
  if(b.kind==='petSynergy')return petSynergy.summary();
  if(b.kind==='profileFrames')return `<section class="doc-block profile-frames" aria-label="${esc(b.title)}">
@@ -5522,7 +5610,7 @@ function renderBlock(b){
    }).join('');
    return `<tr>${cells}</tr>`;
   }).join('');
-  return `<section class="doc-block">${blockHeading(b)}<div class="table-scroll"><table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  return `<section class="doc-block">${blockHeading(b)}${b.intro ? `<p class="doc-paragraph">${esc(b.intro)}</p>` : ''}<div class="table-scroll"><table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
  }
  if(b.kind==='requirement')return `<section class="requirement-card" data-requirement-id="${b.id}"><header class="reading-requirement-heading"><span class="requirement-id">${b.id}</span><h3>${esc(b.title)}</h3>${sourceTag(b.source)}</header><dl>${Object.entries(b.fields).map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></section>`;
  if(b.kind==='plantBriefs')return `<section class="doc-block">${blockHeading(b)}${catalogPlants.map(renderPlantBrief).join('')}</section>`;
