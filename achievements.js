@@ -12,7 +12,7 @@ const achievementsPage = (() => {
   const regions = [
     {
       id: 'R01', name: '이슬 숲', color: 'dew',
-      description: '목교 주변의 이동 경로를 정리하고, 이슬 숲에서 발견한 식물을 정원에 들여와요.',
+      description: '목교 주변 이동 경로를 정리하고, 이슬 숲 식물을 정원에 식재.',
       tasks: [
         ["이슬 맺힌 목교", "이슬 숲을 방문하고 개울 위 목교를 건너기", 0],
         ["다시 울리는 이슬종", "기초 정화액으로 오염된 이슬종꽃을 정화하기", 1],
@@ -31,7 +31,7 @@ const achievementsPage = (() => {
     },
     {
       id: 'R02', name: '햇살 초원', color: 'sun',
-      description: '바람이 드는 언덕에 자생 꽃을 되돌리고, 꽃과 풀을 정원에서 키워요.',
+      description: '언덕에 자생 꽃을 복원하고, 정원에서 꽃과 풀을 재배.',
       tasks: [
         ["햇살 언덕에 첫발", "첫 종꽃잎 수확 이후 햇살 초원에 도착하기", 6],
         ["황금빛 종이 깨어날 때", "햇살 정화액으로 오염된 햇살방울꽃을 정화하기", 1],
@@ -50,7 +50,7 @@ const achievementsPage = (() => {
     },
     {
       id: 'R03', name: '안개 습지', color: 'mist',
-      description: '물이 빠져나가는 옛 배수 홈을 막고, 얕은 물가의 식물과 생물을 찾아요.',
+      description: '옛 배수 홈을 막아 얕은 물가의 식물과 생물을 조사.',
       tasks: [
         ["안개 너머 나무길", "안개 습지를 처음 방문해 물가 데크까지 가기", 0],
         ["물안개 속에 핀 연꽃", "안개 정화액으로 오염된 안개연꽃을 정화하기", 1],
@@ -69,7 +69,7 @@ const achievementsPage = (() => {
     },
     {
       id: 'R04', name: '고대의 숲', color: 'ancient', planned: true,
-      description: '쓰러진 통나무 둘레를 보호하고 오래된 숲의 어린 식물이 자랄 공간을 마련하는 확장 기획이에요.',
+      description: '쓰러진 통나무 둘레를 보호하고 오래된 숲의 어린 식물이 자랄 공간을 마련하는 확장 기획.',
       tasks: [
         ["물길이 시작되는 능선", "고대의 숲 입구에서 물길이 시작되는 능선으로 가기", 10],
         ["숲에 돌아온 별빛", "오염된 별빛고사리를 정화하기", 1],
@@ -89,8 +89,8 @@ const achievementsPage = (() => {
   ];
 
   const title = '업적과 지역 숙련도';
-  const description = '복원 달성과제 6개는 각 10점, 장기 업적 5개는 각 8점으로 지역별 숙련도 100점을 채워요.';
-  const scopeNote = '지역별 상세 목록은 탐험 지도를 바탕으로 구성한 예시예요.';
+  const description = '복원 달성과제 6개는 각 10점, 장기 업적 5개는 각 8점. 지역별 숙련도 합계 100점.';
+  const scopeNote = '지역별 상세 목록은 탐험 지도를 바탕으로 구성한 시안.';
   const view = document.getElementById('achievements-view');
   const nav = view.querySelector('#ach-region-nav');
   const overview = view.querySelector('#ach-region-overview');
@@ -181,7 +181,7 @@ const achievementsPage = (() => {
     overview.innerHTML = '<div><h3>' + region.name + '</h3><p>' + region.description +
       '</p></div><a href="#map/' + region.id + '">지도에서 보기 ↗</a>';
     view.querySelector('#ach-preview-hint').textContent = region.planned ? scopeNote :
-      scopeNote + ' 항목을 눌러 숙련도와 배지 획득을 미리 볼 수 있어요.';
+      scopeNote + ' 항목 선택 시 숙련도와 배지 획득 조건 확인 가능.';
     renderMastery();
     lists.innerHTML = renderList('tasks', '복원 달성과제') + renderList('records', '장기 업적');
     renderCrop(crop?.id || picker.value || 'P002');
@@ -223,8 +223,8 @@ const achievementsPage = (() => {
   function notebookFigure() {
     return '<figure class="design-screen"><h4>복원의 기록 수첩</h4><div class="design-screen-image">' +
       '<img src="system-art/achievement-notebook.webp" width="1500" height="844" loading="lazy" ' +
-      'alt="가운데 제본선이 있는 펼친 가죽 수첩. 왼쪽에 지역 지도, 오른쪽에 달성과제와 장기 업적, 아래에 숙련도 배지가 보인다."></div>' +
-      '<figcaption>지역 지도에서 탐험지를 고르고, 맞은편에서 달성과제와 장기 업적을 읽는 화면안입니다. 아래 띠에는 25·50·75·100점 배지를 차례로 표시합니다.</figcaption></figure>';
+      'alt="가운데 제본선이 있는 펼친 가죽 수첩. 왼쪽에 지역 지도, 오른쪽에 달성과제와 장기 업적, 아래에 숙련도 배지가 보임."></div>' +
+      '<figcaption>지역 지도에서 탐험지를 고르고, 맞은편에서 달성과제와 장기 업적을 읽는 화면안. 아래 띠에는 25·50·75·100점 배지를 차례로 표시.</figcaption></figure>';
   }
 
   function renderPrint() {
@@ -232,7 +232,7 @@ const achievementsPage = (() => {
       '</h2><p>' + description + '</p></header><p class="doc-paragraph">' + scopeNote + '</p>' +
       notebookFigure() + '<h3>숙련도 배지와 보상</h3><ul class="doc-list">' + badges.map(badge => '<li>' + badge.points + '점 · ' +
       badge.name + ' 배지 · ' + badge.reward + '</li>').join('') + '</ul>' +
-      '<p class="doc-paragraph">작물 15종별 누적 수확 10 · 50 · 100개 기록. 숙련도는 다음 지역 해금 조건과 별도로 쌓여요.</p>' +
+      '<p class="doc-paragraph">작물 15종별 누적 수확 10 · 50 · 100개 기록. 숙련도는 다음 지역 해금 조건과 별도로 누적.</p>' +
       regions.map(entry => '<section id="print-achievements-' + entry.id + '"><h3>' + entry.name +
       (entry.planned ? ' · 추후 확장' : '') + '</h3>' +
       printRecords(entry.tasks, '복원 달성과제', points.tasks) +

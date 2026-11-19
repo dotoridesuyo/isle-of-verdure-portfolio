@@ -36,27 +36,27 @@ const petSummon = (() => {
       items.length + '종 · 각 ' + perItem(odds.equipment) + '</span></dd></div>' +
       '<div><dt>펫</dt><dd><strong>' + odds.pet + '%</strong><span>' +
       items.length + '종 · 각 ' + perItem(odds.pet) + '</span></dd></div></dl>' +
-      '<p>소환 1회에 소환권 1장을 써서 결과 하나를 얻습니다. 10연 소환은 10장을 쓰며, 결과를 1회씩 순서대로 판정합니다. 펫 등급과 관계없이 각 풀 안의 항목은 같은 확률로 나옵니다.</p></section>';
+      '<p>소환 1회에 소환권 1장을 써서 결과 하나를 획득. 10연 소환은 10장을 쓰며, 결과를 1회씩 순서대로 판정. 펫 등급과 관계없이 각 풀 안의 항목은 같은 확률로 나옴.</p></section>';
   }
 
   function renderGuarantee(prefix) {
     return '<section class="shop-paper summon-section" id="' + prefix + 'summon-entry-guarantee"><h3>확정 소환</h3>' +
       '<p class="summon-guarantee">펫을 ' + guaranteeAfter + '회 연속 획득하지 못하면 <strong>' +
       (guaranteeAfter + 1) + '번째는 펫 확정</strong></p><ul class="doc-list">' +
-      '<li>장비를 뽑으면 연속 미획득 횟수가 1 올라갑니다. 미획득 횟수가 ' + guaranteeAfter +
-      '회에 도달하면 다음 소환의 펫 확률은 100%입니다. 기존 펫 ' + items.length + '종 중 한 마리가 나오며, 펫 한 종당 확률은 ' + perItem(100) + '입니다.</li>' +
-      '<li>펫이 나오면 중복 여부와 관계없이 횟수를 0으로 초기화합니다. 확정 소환에서 이미 보유한 종류가 나오면 새 개체 1마리를 추가합니다.</li>' +
-      '<li>연속 미획득 횟수는 계정에 저장해 재접속하거나 날짜가 바뀌어도 유지합니다. 10연 소환 도중 확정 조건을 채우면 다음 회차에 바로 적용합니다.</li>' +
+      '<li>장비를 뽑으면 연속 미획득 횟수가 1 증가. 미획득 횟수가 ' + guaranteeAfter +
+      '회에 도달하면 다음 소환에서 펫 등장 확률 100%. 기존 펫 ' + items.length + '종 중 한 마리 등장. 펫 한 종당 확률은 ' + perItem(100) + '.</li>' +
+      '<li>펫이 나오면 중복 여부와 관계없이 횟수를 0으로 초기화. 확정 소환에서 이미 보유한 종류가 나오면 새 개체 1마리를 추가.</li>' +
+      '<li>연속 미획득 횟수는 계정에 저장해 재접속하거나 날짜가 바뀌어도 유지. 10연 소환 도중 확정 조건을 채우면 다음 회차에 바로 적용.</li>' +
       '</ul></section>';
   }
 
   function renderRewards(prefix) {
     return '<div class="summon-plans"><section class="shop-paper summon-section" id="' + prefix + 'summon-entry-duplicates">' +
-      '<h3>중복 획득과 개체별 보관</h3><p class="shop-hint">기존 공용 펫 조각·정령 가루 잔액의 처리와 교환 정책은 검토 중입니다.</p>' +
+      '<h3>중복 획득과 개체별 보관</h3><p class="shop-hint">기존 공용 펫 조각·정령 가루 잔액의 처리와 교환 정책은 검토 중.</p>' +
       '<dl class="summon-duplicates">' + duplicateRules.map(([kind, reward, detail]) =>
         '<div><dt>' + kind + '</dt><dd>' + reward + '<span>' + detail + '</span></dd></div>').join('') +
       '</dl></section><section class="shop-paper summon-section" id="' + prefix + 'summon-entry-tickets">' +
-      '<h3>소환권 획득</h3><p class="shop-hint">Lv.5 100장은 본편 개정 보상입니다. 랭킹 보상 수량은 플레이테스트 시안입니다.</p><ul class="doc-list">' +
+      '<h3>소환권 획득</h3><p class="shop-hint">Lv.5 100장은 본편 개정 보상. 랭킹 보상 수량은 플레이테스트 시안.</p><ul class="doc-list">' +
       sources.map(({url, title, detail}) => '<li><strong>' +
         (url ? '<a class="summon-text-link" href="' + url + '">' + title + '</a>' : title) +
         '</strong> · ' + detail + '</li>').join('') +
@@ -69,8 +69,8 @@ const petSummon = (() => {
       : '<div class="shop-group-grid">' + items.map(equipmentCard).join('') + '</div>';
     return '<section class="summon-section summon-equipment" id="' + prefix + 'summon-entry-equipment"><header>' +
       '<h3>펫별 전용 장비 ' + items.length + '종</h3>' +
-      '<p>전용 장비는 획득한 수량만큼 보관합니다. 대응하는 펫 개체를 선택해 전용 장비 1개를 장착하면 해당 개체의 능력이 보정됩니다. 교체와 해제의 세부 규칙은 검토 중입니다.</p>' +
-      '<p>펫·장비 탭에서 보유 개체와 장비 재고를 확인합니다. 개체를 선택하면 능력, 장착 상태, 보유 전용 장비 수량과 장착 버튼이 표시됩니다.</p></header>' +
+      '<p>전용 장비는 획득한 수량만큼 보관. 대응하는 펫 개체를 선택해 전용 장비 1개를 장착하면 해당 개체의 능력이 보정됨. 교체와 해제의 세부 규칙은 검토 중.</p>' +
+      '<p>펫·장비 탭에서 보유 개체와 장비 재고를 확인. 개체를 선택하면 능력, 장착 상태, 보유 전용 장비 수량과 장착 버튼이 표시됨.</p></header>' +
       '<figure class="opening-scene-art"><img src="intro-art/pet-inventory.webp" alt="펫과 장비 탭, 소리 개체 목록, 장비 재고와 장착 버튼이 보이는 보관함 시안" width="1672" height="941" loading="lazy" decoding="async"><figcaption>펫·장비 보관함 UI 시안</figcaption></figure>' + equipment + '</section>';
   }
 

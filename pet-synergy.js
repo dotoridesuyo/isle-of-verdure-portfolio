@@ -102,10 +102,10 @@ const petSynergy = (() => {
 
   function animalDetails(id) {
     const related = animalRules(id);
-    if (!related.length) return '<p>이 친구의 시너지 조합은 아직 등록되지 않았어요.</p>';
+    if (!related.length) return '<p>등록된 시너지 조합 없음.</p>';
 
     return `<section class="animal-synergies" aria-label="참여 시너지">
-      <p><strong>공통 발동 조건</strong> · ${overlapCondition}. 효과는 겹친 칸에 적용됩니다.</p>
+      <p><strong>공통 발동 조건</strong> · ${overlapCondition}. 효과는 겹친 칸에 적용.</p>
       ${related.map(rule => {
         const partners = [...(rule.traits || rule.members)].filter(partner => partner !== id).map(partner => {
           const animal = animals.get(partner);
@@ -158,7 +158,7 @@ const petSynergy = (() => {
         <div><dt>자동 수확 한도</dt><dd>계정 공용 보관함 기본 50개, 최대 200개. <a href="#chapter/16/section-7">보관함 용량과 자동 수확 규칙 ↗</a> · <a href="#chapter/20/section-3">수확 XP 지급 한도 ↗</a></dd></div>
       </dl>
       <h4>범위 모양과 인접 배치 구상</h4>
-      <p class="doc-paragraph">같은 등급 안에서 총 칸 수를 유지한 채 일자, ㄱ자 등 다른 모양을 써서 빈 칸을 메우는 방식입니다. 펫을 얻을 때 정해지는 모양을 돌려 배치하는 안과, 관리 구역끼리 닿았을 때의 인접 시너지도 논의했습니다. 배치 체험에는 기본 모양과 겹침 판정을 적용합니다.</p>
+      <p class="doc-paragraph">등급별 총 관리 칸 수를 유지하며 일자·ㄱ자 등 다른 모양 적용을 검토. 획득 시 관리 범위 모양 지정과 인접 시너지는 후보안. 배치 체험에는 기본 모양과 겹침 판정 적용.</p>
       <ul class="synergy-shapes" aria-label="관리 범위 형태 예시">${shapes}</ul>
     </section>`;
   }
@@ -204,7 +204,7 @@ const petSynergy = (() => {
     return `<section class="doc-block synergy-demo" data-pet-synergy aria-labelledby="synergy-title">
       <div class="synergy-heading">
         <h3 id="synergy-title">펫 시너지와 배치 체험</h3>
-        <p>두 펫의 역할이 만나면 정원 관리 방식이 달라집니다. 조합을 고르고 배치와 시간대를 바꿔 발동 조건을 확인해 보세요.</p>
+        <p>펫 조합·배치·시간대를 변경해 시너지 발동 조건을 확인하는 체험.</p>
       </div>
       <div class="synergy-presets">
         <div><h4 id="synergy-current-title">기존 펫 조합</h4><div class="synergy-card-list" role="group" aria-labelledby="synergy-current-title">${rules.filter(rule => !rule.traits).map(presetButton).join('')}</div></div>
@@ -214,7 +214,7 @@ const petSynergy = (() => {
       <div class="synergy-layout">
         <div class="synergy-map">
           <div class="synergy-map-head">
-            <p id="synergy-board-help">옮길 펫을 고르고 밭의 점을 누르세요. 키보드는 방향키와 Enter를 사용하세요.</p>
+            <p id="synergy-board-help">펫 선택 후 밭의 꼭짓점을 눌러 이동. 키보드는 방향키와 Enter 사용.</p>
             <div class="synergy-time" role="group" aria-label="체험 시간대">
               <button type="button" data-syn-time="day" aria-pressed="true">낮</button>
               <button type="button" data-syn-time="night" aria-pressed="false">밤</button>
@@ -277,7 +277,7 @@ const petSynergy = (() => {
       portrait.hidden = !animal || Boolean(animal.upcoming);
       if (!portrait.hidden) portrait.src = `system-art/${animal.id}-base.webp`;
       find('placeholder', i).hidden = !portrait.hidden;
-      find('role', i).textContent = !animal ? '펫을 고르면 범위가 표시됩니다.'
+      find('role', i).textContent = !animal ? '펫을 고르면 범위가 표시됨.'
         : animal.upcoming ? '추가 예정 · 2칸 예시' : `${animal.role} · ${coverage[i].size}칸 관리`;
       const move = find('move', i);
       move.disabled = !animal;
@@ -312,9 +312,9 @@ const petSynergy = (() => {
     result.textContent = pets.some(pet => !pet.id) ? '펫 두 마리를 배치하세요'
       : !matching.length ? '개별 능력 적용'
       : !common.size ? '관리 범위가 떨어져 있어요' : '시간대 조건을 확인하세요';
-    effects.textContent = pets.some(pet => !pet.id) ? '비어 있는 자리에 펫을 고르면 조합을 확인할 수 있어요.'
-      : !matching.length ? '다른 조합을 골라 시너지를 살펴보세요.'
-      : !common.size ? '배치를 옮기거나 방향을 돌려 공통 관리 칸을 만들어 보세요.'
+    effects.textContent = pets.some(pet => !pet.id) ? '빈 자리에 펫을 지정하면 조합 확인 가능.'
+      : !matching.length ? '현재 조합에서 발동하는 시너지 없음.'
+      : !common.size ? '공통 관리 칸이 생기도록 배치 또는 방향을 변경.'
       : matching.map(rule => `${rule.name} · ${times[rule.time]}에 발동`).join(' / ');
   }
 
