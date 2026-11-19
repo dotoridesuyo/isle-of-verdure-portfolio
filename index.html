@@ -100,6 +100,62 @@
 @media print{.design-cards{grid-template-columns:repeat(3,1fr)}.design-cards>article{padding:10pt;background:#f5f7ed}.design-cards h4{font-size:12pt}.design-cards p{font-size:9pt}.design-cards>article>span{font-size:18pt;float:none}.design-links,.sidebar-codex-link{display:none}.design-disclosure{break-inside:auto;background:white}.design-disclosure>summary{font-size:11pt}.design-disclosure>summary>span{display:none}.doc-paragraph{font-size:10pt}.chapter-header h2{font-size:22pt}.doc-block table{font-size:8pt}.print-plant .plant-brief>dl{padding-right:90px}.print-plant>.specimen{width:75px}.animal-dossier{break-inside:avoid}}
 
 </style>
+<style>
+.cultivation-steps {
+ display:grid;
+ grid-template-columns:repeat(6,minmax(0,1fr));
+ gap:20px;
+ margin:12px 0;
+ padding:0;
+ list-style:none;
+}
+.cultivation-steps li {
+ position:relative;
+ display:grid;
+ justify-items:center;
+ align-content:center;
+ gap:5px;
+ padding:10px 4px;
+ border:1px solid #d9dfc9;
+ border-radius:6px;
+ background:#eff2e5;
+ color:#3d553e;
+ font-size:12px;
+ font-weight:700;
+ text-align:center;
+ word-break:keep-all;
+}
+.cultivation-steps svg {
+ width:23px;
+ height:23px;
+ fill:none;
+ stroke:currentColor;
+ stroke-width:1.65;
+ stroke-linecap:round;
+ stroke-linejoin:round;
+}
+.cultivation-arrow {
+ position:absolute;
+ top:50%;
+ left:100%;
+ width:21px;
+ transform:translateY(-50%);
+ color:#60784e;
+ font-size:16px;
+ line-height:1;
+}
+.cultivation-flow .cultivation-note {margin:0}
+@media screen and (max-width:640px) {
+ .cultivation-steps {grid-template-columns:minmax(0,1fr);gap:16px}
+ .cultivation-steps li {grid-template-columns:23px 1fr;align-items:center;justify-items:start;gap:8px;padding:6px 12px;text-align:left}
+ .cultivation-arrow {top:100%;left:12px;transform:rotate(90deg);text-align:center}
+}
+@media print {
+ .cultivation-flow {break-inside:avoid}
+ .cultivation-steps {gap:14px}
+ .cultivation-arrow {width:15px}
+}
+</style>
   <link rel="stylesheet" href="exploration-map.css">
   <link rel="stylesheet" href="garden-shop.css?v=summon">
   <link rel="stylesheet" href="achievements.css?v=illustrated">
@@ -1003,16 +1059,17 @@ const CHAPTERS=[
     "group": "system",
     "blocks": [
       {
-        "kind": "flow",
+        "kind": "cultivationFlow",
         "title": "한 번의 재배",
         "items": [
           "오염 정화",
           "밭갈기",
           "씨앗 1개 파종",
-          "물주기 · 성장 시작",
+          "물주기",
           "성숙",
-          "수확 · 기본 표본은 다시 파종 · 염색꽃은 재성장"
-        ]
+          "수확"
+        ],
+        "note": "첫 물주기부터 성장 · 수확 후 기본 표본은 다시 파종, 염색꽃은 재성장"
       },
       {
         "kind": "table",
@@ -5366,7 +5423,30 @@ function searchDesignIntents(query) {
   .map(item => ({url: item.href, title: item.title, description: item.intent}));
 }
 
+function renderCultivationFlow(block) {
+ const icons = [
+  'M12 2c0 4-2 6-6 6 4 0 6 2 6 6 0-4 2-6 6-6-4 0-6-2-6-6ZM5 13v6m-3-3h6m11-4v6m-3-3h6',
+  'M9 15 20 4m-9 13-4-4-3 3a3 3 0 0 0 0 4l1 1a3 3 0 0 0 4 0l2-4ZM13 19h8',
+  'M5 14c0-5 5-9 13-9 0 8-4 13-9 13a4 4 0 0 1-4-4Zm1 4 6-6M3 21h18',
+  'M12 2c-2 4-6 8-6 12a6 6 0 0 0 12 0c0-4-4-8-6-12Zm-3 12a3 3 0 0 0 3 3',
+  'M12 20v-8m0 2C6 14 4 11 4 6c5 0 8 2 8 8Zm0-2c0-5 3-7 8-7 0 5-3 7-8 7ZM8 21h8',
+  'M3 10h18l-2 10H5L3 10Zm4 0 5-7 5 7M9 13v4m6-4v4'
+ ];
+ return `<section class="doc-block cultivation-flow">
+  ${blockHeading(block)}
+  <ol class="cultivation-steps" role="list">
+   ${block.items.map((label, index) => `<li>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${icons[index]}"/></svg>
+    <span>${index + 1}. ${esc(label)}</span>
+    ${index < block.items.length - 1 ? '<span class="cultivation-arrow" aria-hidden="true">→</span>' : ''}
+   </li>`).join('')}
+  </ol>
+  <p class="doc-paragraph cultivation-note">${esc(block.note)}</p>
+ </section>`;
+}
+
 function renderBlock(b){
+ if(b.kind==='cultivationFlow')return renderCultivationFlow(b);
  if(b.id==='level-furniture-recipes')return `<section class="doc-block">${blockHeading(b)}<p class="doc-paragraph"><a class="table-link" href="#workshop/level-furniture">가구 제작소에서 해금 레벨과 재료 보기 ↗</a></p></section>`;
  if(b.kind==='plantGrowth')return renderPlantGrowth(b);
  if(b.kind==='openingPlan')return openingPlan.render(true);
