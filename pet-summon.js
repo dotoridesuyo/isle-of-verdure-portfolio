@@ -11,8 +11,8 @@ const petSummon = (() => {
     ['이미 보관 중인 전용 장비', '장비 재고 1개 추가', '대응 펫이 없거나 이미 장비를 착용한 상태에서도 전량 보관']
   ];
   const sources = [
-    {url:'#chapter/01/section-7/recruit', title:'본편 Lv.4 첫 소환 안내', detail:'튜토리얼 전용 10장으로 무료 10연차 1회'},
-    {url:'#chapter/20/section-4', title:'정원사 레벨 보상', detail:'Lv.5 펫 소환권 100장 · Lv.10·15·25 각 1장 · Lv.20 2장 · Lv.30 3장'},
+    {url:'#chapter/01/section-7/recruit', title:'본편 Lv.4 첫 소환 안내', detail:'첫 소환 체험 조건은 본편 튜토리얼에서 확인'},
+    {url:'#chapter/20/section-4', title:'정원사 레벨 보상', detail:'레벨별 소환권 지급 수량은 보상표에서 확인'},
     {url:'#quests/weekly/1', title:'주간 퀘스트', detail:'한 주에 과제 2개 완료 시 1장'},
     {url:'#chapter/21/section-3', title:'Lv.30 주간 랭킹', detail:'순위별 1~5장 · 복수 입상 시 가장 높은 순위 기준으로 주 최대 5장 지급하는 안'},
     {title:'특별 이벤트', detail:'이벤트 보상으로 지급하는 안'}

@@ -163,7 +163,6 @@
 .design-intent-body li+li{margin-top:3px}
 .design-intent-body .design-intent-flow{padding:9px 12px;background:#e1ead7}
 .design-intent .design-intent-proposal{margin-top:13px;padding-top:9px;border-top:1px solid #c4d1ba}
-.quest-implementation{margin:0 0 14px}
 .design-intent-choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 9px}
 .design-intent-choices>div{padding-top:11px;border-top:1px solid #c4d1ba}
 .art-reference-gallery{margin-bottom:27px}
@@ -359,7 +358,6 @@
             <h3 id="workshop-level-furniture-title">레벨별 제작 가구 시안</h3>
             <p>도안을 해금한 뒤 제작소에서 재료를 사용해 만들어요.</p>
           </div>
-          <a class="quest-reference" href="#chapter/20/section-11">레벨별 제작 가구 도안과 재료 ↗</a>
         </header>
         <div id="workshop-level-furniture-art"></div>
       </section>
@@ -394,11 +392,6 @@
         <p>리프와의 첫 만남부터 정원 우편함에 도착하는 일일·주간 과제까지 살펴보세요.</p>
       </div></header>
       <div data-design-intent="#quests"></div>
-      <section class="shop-paper quest-implementation" aria-labelledby="quest-intent-title">
-        <h3 id="quest-intent-title">과제와 누적 보상</h3>
-        <p id="quest-intent"></p>
-        <p id="quest-cumulative"></p>
-      </section>
       <nav class="garden-plan-nav" aria-label="퀘스트 목록 선택">
         <a href="#quests/tutorial" data-quest-nav="tutorial">튜토리얼</a>
         <a href="#quests/daily" data-quest-nav="daily">일일 퀘스트</a>
@@ -462,7 +455,6 @@
         <p><a class="table-link" href="#chapter/03/section-8">품종별 생장 시간 보기 ↗</a></p>
       </section>
       <div class="section-caption"><p><span class="tiny-leaf">❧</span> BOTANICAL COLLECTION <span>식물 표본집</span></p><span>식물 카드를 선택해 기획 정보를 살펴보세요</span></div>
-      <aside id="common-cultivation-summary" class="common-cultivation-summary" aria-label="확정된 공통 재배 규칙"></aside>
       <nav class="garden-plan-nav plant-cross-links" aria-label="식물 관련 시스템"><a href="#chapter/18">정화 물약</a><a href="#workshop/dye">꽃빛 염색 작업대</a><a href="#map">탐험 지도</a></nav>
       <section class="book" id="plant-book" aria-label="전체 식물 기획 데이터">
         <div class="book-page catalog-page">
@@ -514,18 +506,6 @@
 const DOC_VERSION="v0.9";
 
 const DOC_DATE="2026.11.12";
-
-const CULTIVATION_RULES={
-  "gardenPlots": 90,
-  "meadowPlots": 30,
-  "meadowBlocks": 2,
-  "meadowWidth": 5,
-  "meadowHeight": 3,
-  "sproutEndSeconds": 10,
-  "seedCost": 1,
-  "harvestYield": 1,
-  "seedYield": 2
-};
 
 const PLANTS=[
   {
@@ -1120,10 +1100,24 @@ const CHAPTERS=[
         ]
       },
       {
-        "kind": "note",
+        "kind": "disclosure",
         "title": "수확은 다음 파종의 시작",
-        "text": "기본 표본은 수확물 1개와 같은 종류의 씨앗 2개를 지급합니다. 수확한 작물은 제거하고 일군 밭을 유지합니다. 본편 연습 밭의 첫 이슬풀 수확은 튜토리얼 보상표를 따릅니다. 염색꽃은 수확한 뒤 같은 자리에서 다시 자랍니다.",
-        "tone": "green"
+        "blocks": [
+          {
+            "kind": "paragraph",
+            "text": "수확한 뒤 기본 표본은 다시 심고, 염색꽃은 같은 자리에서 다음 수확을 준비합니다."
+          },
+          {
+            "kind": "links",
+            "items": [
+              {
+                "href": "#chapter/03/section-6",
+                "title": "수확 처리 기준",
+                "text": "기본 수확량 · 재성장 · 중복 처리"
+              }
+            ]
+          }
+        ]
       },
       {
         "kind": "disclosure",
@@ -1146,12 +1140,16 @@ const CHAPTERS=[
               [
                 "첫 물주기",
                 "파종된 작물 · 이 재배 주기의 첫 물주기 전",
-                "성장 시작 · 주기당 1회"
+                "성장 시작"
               ],
               [
                 "추가 물주기",
                 "품종별 기회 열림 · 성숙 전 · 해당 기회 미사용",
-                "기회당 1회 · 기본 시간의 3%만큼 진행도 증가"
+                {
+                  "text": "해당 기회를 사용한 것으로 기록합니다.",
+                  "href": "#chapter/03/section-4",
+                  "linkText": "추가 물주기 효과"
+                }
               ],
               [
                 "기본 표본 수확",
@@ -1481,7 +1479,7 @@ const CHAPTERS=[
               ],
               [
                 "자동 수확 보관함",
-                "기본 최대 50개 · 여러 펫이 한도를 공유 · 캐시 아이템으로 용량 확장 기획"
+                "기본 최대 50개. 여러 펫이 같은 밭에서 한도를 공유하며, 캐시 아이템으로 확장하는 안입니다. 한도의 집계·초기화 시점과 추가 수확물 산입 방식은 검토 중입니다."
               ]
             ]
           }
@@ -1677,7 +1675,11 @@ const CHAPTERS=[
           ],
           [
             "펫 뽑기",
-            "소환권 1장 사용 · 전용 장비 85% · 펫 15%",
+            {
+              "text": "소환권을 사용해 펫이나 전용 장비를 획득",
+              "href": "#summon/odds",
+              "linkText": "소환 확률"
+            },
             "새 친구를 만나고 전용 장비로 능력을 강화"
           ],
           [
@@ -1688,12 +1690,28 @@ const CHAPTERS=[
         ]
       },
       {
-        "kind": "bullets",
+        "kind": "disclosure",
         "title": "펫 뽑기에서 보는 정보",
-        "items": [
-          "소환 전에 필요한 소환권 수량, 일반 소환의 확률, 펫 연속 미획득 횟수를 확인합니다.",
-          "펫을 20회 연속 획득하지 못하면 다음 소환에서 일반·특별·희귀·전설이 포함된 기존 10종 중 한 마리를 얻습니다.",
-          "같은 펫을 뽑을 때마다 새 개체 1마리를, 같은 장비를 뽑을 때마다 재고 1개를 추가합니다. 펫이 없어도 장비를 보관하며 대응 개체 한 마리에 전용 장비 1개를 장착합니다."
+        "blocks": [
+          {
+            "kind": "paragraph",
+            "text": "수익화 기획에서는 유료 재화 사용과 차감 흐름을 다룹니다."
+          },
+          {
+            "kind": "links",
+            "items": [
+              {
+                "href": "#summon",
+                "title": "펫·장비 소환 규칙",
+                "text": "확률 · 확정 소환 · 중복 보관"
+              },
+              {
+                "href": "#chapter/14/section-10",
+                "title": "별잎 소환 기획",
+                "text": "소환권을 먼저 적용하는 결제 흐름"
+              }
+            ]
+          }
         ]
       },
       {
@@ -1748,13 +1766,28 @@ const CHAPTERS=[
         ]
       },
       {
-        "kind": "bullets",
+        "kind": "disclosure",
         "title": "퀘스트에서 이어지는 성장과 소환",
-        "items": [
-          "일일 퀘스트는 접속하고 바로 시작할 행동을 제시합니다. 플레이어는 기본 과제를 마치고 새싹 코인을 얻거나, 여유가 있는 날에는 누적 수확 도전에 더 참여할 수 있습니다.",
-          "주간 퀘스트는 며칠에 걸쳐 정원을 꾸미고 수확할 목표를 줍니다. 과제 2개를 완료해 얻는 소환권으로 소환을 경험하고, 얻은 펫과 장비를 정원 관리에 활용합니다.",
-          "퀘스트와 레벨 보상으로 소환을 경험한 뒤, 마음에 드는 펫이나 장비를 더 모으고 싶다면 별잎을 사용할 수 있는 유료 소환안을 검토합니다. 가격과 차감 방식은 별잎 사용처에 정리했습니다.",
-          "누적 완료 보상은 여러 날의 과제 완료를 장기 목표로 이어 주는 안입니다. 누적 조건과 보상은 검토 중입니다."
+        "blocks": [
+          {
+            "kind": "paragraph",
+            "text": "퀘스트와 레벨 보상으로 소환을 경험하고, 더 모으고 싶은 펫이나 장비가 생기면 별잎을 사용할 수 있도록 구상했습니다."
+          },
+          {
+            "kind": "links",
+            "items": [
+              {
+                "href": "#quests/weekly",
+                "title": "주간 퀘스트 보상",
+                "text": "완료 조건과 소환권 지급"
+              },
+              {
+                "href": "#chapter/14/section-10",
+                "title": "별잎 사용처",
+                "text": "소환과 차감 규칙"
+              }
+            ]
+          }
         ]
       },
       {
@@ -2285,7 +2318,7 @@ const CHAPTERS=[
         },
         "items": [
           "현행 초반 진행은 연습 밭에서 이슬풀을 직접 키운 뒤 이슬풀 1개로 일반 정화 물약을 만드는 순서입니다. 아래 정화액 재료 및 확률은 물약 경제 설계 시안입니다.",
-          "본편은 이전 지역의 필수 구역을 정화하고 핵심 복원 조건을 완료하면 다음 지역이 열립니다. 현장 정화는 지역 진입과 별도로 해당 물약을 사용합니다. 햇살방울꽃과 꿀빛금잔화에는 햇살 정화액을 사용합니다.",
+          "현장 정화에는 대상에 맞는 물약을 사용합니다. 햇살방울꽃과 꿀빛금잔화에는 햇살 정화액을 사용합니다.",
           "필수 진행 물약은 확정 수확물로 만들고, 첫 필수 제조는 일반 성공으로 보장합니다. 후반 선택 정화에는 낮은 확률의 희귀 수확물을 재료로 쓰는 안을 검토합니다. 적용 레시피와 수확 확률은 플레이테스트에서 결정합니다.",
           "노을양귀비·귤빛금잔화·풀빛별꽃·달그늘붓꽃은 선택 정화입니다. 최초 정화 때 씨앗을 얻고, 이후 정원에서 수확해 염색재에 사용합니다."
         ]
@@ -2318,6 +2351,11 @@ const CHAPTERS=[
             "href": "#workshop/dye",
             "title": "염색꽃과 작업대",
             "text": "4종의 꽃잎 획득처와 무지개색 염색재"
+          },
+          {
+            "href": "#map",
+            "title": "다음 지역 해금 조건",
+            "text": "지역별 필수 정화와 핵심 복원 기준"
           }
         ]
       },
@@ -2937,9 +2975,8 @@ const CHAPTERS=[
           "계정은 Lv.1, 누적 0 XP에서 시작합니다. XP를 정산할 때마다 누적값이 기준을 충족하는 가장 높은 레벨로 자동 승급합니다.",
           "현재 레벨 L에서 다음 레벨까지 80 + 40 × (L − 1) XP가 필요합니다. Lv.1→2는 80, Lv.2→3은 120, Lv.3→4는 160 XP입니다. 레벨 L의 누적 기준은 20 × (L − 1) × (L + 2) XP입니다.",
           "현재 레벨의 누적 기준을 넘긴 XP는 다음 레벨 진행도에도 반영합니다. 여러 기준을 한 번에 통과하면 도달한 레벨의 보상을 낮은 순서부터 한 번씩 지급하고, 해금 목록을 한 화면에 요약합니다. 예를 들어 누적 70 XP에 150 XP를 정산하면 Lv.3과 누적 220 XP가 되고 Lv.2·3 보상을 받습니다.",
-          "레벨 상한은 Lv.30입니다. 누적 XP는 18,560에서 멈추고 이후 정원사 XP 지급은 종료합니다. 예를 들어 누적 18,555 XP에서 +25 XP 조건을 충족하면 남은 5 XP를 반영해 Lv.30에 도달합니다.",
-          "Lv.30에 도달하면 최고 레벨 보상을 지급하고 Lv.30 가구 도안과 주간 랭킹 메뉴를 엽니다. 정식 랭킹 집계는 다음 주 월요일부터 시작합니다. 수확·판매·황금작물은 랭킹의 유효 활동 기준으로 집계합니다.",
-          "본편 다음 지역은 이전 지역의 필수 구역 정화와 해당하는 핵심 복원 완료 시 개방합니다. 배치 동물의 능력은 개별 동물의 상태를 기준으로 판정합니다.",
+          "Lv.30에 도달하면 최고 레벨 보상과 가구 도안이 지급됩니다. 랭킹 참가와 집계 시점은 주간 랭킹에서 확인합니다.",
+          "레벨 보상으로 얻는 펫 소환권 합계는 108장입니다. 경험치 배점과 일일 한도는 플레이테스트 기준입니다.",
           "레벨 보상으로 얻는 펫 소환권은 Lv.5 100장과 Lv.10~30의 8장을 합해 총 108장입니다. Lv.4 첫 무료 10연차는 본편 튜토리얼 체험으로 별도 제공합니다. 경험치 배점과 일일 한도는 플레이테스트 기준입니다."
         ]
       },
@@ -3001,13 +3038,23 @@ const CHAPTERS=[
         ]
       },
       {
-        "kind": "bullets",
+        "kind": "disclosure",
         "title": "친구 수첩에 표시되는 정보",
-        "items": [
-          "왼쪽 목록은 대표 초상, 닉네임 옆 레벨과 접속 상태, 닉네임 아래 한마디를 표시합니다. 행 오른쪽 물통 아이콘으로 선물을 보냅니다.",
-          "오른쪽 상세는 큰 초상, 정원 이름, 칭호·배지와 이용 가능한 대표 사진을 보여줍니다. 접속 상태와 정원 방문 가능 여부는 각각 표시합니다.",
-          "프로필은 서로 수락한 친구에게 공개합니다. 방문을 끈 상태에서도 대표 초상·레벨·한마디와 선물을 이용할 수 있습니다.",
-          "사진은 내 정원 앨범에서 고르고, 방문을 허용한 동안만 친구의 상세 카드에 표시합니다."
+        "blocks": [
+          {
+            "kind": "paragraph",
+            "text": "내 정원 프로필에서 편집한 항목이 다른 플레이어에게 어떻게 표시되는지 친구 수첩 화면에서 확인할 수 있습니다."
+          },
+          {
+            "kind": "links",
+            "items": [
+              {
+                "href": "#chapter/19/section-3",
+                "title": "친구 수첩의 공개 범위와 방문",
+                "text": "대표 초상 · 사진 · 접속 상태 · 방문 권한"
+              }
+            ]
+          }
         ]
       },
       {
@@ -3509,7 +3556,8 @@ const CHAPTERS=[
         "title": "친구 정원에 놀러가기",
         "items": [
           "본편 해금 배치안은 Lv.3입니다. 첫 정화 뒤 리프가 친구 수첩을 짧게 소개하고, 튜토리얼을 마친 뒤 친구 수첩을 처음 열면 이용 방법을 안내합니다.",
-          "친구 수첩에서 친구를 고르면 오른쪽에 정원 이름과 공개된 대표 사진, 방문 가능 여부가 표시됩니다. 방문을 허용한 경우 정원 방문 버튼으로 입장합니다.",
+          "친구 목록에는 대표 초상, 닉네임, 레벨, 접속 상태와 한마디가 표시됩니다. 행 오른쪽의 물통 아이콘으로 선물을 보냅니다. 친구를 선택하면 오른쪽에 대표 동물, 정원 이름, 칭호와 배지, 방문 가능 여부가 표시됩니다.",
+          "서로 수락한 친구에게 프로필을 공개합니다. 내 정원 앨범에서 선택한 대표 사진은 방문을 허용한 동안 상세 카드에 표시됩니다. 방문을 끈 경우에도 기본 프로필을 확인하고 물통을 보낼 수 있습니다.",
           "정원 주인은 기본으로 꺼진 방문 허용을 켜고 공유할 배치를 한 번 저장합니다. 주인의 접속 여부와 관계없이 마지막으로 저장한 배치가 열립니다.",
           "방문자는 정원 입구에서 시작해 직접 걸어 다니며 둘러봅니다. 좋아요와 방명록 도장을 남긴 뒤 내 정원으로 돌아옵니다.",
           "공유 배치는 지형·장식·식물의 외형·공개 닉네임을 담습니다. 재배·수확·가구 배치는 주인 권한이며 가방과 개인 저장 데이터는 공개 대상에서 제외합니다.",
@@ -3599,8 +3647,7 @@ const CHAPTERS=[
         "items": [
           "하트 전송은 친구 관계와 방문 권한을 다시 확인하고, 일일 기록·보상·주간 추천표를 함께 저장합니다.",
           "발송·수신 제한과 충전량 지급을 함께 저장합니다. 동시 수신과 재접속으로 과지급이 발생하는지 검증합니다.",
-          "한국 시간 자정과 월요일 경계, 방문 설정 변경, 충전량 0에서 기본 성장이 가능한지 확인합니다.",
-          "친구 목록의 접속 상태와 방문 가능 여부를 별도로 확인합니다. 주인이 방문을 닫은 경우에도 수락된 친구는 기본 프로필 확인과 물통 선물을 이용할 수 있습니다."
+          "한국 시간 자정과 월요일 경계, 방문 설정 변경, 충전량 0에서 기본 성장이 가능한지 확인합니다."
         ]
       },
       {
@@ -3988,13 +4035,13 @@ document.getElementById('animal-mode-filter').addEventListener('change',e=>{anim
 
 </script>
 <script src="garden-systems.js?v=design-intent"></script>
-<script src="pet-synergy.js?v=individual-pets"></script>
-<script src="pet-summon.js?v=design-intent"></script>
+<script src="pet-synergy.js?v=dedup-01"></script>
+<script src="pet-summon.js?v=dedup-01"></script>
 <script src="purification-plan.js?v=progress-sync"></script>
 <script src="exploration-map.js?v=progress-sync"></script>
 <script src="garden-shop.js?v=early-sign"></script>
 <script src="achievements.js?v=team-sync"></script>
-<script src="garden-plans.js?v=design-intent"></script>
+<script src="garden-plans.js?v=dedup-01"></script>
 <script>
 'use strict';
 const $ = s=>document.querySelector(s);
@@ -4131,7 +4178,6 @@ function stageDescription(p){
   : s.range;
  return `<b>${s.name} · ${range}</b><br>${text}<span class="stage-type-note">${p.type} · ${note}</span>`;
 }
-function renderCultivationSummary(){const r=CULTIVATION_RULES;$('#common-cultivation-summary').innerHTML=`<div class="cultivation-summary-heading"><span>정원의 재배 흐름</span><a href="#chapter/03/section-8">식물별 생장 시간 보기 ↗</a></div><dl><div><dt>재배 공간</dt><dd>농장 ${r.gardenPlots}칸 · 초원 ${r.meadowPlots}칸</dd></div><div><dt>성장 과정</dt><dd>씨앗 → 새싹 → 성장 → 성숙</dd></div><div><dt>돌봄과 변화</dt><dd>첫 물주기 후 품종별 15초~24시간 · 추가 물주기로 단축</dd></div><div><dt>수확과 다음 시작</dt><dd>기본 표본은 재파종 · 염색꽃은 재성장</dd></div></dl>`;}
 function plantGrowthIntent(p) {
  const schedule = BASIC_PLANT_GROWTH[p.id];
  if (!schedule) return '';
@@ -4479,7 +4525,7 @@ const openingPlan = (() => {
   "copy": "리프 “수확할 때는 숲 친구들의 도움을 받을 수 있어! 친구들을 부르는 소환권을 네 소매에 넣어 뒀어. 펫 버튼을 눌러서 열 번 불러볼까?”",
   "action": "펫 버튼 → 10연차 → 결과 확인.",
   "done": "튜토리얼용 소환권 10장이 소비되고, 수확형 펫을 포함한 10개 결과가 확정되면 배치 안내를 연다.",
-  "work": "펫 뽑기 Lv.4 해금 배치안. 이 단계에 도달하면 무료 10연차를 한 번 안내한다. 10개 결과 중 수확형 펫 소리 1마리 확정 시안이며, 확정 슬롯의 천장 연동은 검토 중이다. Lv.5 달성 보상 100장과 별도로 처리한다."
+  "work": "펫 뽑기 Lv.4 해금 배치안. 이 단계에 도달하면 무료 10연차를 한 번 안내한다. 10개 결과 중 수확형 펫 소리 1마리 확정 시안이며, 확정 슬롯의 천장 연동은 검토 중이다."
  },
  {
   "id": "place",
@@ -4512,7 +4558,7 @@ const openingPlan = (() => {
   "screen": "지도를 열어 현재 지역의 구역별 정화 진행도와 다음 지역의 잠금 조건을 보여준다.",
   "copy": "리프 “이 지역의 오염된 구역을 모두 되살리면 지도에서 다음 지역이 열려. 그곳에서도 정화 물약으로 땅을 되살릴 수 있어!”",
   "action": "지도를 열고 남은 정화 구역과 다음 지역을 확인한다.",
-  "done": "지도 안내 XP를 정산하면 누적 600 XP로 Lv.5에 도달하고 펫 소환권 100장을 받는다. 이후 현재 지역의 필수 구역 정화와 해당하는 핵심 복원을 끝내면 다음 지역이 열린다.",
+  "done": "지도 안내 XP를 정산하면 누적 600 XP로 Lv.5에 도달해 튜토리얼을 완료한다.",
   "work": "튜토리얼 완료와 실제 지도 해금은 별도 이벤트. 진행 중에는 남은 필수 구역 수를, 완료 시에는 새 지역 활성화와 진입 버튼을 표시한다. 선택 정화는 필수 진행도에서 제외하는 안."
  },
  {
@@ -4698,7 +4744,7 @@ const openingPlan = (() => {
   return `<section class="doc-block opening-plan" ${print ? '' : 'data-opening-plan'}>
    <h3>초반 인트로 · 튜토리얼</h3>
    <p class="doc-paragraph">리프에게 받은 씨앗 하나로 시작해, 정화한 밭의 특별한 수확과 숲 친구들의 도움을 차례로 경험합니다.</p>
-   <p class="opening-note">본편에서는 할아버지의 편지를 인트로 영상에서 읽습니다. 섬에 도착한 뒤 손녀의 반응은 표정과 동작으로 보여줍니다. Lv.5의 펫 소환권 100장은 개정 보상입니다. 본편 XP, 친구 방문 Lv.3·펫 뽑기 Lv.4 배치와 확정 모집 슬롯은 기획안입니다. 브라우저 체험판은 Unity 0.6.44 기준입니다.</p>
+   <p class="opening-note">본편에서는 할아버지의 편지를 인트로 영상에서 읽습니다. 섬에 도착한 뒤 손녀의 반응은 표정과 동작으로 보여줍니다. 본편 XP, 친구 방문 Lv.3·펫 뽑기 Lv.4 배치와 확정 모집 슬롯은 기획안입니다. 브라우저 체험판은 Unity 0.6.44 기준입니다.</p>
    ${print ? '<h4>본편 새 게임 · 개정안</h4>' : `<div class="opening-modes" role="group" aria-label="플레이 경로">
     <button type="button" data-opening-mode="main" aria-pressed="true">본편 새 게임</button>
     <button type="button" data-opening-mode="demo" aria-pressed="false">브라우저 체험판</button>
@@ -4708,7 +4754,7 @@ const openingPlan = (() => {
     <dl>
      <div><dt>도달 레벨</dt><dd>새 게임 0 XP에서 시작하면 첫 재배를 마칠 때 130 XP(Lv.2), 첫 정화 후 230 XP(Lv.3), 세 가지 수확 후 365 XP(Lv.4), 지도 안내 후 ${tutorialXP} XP(Lv.5, 다음 레벨 40/240 XP)에 도달합니다.</dd></div>
      <div><dt>직접 보상</dt><dd>새싹 코인 100개, 일반 정화 물약 5개, 연습 씨앗, 세 가지 수확물, 소환권 10장과 모집 결과 10개. 튜토리얼용 소환권 10장은 첫 10연차에 사용합니다.</dd></div>
-     <div><dt>레벨별 보상</dt><dd><ul class="doc-list">${CHAPTERS.find(chapter => chapter.id === '20').blocks[3].rows.slice(0, 5).map(([level, xp, , reward]) => `<li><strong>${esc(level)} · ${esc(xp)}</strong> · ${esc(reward)}</li>`).join('')}</ul><a href="#chapter/20/section-4">Lv.1~30 보상 기획표 보기 ↗</a></dd></div>
+     <div><dt>관련 기획</dt><dd><a href="#chapter/20/section-4">Lv.1~30 보상 기획표 ↗</a> · <a href="#map">다음 지역 해금 조건 ↗</a></dd></div>
      <div><dt>중복 지급 방지</dt><dd>지정 행동에는 표기된 튜토리얼 XP를 적용합니다. 같은 수확·정화에 일반 XP를 중복 지급하지 않고, 종별 첫 수확과 정화 완료 이력은 기록합니다. 튜토리얼 수확은 일일 수확 XP 한도에 포함하지 않는 안입니다.</dd></div>
     </dl>
    </details>
@@ -4785,7 +4831,7 @@ const plantIntent = {
 const designIntents = [
  {"key":"gratitude-points","href":"#chapter/14/section-11","title":"‘정원 감사 포인트’라고 부르는 이유","intent":"보상 화면에 ‘누적 결제 보상’과 결제 금액을 전면에 내세우면, 얼마를 더 써야 하는지가 먼저 보여 부담과 반감을 줄 수 있습니다. 신록의 섬의 편안한 분위기에 맞춰 ‘정원 감사 포인트’라는 이름을 사용하고, 플레이어가 지금 받을 수 있는 정원 선물과 누적 포인트를 먼저 보도록 설계했습니다.","detail":"적립 안내와 구매 확인 화면에서는 실결제 100원당 10P가 쌓인다는 기준을 명시합니다. 보상 수령 여부와 포인트를 쉽게 확인하고, 결제 금액과의 관계도 필요할 때 바로 확인할 수 있게 합니다.","relatedHref":"#chapter/14/section-10","relatedTitle":"별잎 충전과 사용처"},
  {href: '#plants', ...plantIntent, relatedHref: '#chapter/03/section-8', relatedTitle: '품종별 생장 시간'},
- {href: '#chapter/03/section-8', ...plantIntent, relatedHref: '#plants', relatedTitle: '식물 표본집'},
+ {href: '#chapter/03/section-8', title: '품종에 맞춰 재배 계획 세우기', intent: '아래 표에서 품종마다 첫 물주기부터 성숙까지 걸리는 시간과 추가 물주기 기회를 확인할 수 있습니다.', relatedHref: '#plants', relatedTitle: '짧은 작물과 긴 작물을 둔 이유'},
  {"key":"plant-variety","href":"#chapter/02","title":"새 지역을 열 때마다 늘어나는 수집과 배치 선택","intent":"지역마다 다른 식물을 만나면 도감의 빈칸이 채워집니다. 발견한 식물을 정원에 심어 색과 크기가 다른 풍경을 만들고, 특별 수확물을 얻으면 다음 수집 목표를 발견합니다."},
  {"key":"economy","href":"#chapter/14","title":"수확한 재료를 다음 목표에 쓰는 재미","intent":"오늘 수확한 재료를 정화, 가구 제작, 판매 중 어디에 쓸지 고르면 다음에 무엇을 키울지가 정해집니다. 스킨과 프로필 장식은 취향에 따라 선택하는 외형 상품으로 구상합니다.","relatedHref":"#chapter/14/section-11","relatedTitle":"정원 감사 포인트의 기획 의도와 화면 시안"},
  {"key":"art","href":"#chapter/08","title":"작은 변화로 식물과 동물의 개성 전달","intent":"식물의 성장 단계와 동물의 역할을 형태와 움직임으로 읽을 수 있게 합니다. 표본집 같은 색감과 질감은 관찰을 중심으로 한 차분한 분위기를 만듭니다."},
@@ -4795,7 +4841,7 @@ const designIntents = [
  {"key":"shop","href":"#shop","title":"지금 필요한 재료와 원하는 장식을 고르는 곳","intent":"모은 수확물과 여분 씨앗을 팔아 다음 재배에 필요한 물품이나 가구를 고릅니다. 무엇을 살지 결정하면 다음에 어떤 작물을 키우고 어느 지역을 돌아볼지 목표가 생깁니다."},
  {"key":"opening","href":"#chapter/01/section-7","title":"편지에서 시작해 첫 수확으로 배우는 조작","intent":"할아버지의 편지로 섬에 온 이유를 전한 뒤, 리프와 첫 밭을 가꾸며 조작을 익힙니다. 직접 키운 작물로 첫 정화를 하고 펫이 관리를 돕는 장면까지 경험해 본편의 흐름을 한 번 따라갑니다."},
  {"key":"overview","href":"#chapter/01/section-2","title":"짧게 접속해도 정원이 자라는 게임","intent":"한 번의 파종과 수확으로 작은 성취를 얻고, 익숙해진 관리 작업은 펫에게 맡깁니다. 수확한 재료로 정화 물약을 만들어 새 지역을 열거나, 가구와 염색재를 만들어 정원을 꾸밉니다.","detail":"힐링형은 짧은 재배, 수집형은 도감과 업적, 탐험형은 지역 복원, 전략형은 펫 배치, 꾸미기형은 공간과 색 조합, 교류형은 대표 펫과 성취 공유에서 각자의 목표를 찾습니다."},
- {"key":"cultivation","href":"#chapter/03/section-1","title":"접속 중에는 짧게, 접속을 마칠 땐 길게","intent":"접속 중에는 짧게 자라는 작물을 심고 거두며 복잡한 판단 없이 재배를 반복합니다. 접속을 마칠 때는 남아 있는 밭에 오래 자라는 작물을 심어 다음 방문에 수확할 수 있습니다. 이후 펫이 반복 관리 일부를 맡아 돌봄 부담을 줄입니다.","proposal":"장기 작물의 중간 성장 단계에서 보상을 주는 방안을 검토합니다.","relatedHref":"#chapter/03/section-8","relatedTitle":"생장 시간을 나눈 이유와 품종별 기준"},
+ {"key":"cultivation","href":"#chapter/03/section-1","title":"한 번의 파종부터 다음 재배까지","intent":"파종과 첫 물주기, 성숙과 수확을 한 주기로 설명합니다. 작물마다 수확한 뒤 밭을 다시 쓰는 방식이 달라 다음에 무엇을 심을지 고를 수 있습니다.","proposal":"장기 작물의 중간 성장 단계에서 보상을 주는 방안을 검토합니다.","relatedHref":"#plants","relatedTitle":"식물 재배의 기획 의도"},
  {"key":"harvest","href":"#chapter/02/section-5","title":"희귀 · 황금 수확물","intent":"기본 수확 보상을 꾸준히 얻는 동안 가끔 황금·프리즘 등 특별한 결과를 만나게 해, 익숙한 재배에도 기대를 더합니다. 특별한 결과는 도감과 제작에 이어져 다음 재배 목표를 만듭니다.","proposal":"황금 수확물의 특별 납품과 누적 업적, 희귀 수확물을 활용한 교배 재배를 검토합니다. 수확 확률과 기대 보상량을 함께 검증합니다."},
  {"key":"plant-records","href":"#chapter/07/section-2","title":"식물 도감 · 누적 수집 · 정원 앨범","intent":"식물 도감에는 발견·획득을 기록하고, 작물별 업적에는 누적 수확을 남깁니다. 수집 보상은 재화와 펫 소환 기회로 이어집니다. 정원 앨범에는 정원 풍경을 남겨 가꾸어 온 변화를 돌아보고 공유합니다.","detail":"도감의 빈칸, 업적의 다음 단계, 앨범에 남기고 싶은 풍경이 서로 다른 재방문 동기를 만듭니다.","relatedHref":"#chapter/19/section-10","relatedTitle":"정원 앨범과 쉼터"},
  {"key":"plot","href":"#chapter/03/section-2","title":"텃밭 확장 · 공간 배치","intent":"재배와 자원 축적이 눈에 보이는 공간의 성장으로 이어집니다. 넓어진 공간에 식물과 가구를 배치하며 생산에 유리한 구성이나 원하는 정원 풍경을 만들어 갑니다.","proposal":"텃밭 확장과 탐험 지역 해금을 별개로 운영하고, 퀘스트·숙련도 연계 조건과 식물·가구·펫의 배치 규칙을 검토합니다."},
@@ -5099,7 +5145,7 @@ const detailedDesignIntents = {
 };
 
 function renderDetailedIntent(item) {
- if (item.key === 'cultivation' || item.href === '#plants') return plantIntentBody.outerHTML;
+ if (item.href === '#plants') return plantIntentBody.outerHTML;
  const design = detailedDesignIntents[item.key];
  if (!design) return `<p>${esc(item.intent)}</p>`;
  const text = value => esc(value).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
@@ -5120,7 +5166,7 @@ function renderDesignIntent(href) {
   <span class="design-intent-label">기획 의도</span>
   <h3>${esc(item.title)}</h3>
   ${renderDetailedIntent(item)}
-  ${item.choices || item.key === 'cultivation' ? `<h4 class="design-intent-timing-title">생장 시간을 나눈 이유</h4><dl class="design-intent-choices">${(item.choices || plantIntent.choices).map(([title, description]) =>
+  ${item.choices ? `<h4 class="design-intent-timing-title">생장 시간을 나눈 이유</h4><dl class="design-intent-choices">${item.choices.map(([title, description]) =>
    `<div><dt>${esc(title)}</dt><dd>${esc(description)}</dd></div>`).join('')}</dl>` : ''}
   ${item.detail ? `<p>${esc(item.detail)}</p>` : ''}
   ${item.proposal ? `<p class="design-intent-proposal"><strong>검토안</strong> · ${esc(item.proposal)}</p>` : ''}
@@ -5208,6 +5254,7 @@ function searchDesignIntents(query) {
 }
 
 function renderBlock(b){
+ if(b.id==='level-furniture-recipes')return `<section class="doc-block">${blockHeading(b)}<p class="doc-paragraph"><a class="table-link" href="#workshop/level-furniture">가구 제작소에서 해금 레벨과 재료 보기 ↗</a></p></section>`;
  if(b.kind==='plantGrowth')return renderPlantGrowth(b);
  if(b.kind==='openingPlan')return openingPlan.render(true);
  if(b.kind==='petSynergy')return petSynergy.summary();
@@ -5234,8 +5281,8 @@ function renderBlock(b){
    <thead><tr><th scope="col">구간</th><th scope="col">플레이 흐름</th><th scope="col">주요 보상·기능</th></tr></thead>
    <tbody>
     <tr><th scope="row">Lv.1~2</th><td>첫 파종·물주기·수확</td><td>기본 프로필 편집 · Lv.2 프로필 바탕색 3종</td></tr>
-    <tr><th scope="row">Lv.3~4</th><td>첫 정화 · 일반·황금·프리즘 수확 · 소환과 배치 체험</td><td>Lv.3 나뭇잎 우편함 도안과 친구 방문 해금안 · Lv.4 펫 뽑기 해금안과 첫 무료 10연차</td></tr>
-    <tr><th scope="row">Lv.5</th><td>지도 안내를 마치면 튜토리얼 완료 · 누적 600 XP 경로</td><td>펫 소환권 100장 · 새싹의 약속 테두리 · 배지 2칸 · 꽃무늬 티테이블 도안</td></tr>
+    <tr><th scope="row">Lv.3~4</th><td>첫 정화 · 일반·황금·프리즘 수확 · 소환과 배치 체험</td><td>Lv.3 가구 제작·친구 방문 안내 · Lv.4 소환과 펫 배치 체험</td></tr>
+    <tr><th scope="row">Lv.5</th><td>지도 안내를 마치면 튜토리얼 완료 · 누적 600 XP 경로</td><td><a class="table-link" href="#chapter/20/section-4">Lv.5 달성 보상 ↗</a></td></tr>
     <tr><th scope="row">Lv.6~29</th><td>정화·재배·꾸미기·주간 퀘스트로 성장</td><td>레벨별 새싹 코인, 가구 도안, 프로필 장식과 소환권</td></tr>
     <tr><th scope="row">Lv.30</th><td>누적 18,560 XP로 정원사 최고 레벨 달성</td><td>최고 레벨 보상 · 가구 도안 · 주간 랭킹 메뉴</td></tr>
    </tbody>
@@ -5290,9 +5337,6 @@ let readingJumpPosition;
 function renderReadingBlock(block){
  if(block.kind==='openingPlan')return openingPlan.render(false);
  if(block.kind==='petSynergy')return petSynergy.interactive();
- if(block.id==='level-furniture-recipes')return '<section class="doc-block garden-plan">' + blockHeading(block) +
-  '<p class="doc-paragraph">정원사 레벨에 도달하면 도안을 해금합니다. 가구별로 제작에 필요한 재료를 확인할 수 있습니다.</p>' +
-  gardenPlans.renderLevelFurniture('growth-') + '</section>';
  return renderBlock(block);
 }
 
@@ -5609,6 +5653,7 @@ function printAll(){
  }
  for (const link of print.querySelectorAll('a[href^="#"]')) {
   const [route, id] = link.hash.slice(1).split('/');
+  if (route === 'workshop' && id === 'level-furniture') { link.hash = 'print-level-furniture'; continue; }
   if (route === 'workshop' && id === 'dye') { link.hash = 'print-dye'; continue; }
   if (route === 'shop' && document.getElementById('print-shop-entry-' + id)) { link.hash = 'print-shop-entry-' + id; continue; }
   const target = route === 'chapter' ? 'print-chapter-' + id :
@@ -5688,7 +5733,7 @@ window.addEventListener('resize',()=>{readingJumpPosition=undefined;scheduleRead
 mountDesignIntents(document);
 $('#daily-rewards-preview').innerHTML = renderInterfaceMockups(dailyRewardsMockup);
 $('#summon-entry-equipment header h3').insertAdjacentHTML('afterend', renderDesignIntent('#summon/equipment'));
-$('#species-table').innerHTML=speciesTable();renderCultivationSummary();renderGrid();renderDetail();initializeAnimalEncyclopedia();route(true);
+$('#species-table').innerHTML=speciesTable();renderGrid();renderDetail();initializeAnimalEncyclopedia();route(true);
 
 </script>
 </body>

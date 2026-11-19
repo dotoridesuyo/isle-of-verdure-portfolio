@@ -28,8 +28,6 @@ const gardenPlans = (() => {
   const dailyNote = '기획 시안 · 이슬 숲에 처음 다녀오면 정원 우편함에 열립니다. 한국 시간 매일 00:00에 과제와 수확 횟수를 갱신합니다.';
   const dailyBonus = '수확 과제 1개와 해금한 콘텐츠의 후보 중 무작위 2개를 제공합니다. 기본 3개를 완료하면 새싹 코인 15개를 받습니다.';
   const dailyFlow = '과제는 진행 중 → 받기 → 수령 완료 순으로 표시합니다. 과제별 보상은 당일 한 번 받을 수 있으며, 받을 수 있는 보상은 한꺼번에 수령할 수 있습니다. 조건을 충족한 행동은 주간 퀘스트에도 집계합니다.';
-  const questIntent = '일일 과제는 접속해서 바로 시작할 짧은 목표를, 주간 과제는 며칠에 걸쳐 달성할 목표를 줍니다. 일상의 재배와 제작은 새싹 코인과 소환권으로 이어지고, 보상은 평소에 시도하지 않던 콘텐츠를 경험할 계기가 됩니다.';
-  const questCumulative = '여유 있는 날에 주간 과제를 골라 진행하는 방안을 검토합니다. 여러 날의 완료 기록을 모으는 누적 보상의 조건과 보상도 검토 중입니다.';
   const weekly = [
     [
       ['개울가 쉼터', '개울가 구역에 좌석 1개와 꽃 장식 1개 배치', '#shop/F22', '개울가 낮은 의자'],
@@ -159,8 +157,6 @@ const gardenPlans = (() => {
   const weekTasks = document.getElementById('quest-week-tasks');
   document.getElementById('quest-tutorial-tasks').innerHTML = questTable(tutorial, {numbered: true});
   document.getElementById('quest-tutorial-note').textContent = tutorialNote;
-  document.getElementById('quest-intent').textContent = questIntent;
-  document.getElementById('quest-cumulative').textContent = questCumulative;
   document.getElementById('quest-daily-tasks').innerHTML = dailyQuests();
   document.getElementById('quest-week-info').textContent = weeklyNote;
   document.getElementById('quest-week-bonus').textContent = weeklyBonus;
@@ -218,8 +214,7 @@ const gardenPlans = (() => {
       '<p>' + dyeFlowers.workbenchRule + '</p></header>' + dyeFlowers.renderPalette(false) +
       '<h3>염색꽃 4종 · 선택 정화 시안</h3><p>' + dyeFlowers.flowerRule + '</p>' +
       dyeFlowers.renderFlowers(false) + '</article><article class="print-chapter" id="print-quests"><header class="chapter-header"><h2>퀘스트</h2>' +
-      '</header><p class="doc-paragraph">' + questIntent + '</p><p class="doc-paragraph">' + questCumulative +
-      '</p><h3>이전 튜토리얼 퀘스트 9과제 시안</h3><p class="doc-paragraph">' + tutorialNote + '</p>' + questTable(tutorial, {numbered: true}) +
+      '</header><h3>이전 튜토리얼 퀘스트 9과제 시안</h3><p class="doc-paragraph">' + tutorialNote + '</p>' + questTable(tutorial, {numbered: true}) +
       '<h4>이슬빛 꽃받침대</h4><p>가지 수확 → 꽃받침대 제작 → 이슬빛 염색 → 정원 배치 · 보상 시안 새싹 코인 20개</p>' +
       '<section id="print-quest-daily"><h3>일일 퀘스트 · 리프의 부탁</h3>' + dailyQuests(false) + '</section>' +
       '<h3>주간 퀘스트</h3><p class="doc-paragraph">' + weeklyNote + ' ' + weeklyBonus + '</p>' +
