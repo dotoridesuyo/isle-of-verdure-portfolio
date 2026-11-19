@@ -310,7 +310,7 @@
   </header>
   <main id="main">
     <section class="intro" aria-labelledby="page-title">
-      <div><p class="eyebrow"><span></span> GAME DESIGN PORTFOLIO <span class="slash">/</span> ISLE OF VERDURE</p><h1 id="page-title">섬을 탐험하고, 회복시키며<br><em>나만의 정원을 가꾸다.</em></h1><p class="intro-subtitle">발견하고, 돌보고, 함께 가꾸는 힐링 가드닝 시뮬레이션</p></div>
+      <div><p class="eyebrow"><span></span> GAME DESIGN PORTFOLIO <span class="slash">/</span> ISLE OF VERDURE</p><h1 id="page-title">섬을 탐험하고, 회복시키며<br><em>나만의 정원을 가꾸다.</em></h1><p class="intro-subtitle">식물을 회복시키고, 돌보고, 가꾸어나가는 힐링 가드닝 게임</p></div>
     </section>
     <nav class="main-nav" aria-label="기획서 탐색">
       <a href="#chapter/01" data-nav="overview"><span>01</span> 프로젝트 소개</a>
@@ -996,14 +996,14 @@ const PLANT_BRIEFS={
 const CHAPTERS=[
   {
     "id": "01",
-    "title": "작은 정원에서 시작되는 섬의 회복",
+    "title": "섬을 회복시키며 나만의 정원을 가꾸다",
     "subtitle": "오염된 자연을 정화하고, 식물과 동물 친구를 모으며 나만의 정원을 가꾸는 힐링 가드닝 시뮬레이션.",
     "tag": "PROJECT OVERVIEW",
     "group": "overview",
     "blocks": [
       {
         "kind": "paragraph",
-        "text": "신록의 섬은 바쁘고 지친 하루 끝에 짧게 쉬어 갈 수 있는 가드닝 게임입니다. 탐험에서 만난 식물을 정원에서 키우고, 수확한 재료로 다음 정화를 준비합니다. 물주기와 수확에 익숙해지면 동물 친구에게 일부 관리를 맡기고, 새 지역을 탐험하거나 정원을 꾸미는 데 시간을 씁니다."
+        "text": "신록의 섬은 바쁜 일상 속에서 잠시 여유를 즐길 수 있는 가드닝 게임입니다. 탐험 중 발견한 식물을 정원에서 재배하고, 수확한 재료로 정화 물약을 만들어 새로운 지역을 개방합니다. 반복적인 물주기와 수확은 펫에게 맡길 수 있어, 플레이어는 새로운 지역을 탐험하거나 자신만의 정원을 꾸미는 데 집중할 수 있습니다."
       },
       {
         "kind": "cards",
@@ -1076,8 +1076,8 @@ const CHAPTERS=[
       },
       {
         "kind": "note",
-        "title": "부담을 줄이고, 관찰의 즐거움을 남긴다",
-        "text": "관리를 놓쳐도 식물은 영구적으로 사라지지 않는다. 기본 재료는 안정적으로 얻고, 희귀 변이와 특별한 수집은 장기 목표로 즐기도록 설계한다.",
+        "title": "관리 부담은 줄이고, 새로운 목표를 지속하여 제공",
+        "text": "식물을 제때 관리하지 못하더라도 영구적으로 잃지 않도록 설계했습니다. 기본 재료는 꾸준히 수확할 수 있으며, 희귀 변이 식물과 특별한 수집 요소를 통해 장기적인 플레이 목표를 제공합니다.",
         "tone": "green"
       },
       {"kind": "removed"},
@@ -1584,9 +1584,52 @@ const CHAPTERS=[
               ],
               [
                 "자동 수확 보관함",
-                "기본 최대 50개. 여러 펫이 같은 밭에서 한도를 공유하며, 캐시 아이템으로 확장하는 안입니다. 한도의 집계·초기화 시점과 추가 수확물 산입 방식은 검토 중입니다."
+                "계정 공용 보관함에 자동 수확물을 저장. 기본 용량 50개, 별잎으로 영구 확장 시 최대 200개."
               ]
             ]
+          },
+          {
+            "kind": "bullets",
+            "title": "자동 수확 한도",
+            "intro": "별도의 일일 자동 수확 횟수 제한 없이, 계정 공용 보관함에 한 번에 담을 수 있는 수확물의 양을 제한.",
+            "items": [
+              "수확물 1개당 보관함 1칸 사용. 추가 수확량 및 시너지 보너스로 획득한 수확물도 용량에 포함.",
+              "보관함이 가득 차거나 남은 칸이 해당 작물의 총수확량보다 적으면 그 작물의 자동 수확을 보류. 수확하지 못한 작물은 성숙 상태로 유지.",
+              "보관함에서 수확물을 수령해 공간을 비우면 다음 작업 주기부터 자동 수확 재개. 오프라인 상태에도 동일하게 적용.",
+              "수동과 자동 수확이 겹치면 같은 작물의 같은 수확 주기에 한 번만 처리."
+            ]
+          },
+          {
+            "kind": "table",
+            "title": "별잎 보관함 영구 확장",
+            "headers": [
+              "확장 횟수",
+              "보관 용량"
+            ],
+            "rows": [
+              [
+                "기본",
+                "50개"
+              ],
+              [
+                "1회",
+                "100개"
+              ],
+              [
+                "2회",
+                "150개"
+              ],
+              [
+                "3회 (최대)",
+                "200개"
+              ]
+            ]
+          },
+          {
+            "kind": "note",
+            "tone": "green",
+            "title": "보관 용량을 기준으로 제한한 이유",
+            "text": "15초·30초 작물을 반복해서 키우는 플레이와 수 시간 걸리는 작물을 기르는 플레이를 모두 지원. 보관함이 찬 뒤에도 작물을 성숙 상태로 유지해 접속을 쉬는 동안 작물을 잃는 부담을 줄임."
           }
         ]
       },
@@ -2020,6 +2063,11 @@ const CHAPTERS=[
                 "펫 스킨",
                 "240~300개",
                 "펫 외형에 적용"
+              ],
+              [
+                "자동 수확 보관함 확장",
+                "미정",
+                "1회당 50칸 영구 확장 · 최대 3회, 총 200칸"
               ]
             ]
           },
@@ -4168,7 +4216,7 @@ document.getElementById('animal-mode-filter').addEventListener('change',e=>{anim
 
 </script>
 <script src="garden-systems.js?v=design-intent"></script>
-<script src="pet-synergy.js?v=dedup-01"></script>
+<script src="pet-synergy.js?v=copy-and-storage"></script>
 <script src="pet-summon.js?v=dedup-01"></script>
 <script src="purification-plan.js?v=progress-sync"></script>
 <script src="exploration-map.js?v=progress-sync"></script>
@@ -4973,7 +5021,7 @@ const designIntents = [
  {"key":"friends","href":"#chapter/19","title":"가꾼 풍경을 나누고 다른 정원에서 영감 얻기","intent":"친구 정원을 구경하고 가볍게 인사를 남기며, 자신이 꾸민 공간도 보여 줄 수 있게 합니다. 서로 다른 식물·가구 구성을 보는 즐거움이 다음 꾸미기 목표로 이어집니다."},
  {"key":"shop","href":"#shop","title":"지금 필요한 재료와 원하는 장식을 고르는 곳","intent":"모은 수확물과 여분 씨앗을 팔아 다음 재배에 필요한 물품이나 가구를 고릅니다. 무엇을 살지 결정하면 다음에 어떤 작물을 키우고 어느 지역을 돌아볼지 목표가 생깁니다."},
  {"key":"opening","href":"#chapter/01/section-7","title":"편지에서 시작해 첫 수확으로 배우는 조작","intent":"할아버지의 편지로 섬에 온 이유를 전한 뒤, 리프와 첫 밭을 가꾸며 조작을 익힙니다. 직접 키운 작물로 첫 정화를 하고 펫이 관리를 돕는 장면까지 경험해 본편의 흐름을 한 번 따라갑니다."},
- {"key":"overview","href":"#chapter/01/section-2","title":"짧게 접속해도 정원이 자라는 게임","intent":"한 번의 파종과 수확으로 작은 성취를 얻고, 익숙해진 관리 작업은 펫에게 맡깁니다. 수확한 재료로 정화 물약을 만들어 새 지역을 열거나, 가구와 염색재를 만들어 정원을 꾸밉니다.","detail":"힐링형은 짧은 재배, 수집형은 도감과 업적, 탐험형은 지역 복원, 전략형은 펫 배치, 꾸미기형은 공간과 색 조합, 교류형은 대표 펫과 성취 공유에서 각자의 목표를 찾습니다."},
+ {"key":"overview","href":"#chapter/01/section-2","title":"짧게 접속해도 정원이 자라는 게임","intent":"씨앗을 심고 수확하며 성취감을 느끼고, 반복적인 관리 작업은 펫에게 맡길 수 있습니다. 수확한 재료로 정화 물약을 만들어 새로운 지역을 개방하거나, 가구와 염색재를 제작해 나만의 정원을 꾸밀 수 있습니다.","detail":"가볍게 식물을 키우는 재미부터 도감과 업적 수집, 새로운 지역 복원, 효율적인 펫 배치, 랭킹과 친구 방문까지 다양한 플레이 목표를 제공합니다. 정원을 자유롭게 꾸미거나 대표 펫과 게임 속 성과를 다른 플레이어와 공유하는 등 각자의 취향에 맞게 게임을 즐길 수 있도록 설계했습니다."},
  {"key":"cultivation","href":"#chapter/03/section-1","title":"한 번의 파종부터 다음 재배까지","intent":"파종과 첫 물주기, 성숙과 수확을 한 주기로 설명합니다. 작물마다 수확한 뒤 밭을 다시 쓰는 방식이 달라 다음에 무엇을 심을지 고를 수 있습니다.","proposal":"장기 작물의 중간 성장 단계에서 보상을 주는 방안을 검토합니다.","relatedHref":"#plants","relatedTitle":"식물 재배의 기획 의도"},
  {"key":"harvest","href":"#chapter/02/section-5","title":"희귀 · 황금 수확물","intent":"기본 수확 보상을 꾸준히 얻는 동안 가끔 황금·프리즘 등 특별한 결과를 만나게 해, 익숙한 재배에도 기대를 더합니다. 특별한 결과는 도감과 제작에 이어져 다음 재배 목표를 만듭니다.","proposal":"황금 수확물의 특별 납품과 누적 업적, 희귀 수확물을 활용한 교배 재배를 검토합니다. 수확 확률과 기대 보상량을 함께 검증합니다.","relatedHref":"#chapter/08/section-6","relatedTitle":"황금·프리즘 작물 연출"},
  {"key":"plant-records","href":"#chapter/07/section-2","title":"식물 도감 · 누적 수집 · 정원 앨범","intent":"식물 도감에는 발견·획득을 기록하고, 작물별 업적에는 누적 수확을 남깁니다. 수집 보상은 재화와 펫 소환 기회로 이어집니다. 정원 앨범에는 정원 풍경을 남겨 가꾸어 온 변화를 돌아보고 공유합니다.","detail":"도감의 빈칸, 업적의 다음 단계, 앨범에 남기고 싶은 풍경이 서로 다른 재방문 동기를 만듭니다.","relatedHref":"#chapter/19/section-10","relatedTitle":"정원 앨범과 쉼터"},
