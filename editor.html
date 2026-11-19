@@ -39,6 +39,15 @@ small,.subtle{color:var(--muted);font-size:12px}
 #draft-list li{display:flex;gap:8px;align-items:start;justify-content:space-between;margin:5px 0}
 .draft-copy{flex:1;min-width:0;overflow-wrap:anywhere}
 .draft-copy small{display:block}
+.order-list{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:5px}
+.order-list li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:5px;align-items:center;padding:5px;border:1px solid var(--line);border-radius:5px;background:white}
+.order-list li[data-dragging]{opacity:.5}
+.order-list li[data-drop]{outline:2px solid var(--green)}
+.order-label{overflow-wrap:anywhere;font-size:12px}
+.order-actions{display:flex;gap:3px}
+.order-actions button,.grip{padding:3px 6px;font-size:12px}
+.grip[draggable=true]{cursor:grab}
+button.delete{color:#7d3f37;background:#fbede9;border-color:#dac1ba}
 @media(max-width:740px){
  main{display:flex;flex-direction:column;height:auto}
  .preview{height:60dvh}
@@ -72,8 +81,18 @@ small,.subtle{color:var(--muted);font-size:12px}
       <pre id="excerpt"></pre>
       <label for="replacement">수정 문구</label>
       <textarea id="replacement" spellcheck="false"></textarea>
-      <button id="save" class="primary" type="button">초안 저장</button>
+      <div class="row">
+        <button id="save" class="primary" type="button">초안 저장</button>
+        <button id="delete-copy" class="delete" type="button">문구 삭제</button>
+      </div>
     </div>
+  </section>
+  <section>
+    <h2>항목 순서와 삭제</h2>
+    <label for="order-part">편집할 장</label>
+    <select id="order-part" disabled><option value="">기획서 목차 불러오는 중</option></select>
+    <p id="order-help" class="subtle">항목을 잡아 끌거나 화살표로 순서를 바꿔요. 삭제와 이동은 초안에 바로 저장돼요.</p>
+    <ol id="order-list" class="order-list" aria-describedby="order-help"></ol>
   </section>
   <section>
     <h2>저장한 초안</h2>
@@ -115,6 +134,9 @@ let picking = false;
 let observer;
 let previewFrame = 0;
 let shown = new Map();
+let orderParts = [];
+let previewLayouts = new WeakMap();
+let draggedSection = null;
 
 try {
   const data = JSON.parse(localStorage.getItem(storageKey) || '[]');
@@ -135,6 +157,7 @@ async function readSource(file) {
 function loadSources() {
   if (!sourcePromise) sourcePromise = Promise.all(files.map(readSource)).then(sources => {
     sourceCatalog = sources;
+    loadOrderParts(sources.find(source => source.file === 'index.html'));
     return sources;
   }).catch(error => {
     sourcePromise = null;
@@ -152,6 +175,7 @@ function persist(next) {
   }
   drafts = next;
   renderDrafts();
+  renderOrderList();
   return applyPreview();
 }
 
@@ -188,6 +212,7 @@ function showMatch() {
   byId('excerpt').textContent = match.excerpt;
   byId('replacement').value = draftFor(match)?.displayAfter ?? byId('query').value.trim();
   byId('save').disabled = matches.length > 1 && !byId('match').value;
+  byId('delete-copy').disabled = byId('save').disabled;
 }
 
 function sourceMatches(query) {
@@ -281,6 +306,7 @@ async function search(query, location = null, context = null) {
     byId('excerpt').textContent = '';
     byId('replacement').value = query;
     byId('save').disabled = selected < 0;
+    byId('delete-copy').disabled = selected < 0;
     byId('edit-form').hidden = false;
     if (selected >= 0) {
       menu.value = String(selected);
@@ -308,11 +334,12 @@ function makeReplacement(before, replacement) {
   return {first, tail, added};
 }
 
-function saveDraft() {
-  const match = matches[Number(byId('match').value)];
+function saveDraft(deleting = false) {
+  const selected = byId('match').value;
+  const match = selected === '' ? null : matches[Number(selected)];
   const original = byId('query').value.trim();
-  const displayAfter = byId('replacement').value.trim();
-  if (!match || !displayAfter) {
+  const displayAfter = deleting ? '' : byId('replacement').value.trim();
+  if (!match || (!deleting && !displayAfter)) {
     byId('status').textContent = '수정할 문구를 입력하세요.';
     return;
   }
@@ -332,14 +359,227 @@ function saveDraft() {
     if (byId('replacement').value !== displayAfter) byId('replacement').value = displayAfter;
     const known = draftFor(match);
     const next = drafts.filter(d => d !== known);
-    const draft = {...match, after, original, displayAfter, location:selection || known?.location};
+    const draft = {...match, after, original, displayAfter, location:selection || known?.location, kind:deleting ? 'delete' : 'copy'};
     if (after !== match.before) next.push(draft);
     const applied = persist(next);
     if (applied) byId('status').textContent = after === match.before ? '원문으로 되돌렸습니다.' :
-      applied.has(draft) ? '초안을 저장하고 왼쪽 미리보기를 바로 바꿨어요.' :
+      applied.has(draft) ? (deleting ? '문구를 삭제했어요. 초안 목록에서 되돌릴 수 있어요.' : '초안을 저장하고 왼쪽 미리보기를 바로 바꿨어요.') :
       '초안을 저장했어요. 해당 문구가 있는 페이지를 열면 미리보기에서 확인할 수 있어요.';
   } catch (error) {
     byId('status').textContent = error.message;
+  }
+}
+
+
+function readOrderParts(source) {
+  const text = source.text;
+  const data = text.match(/const CHAPTERS\s*=\s*(\[[\s\S]*?\n\]);/);
+  const layout = text.match(/const readingLayout\s*=\s*\{[\s\S]*?\n\};/);
+  if (!data || !layout) return [];
+  const chapters = JSON.parse(data[1]);
+  return [...layout[0].matchAll(/\{id:['"](\d+)['"][^{}]*\}/g)].map(match => {
+    const before = match[0];
+    const id = match[1];
+    const chapter = chapters.find(chapter => chapter.id === id);
+    const key = before.match(/\bpart:['"]([^'"]+)['"]/)?.[1] ?? id;
+    const title = before.match(/\btitle:['"]([^'"]+)['"]/)?.[1] ?? chapter.title;
+    const sections = before.match(/\bsections:\[([\d, ]*)\]/);
+    const original = sections ? sections[1].split(',').filter(Boolean).map(Number) :
+      chapter.blocks.map((_, index) => index + 1);
+    const labels = new Map(original.map(section => {
+      const block = chapter.blocks[section - 1];
+      return [section, block.title || ({paragraph:'본문 문단', links:'관련 링크'})[block.kind] || '본문 항목'];
+    }));
+    const locked = key !== id || chapter.blocks[original[0] - 1]?.chapterLead ? original[0] : null;
+    const start = layout.index + match.index;
+    return {file:source.file, revision:source.revision, id, key, title, start, before, original, labels, locked,
+      line:text.slice(0, start).split('\n').length};
+  });
+}
+
+function loadOrderParts(source) {
+  orderParts = readOrderParts(source);
+  const menu = byId('order-part');
+  menu.disabled = !orderParts.length;
+  if (!orderParts.length) return;
+  menu.replaceChildren(...orderParts.map(part => new Option(part.title, part.key)));
+  selectCurrentOrderPart();
+}
+
+function selectCurrentOrderPart() {
+  const route = preview.contentWindow?.location.hash.match(/^#chapter\/(\d+)(?:\/section-(\d+))?/);
+  const part = route && (orderParts.find(item => item.id === route[1] && route[2] && item.original.includes(Number(route[2]))) ||
+    orderParts.find(item => item.key === route[1]));
+  if (part) byId('order-part').value = part.key;
+  renderOrderList();
+}
+
+function layoutDraft(part) {
+  return drafts.find(draft => draft.kind === 'layout' && draft.partKey === part.key);
+}
+
+function orderFor(part) {
+  const saved = layoutDraft(part);
+  return saved?.revision === part.revision && Array.isArray(saved.order) ? saved.order : part.original;
+}
+
+function layoutSource(part, order) {
+  const sections = 'sections:[' + order.join(',') + ']';
+  let after = /\bsections:\[[^\]]*\]/.test(part.before) ?
+    part.before.replace(/\bsections:\[[^\]]*\]/, sections) : part.before.slice(0, -1) + ', ' + sections + '}';
+  const outline = after.match(/\boutline:\[([\d, ]*)\]/);
+  if (outline) {
+    const listed = outline[1].split(',').filter(Boolean).map(Number);
+    after = after.replace(outline[0], 'outline:[' + order.filter(section => listed.includes(section)).join(',') + ']');
+  }
+  return after;
+}
+
+function saveOrder(part, order, status) {
+  const saved = layoutDraft(part);
+  const next = drafts.filter(draft => draft !== saved);
+  if (next.some(draft => draft.file === part.file && draft.revision === part.revision &&
+      draft.start < part.start + part.before.length && part.start < draft.start + draft.before.length)) {
+    byId('status').textContent = '이 장 이름을 바꾼 초안과 겹쳐요. 문구 수정이나 순서 변경 중 하나를 먼저 반영해 주세요.';
+    return;
+  }
+  if (order.join(',') !== part.original.join(',')) next.push({
+    kind:'layout', file:part.file, revision:part.revision, start:part.start, line:part.line, partKey:part.key, order,
+    before:part.before, after:layoutSource(part, order), displayAfter:'항목 편집 · ' + part.title
+  });
+  if (persist(next)) byId('status').textContent = status + ' 초안 목록에서 되돌릴 수 있어요.';
+}
+
+function moveSection(part, from, to) {
+  const order = [...orderFor(part)];
+  const start = order.indexOf(from);
+  const end = order.indexOf(to);
+  if (start < 0 || end < 0 || start === end || from === part.locked || to === part.locked) return;
+  order.splice(start, 1);
+  order.splice(end, 0, from);
+  saveOrder(part, order, '항목 순서를 바꿨어요.');
+}
+
+function renderOrderList() {
+  const list = byId('order-list');
+  list.replaceChildren();
+  const part = orderParts.find(part => part.key === byId('order-part').value);
+  if (!part) return;
+  const order = orderFor(part);
+  for (const [index, section] of order.entries()) {
+    const item = document.createElement('li');
+    item.dataset.section = section;
+    const locked = section === part.locked;
+    const title = part.labels.get(section);
+    const grip = document.createElement('button');
+    grip.type = 'button';
+    grip.className = 'grip';
+    grip.textContent = locked ? '–' : '⠿';
+    grip.draggable = !locked;
+    grip.disabled = locked;
+    grip.setAttribute('aria-label', title + (locked ? ' 고정된 항목' : ' 순서 이동 손잡이'));
+    grip.addEventListener('dragstart', event => {
+      draggedSection = section;
+      event.dataTransfer.setData('text/plain', String(section));
+      event.dataTransfer.effectAllowed = 'move';
+      item.dataset.dragging = '';
+    });
+    grip.addEventListener('dragend', () => {
+      draggedSection = null;
+      for (const row of list.children) {
+        delete row.dataset.dragging;
+        delete row.dataset.drop;
+      }
+    });
+    item.addEventListener('dragover', event => {
+      if (locked || draggedSection === null || draggedSection === section) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'move';
+      item.dataset.drop = '';
+    });
+    item.addEventListener('dragleave', () => delete item.dataset.drop);
+    item.addEventListener('drop', event => {
+      if (draggedSection === null) return;
+      event.preventDefault();
+      moveSection(part, draggedSection, section);
+      draggedSection = null;
+    });
+
+    const label = document.createElement('span');
+    label.className = 'order-label';
+    label.textContent = title + (locked ? ' · 고정' : '');
+    const actions = document.createElement('span');
+    actions.className = 'order-actions';
+    for (const [step, symbol, name] of [[-1,'↑','위로 이동'], [1,'↓','아래로 이동']]) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = symbol;
+      button.dataset.move = String(step);
+      button.setAttribute('aria-label', title + ' ' + name);
+      const target = order[index + step];
+      button.disabled = locked || !target || target === part.locked;
+      button.addEventListener('click', () => {
+        moveSection(part, section, target);
+        const row = list.querySelector('[data-section="' + section + '"]');
+        (row?.querySelector('[data-move="' + step + '"]:enabled') || row?.querySelector('.grip'))?.focus();
+      });
+      actions.append(button);
+    }
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'delete';
+    remove.textContent = '삭제';
+    remove.disabled = locked || order.length === 1;
+    remove.setAttribute('aria-label', title + ' 항목 삭제');
+    remove.addEventListener('click', () => saveOrder(part, order.filter(value => value !== section), '항목을 삭제했어요.'));
+    actions.append(remove);
+    item.append(grip, label, actions);
+    list.append(item);
+  }
+}
+
+function reorderElements(parent, baseline, order) {
+  const priority = new Map(order.map((section, index) => [section, index]));
+  const active = baseline.filter(item => item.element.parentElement === parent);
+  const sorted = [...active].sort((a, b) => (priority.get(a.section) ?? Infinity) - (priority.get(b.section) ?? Infinity));
+  if (active.length) {
+    const actual = [...parent.children].filter(el => active.some(item => item.element === el));
+    if (actual.some((el, index) => el !== sorted[index].element)) {
+      const end = actual.at(-1).nextSibling;
+      for (const item of sorted) parent.insertBefore(item.element, end);
+    }
+  }
+  for (const {section, element} of active) {
+    element.hidden = !priority.has(section);
+    if (parent.id === 'toc') element.style.display = element.hidden ? 'none' : '';
+  }
+}
+
+function applyLayoutPreview(doc) {
+  for (const part of orderParts) {
+    const order = orderFor(part);
+    for (const prefix of ['reading-', 'print-chapter-']) {
+      const article = doc.getElementById(prefix + part.key);
+      if (!article) continue;
+      let info = previewLayouts.get(article);
+      if (!info && order === part.original) continue;
+      if (!info) {
+        const nodes = [];
+        const links = [];
+        for (const section of part.original) {
+          const node = doc.getElementById(prefix + part.id + '-section-' + section);
+          if (node?.parentElement === article) nodes.push({section, element:node});
+          const href = '#chapter/' + part.id + '/section-' + section;
+          const link = prefix === 'reading-' && doc.querySelector('#toc > .reading-subsection[href="' + href + '"]');
+          if (link) links.push({section, element:link});
+        }
+        info = {nodes, links};
+        previewLayouts.set(article, info);
+      }
+      reorderElements(article, info.nodes, order);
+      const toc = doc.getElementById('toc');
+      if (toc && info.links.length) reorderElements(toc, info.links, order);
+    }
   }
 }
 
@@ -356,7 +596,9 @@ function renderDrafts() {
     const edit = document.createElement('button');
     edit.className = 'draft-copy';
     edit.type = 'button';
-    edit.textContent = draft.displayAfter;
+    const label = draft.kind === 'delete' ? '삭제 · ' + draft.original : draft.displayAfter;
+    edit.textContent = label;
+    if (draft.kind === 'layout') edit.disabled = true;
     const origin = document.createElement('small');
     origin.textContent = draft.file + ' · ' + draft.line + '행';
     edit.append(origin);
@@ -371,7 +613,7 @@ function renderDrafts() {
     const remove = document.createElement('button');
     remove.type = 'button';
     remove.textContent = '되돌리기';
-    remove.setAttribute('aria-label', draft.displayAfter + ' 초안 되돌리기');
+    remove.setAttribute('aria-label', label + ' 초안 되돌리기');
     remove.addEventListener('click', () => {
       if (persist(drafts.filter(d => d !== draft))) {
         byId('status').textContent = '선택한 초안을 되돌렸습니다.';
@@ -399,10 +641,19 @@ function updatePublishLink() {
 
 async function revisedSource(file) {
   const source = await readSource(file);
-  const changes = drafts.filter(d => d.file === file).sort((a, b) => b.start - a.start);
-  if (!changes.length) throw new Error('선택한 파일에 초안이 없습니다.');
+  const fileDrafts = drafts.filter(d => d.file === file);
+  const changes = fileDrafts.filter(d => d.revision === source.revision ||
+    !d.after || d.kind === 'layout' || source.text.includes(d.before) ||
+    source.text.indexOf(d.after) < 0 || source.text.indexOf(d.after) !== source.text.lastIndexOf(d.after)
+  ).sort((a, b) => b.start - a.start);
+  if (!changes.length) throw new Error('이 파일의 초안 문구는 이미 공개본에 반영됐어요.');
   if (changes.some(d => d.revision !== source.revision || source.text.slice(d.start, d.start + d.before.length) !== d.before)) {
     throw new Error('공개 원본이 바뀌었습니다. 이전 초안의 문구를 복사해 두고 최신 원문에서 다시 수정하세요.');
+  }
+  for (let i = 1; i < changes.length; i++) {
+    if (changes[i].start + changes[i].before.length > changes[i - 1].start) {
+      throw new Error('서로 겹치는 초안이 있습니다. 초안 목록에서 하나를 되돌린 뒤 다시 시도하세요.');
+    }
   }
   let result = source.text;
   for (const d of changes) result = result.slice(0, d.start) + d.after + result.slice(d.start + d.before.length);
@@ -491,7 +742,9 @@ function applyPreview() {
   if (!doc?.body) return applied;
   for (const [node, text] of shown) if (node.isConnected) node.data = text;
   shown.clear();
-  if (!drafts.length) return applied;
+  applyLayoutPreview(doc);
+  const copyDrafts = drafts.filter(draft => draft.kind !== 'layout');
+  if (!copyDrafts.length) return applied;
 
   const patches = new Map();
   const add = (node, draft) => {
@@ -507,7 +760,7 @@ function applyPreview() {
 
   // Prefer the exact clicked node, including when the editor has just been reopened.
   const currentHash = preview.contentWindow.location.hash;
-  for (const draft of drafts) {
+  for (const draft of copyDrafts) {
     const loc = draft.location;
     if (!loc || loc.hash !== currentHash || !Array.isArray(loc.path)) continue;
     const root = loc.id ? doc.getElementById(loc.id) : doc.body;
@@ -517,7 +770,7 @@ function applyPreview() {
   // Match searched text and shared labels to their source on the currently visible page.
   if (sourceCatalog.length) {
     const nodes = visibleCopyNodes(doc);
-    for (const draft of drafts) {
+    for (const draft of copyDrafts) {
       const candidates = sourceMatches(draft.original);
       const index = candidates.findIndex(match => match.file === draft.file &&
         match.revision === draft.revision && match.start === draft.start);
@@ -612,6 +865,11 @@ function pickText(event) {
   const selectedText = doc.getSelection()?.toString().trim();
   let copy = selectedText && before.includes(selectedText) ? selectedText : before.trim();
   if (textNode.parentElement.closest('.icon-flow-steps')) copy = copy.replace(/^\d+\.\s+/, '');
+  const article = textNode.parentElement.closest('article[id^="reading-"]');
+  if (article && orderParts.some(part => 'reading-' + part.key === article.id)) {
+    byId('order-part').value = article.id.slice('reading-'.length);
+    renderOrderList();
+  }
   if (copy) search(copy, locate(textNode, doc), clickedContext(textNode, copy));
 }
 
@@ -626,14 +884,19 @@ function setPicking(next) {
 preview.addEventListener('load', () => {
   observer?.disconnect();
   shown.clear();
+  previewLayouts = new WeakMap();
   const doc = preview.contentDocument;
   if (!doc?.body) return;
   preview.contentWindow.addEventListener('click', pickText, true);
-  preview.contentWindow.addEventListener('hashchange', schedulePreview);
+  preview.contentWindow.addEventListener('hashchange', () => {
+    selectCurrentOrderPart();
+    schedulePreview();
+  });
   observer = new MutationObserver(schedulePreview);
   observer.observe(doc.body, {subtree:true, childList:true});
   setPicking(picking);
   schedulePreview();
+  selectCurrentOrderPart();
   if (drafts.length && !sourceCatalog.length) loadSources().then(schedulePreview).catch(() => {});
 });
 byId('browse').addEventListener('click', () => setPicking(false));
@@ -643,11 +906,16 @@ byId('search-form').addEventListener('submit', e => {
   search(byId('query').value.trim());
 });
 byId('match').addEventListener('change', showMatch);
-byId('save').addEventListener('click', saveDraft);
+byId('save').addEventListener('click', () => saveDraft());
+byId('delete-copy').addEventListener('click', () => saveDraft(true));
+byId('order-part').addEventListener('change', renderOrderList);
 byId('file').addEventListener('change', updatePublishLink);
 byId('copy').addEventListener('click', () => exportSource(false));
 byId('download').addEventListener('click', () => exportSource(true));
 renderDrafts();
+loadSources().catch(() => {
+  byId('order-part').replaceChildren(new Option('목차를 불러오지 못했어요', ''));
+});
 </script>
 </body>
 </html>
