@@ -5065,7 +5065,7 @@ const designIntents = [
  {"key":"friends","href":"#chapter/19","title":"친구 정원 방문과 배치 공유","intent":"친구 정원 방문, 좋아요, 정원 배치 공유를 지원. 다른 정원의 식물과 가구 조합을 확인해 꾸미기에 활용."},
  {"key":"shop","href":"#shop","title":"상점의 재료와 장식 상품","intent":"여분 수확물과 씨앗을 판매해 재배 용품과 가구를 구매. 상품 선택에 필요한 재배·탐험 목표 제공."},
  {"key":"opening","href":"#chapter/01/section-7","title":"편지에서 시작해 첫 수확으로 배우는 조작","intent":"할아버지의 편지로 섬에 온 배경을 전달. 리프의 안내를 따라 첫 재배·수확·정화와 펫 자동 관리를 체험."},
- {"key":"overview","href":"#chapter/01/section-2","title":"짧게 접속해도 정원이 자라는 게임","intent":"씨앗을 심고 수확하며 성취감을 느끼고, 반복적인 관리 작업은 펫에게 맡길 수 있습니다. 수확한 재료로 정화 물약을 만들어 새로운 지역을 개방하거나, 가구와 염색재를 제작해 나만의 정원을 꾸밀 수 있습니다.","detail":"가볍게 식물을 키우는 재미부터 도감과 업적 수집, 새로운 지역 복원, 효율적인 펫 배치, 랭킹과 친구 방문까지 다양한 플레이 목표를 제공합니다. 정원을 자유롭게 꾸미거나 대표 펫과 게임 속 성과를 다른 플레이어와 공유하는 등 각자의 취향에 맞게 게임을 즐길 수 있도록 설계했습니다."},
+ {"key":"overview","href":"#chapter/01/section-2","intent":"씨앗을 심고 수확하며 성취감을 느끼고, 반복적인 관리 작업은 펫에게 맡길 수 있습니다. 수확한 재료로 정화 물약을 만들어 새로운 지역을 개방하거나, 가구와 염색재를 제작해 나만의 정원을 꾸밀 수 있습니다.","detail":"가볍게 식물을 키우는 재미부터 도감과 업적 수집, 새로운 지역 복원, 효율적인 펫 배치, 랭킹과 친구 방문까지 다양한 플레이 목표를 제공합니다. 정원을 자유롭게 꾸미거나 대표 펫과 게임 속 성과를 다른 플레이어와 공유하는 등 각자의 취향에 맞게 게임을 즐길 수 있도록 설계했습니다."},
  {"key":"cultivation","href":"#chapter/03/section-1","title":"한 번의 파종부터 다음 재배까지","intent":"파종과 첫 물주기부터 성숙·수확까지를 한 주기로 구성. 수확 뒤 기본 표본은 다시 파종하고, 염색꽃은 같은 자리에서 재성장.","proposal":"장기 작물의 중간 성장 단계에 보상을 추가하는 방안 검토 중.","relatedHref":"#plants","relatedTitle":"식물 재배의 기획 의도"},
  {"key":"harvest","href":"#chapter/02/section-5","title":"희귀 · 황금 수확물","intent":"일반 재배에서 기본 보상을 제공하고, 낮은 확률로 황금·프리즘 수확물을 획득. 특수 수확물은 도감과 제작에 연계.","proposal":"황금 수확물의 특별 납품과 누적 업적, 희귀 수확물을 활용한 교배 재배를 검토. 수확 확률과 기대 보상량을 함께 검증.","relatedHref":"#chapter/08/section-6","relatedTitle":"황금·프리즘 작물 연출"},
  {"key":"plant-records","href":"#chapter/07/section-2","title":"식물 도감 · 누적 수집 · 정원 앨범","intent":"도감은 발견·획득, 업적은 누적 수확, 앨범은 정원 배치를 기록. 수집 보상은 재화와 펫 소환에 활용.","detail":"도감 등록, 다음 업적 단계, 정원 촬영을 각각 재방문 목표로 제공.","relatedHref":"#chapter/19/section-10","relatedTitle":"정원 앨범과 쉼터"},
@@ -5389,7 +5389,7 @@ function renderDesignIntent(href) {
  if (!item) return '';
  return `<aside class="doc-note green design-intent">
   <span class="design-intent-label">기획 의도</span>
-  <h3>${esc(item.title)}</h3>
+  ${item.title ? `<h3>${esc(item.title)}</h3>` : ''}
   ${renderDetailedIntent(item)}
   ${item.choices ? `<h4 class="design-intent-timing-title">생장 시간을 나눈 이유</h4><dl class="design-intent-choices">${item.choices.map(([title, description]) =>
    `<div><dt>${esc(title)}</dt><dd>${esc(description)}</dd></div>`).join('')}</dl>` : ''}
@@ -5480,7 +5480,7 @@ function mountDesignIntents(container) {
 
 function searchDesignIntents(query) {
  return designIntents.filter(item => [item.title, item.intent, item.detail, item.proposal, JSON.stringify(detailedDesignIntents[item.key] || ''), ...(item.choices?.flat() || [])].join(' ').toLowerCase().includes(query))
-  .map(item => ({url: item.href, title: item.title, description: item.intent}));
+  .map(item => ({url: item.href, title: item.title ?? '프로젝트 소개 · 기획 의도', description: item.intent}));
 }
 
 function renderIconFlow(block) {
