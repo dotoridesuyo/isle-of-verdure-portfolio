@@ -5923,7 +5923,7 @@ function route(initial=false){
  else if(doc){
   const {group,target}=renderChapter(parts[1],parts[2],parts[3]);
   active=group;
-  sectionTarget=target;
+  sectionTarget=collaboration.hidden ? target : collaboration;
  }
  else if (map) {
   active = 'map';
