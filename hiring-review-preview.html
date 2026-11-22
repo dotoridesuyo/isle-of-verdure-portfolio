@@ -363,6 +363,7 @@
         </div>
         <article id="map-detail" class="map-detail" aria-label="선택한 지역의 기획 상세" aria-live="polite"></article>
       </div>
+      <aside id="review-map-unlock" class="map-detail" hidden></aside>
     </section>
     <section id="shop-view" class="shop-view" aria-labelledby="shop-title" hidden>
       <header class="shop-header">
@@ -5974,7 +5975,7 @@ function route(initial=false){
  else if (map) {
   active = 'map';
   explorationMap.render(parts[1]);
-  if(parts[1]==='R02')$('#map-detail').insertAdjacentHTML('beforeend',renderBlock(reviewMapUnlock));
+  $('#review-map-unlock').hidden=parts[1]!=='R02';
   document.title = '탐험 지도 — 신록의 섬 포트폴리오';
  }
  else if (shop) {
@@ -6129,9 +6130,8 @@ function printAll(){
   if (section) print.append(section);
  }
  print.querySelector('#print-quest-daily').insertAdjacentHTML('beforeend', renderInterfaceMockups(dailyRewardsMockup) + renderBlock(reviewDaily));
- print.querySelector('#print-quest-weekly')?.insertAdjacentHTML('beforeend',renderBlock(reviewWeekly));
  print.querySelector('#print-map').insertAdjacentHTML('beforeend',renderBlock(reviewMapUnlock));
- print.querySelector('#print-quests').insertAdjacentHTML('beforeend', `<div id="print-quest-summon">${renderQuestSummon()}</div>`);
+ print.querySelector('#print-quests').insertAdjacentHTML('beforeend', renderBlock(reviewWeekly) + `<div id="print-quest-summon">${renderQuestSummon()}</div>`);
  for (const [selector, href] of [
   ['#print-quests > header', '#quests'],
   ['#print-shop > header', '#shop'],
@@ -6227,6 +6227,7 @@ mountDesignIntents(document);
 $('#quest-summon').innerHTML = renderQuestSummon();
 $('#review-daily-rules').innerHTML = renderBlock(reviewDaily);
 $('#review-weekly-rules').innerHTML = renderBlock(reviewWeekly);
+$('#review-map-unlock').innerHTML = renderBlock(reviewMapUnlock);
 $('#daily-rewards-preview').innerHTML = renderInterfaceMockups(dailyRewardsMockup);
 $('#summon-entry-equipment header h3').insertAdjacentHTML('afterend', renderDesignIntent('#summon/equipment'));
 $('#species-table').innerHTML=speciesTable();renderGrid();renderDetail();initializeAnimalEncyclopedia();route(true);
