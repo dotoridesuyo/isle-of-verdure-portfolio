@@ -317,16 +317,14 @@
     </section>
     <nav class="main-nav" aria-label="기획서 탐색">
       <a href="#chapter/01" data-nav="overview"><span>01</span> 프로젝트 소개</a>
-      <a href="#plants" data-nav="plants"><span>02</span> 식물 표본집</a>
-      <a href="#animals" data-nav="animals"><span>03</span> 동물 친구</a>
-      <a href="#map" data-nav="map"><span>04</span> 탐험 지도</a>
-      <a href="#shop" data-nav="shop"><span>05</span> 상점</a>
-      <a href="#summon" data-nav="summon"><span>06</span> 펫 뽑기</a>
-      <a href="#chapter/03" data-nav="system"><span>07</span> 핵심 시스템</a>
-      <a href="#achievements" data-nav="achievements"><span>08</span> 업적</a>
-      <a href="#chapter/20" data-nav="growth"><span>09</span> 레벨·퀘스트</a>
-      <a href="#chapter/14" data-nav="monetization"><span>10</span> 수익화 방향</a>
-      <a href="#chapter/08" data-nav="art"><span>11</span> 아트 · 설계</a>
+      <a href="#plants" data-nav="collection"><span>02</span> 도감</a>
+      <a href="#shop" data-nav="shop"><span>03</span> 상점</a>
+      <a href="#summon" data-nav="summon"><span>04</span> 펫 뽑기</a>
+      <a href="#chapter/03" data-nav="system"><span>05</span> 핵심 시스템</a>
+      <a href="#achievements" data-nav="achievements"><span>06</span> 업적</a>
+      <a href="#chapter/20" data-nav="growth"><span>07</span> 레벨·퀘스트</a>
+      <a href="#chapter/14" data-nav="monetization"><span>08</span> 수익화 방향</a>
+      <a href="#chapter/08" data-nav="art"><span>09</span> 아트 · 설계</a>
       <div class="global-search"><label class="search-label" for="doc-search"><span aria-hidden="true">⌕</span><input id="doc-search" type="search" aria-label="기획서 전체 검색" placeholder="기획서에서 찾아보기" autocomplete="off" aria-controls="search-results" aria-expanded="false"><kbd>/</kbd></label><div id="search-results" class="search-results" hidden></div></div>
     </nav>
     <nav id="category-navigation" class="garden-plan-nav" aria-label="분류별 상세 메뉴" hidden></nav>
@@ -5694,11 +5692,11 @@ function setActiveReadingEntry(entry){
 function renderReadingGroup(group, content){
  const parts=readingParts.filter(part=>part.group===group);
  const questView=$('#quests-view');
- if(content.dataset.group==='growth')$('#quest-storage').append(questView);
+ if(content.dataset.group==='overview')$('#quest-storage').append(questView);
  content.innerHTML=parts.map(part=>chapterPartMarkup(part)).join('');
  petSynergy.mount(content);
  content.dataset.group=group;
- if(group==='growth')$('#reading-20').after(questView);
+ if(group==='overview')content.append(questView);
  $('#reading-section-title').textContent=readingTitles[group];
  const outline=parts.flatMap(part=>{
   const sections=(part.outline ?? []).map(section=>({
@@ -5707,7 +5705,7 @@ function renderReadingGroup(group, content){
   }));
   return [{href:part.href,title:part.title,targetId:'reading-'+part.key,number:part.number}, ...sections];
  });
- if(group==='growth')outline.splice(outline.findIndex(item=>item.targetId==='reading-02'),0,...questOutline);
+ if(group==='overview')outline.push(...questOutline);
  const toc=$('#toc');
  toc.innerHTML=outline.map(({href,title,child,number})=>{
   const badge=number ? '<span aria-hidden="true">'+number+'</span>' : '';
@@ -5723,7 +5721,7 @@ function showReadingGroup(group){
 }
 
 function renderQuestReading(section, week){
- showReadingGroup('growth');
+ showReadingGroup('overview');
  gardenPlans.renderQuests(week);
  const entry=readingOutline.find(item=>item.href==='#quests/'+section) || readingOutline.find(item=>item.href==='#quests');
  for(const link of document.querySelectorAll('[data-quest-nav]')){
@@ -5828,7 +5826,7 @@ function route(initial=false){
  $('#collection-navigation').hidden = !collection;
  let active=animal?'animals':'plants',sectionTarget;
  if(quests){
-  active='growth';
+  active='overview';
   sectionTarget=renderQuestReading(parts[1],parts[2]);
  }
  else if(doc){
@@ -5892,7 +5890,7 @@ function route(initial=false){
   }
   document.title = '식물 표본집 — 신록의 섬 포트폴리오';
  }
- const navGroup = workshop || active === 'garden' ? 'system' : active;
+ const navGroup = collection ? 'collection' : workshop || active === 'garden' ? 'system' : active;
  const categoryGroup = workshop || active === 'garden' ? 'garden' : achievements ? 'growth' : shop || summon ? 'monetization' : navGroup;
  document.querySelectorAll('[data-nav]').forEach(a=>{
   const selected=a.dataset.nav===navGroup;
@@ -5973,7 +5971,7 @@ function updateSearch() {
 }
 function closeSearch(){$('#search-results').hidden=true;$('#doc-search').setAttribute('aria-expanded','false');}
 const printSectionsAfter = {
- '20': [['quests','퀘스트']],
+ '01': [['quests','퀘스트']],
  '07': [['achievements','업적과 지역 숙련도']],
  furniture: [['workshop','가구 제작소'], ['dye','꽃빛 염색 작업대']],
  '14': [['shop','상점'], ['summon','펫 뽑기'], ['pet-upgrades','동물 친구 장비']]
