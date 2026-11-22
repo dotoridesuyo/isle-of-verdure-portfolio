@@ -536,6 +536,7 @@
           <h3 id="quest-daily-title">일일 퀘스트 · 리프의 부탁</h3>
           <div id="quest-daily-tasks"></div>
           <div id="daily-rewards-preview"></div>
+          <div id="review-daily-rules"></div>
         </section>
         <section id="quest-weekly" class="shop-paper reading-target" aria-labelledby="quest-weekly-title">
           <h3 id="quest-weekly-title">주간 퀘스트</h3>
@@ -543,6 +544,7 @@
           <p id="quest-week-bonus" class="quest-bonus"></p>
           <div id="quest-week-controls" class="quest-weeks" role="group" aria-label="주차 선택"></div>
           <div id="quest-week-tasks" aria-live="polite"></div>
+          <div id="review-weekly-rules"></div>
           <div id="quest-summon" class="reading-target"></div>
         </section>
       </div>
@@ -3593,7 +3595,7 @@ const CHAPTERS=[
             "art": "snowflake",
             "name": "겨울의 속삭임",
             "source": "캐시 상점",
-            "condition": "상시 판매 기획 · 2,900원 가격안"
+            "condition": "상시 판매 기획 · 개별 판매 방식과 가격 검토 중"
           },
           {
             "art": "gold-laurel",
@@ -5481,13 +5483,117 @@ function renderChapterSummary(chapter) {
  return renderDesignIntent(chapterIntentPath(chapter.id)) + `<p${chapter.blocks[0]?.chapterLead ? ' class="doc-paragraph"' : ""}>${esc(chapter.subtitle)}</p>`;
 }
 
+const reviewSectionNotes = {
+ "#chapter/20/section-3": [
+  {
+   "kind": "table",
+   "title": "수확 3개체의 기록 예시 · 집계 시각 제안",
+   "intro": "이미 수확한 품종 3개체를 펫이 한 번에 수확하고, 보관함에 여유가 있는 경우. 보관함에서 꺼낸 시각과 수확이 확정된 시각을 분리해 기록하는 안.",
+   "headers": [
+    "수확 확정 상황",
+    "수확물 · 기본 XP",
+    "과제 · 랭킹"
+   ],
+   "rows": [
+    [
+     "일요일 23:59 접속 중 · 오늘 XP 인정 29회",
+     "3개체의 수확물을 저장. 기존 남은 인정 횟수 1회로 +5 XP.",
+     "일일 수확 과제에 3회. 참가 조건을 충족한 주간 랭킹과 진행 중인 주간 수확 과제는 일요일이 속한 주에 집계."
+    ],
+    [
+     "월요일 00:01 미접속 · 당일 XP 인정 0회",
+     "3개체의 수확물을 저장. 월요일 기록 최초 3회로 +15 XP.",
+     "일일 퀘스트의 접속 중 수확 조건에는 미포함. 주간 수확 과제와 랭킹의 오프라인 기록 인정 범위는 확정 전. 인정할 경우 새 주에 집계."
+    ],
+    [
+     "월요일에 전날 수확물을 보관함에서 수령",
+     "이미 확정된 수확물을 옮김.",
+     "수령만으로 XP, 퀘스트 횟수, 랭킹 점수가 다시 증가하지 않는 안."
+    ]
+   ]
+  }
+ ],
+ "#chapter/16/section-7": [
+  {
+   "kind": "bullets",
+   "title": "자동 수확이 보류되는 경우 · 처리 제안",
+   "items": [
+    "보관함 1칸이 남았을 때 기본 1개와 시너지 보너스 1개가 판정되면 총 2칸이 필요. 해당 작물의 수확을 보류하고 성숙 상태를 유지.",
+    "보류한 개체는 같은 수확 주기의 수량 판정을 저장해 다음 작업에서 재사용. 남은 용량에 들어가는 다른 작물은 수확 후보로 유지. 최종 저장 시 수확 주기와 수량을 함께 확정.",
+    "2×2 작물이 두 펫의 개별 관리 범위에 각각 닿아도 두 범위의 공통 칸에 닿지 않으면 시너지는 적용하지 않는 안. 동일 개체에는 같은 효과를 한 번 적용."
+   ]
+  }
+ ],
+ "#chapter/21/section-2": [
+  {
+   "kind": "table",
+   "title": "주간 랭킹의 참가 조건과 비교안",
+   "headers": [
+    "검토 항목",
+    "정책과 비교 기준"
+   ],
+   "rows": [
+    [
+     "유효 기록 0",
+     "순위와 순위 보상 후보에서 제외하는 안. 부문별 유효 기록이 한 건 이상일 때 순위 산정."
+    ],
+    [
+     "참가 보상",
+     "11위 이하의 주간 수확 20회 기준은 보상표에 유지. 수익·황금템 부문에도 공통으로 적용할지와 상위권 최소 참여 기준은 검토 중."
+    ],
+    [
+     "작물 선택",
+     "같은 밭·플레이 시간에서 짧은 작물 반복과 장기 작물 배치의 수확 개체 수, 획득 재료, 수동 조작 횟수를 비교."
+    ],
+    [
+     "유료 보관함",
+     "기본 50칸과 최대 200칸의 수확 개체 수와 주간 점수를 비교. 차이가 크면 계정에 동일한 자동 수확 집계 상한을 적용하는 안을 검토."
+    ]
+   ]
+  }
+ ],
+ "#chapter/03/section-4": [
+  {
+   "kind": "table",
+   "title": "접속 간격에 따른 작물 선택",
+   "headers": [
+    "상황",
+    "선택과 의도"
+   ],
+   "rows": [
+    [
+     "접속 중 · 15초~1분",
+     "빠른 작물을 반복 재배해 짧은 간격으로 수확. 씨앗을 다시 심는 행동이 접속 중 반복됨."
+    ],
+    [
+     "종료 전 · 20분 이상",
+     "다음 접속에서 필요한 재료를 기준으로 장기 작물을 배치. 발아용 물주기를 한 번 완료하면 미접속 중에도 성장."
+    ],
+    [
+     "비교할 기준",
+     "같은 밭과 접속 간격에서 필요한 재료 확보 시간, 재파종 조작 횟수, 주간 수확 개체 수를 비교."
+    ]
+   ]
+  }
+ ],
+ "#chapter/14/section-10": [
+  {
+   "kind": "paragraph",
+   "text": "프로필 테두리의 일반 판매 가격안은 별잎 120~180개. ‘겨울의 속삭임’ 개별 상품의 판매 방식과 가격은 검토 중."
+  }
+ ]
+};
+const reviewDaily = {"kind":"bullets","title":"유효한 돌봄과 선택 도전 · 판정 제안","items":["‘목마른 새싹 돌보기’는 플레이어가 직접 완료한 발아용 첫 물주기를 작물의 재배 주기당 1회 인정하는 안. 펫이 대신 물을 주거나 이미 물을 준 작물에 입력한 경우는 집계에서 제외.","기본 과제와 15회·30회 수확 추가 도전은 같은 기록을 사용. 추가 도전은 선택 사항이며, 소요 시간은 기획 목표."]};
+const reviewWeekly = {"kind":"bullets","title":"첫 주차 과제와 대체 과제 · 검토안","items":["이미 배치한 가구는 제출 시 조건을 충족하면 인정. 이슬 숲 진열이 잠겨 필요한 좌석을 구할 수 없으면 보유한 다른 좌석을 인정하거나 현재 가능한 대체 과제로 변경하는 안.","개울가 낮은 의자 22코인과 작은 흰꽃 화분 15코인을 새로 구입하는 예에서는 37코인이 필요하고, 과제 완료 보상은 20코인. 첫 주에는 구입이 필요한 과제 외에도 소환권 조건인 과제 2개를 달성 가능한지 확인."]};
+const reviewMapUnlock = {"kind":"table","title":"햇살 초원 이동과 현장 정화","headers":["구분","확인할 조건"],"rows":[["이동 전","이슬 숲의 필수 정화와 핵심 복원 완료. 어느 복원 활동을 필수로 집계하는지는 검토 중."],["지역 진입","필수 목표가 완료되면 햇살 초원으로 이동 가능."],["현장 활동","햇살 정화액으로 햇살방울꽃 등 지정 대상을 정화."]]};
+
 function renderChapterBlock(chapter, block, index, render) {
  if (block.chapterLead) return render(block) + renderChapterSummary(chapter);
  const path = '#chapter/' + chapter.id + '/section-' + (index + 1);
  const art = chapter.id === '08' && index === 0 ? renderArtReferences() : '';
  const mockups = block.mockups ? renderInterfaceMockups(block.mockups) : '';
  const intent = path === chapterIntentPath(chapter.id) ? '' : renderDesignIntent(path);
- const content = render(block);
+ const content = render(block) + (reviewSectionNotes[path] || []).map(render).join('');
  return intent + art + (block.mockups?.position === 'before' ? mockups + content : content + mockups);
 }
 
@@ -5868,6 +5974,7 @@ function route(initial=false){
  else if (map) {
   active = 'map';
   explorationMap.render(parts[1]);
+  if(parts[1]==='R02')$('#map-detail').insertAdjacentHTML('beforeend',renderBlock(reviewMapUnlock));
   document.title = '탐험 지도 — 신록의 섬 포트폴리오';
  }
  else if (shop) {
@@ -5878,6 +5985,10 @@ function route(initial=false){
  }
  else if (summon) {
   active = 'summon';
+  const duplicates=$('#summon-entry-duplicates');
+  if(duplicates && !duplicates.querySelector('.review-duplicate-example')){
+   duplicates.insertAdjacentHTML('beforeend','<p class="review-duplicate-example">대응 펫이 없는 장비는 보관 후 해당 펫을 얻으면 장착. 같은 펫을 다시 얻으면 도감 종류 수는 유지되고, 새 개체를 배치에 활용할 수 있음.</p>');
+  }
   sectionTarget = (parts[1] && document.getElementById('summon-entry-' + parts[1])) || $('#summon-title');
   document.title = '펫 뽑기 — 신록의 섬 포트폴리오';
  }
@@ -6017,7 +6128,9 @@ function printAll(){
   const section=document.getElementById('print-'+id);
   if (section) print.append(section);
  }
- print.querySelector('#print-quest-daily').insertAdjacentHTML('beforeend', renderInterfaceMockups(dailyRewardsMockup));
+ print.querySelector('#print-quest-daily').insertAdjacentHTML('beforeend', renderInterfaceMockups(dailyRewardsMockup) + renderBlock(reviewDaily));
+ print.querySelector('#print-quest-weekly')?.insertAdjacentHTML('beforeend',renderBlock(reviewWeekly));
+ print.querySelector('#print-map').insertAdjacentHTML('beforeend',renderBlock(reviewMapUnlock));
  print.querySelector('#print-quests').insertAdjacentHTML('beforeend', `<div id="print-quest-summon">${renderQuestSummon()}</div>`);
  for (const [selector, href] of [
   ['#print-quests > header', '#quests'],
@@ -6112,6 +6225,8 @@ window.addEventListener('scroll',scheduleReadingOutline,{passive:true});
 window.addEventListener('resize',()=>{readingJumpPosition=undefined;scheduleReadingOutline();});
 mountDesignIntents(document);
 $('#quest-summon').innerHTML = renderQuestSummon();
+$('#review-daily-rules').innerHTML = renderBlock(reviewDaily);
+$('#review-weekly-rules').innerHTML = renderBlock(reviewWeekly);
 $('#daily-rewards-preview').innerHTML = renderInterfaceMockups(dailyRewardsMockup);
 $('#summon-entry-equipment header h3').insertAdjacentHTML('afterend', renderDesignIntent('#summon/equipment'));
 $('#species-table').innerHTML=speciesTable();renderGrid();renderDetail();initializeAnimalEncyclopedia();route(true);
