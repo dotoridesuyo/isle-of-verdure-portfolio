@@ -25,9 +25,9 @@ const projects = [
     "caption": "리프와 심은 첫 씨앗에서 섬의 회복이 시작됩니다.",
     "roman": "I",
     "hook": "오염된 자연을 정화하고, 식물과 동물 친구를 모으며 나만의 정원을 가꾸는 힐링 가드닝 시뮬레이션.",
-    "description": "기획자·개발자 2인으로 Unity 게임을 제작하고 웹 체험판으로 연결했습니다. 기획·개발 AI가 이전 작업물과 공통 문서를 참조하도록 동기화하고, 작업 후 MD 인수인계 파일을 작성해 다음 에이전트가 같은 기준으로 이어가도록 구성했습니다.",
+    "description": "기획자와 개발자 2인으로 구성된 팀에서 AI를 활용해 Unity 기반 게임을 개발하고, 웹에서도 직접 체험할 수 있도록 제작했습니다. 또한 AI를 활용한 협업 워크플로우를 구축해 기획부터 개발, 검토 및 피드백 반영까지의 작업 과정을 체계화했습니다.",
     "scope": "게임 전반적 기획 및 UI",
-    "structureLabel": "AI 작업",
+    "structureLabel": "AI 작업 흐름",
     "structure": "이전 작업 동기화 → 기획·작업 정리 → 개발 → MD 인수인계",
     "tags": [],
     "pages": [
@@ -303,7 +303,7 @@ const projects = [
   }
 ];
 </script>
-  
+  <script src="https://dotoridesuyo.github.io/dana-game-portfolio/layout-core.js?v=20261121-intro-cleanup" defer></script>
   
   
   <style>
@@ -571,16 +571,7 @@ const projects = [
   .portfolio-art-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 }
   </style>
-<style>
-#project-display:has(.leaf-with-workflow){grid-template-columns:minmax(280px,1fr) minmax(360px,1.1fr);align-items:start;gap:30px;padding:25px 30px 30px}
-.hero-art.leaf-with-workflow{height:auto;min-height:0;display:flex;flex-direction:column;gap:14px;pointer-events:auto;padding-top:10px;align-self:start}
-.leaf-with-workflow:before,.leaf-with-workflow .art-orbit,.leaf-with-workflow .art-spark,.leaf-with-workflow .project-roman{display:none}
-.leaf-with-workflow .hero-character.companion{position:relative!important;inset:auto!important;transform:none!important;width:145px!important;height:145px!important;max-width:100%!important;max-height:none!important;object-fit:contain;filter:drop-shadow(0 8px 15px #0003);margin:0 auto}
-.leaf-workflow{width:100%;max-width:390px;padding:10px;border:1px solid #c0cfae;background:#f2f5e9;border-radius:8px;color:#34482d;margin:0 auto}.leaf-workflow-circle{position:relative;width:100%;aspect-ratio:1}.leaf-workflow-circle>svg{position:absolute;inset:0;width:100%;height:100%}.leaf-workflow-center{position:absolute;inset:35% 25%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center}.leaf-workflow-center strong{font-size:clamp(18px,1.7vw,25px);line-height:1.35;letter-spacing:-.045em}.leaf-workflow-center span{font-size:12px;color:#70815d}.leaf-flow-node{position:absolute;width:29%;min-height:58px;padding:6px 3px;background:#e5edda;border:1px solid #9fb78a;border-radius:7px;color:#34482d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}.leaf-flow-node>span{font-size:16px;font-weight:800;color:#708d49}.leaf-flow-node>strong{font-size:12px;white-space:nowrap;letter-spacing:-.05em}.lf-pos-0{top:5%;left:35.5%}.lf-pos-1{top:32%;right:0}.lf-pos-2{bottom:7%;right:9%}.lf-pos-3{bottom:7%;left:9%}.lf-pos-4{top:32%;left:0}.leaf-flow-node.is-highlighted{background:#cce0ad;border-color:#5f803e;box-shadow:0 0 0 3px #87a35e30}.leaf-flow-node:focus-visible{outline:2px solid #5f803e;outline-offset:3px}
-.project-info:has(.leaf-work-details) .project-description{margin-bottom:16px;line-height:1.8}.info-row:has(.leaf-work-details){grid-template-columns:1fr;gap:10px}.info-row:has(.leaf-work-details)>strong{font-size:14px;color:#dfc59a}.leaf-work-details{list-style:none;margin:0;padding:0;display:grid;gap:5px}.leaf-work-details>li{padding:9px 12px;border:1px solid #ffffff18;border-left:2px solid #dfc59a40;background:#ffffff02;transition:background .18s,border-color .18s}.leaf-work-title{display:flex;gap:10px;align-items:center}.leaf-work-title>span{font-size:13px;font-weight:700;color:#d7c597}.leaf-work-title h3{font-size:14px;margin:0;line-height:1.4;color:#f2e8d6}.leaf-work-details p{font-size:12px;color:#c3bdc6;line-height:1.5;margin:5px 0 7px;word-break:keep-all}.leaf-work-details dl{display:grid;gap:3px;margin:0}.leaf-work-details dl>div{display:grid;grid-template-columns:55px 1fr;gap:8px;font-size:11px;line-height:1.5}.leaf-work-details dt{color:#dfc59a}.leaf-work-details dd{margin:0;color:#b9b3bf;word-break:keep-all}.leaf-work-details>li.is-highlighted{background:#b7cd8520;border-color:#acbf7e;box-shadow:inset 2px 0 #acbf7e}.leaf-work-details>li.is-highlighted p,.leaf-work-details>li.is-highlighted dd{color:#f2efdf}.leaf-work-details>li:focus-visible{outline:1px solid #dfc59a;outline-offset:2px}.ai-work-value{color:#b9b0bc;word-break:keep-all}
-@media(max-width:1100px) and (min-width:781px){#project-display:has(.leaf-with-workflow){grid-template-columns:minmax(230px,.85fr) minmax(310px,1.15fr);padding:20px 18px;gap:20px}.leaf-with-workflow .hero-character.companion{width:120px!important;height:120px!important}.leaf-flow-node{min-height:48px}.leaf-flow-node>strong{font-size:10px}.leaf-flow-node>span{font-size:13px}.leaf-workflow-center strong{font-size:19px}}
-@media(max-width:780px){#project-display:has(.leaf-with-workflow){display:flex;padding:10px 20px 25px;gap:10px}.hero-art.leaf-with-workflow{height:auto;min-height:0}.leaf-workflow{max-width:390px}.leaf-workflow-center strong{font-size:24px}.leaf-work-details p{font-size:14px}.leaf-work-details dl>div{font-size:13px;grid-template-columns:60px 1fr}.leaf-work-details>li{padding:13px}.leaf-work-title h3{font-size:16px}}
-</style></head>
+<style>.hero-art.leaf-diagram-only{height:auto!important;min-height:0!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;align-self:center}.leaf-diagram-only:before,.leaf-diagram-only .art-orbit,.leaf-diagram-only .art-spark,.leaf-diagram-only .project-roman{display:none}.leaf-diagram-only .hero-character.companion{position:relative!important;inset:auto!important;transform:none!important;width:150px!important;height:150px!important;max-height:none!important;max-width:100%!important;object-fit:contain}.leaf-mini-diagram{margin:0;width:100%;max-width:330px;pointer-events:none}.leaf-mini-diagram svg{display:block;width:100%;height:auto;overflow:visible;font-family:inherit}@media(min-width:1650px){.leaf-mini-diagram{max-width:390px}.leaf-diagram-only .hero-character.companion{width:180px!important;height:180px!important}}@media(max-width:1100px) and (min-width:781px){.leaf-mini-diagram{width:125%;max-width:300px}.leaf-diagram-only .hero-character.companion{width:120px!important;height:120px!important}}@media(max-width:780px){.hero-art.leaf-diagram-only{height:auto!important;padding:15px 0 0}.leaf-mini-diagram{width:100%;max-width:320px}.leaf-diagram-only .hero-character.companion{width:130px!important;height:130px!important}}</style></head>
 <body>
   <div class="portfolio-greeting" aria-hidden="true"><p><span class="greeting-role">게임 기획자</span><strong>김단아</strong>입니다.</p></div>
   <a class="skip" href="#project-title">프로젝트 소개로 바로가기</a>
@@ -628,255 +619,255 @@ const projects = [
           <div><span class="eyebrow">ART GALLERY</span><h2>아트 갤러리</h2><p class="portfolio-art-note">아트 갤러리에 수록된 작품은 AI를 사용하지 않고 제작했습니다.</p></div>
         </header>
         <div class="portfolio-art-grid">
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/03.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/03.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/03-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 01 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/05.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/05.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/05-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 02 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/11.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/11.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/11-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 03 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/06.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/06.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/06-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 04 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/49.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/49.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/49-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 05 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/55-textless.svg">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/55-textless.svg">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/55-thumb-textless.svg" alt="" loading="lazy" decoding="async">
             <span>일러스트 06 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/68.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/68.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/68-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 07 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/satisfied-duck.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/satisfied-duck.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/satisfied-duck-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 08 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/87.webp" style="--art-mask: url(assets/art-gallery/87-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/87.webp" style="--art-mask: url(assets/art-gallery/87-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/87-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 09 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/02.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/02.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/02-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 10 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/09.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/09.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/09-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 11 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/29.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/29.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/29-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 12 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/85.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/85.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/85-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 13 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/23.webp" style="--art-mask: url(assets/art-gallery/23-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/23.webp" style="--art-mask: url(assets/art-gallery/23-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/23-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 14 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/28.webp" style="--art-mask: url(assets/art-gallery/28-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/28.webp" style="--art-mask: url(assets/art-gallery/28-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/28-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 15 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/25.webp" style="--art-mask: url(assets/art-gallery/25-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/25.webp" style="--art-mask: url(assets/art-gallery/25-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/25-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 16 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/60.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/60.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/60-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 17 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/84-textless.svg?v=2">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/84-textless.svg?v=2">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/84-thumb-textless.svg?v=2" alt="" loading="lazy" decoding="async">
             <span>일러스트 18 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/14.webp" style="--art-mask: url(assets/art-gallery/14-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/14.webp" style="--art-mask: url(assets/art-gallery/14-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/14-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 19 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/67.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/67.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/67-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 20 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/01.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/01.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/01-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 21 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/44.webp" style="--art-mask: url(assets/art-gallery/44-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/44.webp" style="--art-mask: url(assets/art-gallery/44-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/44-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 22 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/46.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/46.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/46-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 23 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/47.webp" style="--art-mask: url(assets/art-gallery/47-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/47.webp" style="--art-mask: url(assets/art-gallery/47-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/47-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 24 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/94.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/94.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/94-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 25 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/17.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/17.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/17-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 26 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/39.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/39.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/39-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 27 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/63.webp" style="--art-mask: url(assets/art-gallery/63-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/63.webp" style="--art-mask: url(assets/art-gallery/63-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/63-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 28 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/08.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/08.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/08-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 29 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/15.webp" style="--art-mask: url(assets/art-gallery/15-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/15.webp" style="--art-mask: url(assets/art-gallery/15-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/15-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 30 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/18.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/18.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/18-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 31 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/19.webp" style="--art-mask: url(assets/art-gallery/19-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/19.webp" style="--art-mask: url(assets/art-gallery/19-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/19-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 32 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/21.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/21.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/21-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 33 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/30.webp" style="--art-mask: url(assets/art-gallery/30-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/30.webp" style="--art-mask: url(assets/art-gallery/30-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/30-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 34 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/31.webp" style="--art-mask: url(assets/art-gallery/31-mask.png?v=textless)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/31.webp" style="--art-mask: url(assets/art-gallery/31-mask.png?v=textless)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/31-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 35 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/36.webp" style="--art-mask: url(assets/art-gallery/36-mask.png?v=textless)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/36.webp" style="--art-mask: url(assets/art-gallery/36-mask.png?v=textless)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/36-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 36 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/37.webp" style="--art-mask: url(assets/art-gallery/37-mask.png?v=textless)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/37.webp" style="--art-mask: url(assets/art-gallery/37-mask.png?v=textless)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/37-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 37 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/38.webp" style="--art-mask: url(assets/art-gallery/38-mask.png?v=textless)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/38.webp" style="--art-mask: url(assets/art-gallery/38-mask.png?v=textless)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/38-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 38 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/45.webp" style="--art-mask: url(assets/art-gallery/45-mask.png?v=textless)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/45.webp" style="--art-mask: url(assets/art-gallery/45-mask.png?v=textless)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/45-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 39 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/48.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/48.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/48-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 40 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/52.webp" style="--art-mask: url(assets/art-gallery/52-mask.png)" data-tall="true">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/52.webp" style="--art-mask: url(assets/art-gallery/52-mask.png)" data-tall="true">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/52-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 41 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/54.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/54.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/54-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 42 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/57.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/57.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/57-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 43 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/33.webp" style="--art-mask: url(assets/art-gallery/33-mask.png?v=textless)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/33.webp" style="--art-mask: url(assets/art-gallery/33-mask.png?v=textless)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/33-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 44 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/34.webp" style="--art-mask: url(assets/art-gallery/34-mask.png?v=textless)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/34.webp" style="--art-mask: url(assets/art-gallery/34-mask.png?v=textless)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/34-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 45 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/42-blur.svg?v=2">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/42-blur.svg?v=2">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/42-thumb-blur.svg?v=2" alt="" loading="lazy" decoding="async">
             <span>일러스트 46 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/81.webp" style="--art-mask: url(assets/art-gallery/81-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/81.webp" style="--art-mask: url(assets/art-gallery/81-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/81-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 47 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/91.webp" style="--art-mask: url(assets/art-gallery/91-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/91.webp" style="--art-mask: url(assets/art-gallery/91-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/91-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 48 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/89.webp" style="--art-mask: url(assets/art-gallery/89-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/89.webp" style="--art-mask: url(assets/art-gallery/89-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/89-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 49 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/58.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/58.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/58-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 50 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/61.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/61.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/61-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 51 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/64.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/64.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/64-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 52 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/66.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/66.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/66-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 53 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/69.webp" style="--art-mask: url(assets/art-gallery/69-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/69.webp" style="--art-mask: url(assets/art-gallery/69-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/69-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 54 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/73.webp" style="--art-mask: url(assets/art-gallery/73-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/73.webp" style="--art-mask: url(assets/art-gallery/73-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/73-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 55 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/74.webp" style="--art-mask: url(assets/art-gallery/74-mask.png?v=textless)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/74.webp" style="--art-mask: url(assets/art-gallery/74-mask.png?v=textless)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/74-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 56 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/76.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/76.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/76-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 57 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/78.webp" style="--art-mask: url(assets/art-gallery/78-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/78.webp" style="--art-mask: url(assets/art-gallery/78-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/78-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 58 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/79.webp" data-tall="true">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/79.webp" data-tall="true">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/79-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 59 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/80.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/80.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/80-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 60 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/83.webp" style="--art-mask: url(assets/art-gallery/83-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/83.webp" style="--art-mask: url(assets/art-gallery/83-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/83-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 61 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/92.webp">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/92.webp">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/92-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 62 <span aria-hidden="true">↗</span></span>
           </button>
-          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="assets/art-gallery/93.webp" style="--art-mask: url(assets/art-gallery/93-mask.png)">
+          <button type="button" class="portfolio-art-item" aria-haspopup="dialog" data-full="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/93.webp" style="--art-mask: url(assets/art-gallery/93-mask.png)">
             <img src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/art-gallery/93-thumb.webp" alt="" loading="lazy" decoding="async">
             <span>일러스트 63 <span aria-hidden="true">↗</span></span>
           </button>
@@ -991,22 +982,7 @@ const projects = [
 })();
 </script>
 
-<script>
-const leafWorkflowSteps=[{"title":"기획 작업","text":"이전 작업물·MD 인수인계 확인 및 동기화 후 기획 착수","human":"기획 의도·핵심 요소 정의, 우선순위 결정","ai":"이전 작업 맥락 확인, 기획 초안 구조화"},{"title":"작업 정리","text":"기획 변경 사항 및 개발 작업 정리","human":"변경 범위·완료 조건 검토","ai":"규칙·예외·작업 항목 문서화"},{"title":"에이전트 동기화","text":"기획·변경 사항 전달, 개발 에이전트 작업 기준 동기화","human":"결정 사항·개발 조건 확인","ai":"공통 문서 참조, 에이전트 간 맥락 동기화"},{"title":"개발 착수","text":"동기화한 기획·작업 기준에 따라 구현 진행","human":"구현 방향 결정, 결과 검토","ai":"코드·리소스 초안 생성 및 수정"},{"title":"MD 인수인계","text":"다음 에이전트 동기화를 위한 MD 인수인계 파일 작성","human":"확정 사항·남은 작업 검토","ai":"작업 내용·변경 이유·진행 상태 정리"}];
-function renderLeafWorkflow(){
- return '<section class="leaf-workflow" aria-label="AI 협업 프로세스"><div class="leaf-workflow-circle"><svg viewBox="0 0 500 500" aria-hidden="true"><defs><marker id="leaf-flow-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 6 3 0 6Z" fill="#799451"/></marker></defs><circle cx="250" cy="250" r="108" fill="none" stroke="#bbcbb0"/>'+[0,72,144,216,288].map(a=>'<path d="M278 82 A170 170 0 0 1 400 170" transform="rotate('+a+' 250 250)" fill="none" stroke="#799451" stroke-width="4" marker-end="url(#leaf-flow-arrow)"/>').join('')+'</svg><div class="leaf-workflow-center"><strong>AI 협업<br>프로세스</strong><span>2인 개발</span></div>'+leafWorkflowSteps.map((d,i)=>'<button class="leaf-flow-node lf-pos-'+i+'" data-leaf-flow="'+i+'" aria-pressed="false" aria-controls="leaf-flow-row-'+i+'"><span>'+String(i+1).padStart(2,'0')+'</span><strong>'+d.title+'</strong></button>').join('')+'</div></section>';
-}
-function renderLeafWorkDetails(){
- return '<ol class="leaf-work-details">'+leafWorkflowSteps.map((d,i)=>'<li id="leaf-flow-row-'+i+'" data-leaf-row="'+i+'" tabindex="0"><div class="leaf-work-title"><span>'+String(i+1).padStart(2,'0')+'</span><h3>'+d.title+'</h3></div><p>'+d.text+'</p><dl><div><dt>직접 수행</dt><dd>'+d.human+'</dd></div><div><dt>AI 활용</dt><dd>'+d.ai+'</dd></div></dl></li>').join('')+'</ol>';
-}
-function bindLeafWorkflow(){
- const nodes=Array.from(document.querySelectorAll('[data-leaf-flow]')),rows=Array.from(document.querySelectorAll('[data-leaf-row]'));if(!nodes.length)return;
- const highlight=index=>{nodes.forEach((n,i)=>{n.classList.toggle('is-highlighted',i===index);n.setAttribute('aria-pressed',String(i===index))});rows.forEach((r,i)=>r.classList.toggle('is-highlighted',i===index))};
- [nodes,rows].forEach(group=>group.forEach((el,i)=>{el.addEventListener('pointerenter',()=>highlight(i));el.addEventListener('focus',()=>highlight(i));el.addEventListener('click',()=>highlight(i))}));
- display.addEventListener('pointerleave',()=>highlight(-1),{once:true});
-}
-
-const list=document.querySelector('#project-list');
+<script>const list=document.querySelector('#project-list');
 const display=document.querySelector('#project-display');
 const detailDialog=document.querySelector('#detail-dialog');
 const profileDialog=document.querySelector('#profile-dialog');
@@ -1023,8 +999,7 @@ function selectProject(index,{scroll=false}={}){
   const stageBackground=document.querySelector('#stage-background');
   stageBackground.dataset.project=p.id;
   stageBackground.style.backgroundImage=p.character===p.background?'none':`url("https://dotoridesuyo.github.io/dana-game-portfolio/assets/${p.background}")`;
-  display.innerHTML=`<div class="hero-art ${p.id==='leaf'?'leaf-with-workflow':''}" ${p.id==='leaf'?'':'aria-hidden="true"'}><span class="project-roman">${p.roman}</span><div class="art-orbit"></div><span class="art-spark">✧</span>${p.character?`<img class="hero-character ${p.characterClass||''}" src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/${p.character}" alt="">${p.id==='halloween'?`<img class="small-ghost" src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/portfolio-20261027/baby-ghost.webp" alt="">`:''}`:''}${p.id==='leaf'?renderLeafWorkflow():''}</div><div class="project-info"><p class="project-type">PROJECT ${number(selected)} — ${escapeHTML(p.type)}</p><div class="project-source">${escapeHTML(p.source)}</div><h2 id="project-title" tabindex="-1">${escapeHTML(p.title).replace(/\n/g,'<br>')}</h2><p class="project-subtitle">${escapeHTML(p.subtitle)}</p><p class="project-hook">${escapeHTML(p.hook).replace(/\n/g,'<br>')}</p><p class="project-description">${escapeHTML(p.description)}</p><div class="info-row"><strong>기획 범위</strong><span>${escapeHTML(p.scope)}</span></div><div class="info-row"><strong>${escapeHTML(p.structureLabel ?? "설계 흐름")}</strong><div class="ai-work-value">${p.id==='leaf'?renderLeafWorkDetails():escapeHTML(p.structure)}</div></div><div class="project-tags">${p.tags.map(t=>`<span>${escapeHTML(t)}</span>`).join('')}</div><div class="project-actions"><div class="resource-links" aria-label="프로젝트 관련 링크">${p.links.map(link=>link.url?`<a class="resource-link" href="${escapeHTML(link.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHTML(link.label)} (새 탭)"><span>${escapeHTML(link.label)}</span><span aria-hidden="true">↗</span></a>`:`<button class="resource-link" disabled><span>${escapeHTML(link.label)}</span><span class="resource-pending">준비 중</span></button>`).join('')}</div><button class="detail-button" id="open-detail"><span>PPT 포트폴리오 페이지 보기</span><span aria-hidden="true">↗</span></button></div><p class="preview-note">포트폴리오 이미지 ${p.pages.length}장</p></div>`;
-  bindLeafWorkflow();
+  display.innerHTML=`<div class="hero-art ${p.id==='leaf'?'leaf-diagram-only':''}" ${p.id==='leaf'?'':'aria-hidden="true"'}><span class="project-roman">${p.roman}</span><div class="art-orbit"></div><span class="art-spark">✧</span>${p.character?`<img class="hero-character ${p.characterClass||''}" src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/${p.character}" alt="">${p.id==='halloween'?`<img class="small-ghost" src="https://dotoridesuyo.github.io/dana-game-portfolio/assets/portfolio-20261027/baby-ghost.webp" alt="">`:''}`:''}${p.id==='leaf'?"<figure class=\"leaf-mini-diagram\" role=\"img\" aria-label=\"AI 협업 프로세스: 기획 작업, 작업 정리, 에이전트 동기화, 개발 착수, MD 인수인계의 순환\"><svg viewBox=\"0 0 500 460\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"dana-mini-arrow\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"3\" orient=\"auto\"><path d=\"M0 0 6 3 0 6Z\" fill=\"#dfc59a\"/></marker></defs><circle cx=\"250\" cy=\"230\" r=\"92\" fill=\"none\" stroke=\"#dfc59a\" stroke-opacity=\".25\"/><path d=\"M278 62 A170 170 0 0 1 400 150\" transform=\"rotate(0 250 230)\" fill=\"none\" stroke=\"#dfc59a\" stroke-opacity=\".75\" stroke-width=\"3\" marker-end=\"url(#dana-mini-arrow)\"/><path d=\"M278 62 A170 170 0 0 1 400 150\" transform=\"rotate(72 250 230)\" fill=\"none\" stroke=\"#dfc59a\" stroke-opacity=\".75\" stroke-width=\"3\" marker-end=\"url(#dana-mini-arrow)\"/><path d=\"M278 62 A170 170 0 0 1 400 150\" transform=\"rotate(144 250 230)\" fill=\"none\" stroke=\"#dfc59a\" stroke-opacity=\".75\" stroke-width=\"3\" marker-end=\"url(#dana-mini-arrow)\"/><path d=\"M278 62 A170 170 0 0 1 400 150\" transform=\"rotate(216 250 230)\" fill=\"none\" stroke=\"#dfc59a\" stroke-opacity=\".75\" stroke-width=\"3\" marker-end=\"url(#dana-mini-arrow)\"/><path d=\"M278 62 A170 170 0 0 1 400 150\" transform=\"rotate(288 250 230)\" fill=\"none\" stroke=\"#dfc59a\" stroke-opacity=\".75\" stroke-width=\"3\" marker-end=\"url(#dana-mini-arrow)\"/><text x=\"250\" y=\"222\" text-anchor=\"middle\" fill=\"#efe2ce\" font-size=\"25\" font-weight=\"700\">AI 협업</text><text x=\"250\" y=\"256\" text-anchor=\"middle\" fill=\"#efe2ce\" font-size=\"25\" font-weight=\"700\">프로세스</text><g transform=\"translate(195 15)\"><rect width=\"130\" height=\"67\" rx=\"5\" fill=\"#1b1b25\" stroke=\"#dfc59a\" stroke-opacity=\".65\"/><text x=\"65\" y=\"25\" text-anchor=\"middle\" fill=\"#dfc59a\" font-size=\"20\" font-weight=\"700\">01</text><text x=\"65\" y=\"49\" text-anchor=\"middle\" fill=\"#eee5d8\" font-size=\"18\" font-weight=\"600\">기획 작업</text></g><g transform=\"translate(365 160)\"><rect width=\"130\" height=\"67\" rx=\"5\" fill=\"#1b1b25\" stroke=\"#dfc59a\" stroke-opacity=\".65\"/><text x=\"65\" y=\"25\" text-anchor=\"middle\" fill=\"#dfc59a\" font-size=\"20\" font-weight=\"700\">02</text><text x=\"65\" y=\"49\" text-anchor=\"middle\" fill=\"#eee5d8\" font-size=\"18\" font-weight=\"600\">작업 정리</text></g><g transform=\"translate(305 365)\"><rect width=\"130\" height=\"67\" rx=\"5\" fill=\"#1b1b25\" stroke=\"#dfc59a\" stroke-opacity=\".65\"/><text x=\"65\" y=\"25\" text-anchor=\"middle\" fill=\"#dfc59a\" font-size=\"20\" font-weight=\"700\">03</text><text x=\"65\" y=\"49\" text-anchor=\"middle\" fill=\"#eee5d8\" font-size=\"15\" font-weight=\"600\">에이전트 동기화</text></g><g transform=\"translate(75 365)\"><rect width=\"130\" height=\"67\" rx=\"5\" fill=\"#1b1b25\" stroke=\"#dfc59a\" stroke-opacity=\".65\"/><text x=\"65\" y=\"25\" text-anchor=\"middle\" fill=\"#dfc59a\" font-size=\"20\" font-weight=\"700\">04</text><text x=\"65\" y=\"49\" text-anchor=\"middle\" fill=\"#eee5d8\" font-size=\"18\" font-weight=\"600\">개발 착수</text></g><g transform=\"translate(5 160)\"><rect width=\"130\" height=\"67\" rx=\"5\" fill=\"#1b1b25\" stroke=\"#dfc59a\" stroke-opacity=\".65\"/><text x=\"65\" y=\"25\" text-anchor=\"middle\" fill=\"#dfc59a\" font-size=\"20\" font-weight=\"700\">05</text><text x=\"65\" y=\"49\" text-anchor=\"middle\" fill=\"#eee5d8\" font-size=\"18\" font-weight=\"600\">MD 인수인계</text></g></svg></figure>":''}</div><div class="project-info"><p class="project-type">PROJECT ${number(selected)} — ${escapeHTML(p.type)}</p><div class="project-source">${escapeHTML(p.source)}</div><h2 id="project-title" tabindex="-1">${escapeHTML(p.title).replace(/\n/g,'<br>')}</h2><p class="project-subtitle">${escapeHTML(p.subtitle)}</p><p class="project-hook">${escapeHTML(p.hook).replace(/\n/g,'<br>')}</p><p class="project-description">${escapeHTML(p.description)}</p><div class="info-row"><strong>기획 범위</strong><span>${escapeHTML(p.scope)}</span></div><div class="info-row"><strong>${escapeHTML(p.structureLabel ?? "설계 흐름")}</strong><span>${escapeHTML(p.structure)}</span></div><div class="project-tags">${p.tags.map(t=>`<span>${escapeHTML(t)}</span>`).join('')}</div><div class="project-actions"><div class="resource-links" aria-label="프로젝트 관련 링크">${p.links.map(link=>link.url?`<a class="resource-link" href="${escapeHTML(link.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHTML(link.label)} (새 탭)"><span>${escapeHTML(link.label)}</span><span aria-hidden="true">↗</span></a>`:`<button class="resource-link" disabled><span>${escapeHTML(link.label)}</span><span class="resource-pending">준비 중</span></button>`).join('')}</div><button class="detail-button" id="open-detail"><span>PPT 포트폴리오 페이지 보기</span><span aria-hidden="true">↗</span></button></div><p class="preview-note">포트폴리오 이미지 ${p.pages.length}장</p></div>`;
   document.querySelector('#open-detail').addEventListener('click',openDetail);
   document.title=`${p.shortTitle} · 게임 기획자 김단아`;
   window.PortfolioLayout?.refresh();
